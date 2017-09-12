@@ -1,0 +1,51 @@
+# Turn rewrite engine on
+
+RewriteEngine on
+
+
+RewriteRule ^nogroups frontend/html/pages/nogroups.php [NC,L]
+
+RewriteRule ^login frontend/html/pages/login.php [NC,L]
+
+RewriteRule ^newgroup frontend/html/pages/newgroup.php [NC,L]
+
+RewriteRule ^dashboard/([0-9]+) frontend/html/pages/dashboard.php?group=$1 [NC,L]
+
+RewriteRule ^members/([0-9]+) frontend/html/pages/members.php?members=$1 [NC,L]
+
+RewriteRule ^logout backend/logout.php [NC,L]
+
+RewriteRule ^accept_request backend/accept_request.php [NC,L]
+
+RewriteRule ^decline_request backend/decline_request.php [NC,L]
+
+RewriteRule ^send_chat backend/send_chat.php [NC,L]
+
+RewriteRule ^fetch_recent_posts backend/fetch_recent_posts.php [NC,L]
+
+RewriteRule ^fetch_old_posts backend/fetch_old_posts.php [NC,L]
+
+RewriteRule ^send_attach backend/send_attach.php [NC,L]
+
+RewriteRule ^insert_attach backend/insert_attach.php [NC,L]
+
+RewriteRule ^link_prepare backend/link_prepare.php [NC,L]
+
+RewriteRule ^link_preview backend/link_preview.php [NC,L]
+
+RewriteRule ^delete_post backend/delete_post.php [NC,L]
+
+RewriteRule ^search_posts backend/search_posts.php [NC,L]
+
+RewriteRule ^like_old backend/like_old.php [NC,L]
+
+RewriteRule ^sign_up backend/sign_up.php [NC,L]
+
+RewriteRule ^poll_send backend/poll_send.php [NC,L]
+
+
+
+
+
+
+

@@ -1,0 +1,638 @@
+
+
+
+
+
+
+
+
+
+
+
+.login-body {
+    
+        
+     background: url(../html/pages/background.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+    background-color: #E6ECF0;
+  
+}
+
+
+a {
+    
+   text-decoration: none;
+}
+
+a:hover {
+    
+   text-decoration: none;
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+    background: white;
+    padding: 40px;
+    border-radius: 5px;
+}
+
+.size-0 {
+    height: 10px; width: 10px; margin-top: 5px; margin-right: 10px; cursor: pointer;
+}
+
+
+.size-1 {
+    height: 10px; width: 10px; margin-top: 5px; margin-right: 10px;
+}
+
+.size-2 {
+    height: 20px; width: 20px; margin-top: 5px; margin-left: -12px; margin-right: 10px; display: none; cursor: pointer;
+}
+
+.size-3 {
+    height: 20px; width: 20px; cursor: pointer; display: none;
+}
+
+.delete-1 {
+    display: none; font-family: Work Sans; margin-right: 5px; font-weight: lighter; font-size: 13px;
+}
+
+.delete-2 {
+    display: none; font-family: Work Sans; color: black; margin-right: 5px; cursor: pointer; font-weight: lighter; font-size: 13px; margin-left: -20px;
+}
+
+.delete-3 {
+    display: none; font-family: Work Sans; margin-left: 5px; color: black; cursor: pointer; font-weight: lighter; font-size: 13px;
+}
+
+.nogroups-text {
+    font-family: Work Sans; font-size: 15px; margin-left: 10px; margin-bottom: 20px;
+}
+
+
+.newgroups-text {
+    font-family: Work Sans;
+   font-size: 18px;
+   font-weight: bold; margin-left: 10px;
+}
+
+
+.nogroups-text-2 {
+    font-family: Arvo; font-size: 13px; margin-left: 10px; font-weight: lighter; text-decoration: underline;
+}
+
+
+.newgroups-text-2 {
+    font-family: Work Sans; font-size: 16px;  margin-left: 10px; font-weight: lighter; cursor: pointer;
+}
+
+
+.newgroups-text-3 {
+    
+    font-family: Work Sans;  font-size: 16px;  margin-left: 10px; color: blue; margin-top: -20px;
+}
+
+
+.login-logo {
+  font-family: Eczar;
+   font-size: 73px;
+                      
+   font-weight: bold;
+
+}
+
+
+.login-field-1 {
+    display: table; margin: 0 auto; width: 250px; padding: 8px; border: 1px solid #505050; border-radius: 3px; font-family: Work Sans;
+   font-size: 15px;
+   
+    outline: none;
+    margin-top: 10px;
+}
+
+
+.newgroup-field-1 {
+margin-left: 10px; width: 250px; padding: 8px; border: 1px solid #ddd; border-radius: 3px; font-family: Work Sans;
+   font-size: 15px;
+   
+    outline: none;
+    margin-top: 10px;
+}
+
+
+
+.newgroup-field-2 {
+margin-left: 10px; width: 250px; height: 100px; padding: 8px; border: 1px solid #ddd; border-radius: 3px; font-family: Work Sans;
+   font-size: 15px;
+   
+    outline: none;
+    margin-top: 10px;
+    resize: none;
+}
+
+
+
+
+
+
+.login-error-1 {
+    
+    display: none;
+    text-align: center;
+    padding: 10px;
+    
+    margin: 0 auto;
+    width: 250px;
+    background: #ddd;
+    margin-top: 20px;
+    border-radius: 4px;
+    font-family: Work Sans;
+   font-size: 15px;
+   
+    
+}
+
+
+
+.group-error-1 {
+    
+    display: none;
+    text-align: center;
+    padding: 10px;
+    
+    margin-left: 10px;
+    width: 250px;
+    background: #ddd;
+    
+    border-radius: 4px;
+    font-family: Josefin Slab;
+   font-size: 15px;
+   font-weight: bold;
+    
+}
+
+.login-button-1 {
+    width: 120px; font-family: Work Sans;
+   font-size: 15px;
+   
+    outline:0 !important;
+}
+
+
+.login-sub-1 {
+    text-align: center; font-family: georgia; font-size: 20px; margin-bottom: 40px;
+}
+
+.login-button-box-1 {
+    display: table; margin: 0 auto; margin-top: 20px;
+}
+
+.group-list-notifs {
+    
+    
+    padding: 7px; border-radius: 4px; background: #ddd; font-family: Josefin Slab;
+   font-size: 15px;
+   font-weight: bold;
+}
+
+
+.group-list-name {
+    
+    font-family: Josefin Slab;
+   font-size: 15px;
+   font-weight: bold;
+    
+}
+
+
+.group-list-profile-img {
+    border-radius: 5px ! important;
+}
+
+.group-list-div {
+padding: 0 0 0 0;
+}
+
+
+.main-body-div {
+    max-width: 1100px; width: 100%; display: table; margin: 0 auto;
+}
+
+.post-editor {
+    width: 100%; display: table; margin: 0 auto; margin-bottom: 20px; background: white; padding-top: 17px; padding-bottom: 17px; border-radius: 5px;
+}
+
+.post-nogroups {
+    width: 100%; display: table; margin: 0 auto; margin-bottom: 20px; background: white; padding-top: 17px; padding-bottom: 170px; border-radius: 5px;
+}
+
+.group-list-notif-1 {
+    padding-top: 10px;
+}
+
+.group-list-notif-2 {
+    border-radius: 5px;
+}
+
+.post-username {
+    background: #fff; padding-left: 15px; padding-top: 6px; padding-bottom: 16px; border-radius: 5px; margin-bottom: -10px; font-family: Josefin Slab;
+   font-size: 18px;
+   font-weight: bold;
+}
+
+
+.group-list-body {
+    padding-left: 20px;
+}
+
+.logo-heading-1 {
+    font-family: Eczar;
+   font-size: 22px;
+                      
+   
+}
+
+.show_delete {
+    display: none;
+}
+
+
+
+
+.post-img-1 {
+    border-radius: 0px; margin-bottom: 50px; width: 100%;
+}
+
+.group-list-row {
+    width: 100%; padding: 0 0 0 0; margin: 0 0 0 0; border-bottom: 2px solid #ddd; padding-bottom: 5px; margin-bottom: 20px; cursor: pointer;
+}
+
+.post-owner-img {
+    margin-left: -20px; border-radius: 5px;
+}
+
+.current-user-img {
+    margin-left: 10px;  border-radius: 5px; 
+}
+
+.logo-heading-2 {
+    color: #bdbdbd;
+    
+}
+
+.chat-left-1 {
+    border-radius: 3px; width: 40px; height: 40px; margin-left: 10px; float: right;
+}
+
+
+
+.membership-main {
+    
+    display: table; margin: 0 auto;
+    
+}
+
+
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    margin-left: -250px;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 450px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.member-list {
+     width: 400px; margin-left: 5px; margin-bottom: 20px;
+}
+
+#membererror {
+    
+   font-weight: bold; font-size: 16px;font-family: Josefin Slab; margin-top: 10px;  
+    
+}
+
+.member-list-item {
+    font-weight: bold; font-size: 16px;font-family: Josefin Slab;
+}
+
+.member-list-member {
+    font-weight: bold; font-size: 16px;font-family: Josefin Slab;
+}
+
+
+.member-list-state {
+    font-weight: bold; font-size: 16px;font-family: Josefin Slab;
+}
+
+.new-member-1 {
+    width: 400px; margin-bottom: 50px;
+}
+
+.membership-subtitle {
+    font-weight: bold; font-size: 16px;font-family: Josefin Slab;
+}
+
+
+.btn-link-1 {
+        text-decoration: none;
+}
+
+
+.btn-link-1:hover {
+    text-decoration: none;
+}
+
+
+.membership-title {
+    display: table; margin: 0 auto; font-weight: bold; font-size: 21px;font-family: Josefin Slab; margin-bottom: 30px;
+}
+
+.chat-left-2 {
+     margin-top: 0px; margin-left: 0px;
+}
+
+.writer-profile-img {
+    margin-left: -20px; border-radius: 5px;
+}
+
+.new-group-1 {
+    margin-left: 10px;   font-family: Work Sans; font-size: 15px; outline:0 !important;
+}
+
+.poll-1 {
+  font-family: Work Sans; font-size: 15px; outline:0 !important;
+}
+
+
+.poll-a-style {
+    
+ border: 1px solid #ddd; padding: 7px;
+     outline:0 !important;
+    border-radius: 3px;
+    font-family: Work Sans;
+   font-size: 15px;     margin-bottom: 10px; width: 60%; height: 40px; resize: none; outline: none;
+    
+}
+
+.poll-q-style {
+  border: 1px solid #ddd; padding: 7px;
+     outline:0 !important;
+    border-radius: 3px;
+    font-family: Work Sans;
+   font-size: 15px;  margin-bottom: 10px; width: 100%; height: 50px; resize: none; outline: none;
+}
+
+.poll-opt { border: 1px solid #ddd; padding: 7px;
+     outline:0 !important;
+    border-radius: 3px;
+    font-family: Work Sans;
+   font-size: 15px;margin-bottom: 10px; width: 60%; height: 40px; resize: none; outline: none; display: none; }
+
+
+.poll-opt-show { border: 1px solid #ddd; padding: 7px;
+     outline:0 !important;
+    border-radius: 3px;
+    font-family: Work Sans;
+   font-size: 15px;margin-bottom: 10px; width: 60%; height: 40px; resize: none; outline: none;  }
+
+.new-group-1:hover {
+    margin-left: 10px;   font-family: Work Sans; font-size: 15px; outline:0 !important;
+}
+
+
+.mem-group-1 {
+       font-family: Josefin Slab; font-size: 15px; font-weight: bold; outline:0 !important; padding-bottom: 10px; padding-top: 10px; margin-bottom: 10px; display: inline;
+}
+
+.new-group-2 {
+     border-radius: 5px; outline:0 !important;
+}
+
+.logo-heading-3 {
+    color: #bdbdbd; font-size: 24px;
+}
+
+.nav-head {
+    background: #fff; width: 100%; margin-top: -40px; margin-bottom: 40px; border-bottom: 2px solid #ddd; padding-top: 10px; padding-bottom: 10px;
+}
+
+.nav-main-row {
+    max-width: 1100px; width: 100%; display: table; margin: 0 auto;
+}
+
+.dashboard-body {
+    background-color: #E6ECF0; padding-top: 0px; margin-top: 40px;  
+}
+
+.group-list-membercount {
+    
+    font-family: Josefin Slab;
+   font-size: 15px;
+   font-weight: bold;
+    color: black;
+    
+}
+
+.search-main {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-family: Work Sans;
+   font-size: 15px;
+    
+    width: 250px;
+    padding: 7px;
+     outline:0 !important;
+}
+
+
+.input-style-2 {
+    display: table; margin: 0 auto; margin-top: 20px;    font-family: Work Sans;
+   font-size: 13px;
+   color: black;
+}
+
+
+.input-style-1 {
+    border-radius: 5px; display: table; margin: 0 auto; width: 40px; height: 40px;
+}
+
+
+.chat-right-1 {
+     margin-top: 0px; margin-right: -10px; float: right;
+}
+
+.chat-right-2 {
+    border-radius: 3px; width: 40px; height: 40px; margin-left: -10px; float: left;
+}
+
+
+.text-username {
+
+font-family: Work Sans;
+    font-weight: lighter;
+    color: blue;
+}
+
+
+.text-body {
+
+font-family: Work Sans;
+    font-weight: lighter;
+    color: black;
+    padding-bottom: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* CSS talk bubble */
+.talk-bubble {
+	margin: 20px;
+  display: inline-block;
+  position: relative;
+	width: 300px;
+	height: auto;
+	background-color: white;
+    border-radius: 3px;
+    margin-top: 0px;
+    font-family: Josefin Slab;
+   font-size: 15px;
+    font-weight: bold;
+}
+
+
+/* Right triangle placed top left flush. */
+.tri-right.border.left-top:before {
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+  left: -40px;
+	right: auto;
+  top: -8px;
+	bottom: auto;
+	border: 32px solid;
+	border-color: #666 transparent transparent transparent;
+}
+.tri-right.left-top:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+  left: -20px;
+	right: auto;
+  top: 0px;
+	bottom: auto;
+	border: 22px solid;
+	border-color: white transparent transparent transparent;
+}
+/* Right triangle, left side slightly down */
+
+
+/* talk bubble contents */
+.talktext{
+  padding: 1em;
+	text-align: left;
+  line-height: 1.5em;
+    
+}
+.talktext p{
+  /* remove webkit p margins */
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+}
+
+
+
+
+
+
+
+
+
+/* CSS talk bubble */
+.talk-bubble1 {
+	margin: 20px;
+  display: inline-block;
+  position: relative;
+	width: 300px;
+	height: auto;
+	background-color: white;
+    border-radius: 3px;
+    float: right;
+    margin-top: 0px;
+    font-family: Josefin Slab;
+   font-size: 15px;
+    font-weight: bold;
+}
+
+
+/* Right triangle placed top left flush. */
+.tri-right1.border1.left-top1:before {
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+  right: -40px;
+	left: auto;
+  top: -8px;
+	bottom: auto;
+	border: 32px solid;
+	border-color: white transparent transparent transparent;
+}
+.tri-right1.left-top1:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+  right: -20px;
+	left: auto;
+  top: 0px;
+	bottom: auto;
+	border: 22px solid;
+	border-color: white transparent transparent transparent;
+}
+/* Right triangle, left side slightly down */
+
+
+/* talk bubble contents */
+.talktext1{
+  padding: 1em;
+	text-align: left;
+  line-height: 1.5em;
+}
+.talktext1 p{
+  /* remove webkit p margins */
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+}
