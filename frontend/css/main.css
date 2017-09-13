@@ -1,13 +1,125 @@
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+    position: absolute;
+    left: -9999px;
+    
+}
+[type="radio"]:checked + label,
+[type="radio"]:not(:checked) + label
+{
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+    color: #666;
+    
+}
+[type="radio"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #ddd;
+    border-radius: 100%;
+    background: #fff;
+    border: 2px solid #ddd;
+}
+[type="radio"]:checked + label:after,
+[type="radio"]:not(:checked) + label:after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: #337AB7;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    border-radius: 100%;
+    
+    
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+[type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+[type="radio"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+
+
+
+.poll-answer-box {
+    
+    padding-top: 20px;
+
+}
+
+
+
+.poll-answer-style-1 {
+    
+    font-family: Work Sans; font-size: 16px; font-weight: lighter;
+    
+    
+}
 
 
 
 
 
+.poll-total  {
+    
+    
+    margin-left: 30px; font-family: Work Sans; width: 200px;
+    
+}
 
 
 
 
+.poll-div {
+    
+    
+    width: 70%; display: block; margin-left: 10px;
+    
+}
 
+
+
+.poll-div-2 {
+    
+    
+    width: 70%; display: block; margin-left: 160px;
+    
+}
+
+
+.poll-body {
+    background: white; border-radius: 5px; padding-top: 10px; padding-bottom: 10px; font-family: Work Sans;
+}
+
+.poll-quest-box {
+    font-family: Work Sans; font-size: 20px;
+}
+
+
+.poll-progress {
+    height: 5px; width: 180px; margin-left: 28px; margin-right: 10px; display: none;
+}
+
+.poll-score {
+    
+    display: none;
+}
 
 .login-body {
     

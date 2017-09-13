@@ -470,13 +470,497 @@ $user_info = $user_details_result->fetch_assoc();
                     
                     
                     
-                    <div id="postsdiv" style="margin-top: 40px;">
-                                                
+<div id="postsdiv" style="margin-top: 40px;">
+                        
+
+                                
+                        
+<div class="row poll-div">
+    
+    
+    
+    
+                        
+                        <div class="col-xs-2">
+                            
+                             <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/nopic.png" style="width: 40px; margin-left: 10px;"  />
+                            
+                        </div>
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+<div class="col-xs-10 poll-body">
+                            
+        <p class="poll-quest-box">Which Arctic Monkeys album do you consider the best?</p> 
+                                     
+                            
+                            
+                            
+<form action="#">
+                            
+                        
+    
+    
+  <p class="poll-answer-box">
+      
+      <input type="radio" id="poll-id-1" name="radio-group">
+      
+      <label for="poll-id-1" class="poll-answer-style-1"><span>Whatever People Say I'm Not, That's What I am (2006).</span></label><br>
+      
+      <progress value="30" max="100" id="progressPoll1" class="poll-progress"></progress> 
+      
+      <a> 30% | 34 votes</a>
+      
+  </p>
+    
+    
+                            
+  <p class="poll-answer-box">
+      
+    <input type="radio" id="poll-id-2" name="radio-group">
+      
+    <label for="poll-id-2" class="poll-answer-style-1"><span>Favourite Worst Nightmare (2007).</span></label><br>
+      
+    <progress value="30" max="100" id="progressPoll2" class="poll-progress"></progress> 
+      
+    <a> 30% | 34 votes</a> 
+      
+  </p>
+              
+    
+    
+    
+  <p class="poll-answer-box">
+      
+    <input type="radio" id="poll-id-3" name="radio-group">
+      
+    <label for="poll-id-3" class="poll-answer-style-1"><span>Humbug (2009).</span></label><br>
+      
+    <progress value="30" max="100" id="progressPoll3" class="poll-progress"></progress> 
+      
+    <a> 30% | 34 votes</a>
+      
+  </p>
+                            
+    
+    
+    
+                            
+  <p class="poll-answer-box">
+      
+    <input type="radio" id="poll-id-4" name="radio-group">
+      
+    <label for="poll-id-4" class="poll-answer-style-1"><span>Suck It And See (2011).</span></label><br>
+      
+    <progress value="30" max="100" id="progressPoll4" class="poll-progress"></progress> 
+      
+    <a> 30% | 34 votes</a>
+      
+  </p>
+    
+    
+    
+    
+  <p class="poll-answer-box">
+      
+    <input type="radio" id="poll-id-5" name="radio-group">
+      
+    <label for="poll-id-5" class="poll-answer-style-1"><span>AM (2013).</span></label><br>
+      
+     <progress value="30" max="100" id="progressPoll5" class="poll-progress"></progress> 
+      
+    <a> 30% | 34 votes</a> 
+      
+  </p>
+    
+    
+    
+    
+   <p class="poll-answer-box">
+      
+      <input type="radio" id="poll-id-6" name="radio-group">
+      
+      <label for="poll-id-6" class="poll-answer-style-1"><span>Taylor Swift (2006).</span></label><br>
+      
+      <progress value="30" max="100" id="progressPoll6" class="poll-progress"></progress> 
+      
+      <a> 30% | 34 votes</a>
+      
+  </p>
+    
+    
+                            
+  <p class="poll-answer-box">
+      
+    <input type="radio" id="poll-id-7" name="radio-group">
+      
+    <label for="poll-id-7" class="poll-answer-style-1"><span>Thriller (2007).</span></label><br>
+      
+    <progress value="30" max="100" id="progressPoll7" class="poll-progress"></progress> 
+      
+    <a> 30% | 34 votes</a> 
+      
+  </p>
+              
+    
+    
+    
+  <p class="poll-answer-box">
+      
+    <input type="radio" id="poll-id-8" name="radio-group">
+      
+    <label for="poll-id-8" class="poll-answer-style-1"><span>Smooth Criminal (2009).</span></label><br>
+      
+    <progress value="30" max="100" id="progressPoll8" class="poll-progress"></progress> 
+      
+    <a> 30% | 34 votes</a>
+      
+  </p>
+                            
+    
+    
+    
+                            
+  <p class="poll-answer-box">
+      
+    <input type="radio" id="poll-id-9" name="radio-group">
+      
+    <label for="poll-id-9" class="poll-answer-style-1"><span>High School Musical (2011).</span></label><br>
+      
+    <progress value="30" max="100" id="progressPoll9" class="poll-progress"></progress> 
+      
+    <a> 30% | 34 votes</a>
+      
+  </p>
+    
+    
+    
+    
+  <p class="poll-answer-box">
+      
+    <input type="radio" id="pll-id-10" name="radio-group">
+      
+    <label for="pll-id-10" class="poll-answer-style-1"><span>AM (2013).</span></label><br>
+      
+     <progress value="30" max="100" id="progressPoll5" class="poll-progress"></progress> 
+      
+    <a> 30% | 34 votes</a> 
+      
+  </p>
+     
+    
+    
+    
+    
+    
+    
+                            
+                            
+</form>
+                            
+                            
+                            
+
+                            
+       
+            <div class="row">
+            
+            
+            <div class="col-xs-12">
+                
+                
+                
+                    <a id="pollvote">
+                
+                    <button class="btn poll-1">   
+                    
+                    Vote</button>
+            
+                    </a> 
+                
+                
+                
+                
+                <a class="poll-total">589 total votes</a>
+                
+                
+            </div>
+                
+                
+
+            
+            
+            </div>
+                            
+                            
+                        </div>
+                        
+                        </div><br>
                                    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="row poll-div-2">
+    
+    
+    
+    
+                        
+                     
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+<div class="col-xs-10 poll-body">
+                            
+        <p class="poll-quest-box">Which Arctic Monkeys album do you consider the best?</p> 
+                                     
+                            
+                            
+                            
+<form action="#">
+                            
+                        
+    
+    
+  <p class="poll-answer-box">
+      
+      <input type="radio" id="poll-id-1" name="radio-group">
+      
+      <label for="poll-id-1" class="poll-answer-style-1"><span>Whatever People Say I'm Not, That's What I am (2006).</span></label><br>
+      
+      <progress value="30" max="100" id="progressPoll1" class="poll-progress"></progress> 
+      
+      <a> 30% | 34 votes</a>
+      
+  </p>
+    
+    
+                            
+  <p class="poll-answer-box">
+      
+    <input type="radio" id="poll-id-2" name="radio-group">
+      
+    <label for="poll-id-2" class="poll-answer-style-1"><span>Favourite Worst Nightmare (2007).</span></label><br>
+      
+    <progress value="30" max="100" id="progressPoll2" class="poll-progress"></progress> 
+      
+    <a> 30% | 34 votes</a> 
+      
+  </p>
+              
+    
+    
+    
+  <p class="poll-answer-box">
+      
+    <input type="radio" id="poll-id-3" name="radio-group">
+      
+    <label for="poll-id-3" class="poll-answer-style-1"><span>Humbug (2009).</span></label><br>
+      
+    <progress value="30" max="100" id="progressPoll3" class="poll-progress"></progress> 
+      
+    <a> 30% | 34 votes</a>
+      
+  </p>
+                            
+    
+    
+    
+                            
+  <p class="poll-answer-box">
+      
+    <input type="radio" id="poll-id-4" name="radio-group">
+      
+    <label for="poll-id-4" class="poll-answer-style-1"><span>Suck It And See (2011).</span></label><br>
+      
+    <progress value="30" max="100" id="progressPoll4" class="poll-progress"></progress> 
+      
+    <a> 30% | 34 votes</a>
+      
+  </p>
+    
+    
+    
+    
+  <p class="poll-answer-box">
+      
+    <input type="radio" id="poll-id-5" name="radio-group">
+      
+    <label for="poll-id-5" class="poll-answer-style-1"><span>AM (2013).</span></label><br>
+      
+     <progress value="30" max="100" id="progressPoll5" class="poll-progress"></progress> 
+      
+    <a> 30% | 34 votes</a> 
+      
+  </p>
+    
+    
+    
+    
+   <p class="poll-answer-box">
+      
+      <input type="radio" id="poll-id-6" name="radio-group">
+      
+      <label for="poll-id-6" class="poll-answer-style-1"><span>Taylor Swift (2006).</span></label><br>
+      
+      <progress value="30" max="100" id="progressPoll6" class="poll-progress"></progress> 
+      
+      <a> 30% | 34 votes</a>
+      
+  </p>
+    
+    
+                            
+  <p class="poll-answer-box">
+      
+    <input type="radio" id="poll-id-7" name="radio-group">
+      
+    <label for="poll-id-7" class="poll-answer-style-1"><span>Thriller (2007).</span></label><br>
+      
+    <progress value="30" max="100" id="progressPoll7" class="poll-progress"></progress> 
+      
+    <a> 30% | 34 votes</a> 
+      
+  </p>
+              
+    
+    
+    
+  <p class="poll-answer-box">
+      
+    <input type="radio" id="poll-id-8" name="radio-group">
+      
+    <label for="poll-id-8" class="poll-answer-style-1"><span>Smooth Criminal (2009).</span></label><br>
+      
+    <progress value="30" max="100" id="progressPoll8" class="poll-progress"></progress> 
+      
+    <a> 30% | 34 votes</a>
+      
+  </p>
+                            
+    
+    
+    
+                            
+  <p class="poll-answer-box">
+      
+    <input type="radio" id="poll-id-9" name="radio-group">
+      
+    <label for="poll-id-9" class="poll-answer-style-1"><span>High School Musical (2011).</span></label><br>
+      
+    <progress value="30" max="100" id="progressPoll9" class="poll-progress"></progress> 
+      
+    <a> 30% | 34 votes</a>
+      
+  </p>
+    
+    
+    
+    
+  <p class="poll-answer-box">
+      
+    <input type="radio" id="pll-id-10" name="radio-group">
+      
+    <label for="pll-id-10" class="poll-answer-style-1"><span>AM (2013).</span></label><br>
+      
+     <progress value="30" max="100" id="progressPoll5" class="poll-progress"></progress> 
+      
+    <a> 30% | 34 votes</a> 
+      
+  </p>
+     
+    
+    
+    
+    
+    
+    
+                            
+                            
+</form>
+                            
+                            
+                            
+
+                            
+       
+            <div class="row">
+            
+            
+            <div class="col-xs-12">
+                
+                
+                
+                    <a id="pollvote">
+                
+                    <button class="btn poll-1">   
+                    
+                    Vote</button>
+            
+                    </a> 
+                
+                
+                
+                
+                <a class="poll-total">589 total votes</a>
+                
+                
+            </div>
+                
+                
+
+            
+            
+            </div>
+                            
+                            
+                        </div>
+        
+        
+        
+        
+           <div class="col-xs-2">
+                            
+                             <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/nopic.png" style="width: 40px; margin-left: 10px;"  />
+                            
+                        </div>
+                        
+                        </div><br>
+    
+    
+    
+    
+    
                         <!-- Posts go here. -->                        
             
                         
                     </div>
+                        
+                        
+                        
                         
                         
                         
@@ -806,7 +1290,10 @@ page_group_id = "<?php echo $_GET['group'];  ?>";
     
 currentArray = [];
     
-
+   var lastTimeID = 0;
+    var firstTimeID = 0;
+    new_post_id_num = 0;
+    new_post_id = "new_post" + new_post_id_num;
 
     
     
@@ -1073,7 +1560,7 @@ $("#submitpoll").on("click", function() {
        
        pollError("");
        
-       sendPoll(poll_q, poll_a1, poll_a2, poll_a3, poll_a4, poll_a5, poll_a6, poll_a7, poll_a8, poll_a9, poll_a10);
+       AppendPoll(poll_q, poll_a1, poll_a2, poll_a3, poll_a4, poll_a5, poll_a6, poll_a7, poll_a8, poll_a9, poll_a10);
        
    }
     
@@ -1088,7 +1575,7 @@ $("#submitpoll").on("click", function() {
     
     
     
-   function sendPoll(poll_q, poll_a1, poll_a2, poll_a3, poll_a4, poll_a5, poll_a6, poll_a7, poll_a8, poll_a9, poll_a10) {
+   function sendPoll(poll_q, poll_a1, poll_a2, poll_a3, poll_a4, poll_a5, poll_a6, poll_a7, poll_a8, poll_a9, poll_a10, post_id_poll) {
        
           currentPoll = new Date();
         
@@ -1204,6 +1691,226 @@ $("#poll-a3").on("input", function() {
         
     
 });
+    
+    
+    
+    
+    
+    
+    function AppendPoll(question, answer1, answer2, answer3, answer4, answer5, answer6, answer7, answer8, answer9, answer10)  {
+        
+        
+        
+        
+        var new_poll_html = '';
+        
+        new_poll_html += '<div id=\"'+ 'whole_' + new_post_id +'\" class=\"row poll-div\">';
+        
+        
+        new_poll_html += '<div class=\"col-xs-2\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/nopic.png\" style=\"width: 40px; margin-left: 10px;\"  /></div>';
+        
+        new_poll_html += '<div class=\"col-xs-10 poll-body\">';
+        
+        new_poll_html += '<p class=\"poll-quest-box\"> ' +  question +' </p>';
+
+    
+        new_poll_html += '<form action=\"#\">';
+    
+        
+        
+    
+        new_poll_html += '<p class=\"poll-answer-box\">';       
+        
+        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" name=\"radio-group\">';
+        
+        new_poll_html += '<label for=\"poll-id-1\" class=\"poll-answer-style-1\"><span> ' + answer1 + '</span></label><br>';
+                        
+        new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll1\" class=\"poll-progress\"></progress>';              
+                             
+        new_poll_html +=  '<a class=\"poll-score\"> 30% | 34 votes</a></p>';                 
+
+                        
+                        
+                            
+        
+        new_poll_html += '<p class=\"poll-answer-box\">';       
+        
+        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" name=\"radio-group\">';
+        
+        new_poll_html += '<label for=\"poll-id-1\" class=\"poll-answer-style-1\"><span>  ' + answer2 + ' </span></label><br>';
+                        
+        new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll1\" class=\"poll-progress\"></progress>';              
+                             
+        new_poll_html +=  '<a class=\"poll-score\"> 30% | 34 votes</a></p>';                 
+
+        
+        
+        if (answer3.trim().length > 0) {
+        
+        new_poll_html += '<p class=\"poll-answer-box\">';       
+        
+        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" name=\"radio-group\">';
+        
+        new_poll_html += '<label for=\"poll-id-1\" class=\"poll-answer-style-1\"><span> ' + answer3 + ' </span></label><br>';
+                        
+        new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll1\" class=\"poll-progress\"></progress>';              
+                             
+        new_poll_html +=  '<a class=\"poll-score\"> 30% | 34 votes</a></p>';                 
+
+        }
+        
+        
+        
+        if (answer4.trim().length > 0) {
+            
+        new_poll_html += '<p class=\"poll-answer-box\">';       
+        
+        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" name=\"radio-group\">';
+        
+        new_poll_html += '<label for=\"poll-id-1\" class=\"poll-answer-style-1\"><span> ' + answer4 + ' </span></label><br>';
+                        
+        new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll1\" class=\"poll-progress\"></progress>';              
+                             
+        new_poll_html +=  '<a class=\"poll-score\"> 30% | 34 votes</a></p>';                 
+
+        }
+        
+        
+        if (answer5.trim().length > 0) {
+            
+        new_poll_html += '<p class=\"poll-answer-box\">';       
+        
+        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" name=\"radio-group\">';
+        
+        new_poll_html += '<label for=\"poll-id-1\" class=\"poll-answer-style-1\"><span>  ' + answer5 + ' </span></label><br>';
+                        
+        new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll1\" class=\"poll-progress\"></progress>';              
+                             
+        new_poll_html +=  '<a class=\"poll-score\"> 30% | 34 votes</a></p>';                 
+
+        }
+        
+        
+        
+        if (answer6.trim().length > 0) {
+        
+        new_poll_html += '<p class=\"poll-answer-box\">';       
+        
+        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" name=\"radio-group\">';
+        
+        new_poll_html += '<label for=\"poll-id-1\" class=\"poll-answer-style-1\"><span> ' + answer6 + ' </span></label><br>';
+                        
+        new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll1\" class=\"poll-progress\"></progress>';              
+                             
+        new_poll_html +=  '<a class=\"poll-score\"> 30% | 34 votes</a></p>';                 
+
+        }
+        
+        
+        
+        if (answer7.trim().length > 0) {
+            
+        new_poll_html += '<p class=\"poll-answer-box\">';       
+        
+        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" name=\"radio-group\">';
+        
+        new_poll_html += '<label for=\"poll-id-1\" class=\"poll-answer-style-1\"><span> ' + answer7 + ' </span></label><br>';
+                        
+        new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll1\" class=\"poll-progress\"></progress>';              
+                             
+        new_poll_html +=  '<a class=\"poll-score\"> 30% | 34 votes</a></p>';                 
+
+        }
+        
+        
+        
+        
+        if (answer8.trim().length > 0) {
+        
+        new_poll_html += '<p class=\"poll-answer-box\">';       
+        
+        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" name=\"radio-group\">';
+        
+        new_poll_html += '<label for=\"poll-id-1\" class=\"poll-answer-style-1\"><span> ' + answer8 + ' </span></label><br>';
+                        
+        new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll1\" class=\"poll-progress\"></progress>';              
+                             
+        new_poll_html +=  '<a class=\"poll-score\"> 30% | 34 votes</a></p>';                 
+
+        }
+        
+        
+        
+        if (answer9.trim().length > 0) {
+            
+        new_poll_html += '<p class=\"poll-answer-box\">';       
+        
+        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" name=\"radio-group\">';
+        
+        new_poll_html += '<label for=\"poll-id-1\" class=\"poll-answer-style-1\"><span> ' + answer9 + ' </span></label><br>';
+                        
+        new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll1\" class=\"poll-progress\"></progress>';              
+                             
+        new_poll_html +=  '<a class=\"poll-score\"> 30% | 34 votes</a></p>';    
+            
+        }
+        
+        
+        
+        if (answer10.trim().length > 0) {
+            
+        new_poll_html += '<p class=\"poll-answer-box\">';       
+        
+        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" name=\"radio-group\">';
+        
+        new_poll_html += '<label for=\"poll-id-1\" class=\"poll-answer-style-1\"><span> ' + answer10 + ' </span></label><br>';
+                        
+        new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll1\" class=\"poll-progress\"></progress>';              
+                             
+        new_poll_html +=  '<a class=\"poll-score\"> 30% | 34 votes</a></p>';                 
+
+        }
+        
+        
+        new_poll_html += '</form>';
+    
+        new_poll_html += '<div class=\"row\">';                    
+                            
+        new_poll_html += '<div class=\"col-xs-12\">';
+                            
+        new_poll_html += '<a id=\"pollvote\">';    
+        
+        new_poll_html += '<button class=\"btn poll-1\">';
+        
+        new_poll_html += 'Vote</button></a>';
+        
+        new_poll_html += '<a class=\"poll-total\">589 total votes</a>';
+        
+        new_poll_html += '</div></div></div></div><br>';                
+                        
+     
+        
+          var new_items_poll = $( new_poll_html ).hide();
+          $( '#postsdiv' ).prepend( new_items_poll );
+          new_items_poll.show( 100 );
+                
+        
+          sendPoll(poll_q, poll_a1, poll_a2, poll_a3, poll_a4, poll_a5, poll_a6, poll_a7, poll_a8, poll_a9, poll_a10, new_post_id);
+                
+          new_post_id_num = new_post_id_num + 1;
+          new_post_id = "new_post" + new_post_id_num;
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1837,10 +2544,7 @@ function uploadFile() {
     
     
     
-    var lastTimeID = 0;
-    var firstTimeID = 0;
-    new_post_id_num = 0;
-    new_post_id = "new_post" + new_post_id_num;
+ 
     
     
     
