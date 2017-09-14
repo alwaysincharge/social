@@ -1562,6 +1562,49 @@ $("#submitpoll").on("click", function() {
        
        AppendPoll(poll_q, poll_a1, poll_a2, poll_a3, poll_a4, poll_a5, poll_a6, poll_a7, poll_a8, poll_a9, poll_a10);
        
+       
+        $("#poll-q").val("");
+    
+        $("#poll-a1").val("");
+    
+        $("#poll-a2").val("");  
+    
+        $("#poll-a3").val("");
+    
+        $("#poll-a4").val("");
+    
+        $("#poll-a5").val("");
+    
+        $("#poll-a6").val("");  
+    
+        $("#poll-a7").val("");
+    
+        $("#poll-a8").val("");
+    
+        $("#poll-a9").val("");
+    
+        $("#poll-a10").val("");
+       
+       
+       
+       $("#poll-a4").hide(300);
+       
+       $("#poll-a5").hide(300);
+       
+       $("#poll-a6").hide(300);
+       
+       $("#poll-a7").hide(300);
+       
+       $("#poll-a8").hide(300);
+       
+       $("#poll-a9").hide(300);
+       
+       $("#poll-a10").hide(300);
+       
+       
+       closeAllBoxes();
+    
+       
    }
     
     
@@ -1575,7 +1618,42 @@ $("#submitpoll").on("click", function() {
     
     
     
-   function sendPoll(poll_q, poll_a1, poll_a2, poll_a3, poll_a4, poll_a5, poll_a6, poll_a7, poll_a8, poll_a9, poll_a10, post_id_poll) {
+   function sendPoll(poll_q, poll_a1, poll_a2, poll_a3, poll_a4, poll_a5, poll_a6, poll_a7, poll_a8, poll_a9, poll_a10, post_id_poll, poll_num_poll) {
+       
+       
+       
+          function  poll_is_submitted(new_back_id)  {
+              
+        
+           
+          var new_poll_sub = "";
+              
+          new_poll_sub += '<div class=\"row\">';                    
+                            
+          new_poll_sub += '<div class=\"col-xs-12\">';
+                            
+          new_poll_sub += '<a id=\"pollvote\" onclick=\"pollvote('+ poll_num_poll + ',' + new_back_id + ')\">';    
+        
+          new_poll_sub += '<button class=\"btn poll-1\">';
+        
+          new_poll_sub += 'Vote</button></a>';
+        
+          new_poll_sub += '<a class=\"poll-total\">589 total votes</a>';
+              
+          new_poll_sub += '</div></div><br>';         
+              
+              
+           var new_items_poll_send = $( new_poll_sub ).hide();
+           
+           $( "#whole_" + post_id_poll ).append( new_items_poll_send );
+           
+           new_items_poll_send.show(200);
+              
+          }
+       
+       
+       
+       
        
           currentPoll = new Date();
         
@@ -1614,7 +1692,18 @@ $("#submitpoll").on("click", function() {
         
     }).done(function(data) {
         
-    
+        
+            var jsonPollAppend = JSON.parse( data );
+            
+            var attach_poll_status =  jsonPollAppend[0];
+            
+            var attach_poll_back_id =  jsonPollAppend[1];
+        
+            
+        
+            poll_is_submitted(attach_poll_back_id);
+        
+        
         
     }).fail(function(jqXHR, textStatus, errorThrown) {
         
@@ -1678,19 +1767,88 @@ $("#myTextBox").on("input", function() {
     
     
     
-    
-    
-    
-$("#poll-a3").on("input", function() {
+    function pollvote(front_id, back_id)  {
         
-        if ( $(this).val().trim().length != 0 ) { 
-               
-           $("#poll-a4").show(300);
+        
+        
+        var which_radio = "radio_group_new_post" + front_id;
+        
+        if ( ( $('input[name="'+ which_radio +'"]:checked').val() > 0 ) && ( $('input[name="'+ which_radio +'"]:checked').val() < 11 ) ) {
             
-        } 
+            
+            
+            which_radio_selection = $('input[name="'+ which_radio +'"]:checked').val();
+            
+            sendPollVote(which_radio_selection, back_id);
+            
+        } else {
+            
+            alert("select soemthing");
+            
+        }
         
+        
+        
+    }
     
-});
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    function sendPollVote(selection, back_db_id)  {
+        
+        
+             poll_vote_url = "<?php echo $_SESSION['url_placeholder'];  ?>poll_vote";
+        
+        
+             $.ajax( {
+             url: poll_vote_url,
+             type: "POST",
+             async: true,
+             data: {
+                "vote": 1,
+                "choice": selection,
+                 "group_id": page_group_id,
+                 "post_id": back_db_id
+             },
+             success: function( data ) {
+                 
+                 
+        
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                
+                 
+                 
+             }
+          } );
+        
+        
+        
+        
+    }
+ 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1704,12 +1862,12 @@ $("#poll-a3").on("input", function() {
         
         var new_poll_html = '';
         
-        new_poll_html += '<div id=\"'+ 'whole_' + new_post_id +'\" class=\"row poll-div\">';
+        new_poll_html += '<div  class=\"row poll-div\">';
         
         
         new_poll_html += '<div class=\"col-xs-2\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/nopic.png\" style=\"width: 40px; margin-left: 10px;\"  /></div>';
         
-        new_poll_html += '<div class=\"col-xs-10 poll-body\">';
+        new_poll_html += '<div id=\"'+ 'whole_' + new_post_id +'\" class=\"col-xs-10 poll-body\">';
         
         new_poll_html += '<p class=\"poll-quest-box\"> ' +  question +' </p>';
 
@@ -1721,7 +1879,7 @@ $("#poll-a3").on("input", function() {
     
         new_poll_html += '<p class=\"poll-answer-box\">';       
         
-        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" name=\"radio-group\">';
+        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" value=\"1\" name=\"radio_group_' + new_post_id + '\">';
         
         new_poll_html += '<label for=\"poll-id-1\" class=\"poll-answer-style-1\"><span> ' + answer1 + '</span></label><br>';
                         
@@ -1735,9 +1893,9 @@ $("#poll-a3").on("input", function() {
         
         new_poll_html += '<p class=\"poll-answer-box\">';       
         
-        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" name=\"radio-group\">';
+        new_poll_html += '<input type=\"radio\" id=\"poll-id-2\" value=\"2\" name=\"radio_group_' + new_post_id + '\">';
         
-        new_poll_html += '<label for=\"poll-id-1\" class=\"poll-answer-style-1\"><span>  ' + answer2 + ' </span></label><br>';
+        new_poll_html += '<label for=\"poll-id-2\" class=\"poll-answer-style-1\"><span>  ' + answer2 + ' </span></label><br>';
                         
         new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll1\" class=\"poll-progress\"></progress>';              
                              
@@ -1749,9 +1907,9 @@ $("#poll-a3").on("input", function() {
         
         new_poll_html += '<p class=\"poll-answer-box\">';       
         
-        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" name=\"radio-group\">';
+        new_poll_html += '<input type=\"radio\" id=\"poll-id-3\" value=\"3\"  name=\"radio_group_' + new_post_id + '\">';
         
-        new_poll_html += '<label for=\"poll-id-1\" class=\"poll-answer-style-1\"><span> ' + answer3 + ' </span></label><br>';
+        new_poll_html += '<label for=\"poll-id-3\" class=\"poll-answer-style-1\"><span> ' + answer3 + ' </span></label><br>';
                         
         new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll1\" class=\"poll-progress\"></progress>';              
                              
@@ -1765,9 +1923,9 @@ $("#poll-a3").on("input", function() {
             
         new_poll_html += '<p class=\"poll-answer-box\">';       
         
-        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" name=\"radio-group\">';
+        new_poll_html += '<input type=\"radio\" id=\"poll-id-4\" value=\"4\"  name=\"radio_group_' + new_post_id + '\">';
         
-        new_poll_html += '<label for=\"poll-id-1\" class=\"poll-answer-style-1\"><span> ' + answer4 + ' </span></label><br>';
+        new_poll_html += '<label for=\"poll-id-4\" class=\"poll-answer-style-1\"><span> ' + answer4 + ' </span></label><br>';
                         
         new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll1\" class=\"poll-progress\"></progress>';              
                              
@@ -1780,9 +1938,9 @@ $("#poll-a3").on("input", function() {
             
         new_poll_html += '<p class=\"poll-answer-box\">';       
         
-        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" name=\"radio-group\">';
+        new_poll_html += '<input type=\"radio\" id=\"poll-id-5\" value=\"5\"  name=\"radio_group_' + new_post_id + '\">';
         
-        new_poll_html += '<label for=\"poll-id-1\" class=\"poll-answer-style-1\"><span>  ' + answer5 + ' </span></label><br>';
+        new_poll_html += '<label for=\"poll-id-5\" class=\"poll-answer-style-1\"><span>  ' + answer5 + ' </span></label><br>';
                         
         new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll1\" class=\"poll-progress\"></progress>';              
                              
@@ -1796,9 +1954,9 @@ $("#poll-a3").on("input", function() {
         
         new_poll_html += '<p class=\"poll-answer-box\">';       
         
-        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" name=\"radio-group\">';
+        new_poll_html += '<input type=\"radio\" id=\"poll-id-6\" value=\"6\"  name=\"radio_group_' + new_post_id + '\">';
         
-        new_poll_html += '<label for=\"poll-id-1\" class=\"poll-answer-style-1\"><span> ' + answer6 + ' </span></label><br>';
+        new_poll_html += '<label for=\"poll-id-6\" class=\"poll-answer-style-1\"><span> ' + answer6 + ' </span></label><br>';
                         
         new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll1\" class=\"poll-progress\"></progress>';              
                              
@@ -1812,9 +1970,9 @@ $("#poll-a3").on("input", function() {
             
         new_poll_html += '<p class=\"poll-answer-box\">';       
         
-        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" name=\"radio-group\">';
+        new_poll_html += '<input type=\"radio\" id=\"poll-id-7\" value=\"7\"  name=\"radio_group_' + new_post_id + '\">';
         
-        new_poll_html += '<label for=\"poll-id-1\" class=\"poll-answer-style-1\"><span> ' + answer7 + ' </span></label><br>';
+        new_poll_html += '<label for=\"poll-id-7\" class=\"poll-answer-style-1\"><span> ' + answer7 + ' </span></label><br>';
                         
         new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll1\" class=\"poll-progress\"></progress>';              
                              
@@ -1829,9 +1987,9 @@ $("#poll-a3").on("input", function() {
         
         new_poll_html += '<p class=\"poll-answer-box\">';       
         
-        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" name=\"radio-group\">';
+        new_poll_html += '<input type=\"radio\" id=\"poll-id-8\" value=\"8\"  name=\"radio_group_' + new_post_id + '\">';
         
-        new_poll_html += '<label for=\"poll-id-1\" class=\"poll-answer-style-1\"><span> ' + answer8 + ' </span></label><br>';
+        new_poll_html += '<label for=\"poll-id-8\" class=\"poll-answer-style-1\"><span> ' + answer8 + ' </span></label><br>';
                         
         new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll1\" class=\"poll-progress\"></progress>';              
                              
@@ -1845,9 +2003,9 @@ $("#poll-a3").on("input", function() {
             
         new_poll_html += '<p class=\"poll-answer-box\">';       
         
-        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" name=\"radio-group\">';
+        new_poll_html += '<input type=\"radio\" id=\"poll-id-9\" value=\"9\"  name=\"radio_group_' + new_post_id + '\">';
         
-        new_poll_html += '<label for=\"poll-id-1\" class=\"poll-answer-style-1\"><span> ' + answer9 + ' </span></label><br>';
+        new_poll_html += '<label for=\"poll-id-9\" class=\"poll-answer-style-1\"><span> ' + answer9 + ' </span></label><br>';
                         
         new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll1\" class=\"poll-progress\"></progress>';              
                              
@@ -1861,9 +2019,9 @@ $("#poll-a3").on("input", function() {
             
         new_poll_html += '<p class=\"poll-answer-box\">';       
         
-        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" name=\"radio-group\">';
+        new_poll_html += '<input type=\"radio\" id=\"poll-id-10\" value=\"10\"  name=\"radio_group_' + new_post_id + '\">';
         
-        new_poll_html += '<label for=\"poll-id-1\" class=\"poll-answer-style-1\"><span> ' + answer10 + ' </span></label><br>';
+        new_poll_html += '<label for=\"poll-id-10\" class=\"poll-answer-style-1\"><span> ' + answer10 + ' </span></label><br>';
                         
         new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll1\" class=\"poll-progress\"></progress>';              
                              
@@ -1873,20 +2031,8 @@ $("#poll-a3").on("input", function() {
         
         
         new_poll_html += '</form>';
-    
-        new_poll_html += '<div class=\"row\">';                    
-                            
-        new_poll_html += '<div class=\"col-xs-12\">';
-                            
-        new_poll_html += '<a id=\"pollvote\">';    
         
-        new_poll_html += '<button class=\"btn poll-1\">';
-        
-        new_poll_html += 'Vote</button></a>';
-        
-        new_poll_html += '<a class=\"poll-total\">589 total votes</a>';
-        
-        new_poll_html += '</div></div></div></div><br>';                
+        new_poll_html += '</div></div><br>';                
                         
      
         
@@ -1895,7 +2041,7 @@ $("#poll-a3").on("input", function() {
           new_items_poll.show( 100 );
                 
         
-          sendPoll(poll_q, poll_a1, poll_a2, poll_a3, poll_a4, poll_a5, poll_a6, poll_a7, poll_a8, poll_a9, poll_a10, new_post_id);
+          sendPoll(poll_q, poll_a1, poll_a2, poll_a3, poll_a4, poll_a5, poll_a6, poll_a7, poll_a8, poll_a9, poll_a10, new_post_id, new_post_id_num);
                 
           new_post_id_num = new_post_id_num + 1;
           new_post_id = "new_post" + new_post_id_num;

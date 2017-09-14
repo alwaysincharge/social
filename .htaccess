@@ -43,6 +43,8 @@ RewriteRule ^sign_up backend/sign_up.php [NC,L]
 
 RewriteRule ^poll_send backend/poll_send.php [NC,L]
 
+RewriteRule ^poll_vote backend/poll_vote.php [NC,L]
+
 
 
 

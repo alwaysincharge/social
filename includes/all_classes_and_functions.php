@@ -16,4 +16,6 @@
 
 <?php include_once('like_class.php'); ?>
 
+<?php include_once('poll_class.php'); ?>
+
 <?php $_SESSION['url_placeholder'] = '/social/'; ?>
