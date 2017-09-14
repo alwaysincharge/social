@@ -1632,9 +1632,9 @@ $("#submitpoll").on("click", function() {
                             
           new_poll_sub += '<div class=\"col-xs-12\">';
                             
-          new_poll_sub += '<a id=\"pollvote\" onclick=\"pollvote('+ poll_num_poll + ',' + new_back_id + ')\">';    
+          new_poll_sub += '<a  onclick=\"pollvote('+ poll_num_poll + ',' + new_back_id + ')\">';    
         
-          new_poll_sub += '<button class=\"btn poll-1\">';
+          new_poll_sub += '<button id=\"pollvote_'+ poll_num_poll +'\" class=\"btn poll-1\">';
         
           new_poll_sub += 'Vote</button></a>';
         
@@ -1779,7 +1779,9 @@ $("#myTextBox").on("input", function() {
             
             which_radio_selection = $('input[name="'+ which_radio +'"]:checked').val();
             
-            sendPollVote(which_radio_selection, back_id);
+            sendPollVote(which_radio_selection, back_id, front_id);
+            
+            
             
         } else {
             
@@ -1806,7 +1808,7 @@ $("#myTextBox").on("input", function() {
     
     
     
-    function sendPollVote(selection, back_db_id)  {
+    function sendPollVote(selection, back_db_id, front_client_id)  {
         
         
              poll_vote_url = "<?php echo $_SESSION['url_placeholder'];  ?>poll_vote";
@@ -1824,7 +1826,13 @@ $("#myTextBox").on("input", function() {
              },
              success: function( data ) {
                  
+                 $("#pollvote_" + front_client_id).html("Change Vote");
                  
+                 $("#pollvote_" + front_client_id).blur();
+                 
+                 alert("radio_new_class_" + front_client_id);
+                 
+                 $(".poll-answer-style-1" + front_client_id).hide();
         
              },
              error: function( xhr, textStatus, errorThrown ) {
@@ -1877,9 +1885,9 @@ $("#myTextBox").on("input", function() {
         
         
     
-        new_poll_html += '<p class=\"poll-answer-box\">';       
+        new_poll_html += '<p class=\"poll-answer-box'+ new_post_id_num +'\">';       
         
-        new_poll_html += '<input type=\"radio\" id=\"poll-id-1\" value=\"1\" name=\"radio_group_' + new_post_id + '\">';
+        new_poll_html += '<input class=\"radio_new_class_'+ new_post_id_num +'\"  type=\"radio\" id=\"poll-id-1\" value=\"1\" name=\"radio_group_' + new_post_id + '\">';
         
         new_poll_html += '<label for=\"poll-id-1\" class=\"poll-answer-style-1\"><span> ' + answer1 + '</span></label><br>';
                         
@@ -1891,9 +1899,9 @@ $("#myTextBox").on("input", function() {
                         
                             
         
-        new_poll_html += '<p class=\"poll-answer-box\">';       
+        new_poll_html += '<p class=\"poll-answer-box'+ new_post_id_num +'\">';       
         
-        new_poll_html += '<input type=\"radio\" id=\"poll-id-2\" value=\"2\" name=\"radio_group_' + new_post_id + '\">';
+        new_poll_html += '<input class=\"radio_new_class_'+ new_post_id_num +'\" type=\"radio\" id=\"poll-id-2\" value=\"2\" name=\"radio_group_' + new_post_id + '\">';
         
         new_poll_html += '<label for=\"poll-id-2\" class=\"poll-answer-style-1\"><span>  ' + answer2 + ' </span></label><br>';
                         
@@ -1905,7 +1913,7 @@ $("#myTextBox").on("input", function() {
         
         if (answer3.trim().length > 0) {
         
-        new_poll_html += '<p class=\"poll-answer-box\">';       
+        new_poll_html += '<p class=\"poll-answer-box'+ new_post_id_num +'\">';       
         
         new_poll_html += '<input type=\"radio\" id=\"poll-id-3\" value=\"3\"  name=\"radio_group_' + new_post_id + '\">';
         
@@ -1921,7 +1929,7 @@ $("#myTextBox").on("input", function() {
         
         if (answer4.trim().length > 0) {
             
-        new_poll_html += '<p class=\"poll-answer-box\">';       
+        new_poll_html += '<p class=\"poll-answer-box'+ new_post_id_num +'\">';       
         
         new_poll_html += '<input type=\"radio\" id=\"poll-id-4\" value=\"4\"  name=\"radio_group_' + new_post_id + '\">';
         
@@ -1936,7 +1944,7 @@ $("#myTextBox").on("input", function() {
         
         if (answer5.trim().length > 0) {
             
-        new_poll_html += '<p class=\"poll-answer-box\">';       
+        new_poll_html += '<p class=\"poll-answer-box'+ new_post_id_num +'\">';       
         
         new_poll_html += '<input type=\"radio\" id=\"poll-id-5\" value=\"5\"  name=\"radio_group_' + new_post_id + '\">';
         
@@ -1952,7 +1960,7 @@ $("#myTextBox").on("input", function() {
         
         if (answer6.trim().length > 0) {
         
-        new_poll_html += '<p class=\"poll-answer-box\">';       
+        new_poll_html += '<p class=\"poll-answer-box'+ new_post_id_num +'\">';       
         
         new_poll_html += '<input type=\"radio\" id=\"poll-id-6\" value=\"6\"  name=\"radio_group_' + new_post_id + '\">';
         
@@ -1968,7 +1976,7 @@ $("#myTextBox").on("input", function() {
         
         if (answer7.trim().length > 0) {
             
-        new_poll_html += '<p class=\"poll-answer-box\">';       
+        new_poll_html += '<p class=\"poll-answer-box'+ new_post_id_num +'\">';       
         
         new_poll_html += '<input type=\"radio\" id=\"poll-id-7\" value=\"7\"  name=\"radio_group_' + new_post_id + '\">';
         
@@ -1985,7 +1993,7 @@ $("#myTextBox").on("input", function() {
         
         if (answer8.trim().length > 0) {
         
-        new_poll_html += '<p class=\"poll-answer-box\">';       
+        new_poll_html += '<p class=\"poll-answer-box'+ new_post_id_num +'\">';       
         
         new_poll_html += '<input type=\"radio\" id=\"poll-id-8\" value=\"8\"  name=\"radio_group_' + new_post_id + '\">';
         
@@ -2001,7 +2009,7 @@ $("#myTextBox").on("input", function() {
         
         if (answer9.trim().length > 0) {
             
-        new_poll_html += '<p class=\"poll-answer-box\">';       
+        new_poll_html += '<p class=\"poll-answer-box \">';       
         
         new_poll_html += '<input type=\"radio\" id=\"poll-id-9\" value=\"9\"  name=\"radio_group_' + new_post_id + '\">';
         
