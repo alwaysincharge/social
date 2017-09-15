@@ -58,6 +58,28 @@ class Poll {
     
     
     
+       
+       public function find_vote_percent($poll_post_id_input, $selection_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT * from polls where poll_post_id = ? AND selection = ?");
+        
+       $stmt->bind_param("ii", $poll_post_id, $selection);
+        
+       $poll_post_id = $poll_post_id_input;
+           
+       $selection = $selection_input;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+ 
+    
+    
     
     
         
