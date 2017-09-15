@@ -92,7 +92,20 @@ if (isset($_POST['percent']))  {
     
     
     
-      $attach_array = array("choice1"=> $choice1, "choice2"=> $choice2, "choice3"=> $choice3, "choice4"=> $choice4, "choice5"=> $choice5, "choice6"=> $choice6, "choice7"=> $choice7, "choice8"=> $choice8, "choice9"=> $choice9, "choice10"=> $choice10);     
+    
+      $user_choice = $poll->find_user_choice($_POST['post_id'], $_SESSION['admin_id']); 
+    
+      $user_choice_result = $user_choice->get_result();
+    
+      while ($user_selection = $user_choice_result->fetch_assoc()) {
+          
+          $user_choice_selection = $user_selection['selection'];
+          
+      }
+    
+    
+    
+      $attach_array = array("choice1"=> $choice1, "choice2"=> $choice2, "choice3"=> $choice3, "choice4"=> $choice4, "choice5"=> $choice5, "choice6"=> $choice6, "choice7"=> $choice7, "choice8"=> $choice8, "choice9"=> $choice9, "choice10"=> $choice10, "user_choice"=> $user_choice_selection);     
     
       echo json_encode(array_values($attach_array));
     

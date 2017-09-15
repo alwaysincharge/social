@@ -77,6 +77,30 @@ class Poll {
 
        }
     
+    
+    
+    
+    
+    
+    
+       public function find_user_choice($poll_post_id_input, $voter_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT * from polls where poll_post_id = ? AND voter = ?");
+        
+       $stmt->bind_param("ii", $poll_post_id, $voter);
+        
+       $poll_post_id = $poll_post_id_input;
+           
+       $voter = $voter_input;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
  
     
     

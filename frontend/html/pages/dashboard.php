@@ -1631,12 +1631,22 @@ $("#submitpoll").on("click", function() {
           new_poll_sub += '<div class=\"row\">';                    
                             
           new_poll_sub += '<div class=\"col-xs-12\">';
+              
                             
           new_poll_sub += '<a  onclick=\"pollvote('+ poll_num_poll + ',' + new_back_id + ')\">';    
         
           new_poll_sub += '<button id=\"pollvote_'+ poll_num_poll +'\" class=\"btn poll-1\">';
         
           new_poll_sub += 'Vote</button></a>';
+              
+              
+          new_poll_sub += '<a onclick=\"voteagain('+ poll_num_poll + ',' + new_back_id + ')\" id=\"pollchange_'+ poll_num_poll +'\" style=\"display: none;\">';    
+        
+          new_poll_sub += '<button class=\"btn poll-1\">';
+        
+          new_poll_sub += 'Change Vote</button></a>';
+              
+              
         
           new_poll_sub += '<a class=\"poll-total'+ poll_num_poll +'\" style=\"display: none; margin-left: 30px;\">589 total votes</a>';
               
@@ -1728,7 +1738,26 @@ $("#submitpoll").on("click", function() {
     
     
     
-    
+    function voteagain(front_id, back_id) {
+        
+        window["votebutton" + front_id] = false;
+        
+        
+                 $("#pollvote_" + front_id).show();
+                 
+                 $("#pollchange_" + front_id).hide();
+                 
+                 $("#pollvote_" + front_id).blur();
+                 
+                 
+                 $(".radio-first-" + front_id).show(300);
+                 
+                 $(".radio-second-" + front_id).hide(300);
+        
+                $(".poll-total" + front_id).hide().html(totalJsonChoice + " total votes.");
+        
+        
+    }
     
     
     
@@ -1826,6 +1855,9 @@ $("#myTextBox").on("input", function() {
              },
              success: function( data ) {
                  
+                 
+                 window["votebutton" + front_client_id] = true;
+                 
                  getPollVote(back_db_id, front_client_id);
                  
                  setInterval(getPollVote, 10000, back_db_id, front_client_id);
@@ -1865,8 +1897,16 @@ $("#myTextBox").on("input", function() {
              success: function( data ) {
                  
                  
+                
                  
-                 $("#pollvote_" + front_id).html("Change Vote");
+                 
+                 if(window["votebutton" + front_id]) {
+                     
+                     
+                     
+                 $("#pollvote_" + front_id).hide();
+                 
+                 $("#pollchange_" + front_id).show();
                  
                  $("#pollvote_" + front_id).blur();
                  
@@ -1874,6 +1914,13 @@ $("#myTextBox").on("input", function() {
                  $(".radio-first-" + front_id).hide(300);
                  
                  $(".radio-second-" + front_id).show(300);
+                     
+                
+                     
+                 }
+                 
+                 
+                 
                  
                  
                  var jsonGetPoll = JSON.parse( data );
@@ -1898,13 +1945,21 @@ $("#myTextBox").on("input", function() {
                  
                  var jsonChoice10 =  jsonGetPoll[9];
                  
+                 var jsonUserChoice = jsonGetPoll[10];
+                 
                  
                  var totalJsonChoice = jsonChoice1 + jsonChoice2 + jsonChoice3 + jsonChoice4 + jsonChoice5 + jsonChoice6 + jsonChoice7 + jsonChoice8 + jsonChoice9 + jsonChoice10;
                  
                  
                  
+                 for ( var poll_img_i = 1; poll_img_i < 11; poll_img_i++ ) {
+                     
+                     $(".poll-img" + poll_img_i + front_id).hide();
+                     
+                 }
                  
                  
+                 $(".poll-img" + jsonUserChoice + front_id).show();
                  
                  
                  $(".poll-score1" + front_id).html(Math.round((jsonChoice1/totalJsonChoice) * 100) + "% | " + jsonChoice1 + " votes");
@@ -1951,7 +2006,14 @@ $("#myTextBox").on("input", function() {
                  $("#progressPoll10" + front_id).val(((jsonChoice10/totalJsonChoice) * 100));
                  
                  
+                 
+                                  
+                 if(window["votebutton" + front_id]) {
+                     
+                     
                  $(".poll-total" + front_id).show().html(totalJsonChoice + " total votes.");
+                     
+                 }
         
              },
              error: function( xhr, textStatus, errorThrown ) {
@@ -2007,7 +2069,9 @@ $("#myTextBox").on("input", function() {
         
         new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll1'+ new_post_id_num +'\" class=\"poll-progress\"></progress>'; 
         
-        new_poll_html +=  '<a class=\"poll-score poll-score1'+ new_post_id_num +'\"> 30% | 34 votes</a></p>'; 
+        new_poll_html +=  '<a class=\"poll-score poll-score1'+ new_post_id_num +'\"> 30% | 34 votes</a>'; 
+        
+        new_poll_html += '<img class=\"poll-img1'+ new_post_id_num +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
         
         new_poll_html +=  '</div>';
 
@@ -2027,7 +2091,9 @@ $("#myTextBox").on("input", function() {
         
         new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll2'+ new_post_id_num +'\" class=\"poll-progress\"></progress>'; 
         
-        new_poll_html +=  '<a class=\"poll-score poll-score2'+ new_post_id_num +'\"> 30% | 34 votes</a></p>'; 
+        new_poll_html +=  '<a class=\"poll-score poll-score2'+ new_post_id_num +'\"> 30% | 34 votes</a>'; 
+        
+        new_poll_html += '<img class=\"poll-img2'+ new_post_id_num +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
         
         new_poll_html +=  '</div>';
 
@@ -2047,7 +2113,9 @@ $("#myTextBox").on("input", function() {
         
         new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll3'+ new_post_id_num +'\" class=\"poll-progress\"></progress>'; 
         
-        new_poll_html +=  '<a class=\"poll-score poll-score3'+ new_post_id_num +'\"> 30% | 34 votes</a></p>'; 
+        new_poll_html +=  '<a class=\"poll-score poll-score3'+ new_post_id_num +'\"> 30% | 34 votes</a>';
+            
+        new_poll_html += '<img class=\"poll-img3'+ new_post_id_num +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
         
         new_poll_html +=  '</div>';                
 
@@ -2069,7 +2137,9 @@ $("#myTextBox").on("input", function() {
         
         new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll4'+ new_post_id_num +'\" class=\"poll-progress\"></progress>'; 
         
-        new_poll_html +=  '<a class=\"poll-score poll-score4'+ new_post_id_num +'\"> 30% | 34 votes</a></p>'; 
+        new_poll_html +=  '<a class=\"poll-score poll-score4'+ new_post_id_num +'\"> 30% | 34 votes</a>'; 
+            
+        new_poll_html += '<img class=\"poll-img4'+ new_post_id_num +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
         
         new_poll_html +=  '</div>';                
 
@@ -2090,7 +2160,9 @@ $("#myTextBox").on("input", function() {
         
         new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll5'+ new_post_id_num +'\" class=\"poll-progress\"></progress>'; 
         
-        new_poll_html +=  '<a class=\"poll-score poll-score5'+ new_post_id_num +'\"> 30% | 34 votes</a></p>'; 
+        new_poll_html +=  '<a class=\"poll-score poll-score5'+ new_post_id_num +'\"> 30% | 34 votes</a>'; 
+            
+        new_poll_html += '<img class=\"poll-img5'+ new_post_id_num +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
         
         new_poll_html +=  '</div>';
 
@@ -2112,7 +2184,9 @@ $("#myTextBox").on("input", function() {
         
         new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll6'+ new_post_id_num +'\" class=\"poll-progress\"></progress>'; 
         
-        new_poll_html +=  '<a class=\"poll-score poll-score6'+ new_post_id_num +'\"> 30% | 34 votes</a></p>'; 
+        new_poll_html +=  '<a class=\"poll-score poll-score6'+ new_post_id_num +'\"> 30% | 34 votes</a>'; 
+            
+        new_poll_html += '<img class=\"poll-img6'+ new_post_id_num +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
         
         new_poll_html +=  '</div>';                 
 
@@ -2134,7 +2208,9 @@ $("#myTextBox").on("input", function() {
         
         new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll7'+ new_post_id_num +'\" class=\"poll-progress\"></progress>'; 
         
-        new_poll_html +=  '<a class=\"poll-score poll-score7'+ new_post_id_num +'\"> 30% | 34 votes</a></p>'; 
+        new_poll_html +=  '<a class=\"poll-score poll-score7'+ new_post_id_num +'\"> 30% | 34 votes</a>';
+            
+        new_poll_html += '<img class=\"poll-img7'+ new_post_id_num +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
         
         new_poll_html +=  '</div>';                
 
@@ -2157,7 +2233,9 @@ $("#myTextBox").on("input", function() {
         
         new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll8'+ new_post_id_num +'\" class=\"poll-progress\"></progress>'; 
         
-        new_poll_html +=  '<a class=\"poll-score poll-score8'+ new_post_id_num +'\"> 30% | 34 votes</a></p>'; 
+        new_poll_html +=  '<a class=\"poll-score poll-score8'+ new_post_id_num +'\"> 30% | 34 votes</a>';
+            
+        new_poll_html += '<img class=\"poll-img8'+ new_post_id_num +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
         
         new_poll_html +=  '</div>';                 
 
@@ -2179,7 +2257,9 @@ $("#myTextBox").on("input", function() {
         
         new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll9'+ new_post_id_num +'\" class=\"poll-progress\"></progress>'; 
         
-        new_poll_html +=  '<a class=\"poll-score poll-score9'+ new_post_id_num +'\"> 30% | 34 votes</a></p>'; 
+        new_poll_html +=  '<a class=\"poll-score poll-score9'+ new_post_id_num +'\"> 30% | 34 votes</a>'; 
+            
+        new_poll_html += '<img class=\"poll-img9'+ new_post_id_num +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
         
         new_poll_html +=  '</div>';  
             
@@ -2201,7 +2281,9 @@ $("#myTextBox").on("input", function() {
         
         new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll10'+ new_post_id_num +'\" class=\"poll-progress\"></progress>'; 
         
-        new_poll_html +=  '<a class=\"poll-score poll-score10'+ new_post_id_num +'\"> 30% | 34 votes</a></p>'; 
+        new_poll_html +=  '<a class=\"poll-score poll-score10'+ new_post_id_num +'\"> 30% | 34 votes</a>'; 
+            
+        new_poll_html += '<img class=\"poll-img10'+ new_post_id_num +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
         
         new_poll_html +=  '</div>';                 
 
@@ -3875,7 +3957,7 @@ function displayFromDatabasePagination() {
            
            
            
-                append_post_sent_1 = "";
+                     append_post_sent_1 = "";
                      
                      append_post_sent_1 += '<div class=\"row\" >';
                      
