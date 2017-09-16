@@ -1650,12 +1650,70 @@ $("#submitpoll").on("click", function() {
         
           new_poll_sub += '<a class=\"poll-total'+ poll_num_poll +'\" style=\"display: none; margin-left: 30px;\">589 total votes</a>';
               
-          new_poll_sub += '</div></div><br>';         
+          new_poll_sub += '</div></div><br>';
+              
+              
+                     
+          new_poll_sub += '<div class=\"row\" >';
+                     
+                     
+          new_poll_sub += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
+                     
+                    
+                     
+          new_poll_sub += '<img onclick=\"start_delete(' + poll_num_poll + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
+                     
+                     
+          new_poll_sub += '</div>';
+                     
+                     
+          new_poll_sub += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
+                     
+                    
+           
+           
+          new_poll_sub += '<img class=\" size-2 '+ 'start_delete' + poll_num_poll + '   like_delete'  +  poll_num_poll  +  '    \" src=\"' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/unlike.svg' + '\" onclick=\"likenewpoll(' +  new_back_id + ',' + poll_num_poll + ') \" />';
+           
+           
+                     
+          new_poll_sub += '<img onclick=\"show_delete(' + poll_num_poll + ') \" class=\" size-3 '+ 'start_delete' + poll_num_poll +' \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/trash.png' + '\" />';
+                     
+          new_poll_sub += '</div>';
+                     
+                     
+          new_poll_sub += '<div class=\"col-xs-5\" >';
+                     
+                     
+          new_poll_sub += '<a class=\"delete-2 '+ 'show_delete' + poll_num_poll +'\" onclick=\"deletenewpoll(' +  new_back_id + ',' + poll_num_poll + ') \">delete</a><a style=\"display: none; font-size: 13px;\" class=\"'+ 'show_delete' + poll_num_poll +'\" > //</a>';
+                     
+                     
+          new_poll_sub += '<a onclick=\"hide_delete(' + poll_num_poll + ') \" class=\"delete-3 '+ 'show_delete' + poll_num_poll +'\">don\'t</a>';
+                     
+                     
+          new_poll_sub += '</div>';
+                     
+                         
+                     
+          new_poll_sub += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
+                     
+                    
+                     
+          new_poll_sub += '<img class=\" size-1 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" />';
+                     
+                     
+          new_poll_sub += '</div>';
+                     
+                     
+                     
+          new_poll_sub += '</div>';
+                     
+                     
+                     
               
               
            var new_items_poll_send = $( new_poll_sub ).hide();
            
-           $( "#whole_" + post_id_poll ).append( new_items_poll_send );
+           $( "#whole_body_" + post_id_poll ).append( new_items_poll_send );
            
            new_items_poll_send.show(200);
               
@@ -1765,6 +1823,38 @@ $("#submitpoll").on("click", function() {
     
     
     
+     function voteagainold(back_id) {
+        
+        window["votebuttonold" + back_id] = false;
+        
+        
+                 $("#pollvote_old" + back_id).show();
+                 
+                 $("#pollchange_old" + back_id).hide();
+                 
+                 $("#pollvote_old" + back_id).blur();
+                 
+                 
+                 $(".radio-first-old" + back_id).show(300);
+                 
+                 $(".radio-second-old" + back_id).hide(300);
+        
+            //    $(".poll-totalold" + front_id).hide().html(totalJsonChoice + " total votes.");
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1809,6 +1899,41 @@ $("#myTextBox").on("input", function() {
             which_radio_selection = $('input[name="'+ which_radio +'"]:checked').val();
             
             sendPollVote(which_radio_selection, back_id, front_id);
+            
+            
+            
+        } else {
+            
+            alert("select soemthing");
+            
+        }
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+        function pollvoteold(back_id)  {
+        
+        
+        
+        var which_radio_old = "radio_group_old" + back_id;
+        
+        if ( ( $('input[name="'+ which_radio_old +'"]:checked').val() > 0 ) && ( $('input[name="'+ which_radio_old +'"]:checked').val() < 11 ) ) {
+            
+            
+            
+            which_radio_selection_old = $('input[name="'+ which_radio_old +'"]:checked').val();
+            
+            
+            
+           sendPollVoteOld(which_radio_selection_old, back_id);
             
             
             
@@ -1875,7 +2000,45 @@ $("#myTextBox").on("input", function() {
  
     
     
+ 
     
+    
+        
+    function sendPollVoteOld(selection, back_db_id)  {
+        
+        
+             poll_vote_url = "<?php echo $_SESSION['url_placeholder'];  ?>poll_vote";
+        
+        
+             $.ajax( {
+             url: poll_vote_url,
+             type: "POST",
+             async: true,
+             data: {
+                "vote": 1,
+                "choice": selection,
+                 "group_id": page_group_id,
+                 "post_id": back_db_id
+             },
+             success: function( data ) {
+                 
+                 
+                 window["votebuttonold" + back_db_id] = true;
+                 
+                 getOldPollVote(back_db_id);
+                 
+                 setInterval(getOldPollVote, 10000, back_db_id);
+                 
+        
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                
+                 
+                 
+             }
+          } );
+        
+    }
     
     
     
@@ -2030,6 +2193,215 @@ $("#myTextBox").on("input", function() {
     
     
     
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    function getOldPollVote(back_id)  {
+        
+        
+             poll_percent_url = "<?php echo $_SESSION['url_placeholder'];  ?>poll_percent";
+        
+        
+             $.ajax( {
+             url: poll_percent_url,
+             type: "POST",
+             async: true,
+             timeout: 60000,
+             data: {
+                "percent": 1,
+                 "post_id": back_id
+             },
+             success: function( data ) {
+                 
+                 
+                
+         
+                 
+                 
+             //   alert(data);
+                 
+                 
+                 var jsonGetPollOld = JSON.parse( data );
+            
+                 var jsonOldChoice1 =  jsonGetPollOld[0];
+                 
+                 var jsonOldChoice2 =  jsonGetPollOld[1];
+                 
+                 var jsonOldChoice3 =  jsonGetPollOld[2];
+                 
+                 var jsonOldChoice4 =  jsonGetPollOld[3];
+                 
+                 var jsonOldChoice5 =  jsonGetPollOld[4];
+                 
+                 var jsonOldChoice6 =  jsonGetPollOld[5];
+                 
+                 var jsonOldChoice7 =  jsonGetPollOld[6];
+                 
+                 var jsonOldChoice8 =  jsonGetPollOld[7];
+                 
+                 var jsonOldChoice9 =  jsonGetPollOld[8];
+                 
+                 var jsonOldChoice10 =  jsonGetPollOld[9];
+                 
+                 var jsonUserOldChoice = jsonGetPollOld[10];
+                 
+                 
+                 var totalJsonOldChoice = jsonOldChoice1 + jsonOldChoice2 + jsonOldChoice3 + jsonOldChoice4 + jsonOldChoice5 + jsonOldChoice6 + jsonOldChoice7 + jsonOldChoice8 + jsonOldChoice9 + jsonOldChoice10;
+                 
+                 
+                 var totalJsonOldChoiceSum = jsonOldChoice1 + jsonOldChoice2 + jsonOldChoice3 + jsonOldChoice4 + jsonOldChoice5 + jsonOldChoice6 + jsonOldChoice7 + jsonOldChoice8 + jsonOldChoice9 + jsonOldChoice10;
+                 
+                 
+                 if (totalJsonOldChoice == 0) {
+                     
+                     totalJsonOldChoice = 1;
+                     
+                 } else {
+                     
+                     totalJsonOldChoice = totalJsonOldChoice;
+                     
+                 }
+                 
+                 
+                 
+                 
+                 
+                 if(window["votebuttonold" + back_id]) {
+                     
+                     
+                     
+        
+                     
+                     
+                     if(jsonUserOldChoice == 0) {
+                         
+                         $(".radio-first-old" + back_id).show(300);
+                 
+                         $(".radio-second-old" + back_id).hide(300);
+                         
+                         $("#pollvote_old" + back_id).show();
+                 
+                 $("#pollchange_old" + back_id).hide();
+                 
+                 $("#pollvote_old" + back_id).blur();
+                         
+                     } else if  (jsonUserOldChoice > 0)  {
+                         
+                         $(".radio-first-old" + back_id).hide(300);
+                 
+                         $(".radio-second-old" + back_id).show(300);
+                         
+                         $("#pollvote_old" + back_id).hide();
+                 
+                 $("#pollchange_old" + back_id).show();
+                 
+                 $("#pollvote_old" + back_id).blur();
+                         
+                     }
+                 
+                 
+                 
+                     
+                
+                     
+                 }
+                 
+                 
+                 for ( var poll_img_i_old = 1; poll_img_i_old < 11; poll_img_i_old++ ) {
+                     
+                     $(".poll-img" + poll_img_i_old + "-old" + back_id).hide();
+                     
+                 }
+                 
+                 
+                 
+                 
+                 
+                 $(".poll-img" + jsonUserOldChoice + "-old" + back_id).show();
+                 
+                 
+                 $(".poll-score1-old" + back_id).html(Math.round((jsonOldChoice1/totalJsonOldChoice) * 100) + "% | " + jsonOldChoice1 + " votes");
+                 
+                 $("#progressPoll1-old" + back_id).val(Math.round((jsonOldChoice1/totalJsonOldChoice) * 100));
+                 
+                 
+                 
+                 $(".poll-score2-old" + back_id).html(Math.round((jsonOldChoice2/totalJsonOldChoice) * 100) + "% | " + jsonOldChoice2 + " votes");
+                 
+                 $("#progressPoll2-old" + back_id).val(Math.round((jsonOldChoice2/totalJsonOldChoice) * 100));
+                 
+                 
+                     
+                 $(".poll-score3-old" + back_id).html(Math.round((jsonOldChoice3/totalJsonOldChoice) * 100) + "% | " + jsonOldChoice3 + " votes");
+                 $("#progressPoll3-old" + back_id).val(((jsonOldChoice3/totalJsonOldChoice) * 100));
+                 
+                 
+                 $(".poll-score4-old" + back_id).html(Math.round((jsonOldChoice4/totalJsonOldChoice) * 100) + "% | " + jsonOldChoice4 + " votes");
+                 $("#progressPoll4-old" + back_id).val(((jsonOldChoice4/totalJsonOldChoice) * 100));
+                 
+                 
+                 $(".poll-score5-old" + back_id).html(Math.round((jsonOldChoice5/totalJsonOldChoice) * 100) + "% | " + jsonOldChoice5 + " votes");
+                 $("#progressPoll5-old" + back_id).val(((jsonOldChoice5/totalJsonOldChoice) * 100));
+                 
+                 
+                 
+                 $(".poll-score6-old" + back_id).html(Math.round((jsonOldChoice6/totalJsonOldChoice) * 100) + "% | " + jsonOldChoice6 + " votes");
+                 $("#progressPoll6-old" + back_id).val(((jsonOldChoice6/totalJsonOldChoice) * 100));
+                 
+                 
+                 $(".poll-score7-old" + back_id).html(Math.round((jsonOldChoice7/totalJsonOldChoice) * 100) + "% | " + jsonOldChoice7 + " votes");
+                 $("#progressPoll7-old" + back_id).val(((jsonOldChoice7/totalJsonOldChoice) * 100));
+                 
+                 
+                 
+                 $(".poll-score8-old" + back_id).html(Math.round((jsonOldChoice8/totalJsonOldChoice) * 100) + "% | " + jsonOldChoice8 + " votes");
+                 $("#progressPoll8-old" + back_id).val(((jsonOldChoice8/totalJsonOldChoice) * 100));
+                 
+                 
+                 $(".poll-score9-old" + back_id).html(Math.round((jsonOldChoice9/totalJsonOldChoice) * 100) + "% | " + jsonOldChoice9 + " votes");
+                 $("#progressPoll9-old" + back_id).val(((jsonOldChoice9/totalJsonOldChoice) * 100));
+                 
+                 
+                 $(".poll-score10-old" + back_id).html(Math.round((jsonOldChoice10/totalJsonOldChoice) * 100) + "% | " + jsonOldChoice10 + " votes");
+                 $("#progressPoll10-old" + back_id).val(((jsonOldChoice10/totalJsonOldChoice) * 100));
+                 
+                 
+                 
+                                  
+                if(window["votebuttonold" + back_id]) {
+                     
+                     
+                 $(".poll-total" + back_id).show().html(totalJsonOldChoiceSum + " total votes.");
+                     
+                 }  
+        
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                
+                 
+                 
+             }
+          } );
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -2042,12 +2414,12 @@ $("#myTextBox").on("input", function() {
         
         var new_poll_html = '';
         
-        new_poll_html += '<div  class=\"row poll-div\">';
+        new_poll_html += '<div id=\"'+ 'whole_' + new_post_id +'\" class=\"row poll-div\">';
         
         
         new_poll_html += '<div class=\"col-xs-2\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/nopic.png\" style=\"width: 40px; margin-left: 10px;\"  /></div>';
         
-        new_poll_html += '<div id=\"'+ 'whole_' + new_post_id +'\" class=\"col-xs-10 poll-body\">';
+        new_poll_html += '<div id=\"'+ 'whole_body_' + new_post_id +'\" class=\"col-xs-10 poll-body\">';
         
         new_poll_html += '<p class=\"poll-quest-box\"> ' +  question +' </p>';
 
@@ -3580,6 +3952,407 @@ function displayFromDatabasePagination() {
                   var resultOldPost = jsonOldPost.old_posts[ for_oldpost ];
                    
                   firstTimeID = resultOldPost.id;
+                   
+                   
+                   
+                   
+                   
+                  if(resultOldPost.type == 'poll' && resultOldPost.owner == "<?php echo $user_info['id']; ?>") { 
+                   
+                   
+                      
+                      
+        oldPostHtml += '<div id=\"'+ 'whole_old_post' + resultOldPost.id +'\" class=\"row poll-div\" style=\"margin-bottom: 20px;\">';
+        
+        
+        oldPostHtml += '<div class=\"col-xs-2\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/nopic.png\" style=\"width: 40px; margin-left: 10px;\"  /></div>';
+        
+        oldPostHtml += '<div class=\"col-xs-10 poll-body\">';
+        
+        oldPostHtml += '<p class=\"poll-quest-box\"> ' +  resultOldPost.question +' </p>';
+
+    
+        oldPostHtml += '<form action=\"#\">';
+    
+        
+        
+    
+        oldPostHtml += '<p class=\"poll-answer-box-old'+ resultOldPost.id +'\">';       
+        
+        oldPostHtml += '<div class=\"radio-first  radio-first-old'+ resultOldPost.id +'\"><input class=\"radio-new-class-old'+ resultOldPost.id +'\"  type=\"radio\" id=\"poll-id-1-old'+ resultOldPost.id +'\" value=\"1\" name=\"radio_group_old' + resultOldPost.id + '\">';
+        
+        oldPostHtml += '<label for=\"poll-id-1-old'+ resultOldPost.id +'\" class=\"poll-answer-style-1\"><span> ' + resultOldPost.answer1 + '</span></label><br></div>';
+        
+        oldPostHtml +=  '<div class=\"radio-second radio-second-old'+ resultOldPost.id +'\" style=\"display: none;\">';
+        
+        oldPostHtml +=  '<p class=\"poll-answer-style-1\"> ' + resultOldPost.answer1 + ' </p>';
+        
+        oldPostHtml +=  '<progress value=\"100\" max=\"100\" id=\"progressPoll1-old'+ resultOldPost.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        oldPostHtml +=  '<a class=\"poll-score poll-score1-old'+ resultOldPost.id +'\"> 30% | 34 votes</a>'; 
+        
+        oldPostHtml += '<img class=\"poll-img1-old'+ resultOldPost.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        oldPostHtml +=  '</div>';
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                
+        oldPostHtml += '<p class=\"poll-answer-box-old'+ resultOldPost.id +'\">';       
+        
+        oldPostHtml += '<div class=\"radio-first  radio-first-old'+ resultOldPost.id +'\"><input class=\"radio-new-class-old'+ resultOldPost.id +'\"  type=\"radio\" id=\"poll-id-2-old'+ resultOldPost.id +'\" value=\"2\" name=\"radio_group_old' + resultOldPost.id + '\">';
+        
+        oldPostHtml += '<label for=\"poll-id-2-old'+ resultOldPost.id +'\" class=\"poll-answer-style-1\"><span> ' + resultOldPost.answer2 + '</span></label><br></div>';
+        
+        oldPostHtml +=  '<div class=\"radio-second radio-second-old'+ resultOldPost.id +'\" style=\"display: none;\">';
+        
+        oldPostHtml +=  '<p class=\"poll-answer-style-1\"> ' + resultOldPost.answer2 + ' </p>';
+        
+        oldPostHtml +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll2-old'+ resultOldPost.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        oldPostHtml +=  '<a class=\"poll-score poll-score2-old'+ resultOldPost.id +'\"> 30% | 34 votes</a>'; 
+        
+        oldPostHtml += '<img class=\"poll-img2-old'+ resultOldPost.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        oldPostHtml +=  '</div>';
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+            if (resultOldPost.answer3.trim().length > 0) {          
+            
+        oldPostHtml += '<p class=\"poll-answer-box-old'+ resultOldPost.id +'\">';       
+        
+        oldPostHtml += '<div class=\"radio-first  radio-first-old'+ resultOldPost.id +'\"><input class=\"radio-new-class-old'+ resultOldPost.id +'\"  type=\"radio\" id=\"poll-id-3-old'+ resultOldPost.id +'\" value=\"3\" name=\"radio_group_old' + resultOldPost.id + '\">';
+        
+        oldPostHtml += '<label for=\"poll-id-3-old'+ resultOldPost.id +'\" class=\"poll-answer-style-1\"><span> ' + resultOldPost.answer3 + '</span></label><br></div>';
+        
+        oldPostHtml +=  '<div class=\"radio-second radio-second-old'+ resultOldPost.id +'\" style=\"display: none;\">';
+        
+        oldPostHtml +=  '<p class=\"poll-answer-style-1\"> ' + resultOldPost.answer3 + ' </p>';
+        
+        oldPostHtml +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll3-old'+ resultOldPost.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        oldPostHtml +=  '<a class=\"poll-score poll-score3-old'+ resultOldPost.id +'\"> 30% | 34 votes</a>'; 
+        
+        oldPostHtml += '<img class=\"poll-img3-old'+ resultOldPost.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        oldPostHtml +=  '</div>';
+
+        }
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+            if (resultOldPost.answer4.trim().length > 0) {          
+            
+        oldPostHtml += '<p class=\"poll-answer-box-old'+ resultOldPost.id +'\">';       
+        
+        oldPostHtml += '<div class=\"radio-first  radio-first-old'+ resultOldPost.id +'\"><input class=\"radio-new-class-old'+ resultOldPost.id +'\"  type=\"radio\" id=\"poll-id-4-old'+ resultOldPost.id +'\" value=\"4\" name=\"radio_group_old' + resultOldPost.id + '\">';
+        
+        oldPostHtml += '<label for=\"poll-id-4-old'+ resultOldPost.id +'\" class=\"poll-answer-style-1\"><span> ' + resultOldPost.answer4 + '</span></label><br></div>';
+        
+        oldPostHtml +=  '<div class=\"radio-second radio-second-old'+ resultOldPost.id +'\" style=\"display: none;\">';
+        
+        oldPostHtml +=  '<p class=\"poll-answer-style-1\"> ' + resultOldPost.answer4 + ' </p>';
+        
+        oldPostHtml +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll4-old'+ resultOldPost.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        oldPostHtml +=  '<a class=\"poll-score poll-score4-old'+ resultOldPost.id +'\"> 30% | 34 votes</a>'; 
+        
+        oldPostHtml += '<img class=\"poll-img4-old'+ resultOldPost.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        oldPostHtml +=  '</div>';
+
+        }
+                      
+                      
+                      
+                      
+                      
+                      
+        if (resultOldPost.answer5.trim().length > 0) {          
+            
+        oldPostHtml += '<p class=\"poll-answer-box-old'+ resultOldPost.id +'\">';       
+        
+        oldPostHtml += '<div class=\"radio-first  radio-first-old'+ resultOldPost.id +'\"><input class=\"radio-new-class-old'+ resultOldPost.id +'\"  type=\"radio\" id=\"poll-id-5-old'+ resultOldPost.id +'\" value=\"5\" name=\"radio_group_old' + resultOldPost.id + '\">';
+        
+        oldPostHtml += '<label for=\"poll-id-5-old'+ resultOldPost.id +'\" class=\"poll-answer-style-1\"><span> ' + resultOldPost.answer5 + '</span></label><br></div>';
+        
+        oldPostHtml +=  '<div class=\"radio-second radio-second-old'+ resultOldPost.id +'\" style=\"display: none;\">';
+        
+        oldPostHtml +=  '<p class=\"poll-answer-style-1\"> ' + resultOldPost.answer5 + ' </p>';
+        
+        oldPostHtml +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll5-old'+ resultOldPost.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        oldPostHtml +=  '<a class=\"poll-score poll-score5-old'+ resultOldPost.id +'\"> 30% | 34 votes</a>'; 
+        
+        oldPostHtml += '<img class=\"poll-img5-old'+ resultOldPost.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        oldPostHtml +=  '</div>';
+
+        }
+                      
+                      
+                      
+                      
+           
+                      
+               if (resultOldPost.answer6.trim().length > 0) {          
+            
+        oldPostHtml += '<p class=\"poll-answer-box-old'+ resultOldPost.id +'\">';       
+        
+        oldPostHtml += '<div class=\"radio-first  radio-first-old'+ resultOldPost.id +'\"><input class=\"radio-new-class-old'+ resultOldPost.id +'\"  type=\"radio\" id=\"poll-id-6-old'+ resultOldPost.id +'\" value=\"6\" name=\"radio_group_old' + resultOldPost.id + '\">';
+        
+        oldPostHtml += '<label for=\"poll-id-6-old'+ resultOldPost.id +'\" class=\"poll-answer-style-1\"><span> ' + resultOldPost.answer6 + '</span></label><br></div>';
+        
+        oldPostHtml +=  '<div class=\"radio-second radio-second-old'+ resultOldPost.id +'\" style=\"display: none;\">';
+        
+        oldPostHtml +=  '<p class=\"poll-answer-style-1\"> ' + resultOldPost.answer6 + ' </p>';
+        
+        oldPostHtml +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll6-old'+ resultOldPost.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        oldPostHtml +=  '<a class=\"poll-score poll-score6-old'+ resultOldPost.id +'\"> 30% | 34 votes</a>'; 
+        
+        oldPostHtml += '<img class=\"poll-img6-old'+ resultOldPost.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        oldPostHtml +=  '</div>';
+
+        }
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      if (resultOldPost.answer7.trim().length > 0) {          
+            
+        oldPostHtml += '<p class=\"poll-answer-box-old'+ resultOldPost.id +'\">';       
+        
+        oldPostHtml += '<div class=\"radio-first  radio-first-old'+ resultOldPost.id +'\"><input class=\"radio-new-class-old'+ resultOldPost.id +'\"  type=\"radio\" id=\"poll-id-7-old'+ resultOldPost.id +'\" value=\"7\" name=\"radio_group_old' + resultOldPost.id + '\">';
+        
+        oldPostHtml += '<label for=\"poll-id-7-old'+ resultOldPost.id +'\" class=\"poll-answer-style-1\"><span> ' + resultOldPost.answer7 + '</span></label><br></div>';
+        
+        oldPostHtml +=  '<div class=\"radio-second radio-second-old'+ resultOldPost.id +'\" style=\"display: none;\">';
+        
+        oldPostHtml +=  '<p class=\"poll-answer-style-1\"> ' + resultOldPost.answer7 + ' </p>';
+        
+        oldPostHtml +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll7-old'+ resultOldPost.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        oldPostHtml +=  '<a class=\"poll-score poll-score7-old'+ resultOldPost.id +'\"> 30% | 34 votes</a>'; 
+        
+        oldPostHtml += '<img class=\"poll-img7-old'+ resultOldPost.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        oldPostHtml +=  '</div>';
+
+        }       
+                      
+                      
+                      
+          
+                      
+                      
+                      
+                      
+                             if (resultOldPost.answer8.trim().length > 0) {          
+            
+        oldPostHtml += '<p class=\"poll-answer-box-old'+ resultOldPost.id +'\">';       
+        
+        oldPostHtml += '<div class=\"radio-first  radio-first-old'+ resultOldPost.id +'\"><input class=\"radio-new-class-old'+ resultOldPost.id +'\"  type=\"radio\" id=\"poll-id-8-old'+ resultOldPost.id +'\" value=\"8\" name=\"radio_group_old' + resultOldPost.id + '\">';
+        
+        oldPostHtml += '<label for=\"poll-id-8-old'+ resultOldPost.id +'\" class=\"poll-answer-style-1\"><span> ' + resultOldPost.answer8 + '</span></label><br></div>';
+        
+        oldPostHtml +=  '<div class=\"radio-second radio-second-old'+ resultOldPost.id +'\" style=\"display: none;\">';
+        
+        oldPostHtml +=  '<p class=\"poll-answer-style-1\"> ' + resultOldPost.answer8 + ' </p>';
+        
+        oldPostHtml +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll8-old'+ resultOldPost.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        oldPostHtml +=  '<a class=\"poll-score poll-score8-old'+ resultOldPost.id +'\"> 30% | 34 votes</a>'; 
+        
+        oldPostHtml += '<img class=\"poll-img8-old'+ resultOldPost.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        oldPostHtml +=  '</div>';
+
+        }
+                      
+                      
+                
+                      
+                      
+                      
+                             if (resultOldPost.answer9.trim().length > 0) {          
+            
+        oldPostHtml += '<p class=\"poll-answer-box-old'+ resultOldPost.id +'\">';       
+        
+        oldPostHtml += '<div class=\"radio-first  radio-first-old'+ resultOldPost.id +'\"><input class=\"radio-new-class-old'+ resultOldPost.id +'\"  type=\"radio\" id=\"poll-id-9-old'+ resultOldPost.id +'\" value=\"9\" name=\"radio_group_old' + resultOldPost.id + '\">';
+        
+        oldPostHtml += '<label for=\"poll-id-9-old'+ resultOldPost.id +'\" class=\"poll-answer-style-1\"><span> ' + resultOldPost.answer9 + '</span></label><br></div>';
+        
+        oldPostHtml +=  '<div class=\"radio-second radio-second-old'+ resultOldPost.id +'\" style=\"display: none;\">';
+        
+        oldPostHtml +=  '<p class=\"poll-answer-style-1\"> ' + resultOldPost.answer9 + ' </p>';
+        
+        oldPostHtml +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll9-old'+ resultOldPost.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        oldPostHtml +=  '<a class=\"poll-score poll-score9-old'+ resultOldPost.id +'\"> 30% | 34 votes</a>'; 
+        
+        oldPostHtml += '<img class=\"poll-img9-old'+ resultOldPost.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        oldPostHtml +=  '</div>';
+
+        }
+                      
+                      
+           
+                      
+                if (resultOldPost.answer10.trim().length > 0) {          
+            
+        oldPostHtml += '<p class=\"poll-answer-box-old'+ resultOldPost.id +'\">';       
+        
+        oldPostHtml += '<div class=\"radio-first  radio-first-old'+ resultOldPost.id +'\"><input class=\"radio-new-class-old'+ resultOldPost.id +'\"  type=\"radio\" id=\"poll-id-10-old'+ resultOldPost.id +'\" value=\"10\" name=\"radio_group_old' + resultOldPost.id + '\">';
+        
+        oldPostHtml += '<label for=\"poll-id-10-old'+ resultOldPost.id +'\" class=\"poll-answer-style-1\"><span> ' + resultOldPost.answer10 + '</span></label><br></div>';
+        
+        oldPostHtml +=  '<div class=\"radio-second radio-second-old'+ resultOldPost.id +'\" style=\"display: none;\">';
+        
+        oldPostHtml +=  '<p class=\"poll-answer-style-1\"> ' + resultOldPost.answer10 + ' </p>';
+        
+        oldPostHtml +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll10-old'+ resultOldPost.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        oldPostHtml +=  '<a class=\"poll-score poll-score10-old'+ resultOldPost.id +'\"> 30% | 34 votes</a>'; 
+        
+        oldPostHtml += '<img class=\"poll-img10-old'+ resultOldPost.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        oldPostHtml +=  '</div>';
+
+        }
+                      
+                      
+                      
+                            
+        
+        oldPostHtml += '</form>';
+        
+        
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+        oldPostHtml += '<div class=\"row\">';                    
+                            
+          oldPostHtml += '<div class=\"col-xs-12\">';
+              
+                            
+          oldPostHtml += '<a  onclick=\"pollvoteold('+ resultOldPost.id + ')\">';    
+        
+          oldPostHtml += '<button id=\"pollvote_old'+ resultOldPost.id +'\" class=\"btn poll-1\">';
+        
+          oldPostHtml += 'Vote</button></a>';
+              
+              
+          oldPostHtml += '<a onclick=\"voteagainold('+ resultOldPost.id + ')\" id=\"pollchange_old'+ resultOldPost.id +'\" style=\"display: none;\">';    
+        
+          oldPostHtml += '<button class=\"btn poll-1\">';
+        
+          oldPostHtml += 'Change Vote</button></a>';
+              
+              
+        
+          oldPostHtml += '<a class=\"poll-totalold'+ resultOldPost.id +'\" style=\"display: none; margin-left: 30px;\">589 total votes</a>';
+              
+          oldPostHtml += '</div></div><br>';
+              
+              
+                     
+          oldPostHtml += '<div class=\"row\" >';
+                     
+                     
+          oldPostHtml += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
+                     
+                    
+                     
+          oldPostHtml += '<img onclick=\"start_delete_old(' + resultOldPost.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
+                     
+                     
+          oldPostHtml += '</div>';
+                     
+                     
+          oldPostHtml += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
+                     
+                    
+           
+           
+          oldPostHtml += '<img class=\" size-2 '+ 'start_delete_old' + resultOldPost.id + '   like_delete_old'  +  resultOldPost.id  +  '    \" src=\"' + resultOldPost.like_src + '\" onclick=\"likeoldpoll(' +  resultOldPost.id + ') \" />';
+           
+           
+                     
+          oldPostHtml += '<img onclick=\"show_delete_old(' + resultOldPost.id + ') \" class=\" size-3 '+ 'start_delete_old' + resultOldPost.id +' \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/trash.png' + '\" />';
+                     
+          oldPostHtml += '</div>';
+                     
+                     
+          oldPostHtml += '<div class=\"col-xs-5\" >';
+                     
+                     
+          oldPostHtml += '<a class=\"delete-2 '+ 'show_delete_old' + resultOldPost.id +'\" onclick=\"deletenewpoll_old(' +  resultOldPost.id + ') \">delete</a><a style=\"display: none; font-size: 13px;\" class=\"'+ 'show_delete_old' + resultOldPost.id +'\" > //</a>';
+                     
+                     
+          oldPostHtml += '<a onclick=\"hide_delete_old(' + resultOldPost.id + ') \" class=\"delete-3 '+ 'show_delete_old' + resultOldPost.id +'\">don\'t</a>';
+                     
+                     
+          oldPostHtml += '</div>';
+                     
+                         
+                     
+          oldPostHtml += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
+                     
+                    
+                     
+          oldPostHtml += '<img class=\" size-1 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" />';
+                     
+                     
+          oldPostHtml += '</div>';
+                     
+                     
+                     
+          oldPostHtml += '</div></div></div>';
+                     
+                        
+                      
+            window["votebuttonold" + resultOldPost.id] = true;
+              
+               // setTimeout(getOldPollVote, 10000, resultOldPost.id);      
+             getOldPollVote(resultOldPost.id);
+                   
+               }
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
                  
                  
                  
@@ -4178,6 +4951,120 @@ function displayFromDatabasePagination() {
     
     
     
+    
+    
+    function likenewpoll(back_id, front_id) {
+           
+           
+            if ( $('.like_delete' + front_id).attr('src') == '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/unlike.svg' ) {
+              
+                   
+              
+                   $('.like_delete' + front_id).attr('src', '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/like.svg');
+              
+               
+           } else if ($('.like_delete' + front_id).attr('src') == '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/like.svg') {
+              
+              
+                   $('.like_delete' + front_id).attr('src', '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/unlike.svg');
+               
+               
+           }
+           
+           
+           
+       like_old_url = "<?php  echo $_SESSION['url_placeholder'];  ?>" + "like_old";
+       
+       $.ajax( {
+             url: like_old_url,
+             type: "POST",
+             async: true,
+             data: {
+                "likepost": 1,
+                "post_id": back_id,
+                 "group_id": page_group_id
+             },
+             success: function( data ) {
+          
+             },
+           
+             error: function( xhr, textStatus, errorThrown ) {
+             
+                 
+                 
+             }
+          } ); 
+           
+           
+           
+     } 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        
+    function likeoldpoll(back_id) {
+           
+           
+            if ( $('.like_delete_old' + back_id).attr('src') == '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/unlike.svg' ) {
+              
+                   
+              
+                   $('.like_delete_old' + back_id).attr('src', '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/like.svg');
+              
+               
+           } else if ($('.like_delete_old' + back_id).attr('src') == '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/like.svg') {
+              
+              
+                   $('.like_delete_old' + back_id).attr('src', '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/unlike.svg');
+               
+               
+           }
+           
+           
+           
+       like_old_url = "<?php  echo $_SESSION['url_placeholder'];  ?>" + "like_old";
+       
+       $.ajax( {
+             url: like_old_url,
+             type: "POST",
+             async: true,
+             data: {
+                "likepost": 1,
+                "post_id": back_id,
+                 "group_id": page_group_id
+             },
+             success: function( data ) {
+          
+             },
+           
+             error: function( xhr, textStatus, errorThrown ) {
+             
+                 
+                 
+             }
+          } ); 
+           
+           
+           
+     } 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
         
    function deleteoldpost(post_ui_id) {
        
@@ -4252,17 +5139,125 @@ function displayFromDatabasePagination() {
   
     
     
+    
+    
+    
+    
+    
+       function deletenewpoll(back_id, front_id) {
+    
+       $("#whole_new_post" + front_id).hide(200);
+     
+       delete_post_url_new = "<?php  echo $_SESSION['url_placeholder'];  ?>" + "delete_post";
+       
+       $.ajax( {
+             url: delete_post_url_new,
+             type: "POST",
+             async: true,
+             data: {
+                "deletepost": 1,
+                "post_id": back_id
+             },
+             success: function( data ) {
+                 
+                 
+                 
+             },
+           
+             error: function( xhr, textStatus, errorThrown ) {
+             
+                 
+                 
+             }
+          } );  
+       
+       
+   }
+    
+    
+    
+    
+    
+    
+    
+    
+        function deletenewpoll_old(back_id) {
+    
+       $("#whole_old_post" + back_id).hide(200);
+     
+       delete_post_url_new = "<?php  echo $_SESSION['url_placeholder'];  ?>" + "delete_post";
+       
+       $.ajax( {
+             url: delete_post_url_new,
+             type: "POST",
+             async: true,
+             data: {
+                "deletepost": 1,
+                "post_id": back_id
+             },
+             success: function( data ) {
+                 
+                 
+                 
+             },
+           
+             error: function( xhr, textStatus, errorThrown ) {
+             
+                 
+                 
+             }
+          } );  
+       
+       
+   }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
  function start_delete(post_ui) {
 
      $(".start_delete" + post_ui).toggle(200);
        
        
-}    
+}  
+    
+     function start_delete_old(back_id) {
+
+     $(".start_delete_old" + back_id).toggle(200);
+       
+       
+} 
     
     
  function show_delete(post_ui) {
 
      $(".show_delete" + post_ui).show(200);
+       
+       
+}
+    
+    
+    
+     function show_delete_old(back_id) {
+
+     $(".show_delete_old" + back_id).show(200);
        
        
 }
@@ -4277,7 +5272,15 @@ function hide_delete(post_ui) {
        
 }
     
+   
     
+    
+    function hide_delete_old(back_id) {
+
+     $(".show_delete_old" + back_id).hide(200);
+       
+       
+}
     
     
     function sendPostDataAttach( post_id, path, name, type, posttype,  post_id_0) {

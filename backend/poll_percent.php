@@ -97,11 +97,26 @@ if (isset($_POST['percent']))  {
     
       $user_choice_result = $user_choice->get_result();
     
+    
+      $num = $user_choice_result->num_rows;
+    
+      if ($num == 0) {
+          
+          $user_choice_selection = 0;
+          
+      } elseif ($num == 1) {
+          
       while ($user_selection = $user_choice_result->fetch_assoc()) {
           
           $user_choice_selection = $user_selection['selection'];
           
       }
+          
+      } else {
+          
+      }
+    
+
     
     
     
