@@ -326,17 +326,17 @@ margin-left: 10px; width: 250px; height: 100px; padding: 8px; border: 1px solid 
 .group-list-notifs {
     
     
-    padding: 7px; border-radius: 4px; background: #ddd; font-family: Josefin Slab;
+    padding: 7px; border-radius: 4px; background: #ddd; font-family: Work Sans;
    font-size: 15px;
-   font-weight: bold;
+   
 }
 
 
 .group-list-name {
     
-    font-family: Josefin Slab;
+    font-family: Work Sans;
    font-size: 15px;
-   font-weight: bold;
+   
     
 }
 
@@ -576,9 +576,9 @@ padding: 0 0 0 0;
 
 .group-list-membercount {
     
-    font-family: Josefin Slab;
+    font-family: Work Sans;
    font-size: 15px;
-   font-weight: bold;
+
     color: black;
     
 }

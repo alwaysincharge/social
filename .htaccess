@@ -11,6 +11,8 @@ RewriteRule ^newgroup frontend/html/pages/newgroup.php [NC,L]
 
 RewriteRule ^dashboard/([0-9]+) frontend/html/pages/dashboard.php?group=$1 [NC,L]
 
+RewriteRule ^poll/([0-9]+) frontend/html/pages/poll.php?group=$1 [NC,L]
+
 RewriteRule ^members/([0-9]+) frontend/html/pages/members.php?members=$1 [NC,L]
 
 RewriteRule ^logout backend/logout.php [NC,L]
@@ -22,6 +24,8 @@ RewriteRule ^decline_request backend/decline_request.php [NC,L]
 RewriteRule ^send_chat backend/send_chat.php [NC,L]
 
 RewriteRule ^fetch_recent_posts backend/fetch_recent_posts.php [NC,L]
+
+RewriteRule ^fetch_recent_poll backend/fetch_recent_poll.php [NC,L]
 
 RewriteRule ^fetch_old_posts backend/fetch_old_posts.php [NC,L]
 

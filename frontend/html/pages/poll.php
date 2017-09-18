@@ -69,7 +69,7 @@ $user_info = $user_details_result->fetch_assoc();
                     }
                 
                 ?>
-               </span></a>
+               </span>  <span class="logo-heading-2">//</span> all polls</a>
                             
         </div>
         
@@ -82,7 +82,7 @@ $user_info = $user_details_result->fetch_assoc();
             <div style="float: right;">
             
             
-            <input id="myTextBox"  maxlength="100" name="keywords" class="search-main" placeholder="Search group chat and files" />
+            <input id="myTextBox"  maxlength="100" name="keywords" class="search-main" placeholder="Search group polls" />
                 
             
             
@@ -283,197 +283,25 @@ $user_info = $user_details_result->fetch_assoc();
                     
                     
                         
-                        
-                        
-                        
-                           
-                    <div class="row post-editor">
-                        
-                    
-                        
-                        
-                    <div class="col-xs-2" id="chatboxicon" style="cursor: pointer;">
-                        
-                        <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/chatting.svg" class="input-style-1"  />
-                        
-                        <p class="input-style-2">Chat</p>
-                        
-                    </div>
-                        
-                        
-                        
-                        
-                      
-                    <div class="col-xs-2">
-                        
-                         <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/typography.svg" class="input-style-1"  />
-                        
-                         <p class="input-style-2">Text post</p>
-                        
-                    </div>
-                        
-                        
-                        
-                        
-                    <div class="col-xs-2">
-                        
-                        <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/camera.svg" class="input-style-1"  />
-                        
-                         <p class="input-style-2">Photo/Album</p>
-                        
-                    </div>
-                        
-                        
-                        
-                        
-                        
-                    <div class="col-xs-2">
-                        
-                        <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/video-camera.svg" class="input-style-1" />
-                        
-                         <p class="input-style-2">Videos</p>
-                        
-                    </div>
-                        
-                        
-                        
-                        
-                        
-                        
-                    <div class="col-xs-2" id="pollicon" style="cursor: pointer;">
-                        
-                        <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/hands.svg" class="input-style-1"  />
-                        
-                         <p class="input-style-2">Polls</p>
-                        
-                    </div>
-                        
-                        
-                       
-                        <a href="<?php echo $_SESSION['url_placeholder'] . "members/" . $_GET['group'];  ?>">
-                        <div class="col-xs-2">
-                        
-                        <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/collaboration.svg" class="input-style-1"  />
-                        
-                         <p class="input-style-2">Members</p>
-                        
-                        </div> </a>
-                        
-                        
-                    
-                    </div>
-                    
-                    
-                    
-                    
-                    
-                    
-                   <div id="chatbox" style="display: none; margin-bottom: -40px;">
-                    
-                        <textarea id="text" type="text" class="search-main" maxlength="200" placeholder="write something" style="margin-bottom: 10px; width: 100%; height: 70px; resize: none; outline: none;"></textarea>
-                       
-                       
-                       
-                                              
-                       <label id="file1label" for="file1" class="custom-file-upload" style="display: none; background: #ddd; padding: 6px; border-radius: 4px; font-family: Josefin Slab;
-   font-size: 16px; cursor: pointer;
-   font-weight: bold;">
-    select file
-</label>
-                       <input type="file" id="file1" class="btn" style="display: none;"/><br>
-                       
-                       <!-- <input type="button" value="Upload file" onclick="uploadFile()" /><br> -->
-                       
-                       <progress value="0" max="100" id="progressBar" style="height: 5px; width: 250px; display: none;"></progress> 
-                       
-                       <a id="status" style="display: inline; font-family: Josefin Slab;
-   font-size: 26px;
-   font-weight: bold; color: blue; margin-left: 20px;"></a>
-                       
-                       
-                       <a id="progressMessage" style="font-family: Josefin Slab;
-   font-size: 16px;
-   font-weight: bold;"></a>
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                     
-                    
-                        <a id="chatboxfile"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/attachment.svg" style="width: 13px; cursor: pointer;"  /></a>
-                    
-                        <a id="chatboxclose"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/cancel.svg" style="width: 13px; margin-left: 10px; cursor: pointer;"  /></a> <br><br>
-                       
                        
 
-                
-                    
-                   </div> 
-                    
-                
-                    
-                    
-                    <div id="pollbox" style="display: none; ">
-                        
-                        <p style="font-family: Work Sans; cursor: pointer;">Create a poll | <span><a onclick="window.location='<?php echo $_SESSION['url_placeholder'] . "poll/" . $_GET['group'];   ?>';">View all polls in this group.</a></span></p>
-                        
-                        
-                    <textarea id="poll-q" type="text" class="poll-q-style" maxlength="140" placeholder="write a poll question."></textarea>  
-                        
-                    <textarea id="poll-a1" type="text" class="poll-a-style" maxlength="140" placeholder="answer 1"></textarea>
-                        
-                    <textarea id="poll-a2" type="text" class="poll-a-style" maxlength="140" placeholder="answer 2"></textarea>
-                        
-                    <textarea id="poll-a3" type="text" class="poll-opt-show" maxlength="140" placeholder="answer 3 (optional)"></textarea>
-                        
-                    <textarea id="poll-a4" type="text" class="poll-opt" maxlength="140" placeholder="answer 4 (optional)"></textarea>
-                        
-                    <textarea id="poll-a5" type="text" class="poll-opt" maxlength="140" placeholder="answer 5 (optional)"></textarea>
-                        
-                    <textarea id="poll-a6" type="text" class="poll-opt" maxlength="140" placeholder="answer 6 (optional)"></textarea>
-                        
-                        
-                    <textarea id="poll-a7" type="text" class="poll-opt" maxlength="140" placeholder="answer 7 (optional)"></textarea>
-                        
-                    <textarea id="poll-a8" type="text" class="poll-opt" maxlength="140" placeholder="answer 8 (optional)"></textarea>
-                        
-                    <textarea id="poll-a9" type="text" class="poll-opt" maxlength="140" placeholder="answer 9 (optional)"></textarea>
-                        
-                    <textarea id="poll-a10" type="text" class="poll-opt" maxlength="140" placeholder="answer 10 (optional)"></textarea>
-                        
-                        
-                    <br>
-                        
-                        <p id="pollerror"></p>
-                        
-                    <a id="submitpoll">
-                
-                    <button class="btn poll-1">   
-                    
-                    Submit</button>
-            
-                    </a> 
-                        
-                        
-                        
-                    <a id="pollboxclose"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/cancel.svg" style="width: 13px; margin-left: 10px; cursor: pointer;"  /></a> <br>
-                        
-                        
-                    </div>
-                 
                     
                     
                     
                     
                     
-<div id="postsdiv" style="margin-top: 40px;">
+                    
+                    
+<div id="postsdiv" style="margin-top: 10px;">
                         
+    
+    
+     <div style="display: table; margin: 0 auto;">
+                        
+                        <p id="nopoll" style=" display: none; margin-bottom: 30px; font-size: 17px; font-family: Eczar;">No polls here yet.</p> 
+                        
+                        
+                        </div>
 
                             
                         <!-- Posts go here. -->                        
@@ -483,22 +311,12 @@ $user_info = $user_details_result->fetch_assoc();
                         
                         
                         
+        
                         
-                        
-                        
+                                                
                         <div style="display: table; margin: 0 auto;">
                         
-                                                <p id="start" style="display: none; margin-bottom: 30px; font-size: 20px; font-family: Eczar;">
-                        
-                        Be the first to make a post. 
-                        </p>
-                        
-                        
-                        
-                        <p id="continue" style="display: none; margin-bottom: 30px; font-size: 20px; font-family: Eczar;">
-                        
-                        Be the first to make a post. 
-                        </p>
+                               
                         
                         
                         <p id="end" style="display: none; margin-bottom: 30px; font-size: 20px; font-family: Eczar;">
@@ -509,6 +327,7 @@ $user_info = $user_details_result->fetch_assoc();
                         
                         </div>
                         
+
 
                 
                         
@@ -1277,14 +1096,11 @@ $("#submitpoll").on("click", function() {
        
        },
        dataType: 'text',
-       async: true,
-       timeout: 15000,
        url: url_placeholder + 'poll_send',
-       type: "POST",
-    
-       success: function( data ) {  
-            
-                  
+       type: "POST"
+        
+    }).done(function(data) {
+        
         
             var jsonPollAppend = JSON.parse( data );
             
@@ -1296,19 +1112,12 @@ $("#submitpoll").on("click", function() {
         
             poll_is_submitted(attach_poll_back_id);
         
-          
-            
-            
-        },
-             error: function( xhr, textStatus, errorThrown ) {
-                
-                 
-                 $.ajax( this );
-                return;
-                 
-             }
         
-    
+        
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        
+
+        
         
     });
     
@@ -1317,7 +1126,14 @@ $("#submitpoll").on("click", function() {
     
     
     
-
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1497,7 +1313,6 @@ $("#myTextBox").on("input", function() {
              url: poll_vote_url,
              type: "POST",
              async: true,
-             timeout: 15000,
              data: {
                 "vote": 1,
                 "choice": selection,
@@ -1518,8 +1333,6 @@ $("#myTextBox").on("input", function() {
              error: function( xhr, textStatus, errorThrown ) {
                 
                  
-                 $.ajax( this );
-                return;
                  
              }
           } );
@@ -1542,7 +1355,6 @@ $("#myTextBox").on("input", function() {
              url: poll_vote_url,
              type: "POST",
              async: true,
-             timeout: 15000,
              data: {
                 "vote": 1,
                 "choice": selection,
@@ -1582,7 +1394,7 @@ $("#myTextBox").on("input", function() {
              url: poll_percent_url,
              type: "POST",
              async: true,
-             timeout: 15000,
+             timeout: 60000,
              data: {
                 "percent": 1,
                  "post_id": back_id
@@ -1711,8 +1523,7 @@ $("#myTextBox").on("input", function() {
              },
              error: function( xhr, textStatus, errorThrown ) {
                 
-                 $.ajax( this );
-                return;
+                 
                  
              }
           } );
@@ -1731,7 +1542,7 @@ $("#myTextBox").on("input", function() {
     
     
     
-    
+
     
     function getOldPollVote(back_id)  {
         
@@ -2269,6 +2080,404 @@ $("#myTextBox").on("input", function() {
                  
                  
                  
+                               if(resultSearch.type == 'poll' && resultSearch.owner == "<?php echo $user_info['id']; ?>") { 
+                   
+                   
+                      
+                      
+        htmlSearch += '<div id=\"'+ 'whole_old_post' + resultSearch.id +'\" class=\"row poll-div\" style=\"margin-bottom: 20px;\">';
+        
+        
+        htmlSearch += '<div class=\"col-xs-2\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/nopic.png\" style=\"width: 40px; margin-left: 10px;\"  /></div>';
+        
+        htmlSearch += '<div class=\"col-xs-10 poll-body\">';
+        
+        htmlSearch += '<p class=\"poll-quest-box\"> ' +  resultSearch.question +' </p>';
+
+    
+        htmlSearch += '<form action=\"#\">';
+    
+        
+        
+    
+        htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
+        
+        htmlSearch += '<div class=\"radio-first  radio-first-old'+ resultSearch.id +'\"><input class=\"radio-new-class-old'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-1-old'+ resultSearch.id +'\" value=\"1\" name=\"radio_group_old' + resultSearch.id + '\">';
+        
+        htmlSearch += '<label for=\"poll-id-1-old'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer1 + '</span></label><br></div>';
+        
+        htmlSearch +=  '<div class=\"radio-second radio-second-old'+ resultSearch.id +'\" style=\"display: none;\">';
+        
+        htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer1 + ' </p>';
+        
+        htmlSearch +=  '<progress value=\"100\" max=\"100\" id=\"progressPoll1-old'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        htmlSearch +=  '<a class=\"poll-score poll-score1-old'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        
+        htmlSearch += '<img class=\"poll-img1-old'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        htmlSearch +=  '</div>';
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                
+        htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
+        
+        htmlSearch += '<div class=\"radio-first  radio-first-old'+ resultSearch.id +'\"><input class=\"radio-new-class-old'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-2-old'+ resultSearch.id +'\" value=\"2\" name=\"radio_group_old' + resultSearch.id + '\">';
+        
+        htmlSearch += '<label for=\"poll-id-2-old'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer2 + '</span></label><br></div>';
+        
+        htmlSearch +=  '<div class=\"radio-second radio-second-old'+ resultSearch.id +'\" style=\"display: none;\">';
+        
+        htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer2 + ' </p>';
+        
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll2-old'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        htmlSearch +=  '<a class=\"poll-score poll-score2-old'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        
+        htmlSearch += '<img class=\"poll-img2-old'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        htmlSearch +=  '</div>';
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+            if (resultSearch.answer3.trim().length > 0) {          
+            
+        htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
+        
+        htmlSearch += '<div class=\"radio-first  radio-first-old'+ resultSearch.id +'\"><input class=\"radio-new-class-old'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-3-old'+ resultSearch.id +'\" value=\"3\" name=\"radio_group_old' + resultSearch.id + '\">';
+        
+        htmlSearch += '<label for=\"poll-id-3-old'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer3 + '</span></label><br></div>';
+        
+        htmlSearch +=  '<div class=\"radio-second radio-second-old'+ resultSearch.id +'\" style=\"display: none;\">';
+        
+        htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer3 + ' </p>';
+        
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll3-old'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        htmlSearch +=  '<a class=\"poll-score poll-score3-old'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        
+        htmlSearch += '<img class=\"poll-img3-old'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        htmlSearch +=  '</div>';
+
+        }
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+            if (resultSearch.answer4.trim().length > 0) {          
+            
+        htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
+        
+        htmlSearch += '<div class=\"radio-first  radio-first-old'+ resultSearch.id +'\"><input class=\"radio-new-class-old'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-4-old'+ resultSearch.id +'\" value=\"4\" name=\"radio_group_old' + resultSearch.id + '\">';
+        
+        htmlSearch += '<label for=\"poll-id-4-old'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer4 + '</span></label><br></div>';
+        
+        htmlSearch +=  '<div class=\"radio-second radio-second-old'+ resultSearch.id +'\" style=\"display: none;\">';
+        
+        htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer4 + ' </p>';
+        
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll4-old'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        htmlSearch +=  '<a class=\"poll-score poll-score4-old'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        
+        htmlSearch += '<img class=\"poll-img4-old'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        htmlSearch +=  '</div>';
+
+        }
+                      
+                      
+                      
+                      
+                      
+                      
+        if (resultSearch.answer5.trim().length > 0) {          
+            
+        htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
+        
+        htmlSearch += '<div class=\"radio-first  radio-first-old'+ resultSearch.id +'\"><input class=\"radio-new-class-old'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-5-old'+ resultSearch.id +'\" value=\"5\" name=\"radio_group_old' + resultSearch.id + '\">';
+        
+        htmlSearch += '<label for=\"poll-id-5-old'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer5 + '</span></label><br></div>';
+        
+        htmlSearch +=  '<div class=\"radio-second radio-second-old'+ resultSearch.id +'\" style=\"display: none;\">';
+        
+        htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer5 + ' </p>';
+        
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll5-old'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        htmlSearch +=  '<a class=\"poll-score poll-score5-old'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        
+        htmlSearch += '<img class=\"poll-img5-old'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        htmlSearch +=  '</div>';
+
+        }
+                      
+                      
+                      
+                      
+           
+                      
+               if (resultSearch.answer6.trim().length > 0) {          
+            
+        htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
+        
+        htmlSearch += '<div class=\"radio-first  radio-first-old'+ resultSearch.id +'\"><input class=\"radio-new-class-old'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-6-old'+ resultSearch.id +'\" value=\"6\" name=\"radio_group_old' + resultSearch.id + '\">';
+        
+        htmlSearch += '<label for=\"poll-id-6-old'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer6 + '</span></label><br></div>';
+        
+        htmlSearch +=  '<div class=\"radio-second radio-second-old'+ resultSearch.id +'\" style=\"display: none;\">';
+        
+        htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer6 + ' </p>';
+        
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll6-old'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        htmlSearch +=  '<a class=\"poll-score poll-score6-old'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        
+        htmlSearch += '<img class=\"poll-img6-old'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        htmlSearch +=  '</div>';
+
+        }
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      if (resultSearch.answer7.trim().length > 0) {          
+            
+        htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
+        
+        htmlSearch += '<div class=\"radio-first  radio-first-old'+ resultSearch.id +'\"><input class=\"radio-new-class-old'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-7-old'+ resultSearch.id +'\" value=\"7\" name=\"radio_group_old' + resultSearch.id + '\">';
+        
+        htmlSearch += '<label for=\"poll-id-7-old'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer7 + '</span></label><br></div>';
+        
+        htmlSearch +=  '<div class=\"radio-second radio-second-old'+ resultSearch.id +'\" style=\"display: none;\">';
+        
+        htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer7 + ' </p>';
+        
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll7-old'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        htmlSearch +=  '<a class=\"poll-score poll-score7-old'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        
+        htmlSearch += '<img class=\"poll-img7-old'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        htmlSearch +=  '</div>';
+
+        }       
+                      
+                      
+                      
+          
+                      
+                      
+                      
+                      
+                             if (resultSearch.answer8.trim().length > 0) {          
+            
+        htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
+        
+        htmlSearch += '<div class=\"radio-first  radio-first-old'+ resultSearch.id +'\"><input class=\"radio-new-class-old'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-8-old'+ resultSearch.id +'\" value=\"8\" name=\"radio_group_old' + resultSearch.id + '\">';
+        
+        htmlSearch += '<label for=\"poll-id-8-old'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer8 + '</span></label><br></div>';
+        
+        htmlSearch +=  '<div class=\"radio-second radio-second-old'+ resultSearch.id +'\" style=\"display: none;\">';
+        
+        htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer8 + ' </p>';
+        
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll8-old'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        htmlSearch +=  '<a class=\"poll-score poll-score8-old'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        
+        htmlSearch += '<img class=\"poll-img8-old'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        htmlSearch +=  '</div>';
+
+        }
+                      
+                      
+                
+                      
+                      
+                      
+                             if (resultSearch.answer9.trim().length > 0) {          
+            
+        htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
+        
+        htmlSearch += '<div class=\"radio-first  radio-first-old'+ resultSearch.id +'\"><input class=\"radio-new-class-old'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-9-old'+ resultSearch.id +'\" value=\"9\" name=\"radio_group_old' + resultSearch.id + '\">';
+        
+        htmlSearch += '<label for=\"poll-id-9-old'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer9 + '</span></label><br></div>';
+        
+        htmlSearch +=  '<div class=\"radio-second radio-second-old'+ resultSearch.id +'\" style=\"display: none;\">';
+        
+        htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer9 + ' </p>';
+        
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll9-old'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        htmlSearch +=  '<a class=\"poll-score poll-score9-old'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        
+        htmlSearch += '<img class=\"poll-img9-old'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        htmlSearch +=  '</div>';
+
+        }
+                      
+                      
+           
+                      
+                if (resultSearch.answer10.trim().length > 0) {          
+            
+        htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
+        
+        htmlSearch += '<div class=\"radio-first  radio-first-old'+ resultSearch.id +'\"><input class=\"radio-new-class-old'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-10-old'+ resultSearch.id +'\" value=\"10\" name=\"radio_group_old' + resultSearch.id + '\">';
+        
+        htmlSearch += '<label for=\"poll-id-10-old'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer10 + '</span></label><br></div>';
+        
+        htmlSearch +=  '<div class=\"radio-second radio-second-old'+ resultSearch.id +'\" style=\"display: none;\">';
+        
+        htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer10 + ' </p>';
+        
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll10-old'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        htmlSearch +=  '<a class=\"poll-score poll-score10-old'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        
+        htmlSearch += '<img class=\"poll-img10-old'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        htmlSearch +=  '</div>';
+
+        }
+                      
+                      
+                      
+                            
+        
+        htmlSearch += '</form>';
+        
+        
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+        htmlSearch += '<div class=\"row\">';                    
+                            
+          htmlSearch += '<div class=\"col-xs-12\">';
+              
+                            
+          htmlSearch += '<a  onclick=\"pollvoteold('+ resultSearch.id + ')\">';    
+        
+          htmlSearch += '<button id=\"pollvote_old'+ resultSearch.id +'\" class=\"btn poll-1\">';
+        
+          htmlSearch += 'Vote</button></a>';
+              
+              
+          htmlSearch += '<a onclick=\"voteagainold('+ resultSearch.id + ')\" id=\"pollchange_old'+ resultSearch.id +'\" style=\"display: none;\">';    
+        
+          htmlSearch += '<button class=\"btn poll-1\">';
+        
+          htmlSearch += 'Change Vote</button></a>';
+              
+              
+        
+          htmlSearch += '<a class=\"poll-totalold'+ resultSearch.id +'\" style=\"display: none; margin-left: 30px;\">589 total votes</a>';
+              
+          htmlSearch += '</div></div><br>';
+              
+              
+                     
+          htmlSearch += '<div class=\"row\" >';
+                     
+                     
+          htmlSearch += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
+                     
+                    
+                     
+          htmlSearch += '<img onclick=\"start_delete_old(' + resultSearch.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
+                     
+                     
+          htmlSearch += '</div>';
+                     
+                     
+          htmlSearch += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
+                     
+                    
+           
+           
+          htmlSearch += '<img class=\" size-2 '+ 'start_delete_old' + resultSearch.id + '   like_delete_old'  +  resultSearch.id  +  '    \" src=\"' + resultSearch.like_src + '\" onclick=\"likeoldpoll(' +  resultSearch.id + ') \" />';
+           
+           
+                     
+          htmlSearch += '<img onclick=\"show_delete_old(' + resultSearch.id + ') \" class=\" size-3 '+ 'start_delete_old' + resultSearch.id +' \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/garbage.svg' + '\" />';
+                     
+          htmlSearch += '</div>';
+                     
+                     
+          htmlSearch += '<div class=\"col-xs-5\" >';
+                     
+                     
+          htmlSearch += '<a class=\"delete-2 '+ 'show_delete_old' + resultSearch.id +'\" onclick=\"deletenewpoll_old(' +  resultSearch.id + ') \">delete</a><a style=\"display: none; font-size: 13px;\" class=\"'+ 'show_delete_old' + resultSearch.id +'\" > //</a>';
+                     
+                     
+          htmlSearch += '<a onclick=\"hide_delete_old(' + resultSearch.id + ') \" class=\"delete-3 '+ 'show_delete_old' + resultSearch.id +'\">don\'t</a>';
+                     
+                     
+          htmlSearch += '</div>';
+                     
+                         
+                     
+          htmlSearch += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
+                     
+                    
+                     
+          htmlSearch += '<img class=\" size-1 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" />';
+                     
+                     
+          htmlSearch += '</div>';
+                     
+                     
+                     
+          htmlSearch += '</div></div></div>';
+                     
+                        
+                      
+            window["votebuttonold" + resultSearch.id] = true;
+              
+               // setTimeout(getOldPollVote, 10000, resultSearch.id);     
+                      
+                      $(".radio-first-old" + resultSearch.id).hide(0);
+                      
+                      $(".radio-second-old" + resultSearch.id).hide(0);
+                      
+             getOldPollVote(resultSearch.id);
+                   
+               }
+                 
+                 
+                 
+                 
+                 
+                 
                  
                  
                  
@@ -2641,139 +2850,7 @@ $("#myTextBox").on("input", function() {
 
     
     
-    
-    
-    
-    
-    
-function _(el) {
-            
-    return document.getElementById(el);
-            
-}
-    
-    
 
-    
-$('#file1').change(function() { 
-    
-    uploadFile();
-    
-});
-    
-    
-    
-    
-function uploadFile() { 
-        
-    
-        var file = _('file1').files[0];
-        
-        
-        if (file.size <= 1000000) {
-        
-        $('#progressBar').show();
-            
-        
-        var formdata = new FormData();
-        
-        formdata.append('file1', file);
-        
-      
-        
-        var ajax = new XMLHttpRequest();
-        
-        ajax.upload.addEventListener("progress", progressHandler, false);
-        
-        ajax.addEventListener("load", completeHandler, false);
-        
-        ajax.addEventListener("abort", abortHandler, false);
-        
-        ajax.open("POST", "<?php echo $_SESSION['url_placeholder'];  ?>send_attach");
-        
-        ajax.send(formdata);
-        
-        } else {
-            
-            _('progressMessage').innerHTML = file.name + " is bigger than 1MB. Try again. <br><br> ";
-            
-        }
-        
-        function progressHandler(event) {
-            
-        //    _('loadedbytes').innerHTML = "Uploaded " + event.loaded + " of" + event.total;
-            
-            var percent = (event.loaded / event.total) * 100;
-            
-            _('progressBar').value = Math.round(percent);
-            
-             $('#progressMessage').show();
-            
-            _('status').innerHTML = Math.round(percent) + "%";
-            
-            _('progressMessage').innerHTML = "Uploading " + file.name;
-            
-            $('#file1label').hide();
-            
-            $('#chatboxclose').hide();
-            
-            $('#chatboxfile').hide();
-        }
-        
-        
-        
-        function completeHandler(event) {
-            
-            
-         //   alert(event.target.responseText);
-            
-            _('status').innerHTML = "";
-            
-              
-              sendAppend("", event.target.responseText);
-            
-            $('#file1label').hide(160);
-            
-            
-            
-            _('progressBar').value = 0;
-            
-           $('#progressBar').hide();
-            
-           _('progressMessage').innerHTML = "";
-            
-             $('#chatboxclose').show();
-            
-            $('#chatboxfile').show();
-        }
-        
-        
-        
-        function errorHandler(event) {
-            
-            _('status').innerHTML = "Upload fail";
-            
-            
-        }
-        
-        
-        
-        
-        function abortHandler(event) {
-            
-            _('status').innerHTML = "Upload aborted";
-            
-            
-        }
-        
-        
-        
-        
-        
-        
-    }
-    
-    
     
     
     
@@ -2887,7 +2964,7 @@ function uploadFile() {
         
        $(window).unbind("scroll");
        
-      startPostLoop();
+    
         
     if ($("#poll-a3").val().length > 0) {
         
@@ -2900,1396 +2977,8 @@ function uploadFile() {
     
     
 
-    function startPostLoop() {
-    
-       displayFromDatabase();
-        
-    }
-    
-    
-    
-    
-function displayFromDatabase() {
-    
-    
-        
-       fetch_new_url = "<?php echo $_SESSION['url_placeholder'];  ?>fetch_recent_posts";
-    
-    var post_on_page = false;
-        
-       $.ajax( {
-           
-          url: fetch_new_url,
-          type: "POST",
-          async: true,
-          timeout: 15000,
-          data: {
-              
-             "fetchnew": 1,
-             "offset": lastTimeID,
-              "group": page_group_id
-              
-          },
-          success: function( data ) {
-              
-        
-            
-             var jsonData = JSON.parse( data );
-             var jsonLength = jsonData.new_posts.length;
-             var html_new_posts_1 = "";
-             var lastTimeIDzeroTest;
-             
-             if ( lastTimeID === 0 ) {
-                 
-                lastTimeIDzeroTest = 1;
-                 
-             }
-              
-              
-                if (lastTimeID > 0) {
-                     
-                     post_on_page = true;
-              
-                     
-                     
-                 }
-              
-              
-              
-              
-             for ( var i_for_id = jsonLength - 1; i_for_id > -1; i_for_id-- ) {
-                 
-                 
-                var new_post_result0 = jsonData.new_posts[ i_for_id ];
-                
-                lastTimeID = new_post_result0.id;
-                
-             }
-            
-                 
-              
-              
-              
-              for ( var i = 0; i < jsonLength; i++ ) {
-                  
-                  
-              var new_post_result = jsonData.new_posts[ i ];
-              
-                 if (new_post_result.owner == 0) {
-                     
-                     $('#start').show();
-                     
-                     $('#continue').hide();
-                     
-                     $('#end').hide();
-                     
-                 } 
-                 
-                 
-                
-           
-                 if (post_on_page) {
-                     
-                    if (new_post_result.owner > 0) {
-                     
-                     $('#start').hide();
-                     
-                     $('#continue').hide();
-                     
-                 } else {
-                     
-                     
-                     
-                 }
-                     
-                 }
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                    if(new_post_result.type == 'poll' && new_post_result.owner != "<?php echo $user_info['id']; ?>") { 
-                   
-                   
-                      
-                      
-        html_new_posts_1 += '<div id=\"'+ 'whole_old_post' + new_post_result.id +'\" class=\"row poll-div-2\" style=\"margin-bottom: 20px;\">';
-        
-        
-        html_new_posts_1 += '<div class=\"col-xs-10 poll-body\">';
-        
-        html_new_posts_1 += '<p class=\"poll-quest-box\"> ' +  new_post_result.question +' </p>';
-                        
-                        
-        html_new_posts_1 += '<div class=\"poll-load-old-'+ new_post_result.id +'\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/wedges.gif\" width=\"90\" height=\"90\"  style=\"display: table; margin: 0 auto;\"  /></div>';
-
-    
-        html_new_posts_1 += '<form action=\"#\">';
-    
-        
-        
-    
-        html_new_posts_1 += '<p class=\"poll-answer-box-old'+ new_post_result.id +'\">';       
-        
-        html_new_posts_1 += '<div class=\"radio-first  radio-first-old'+ new_post_result.id +'\" style=\"display: none;\"><input class=\"radio-new-class-old'+ new_post_result.id +'\"  type=\"radio\" id=\"poll-id-1-old'+ new_post_result.id +'\" value=\"1\" name=\"radio_group_old' + new_post_result.id + '\">';
-        
-        html_new_posts_1 += '<label for=\"poll-id-1-old'+ new_post_result.id +'\" class=\"poll-answer-style-1\"><span> ' + new_post_result.answer1 + '</span></label><br></div>';
-        
-        html_new_posts_1 +=  '<div class=\"radio-second radio-second-old'+ new_post_result.id +'\" style=\"display: none;\">';
-        
-        html_new_posts_1 +=  '<p class=\"poll-answer-style-1\"> ' + new_post_result.answer1 + ' </p>';
-        
-        html_new_posts_1 +=  '<progress value=\"100\" max=\"100\" id=\"progressPoll1-old'+ new_post_result.id +'\" class=\"poll-progress\"></progress>'; 
-        
-        html_new_posts_1 +=  '<a class=\"poll-score poll-score1-old'+ new_post_result.id +'\"> 30% | 34 votes</a>'; 
-        
-        html_new_posts_1 += '<img class=\"poll-img1-old'+ new_post_result.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        html_new_posts_1 +=  '</div>';
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                
-        html_new_posts_1 += '<p class=\"poll-answer-box-old'+ new_post_result.id +'\">';       
-        
-        html_new_posts_1 += '<div class=\"radio-first  radio-first-old'+ new_post_result.id +'\" style=\"display: none;\"><input class=\"radio-new-class-old'+ new_post_result.id +'\"  type=\"radio\" id=\"poll-id-2-old'+ new_post_result.id +'\" value=\"2\" name=\"radio_group_old' + new_post_result.id + '\">';
-        
-        html_new_posts_1 += '<label for=\"poll-id-2-old'+ new_post_result.id +'\" class=\"poll-answer-style-1\"><span> ' + new_post_result.answer2 + '</span></label><br></div>';
-        
-        html_new_posts_1 +=  '<div class=\"radio-second radio-second-old'+ new_post_result.id +'\" style=\"display: none;\">';
-        
-        html_new_posts_1 +=  '<p class=\"poll-answer-style-1\"> ' + new_post_result.answer2 + ' </p>';
-        
-        html_new_posts_1 +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll2-old'+ new_post_result.id +'\" class=\"poll-progress\"></progress>'; 
-        
-        html_new_posts_1 +=  '<a class=\"poll-score poll-score2-old'+ new_post_result.id +'\"> 30% | 34 votes</a>'; 
-        
-        html_new_posts_1 += '<img class=\"poll-img2-old'+ new_post_result.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        html_new_posts_1 +=  '</div>';
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-            if (new_post_result.answer3.trim().length > 0) {          
-            
-        html_new_posts_1 += '<p class=\"poll-answer-box-old'+ new_post_result.id +'\">';       
-        
-        html_new_posts_1 += '<div class=\"radio-first  radio-first-old'+ new_post_result.id +'\" style=\"display: none;\"><input class=\"radio-new-class-old'+ new_post_result.id +'\"  type=\"radio\" id=\"poll-id-3-old'+ new_post_result.id +'\" value=\"3\" name=\"radio_group_old' + new_post_result.id + '\">';
-        
-        html_new_posts_1 += '<label for=\"poll-id-3-old'+ new_post_result.id +'\" class=\"poll-answer-style-1\"><span> ' + new_post_result.answer3 + '</span></label><br></div>';
-        
-        html_new_posts_1 +=  '<div class=\"radio-second radio-second-old'+ new_post_result.id +'\" style=\"display: none;\">';
-        
-        html_new_posts_1 +=  '<p class=\"poll-answer-style-1\"> ' + new_post_result.answer3 + ' </p>';
-        
-        html_new_posts_1 +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll3-old'+ new_post_result.id +'\" class=\"poll-progress\"></progress>'; 
-        
-        html_new_posts_1 +=  '<a class=\"poll-score poll-score3-old'+ new_post_result.id +'\"> 30% | 34 votes</a>'; 
-        
-        html_new_posts_1 += '<img class=\"poll-img3-old'+ new_post_result.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        html_new_posts_1 +=  '</div>';
-
-        }
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-            if (new_post_result.answer4.trim().length > 0) {          
-            
-        html_new_posts_1 += '<p class=\"poll-answer-box-old'+ new_post_result.id +'\">';       
-        
-        html_new_posts_1 += '<div class=\"radio-first  radio-first-old'+ new_post_result.id +'\" style=\"display: none;\"><input class=\"radio-new-class-old'+ new_post_result.id +'\"  type=\"radio\" id=\"poll-id-4-old'+ new_post_result.id +'\" value=\"4\" name=\"radio_group_old' + new_post_result.id + '\">';
-        
-        html_new_posts_1 += '<label for=\"poll-id-4-old'+ new_post_result.id +'\" class=\"poll-answer-style-1\"><span> ' + new_post_result.answer4 + '</span></label><br></div>';
-        
-        html_new_posts_1 +=  '<div class=\"radio-second radio-second-old'+ new_post_result.id +'\" style=\"display: none;\">';
-        
-        html_new_posts_1 +=  '<p class=\"poll-answer-style-1\"> ' + new_post_result.answer4 + ' </p>';
-        
-        html_new_posts_1 +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll4-old'+ new_post_result.id +'\" class=\"poll-progress\"></progress>'; 
-        
-        html_new_posts_1 +=  '<a class=\"poll-score poll-score4-old'+ new_post_result.id +'\"> 30% | 34 votes</a>'; 
-        
-        html_new_posts_1 += '<img class=\"poll-img4-old'+ new_post_result.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        html_new_posts_1 +=  '</div>';
-
-        }
-                      
-                      
-                      
-                      
-                      
-                      
-        if (new_post_result.answer5.trim().length > 0) {          
-            
-        html_new_posts_1 += '<p class=\"poll-answer-box-old'+ new_post_result.id +'\">';       
-        
-        html_new_posts_1 += '<div class=\"radio-first  radio-first-old'+ new_post_result.id +'\" style=\"display: none;\"><input class=\"radio-new-class-old'+ new_post_result.id +'\"  type=\"radio\" id=\"poll-id-5-old'+ new_post_result.id +'\" value=\"5\" name=\"radio_group_old' + new_post_result.id + '\">';
-        
-        html_new_posts_1 += '<label for=\"poll-id-5-old'+ new_post_result.id +'\" class=\"poll-answer-style-1\"><span> ' + new_post_result.answer5 + '</span></label><br></div>';
-        
-        html_new_posts_1 +=  '<div class=\"radio-second radio-second-old'+ new_post_result.id +'\" style=\"display: none;\">';
-        
-        html_new_posts_1 +=  '<p class=\"poll-answer-style-1\"> ' + new_post_result.answer5 + ' </p>';
-        
-        html_new_posts_1 +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll5-old'+ new_post_result.id +'\" class=\"poll-progress\"></progress>'; 
-        
-        html_new_posts_1 +=  '<a class=\"poll-score poll-score5-old'+ new_post_result.id +'\"> 30% | 34 votes</a>'; 
-        
-        html_new_posts_1 += '<img class=\"poll-img5-old'+ new_post_result.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        html_new_posts_1 +=  '</div>';
-
-        }
-                      
-                      
-                      
-                      
-           
-                      
-               if (new_post_result.answer6.trim().length > 0) {          
-            
-        html_new_posts_1 += '<p class=\"poll-answer-box-old'+ new_post_result.id +'\">';       
-        
-        html_new_posts_1 += '<div class=\"radio-first  radio-first-old'+ new_post_result.id +'\" style=\"display: none;\"><input class=\"radio-new-class-old'+ new_post_result.id +'\"  type=\"radio\" id=\"poll-id-6-old'+ new_post_result.id +'\" value=\"6\" name=\"radio_group_old' + new_post_result.id + '\">';
-        
-        html_new_posts_1 += '<label for=\"poll-id-6-old'+ new_post_result.id +'\" class=\"poll-answer-style-1\"><span> ' + new_post_result.answer6 + '</span></label><br></div>';
-        
-        html_new_posts_1 +=  '<div class=\"radio-second radio-second-old'+ new_post_result.id +'\" style=\"display: none;\">';
-        
-        html_new_posts_1 +=  '<p class=\"poll-answer-style-1\"> ' + new_post_result.answer6 + ' </p>';
-        
-        html_new_posts_1 +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll6-old'+ new_post_result.id +'\" class=\"poll-progress\"></progress>'; 
-        
-        html_new_posts_1 +=  '<a class=\"poll-score poll-score6-old'+ new_post_result.id +'\"> 30% | 34 votes</a>'; 
-        
-        html_new_posts_1 += '<img class=\"poll-img6-old'+ new_post_result.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        html_new_posts_1 +=  '</div>';
-
-        }
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      if (new_post_result.answer7.trim().length > 0) {          
-            
-        html_new_posts_1 += '<p class=\"poll-answer-box-old'+ new_post_result.id +'\">';       
-        
-        html_new_posts_1 += '<div class=\"radio-first  radio-first-old'+ new_post_result.id +'\" style=\"display: none;\"><input class=\"radio-new-class-old'+ new_post_result.id +'\"  type=\"radio\" id=\"poll-id-7-old'+ new_post_result.id +'\" value=\"7\" name=\"radio_group_old' + new_post_result.id + '\">';
-        
-        html_new_posts_1 += '<label for=\"poll-id-7-old'+ new_post_result.id +'\" class=\"poll-answer-style-1\"><span> ' + new_post_result.answer7 + '</span></label><br></div>';
-        
-        html_new_posts_1 +=  '<div class=\"radio-second radio-second-old'+ new_post_result.id +'\" style=\"display: none;\">';
-        
-        html_new_posts_1 +=  '<p class=\"poll-answer-style-1\"> ' + new_post_result.answer7 + ' </p>';
-        
-        html_new_posts_1 +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll7-old'+ new_post_result.id +'\" class=\"poll-progress\"></progress>'; 
-        
-        html_new_posts_1 +=  '<a class=\"poll-score poll-score7-old'+ new_post_result.id +'\"> 30% | 34 votes</a>'; 
-        
-        html_new_posts_1 += '<img class=\"poll-img7-old'+ new_post_result.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        html_new_posts_1 +=  '</div>';
-
-        }       
-                      
-                      
-                      
-          
-                      
-                      
-                      
-                      
-                             if (new_post_result.answer8.trim().length > 0) {          
-            
-        html_new_posts_1 += '<p class=\"poll-answer-box-old'+ new_post_result.id +'\">';       
-        
-        html_new_posts_1 += '<div class=\"radio-first  radio-first-old'+ new_post_result.id +'\" style=\"display: none;\"><input class=\"radio-new-class-old'+ new_post_result.id +'\"  type=\"radio\" id=\"poll-id-8-old'+ new_post_result.id +'\" value=\"8\" name=\"radio_group_old' + new_post_result.id + '\">';
-        
-        html_new_posts_1 += '<label for=\"poll-id-8-old'+ new_post_result.id +'\" class=\"poll-answer-style-1\"><span> ' + new_post_result.answer8 + '</span></label><br></div>';
-        
-        html_new_posts_1 +=  '<div class=\"radio-second radio-second-old'+ new_post_result.id +'\" style=\"display: none;\">';
-        
-        html_new_posts_1 +=  '<p class=\"poll-answer-style-1\"> ' + new_post_result.answer8 + ' </p>';
-        
-        html_new_posts_1 +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll8-old'+ new_post_result.id +'\" class=\"poll-progress\"></progress>'; 
-        
-        html_new_posts_1 +=  '<a class=\"poll-score poll-score8-old'+ new_post_result.id +'\"> 30% | 34 votes</a>'; 
-        
-        html_new_posts_1 += '<img class=\"poll-img8-old'+ new_post_result.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        html_new_posts_1 +=  '</div>';
-
-        }
-                      
-                      
-                
-                      
-                      
-                      
-                             if (new_post_result.answer9.trim().length > 0) {          
-            
-        html_new_posts_1 += '<p class=\"poll-answer-box-old'+ new_post_result.id +'\">';       
-        
-        html_new_posts_1 += '<div class=\"radio-first  radio-first-old'+ new_post_result.id +'\" style=\"display: none;\"><input class=\"radio-new-class-old'+ new_post_result.id +'\"  type=\"radio\" id=\"poll-id-9-old'+ new_post_result.id +'\" value=\"9\" name=\"radio_group_old' + new_post_result.id + '\">';
-        
-        html_new_posts_1 += '<label for=\"poll-id-9-old'+ new_post_result.id +'\" class=\"poll-answer-style-1\"><span> ' + new_post_result.answer9 + '</span></label><br></div>';
-        
-        html_new_posts_1 +=  '<div class=\"radio-second radio-second-old'+ new_post_result.id +'\" style=\"display: none;\">';
-        
-        html_new_posts_1 +=  '<p class=\"poll-answer-style-1\"> ' + new_post_result.answer9 + ' </p>';
-        
-        html_new_posts_1 +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll9-old'+ new_post_result.id +'\" class=\"poll-progress\"></progress>'; 
-        
-        html_new_posts_1 +=  '<a class=\"poll-score poll-score9-old'+ new_post_result.id +'\"> 30% | 34 votes</a>'; 
-        
-        html_new_posts_1 += '<img class=\"poll-img9-old'+ new_post_result.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        html_new_posts_1 +=  '</div>';
-
-        }
-                      
-                      
-           
-                      
-                if (new_post_result.answer10.trim().length > 0) {          
-            
-        html_new_posts_1 += '<p class=\"poll-answer-box-old'+ new_post_result.id +'\">';       
-        
-        html_new_posts_1 += '<div class=\"radio-first  radio-first-old'+ new_post_result.id +'\" style=\"display: none;\"><input class=\"radio-new-class-old'+ new_post_result.id +'\"  type=\"radio\" id=\"poll-id-10-old'+ new_post_result.id +'\" value=\"10\" name=\"radio_group_old' + new_post_result.id + '\">';
-        
-        html_new_posts_1 += '<label for=\"poll-id-10-old'+ new_post_result.id +'\" class=\"poll-answer-style-1\"><span> ' + new_post_result.answer10 + '</span></label><br></div>';
-        
-        html_new_posts_1 +=  '<div class=\"radio-second radio-second-old'+ new_post_result.id +'\" style=\"display: none;\">';
-        
-        html_new_posts_1 +=  '<p class=\"poll-answer-style-1\"> ' + new_post_result.answer10 + ' </p>';
-        
-        html_new_posts_1 +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll10-old'+ new_post_result.id +'\" class=\"poll-progress\"></progress>'; 
-        
-        html_new_posts_1 +=  '<a class=\"poll-score poll-score10-old'+ new_post_result.id +'\"> 30% | 34 votes</a>'; 
-        
-        html_new_posts_1 += '<img class=\"poll-img10-old'+ new_post_result.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        html_new_posts_1 +=  '</div>';
-
-        }
-                      
-                      
-                      
-                            
-        
-        html_new_posts_1 += '</form>';
-        
-        
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-        html_new_posts_1 += '<div class=\"row\">';                    
-                            
-          html_new_posts_1 += '<div class=\"col-xs-12\">';
-              
-                            
-          html_new_posts_1 += '<a id=\"pollvote_old'+ new_post_result.id +'\" onclick=\"pollvoteold('+ new_post_result.id + ')\" style=\"display: none;\">';    
-        
-          html_new_posts_1 += '<button  class=\"btn poll-1\">';
-        
-          html_new_posts_1 += 'Vote</button></a>';
-              
-              
-          html_new_posts_1 += '<a onclick=\"voteagainold('+ new_post_result.id + ')\" id=\"pollchange_old'+ new_post_result.id +'\" style=\"display: none;\">';    
-        
-          html_new_posts_1 += '<button class=\"btn poll-1\">';
-        
-          html_new_posts_1 += 'Change Vote</button></a>';
-              
-              
-        
-          html_new_posts_1 += '<a class=\"poll-totalold'+ new_post_result.id +'\" style=\"display: none; margin-left: 30px;\">589 total votes</a>';
-              
-          html_new_posts_1 += '</div></div><br>';
-              
-              
-                     
-          html_new_posts_1 += '<div class=\"row\" >';
-                     
-                     
-          html_new_posts_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-          html_new_posts_1 += '<img onclick=\"start_delete_old(' + new_post_result.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
-                     
-                     
-          html_new_posts_1 += '</div>';
-                     
-                     
-          html_new_posts_1 += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
-                     
-                    
-           
-           
-          html_new_posts_1 += '<img class=\" size-2 '+ 'start_delete_old' + new_post_result.id + '   like_delete_old'  +  new_post_result.id  +  '    \" src=\"' + new_post_result.like_src + '\" onclick=\"likeoldpoll(' +  new_post_result.id + ') \" />';
-           
-           
-                     
-        
-          html_new_posts_1 += '</div>';
-                     
-                     
-          html_new_posts_1 += '<div class=\"col-xs-5\" >';
-                     
-                     
-         
-                     
-          html_new_posts_1 += '</div>';
-                     
-                         
-                     
-          html_new_posts_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-      
-                     
-          html_new_posts_1 += '</div>';
-                     
-                     
-                     
-          html_new_posts_1 += '</div></div>';
-                     
-          html_new_posts_1 += '<div class=\"col-xs-2\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/nopic.png\" style=\"width: 40px; margin-left: 0px;\"  /></div></div>';
-                      
-            window["votebuttonold" + new_post_result.id] = true;
-              
-               // setTimeout(getOldPollVote, 10000, new_post_result.id);     
-                      
-                  //    $(".radio-first-old" + new_post_result.id).hide(0);
-                      
-                //      $(".radio-second-old" + new_post_result.id).hide(0);
-                      
-             getOldPollVote(new_post_result.id);
-                   
-               }
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                 
-                  
-                  
-                  
-                  
-                  
-                      if (new_post_result.type == "poll" && new_post_result.owner == "<?php echo $user_info['id']; ?>") {
-
-                     
-                     
-                     
-                     
-                            const haystack = currentArray;
-                     
-                            const needle = new_post_result.timeinput;
-                     
-                            const isInArray = haystack.includes(parseInt(needle));
-
-                     
-                
-                     
-                     
-                           if (isInArray) {
-
-                           // Do nothing.
-                           }     
-                     
-                     
-                     
-                     if (!isInArray)  {
-                         
-                         
-                         
-                         
-                        html_new_posts_1 += '<div id=\"'+ 'whole_old_post' + new_post_result.id +'\" class=\"row poll-div\" style=\"margin-bottom: 20px;\">';
-        
-        
-        html_new_posts_1 += '<div class=\"col-xs-2\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/nopic.png\" style=\"width: 40px; margin-left: 10px;\"  /></div>';
-        
-        html_new_posts_1 += '<div class=\"col-xs-10 poll-body\">';
-        
-        html_new_posts_1 += '<p class=\"poll-quest-box\"> ' +  new_post_result.question +' </p>';
-                         
-                         
-        html_new_posts_1 += '<div class=\"poll-load-old-'+ new_post_result.id +'\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/wedges.gif\" width=\"90\" height=\"90\"  style=\"display: table; margin: 0 auto;\"  /></div>'; 
-
-    
-        html_new_posts_1 += '<form action=\"#\">';
-    
-        
-        
-    
-        html_new_posts_1 += '<p class=\"poll-answer-box-old'+ new_post_result.id +'\">';       
-        
-        html_new_posts_1 += '<div class=\"radio-first  radio-first-old'+ new_post_result.id +'\" style=\"display: none;\"><input class=\"radio-new-class-old'+ new_post_result.id +'\"  type=\"radio\" id=\"poll-id-1-old'+ new_post_result.id +'\" value=\"1\" name=\"radio_group_old' + new_post_result.id + '\">';
-        
-        html_new_posts_1 += '<label for=\"poll-id-1-old'+ new_post_result.id +'\" class=\"poll-answer-style-1\"><span> ' + new_post_result.answer1 + '</span></label><br></div>';
-        
-        html_new_posts_1 +=  '<div class=\"radio-second radio-second-old'+ new_post_result.id +'\" style=\"display: none;\">';
-        
-        html_new_posts_1 +=  '<p class=\"poll-answer-style-1\"> ' + new_post_result.answer1 + ' </p>';
-        
-        html_new_posts_1 +=  '<progress value=\"100\" max=\"100\" id=\"progressPoll1-old'+ new_post_result.id +'\" class=\"poll-progress\"></progress>'; 
-        
-        html_new_posts_1 +=  '<a class=\"poll-score poll-score1-old'+ new_post_result.id +'\"> 30% | 34 votes</a>'; 
-        
-        html_new_posts_1 += '<img class=\"poll-img1-old'+ new_post_result.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        html_new_posts_1 +=  '</div>';
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                
-        html_new_posts_1 += '<p class=\"poll-answer-box-old'+ new_post_result.id +'\">';       
-        
-        html_new_posts_1 += '<div class=\"radio-first  radio-first-old'+ new_post_result.id +'\" style=\"display: none;\"><input class=\"radio-new-class-old'+ new_post_result.id +'\"  type=\"radio\" id=\"poll-id-2-old'+ new_post_result.id +'\" value=\"2\" name=\"radio_group_old' + new_post_result.id + '\">';
-        
-        html_new_posts_1 += '<label for=\"poll-id-2-old'+ new_post_result.id +'\" class=\"poll-answer-style-1\"><span> ' + new_post_result.answer2 + '</span></label><br></div>';
-        
-        html_new_posts_1 +=  '<div class=\"radio-second radio-second-old'+ new_post_result.id +'\" style=\"display: none;\">';
-        
-        html_new_posts_1 +=  '<p class=\"poll-answer-style-1\"> ' + new_post_result.answer2 + ' </p>';
-        
-        html_new_posts_1 +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll2-old'+ new_post_result.id +'\" class=\"poll-progress\"></progress>'; 
-        
-        html_new_posts_1 +=  '<a class=\"poll-score poll-score2-old'+ new_post_result.id +'\"> 30% | 34 votes</a>'; 
-        
-        html_new_posts_1 += '<img class=\"poll-img2-old'+ new_post_result.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        html_new_posts_1 +=  '</div>';
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-            if (new_post_result.answer3.trim().length > 0) {          
-            
-        html_new_posts_1 += '<p class=\"poll-answer-box-old'+ new_post_result.id +'\">';       
-        
-        html_new_posts_1 += '<div class=\"radio-first  radio-first-old'+ new_post_result.id +'\" style=\"display: none;\"><input class=\"radio-new-class-old'+ new_post_result.id +'\"  type=\"radio\" id=\"poll-id-3-old'+ new_post_result.id +'\" value=\"3\" name=\"radio_group_old' + new_post_result.id + '\">';
-        
-        html_new_posts_1 += '<label for=\"poll-id-3-old'+ new_post_result.id +'\" class=\"poll-answer-style-1\"><span> ' + new_post_result.answer3 + '</span></label><br></div>';
-        
-        html_new_posts_1 +=  '<div class=\"radio-second radio-second-old'+ new_post_result.id +'\" style=\"display: none;\">';
-        
-        html_new_posts_1 +=  '<p class=\"poll-answer-style-1\"> ' + new_post_result.answer3 + ' </p>';
-        
-        html_new_posts_1 +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll3-old'+ new_post_result.id +'\" class=\"poll-progress\"></progress>'; 
-        
-        html_new_posts_1 +=  '<a class=\"poll-score poll-score3-old'+ new_post_result.id +'\"> 30% | 34 votes</a>'; 
-        
-        html_new_posts_1 += '<img class=\"poll-img3-old'+ new_post_result.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        html_new_posts_1 +=  '</div>';
-
-        }
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-            if (new_post_result.answer4.trim().length > 0) {          
-            
-        html_new_posts_1 += '<p class=\"poll-answer-box-old'+ new_post_result.id +'\">';       
-        
-        html_new_posts_1 += '<div class=\"radio-first  radio-first-old'+ new_post_result.id +'\" style=\"display: none;\"><input class=\"radio-new-class-old'+ new_post_result.id +'\"  type=\"radio\" id=\"poll-id-4-old'+ new_post_result.id +'\" value=\"4\" name=\"radio_group_old' + new_post_result.id + '\">';
-        
-        html_new_posts_1 += '<label for=\"poll-id-4-old'+ new_post_result.id +'\" class=\"poll-answer-style-1\"><span> ' + new_post_result.answer4 + '</span></label><br></div>';
-        
-        html_new_posts_1 +=  '<div class=\"radio-second radio-second-old'+ new_post_result.id +'\" style=\"display: none;\">';
-        
-        html_new_posts_1 +=  '<p class=\"poll-answer-style-1\"> ' + new_post_result.answer4 + ' </p>';
-        
-        html_new_posts_1 +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll4-old'+ new_post_result.id +'\" class=\"poll-progress\"></progress>'; 
-        
-        html_new_posts_1 +=  '<a class=\"poll-score poll-score4-old'+ new_post_result.id +'\"> 30% | 34 votes</a>'; 
-        
-        html_new_posts_1 += '<img class=\"poll-img4-old'+ new_post_result.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        html_new_posts_1 +=  '</div>';
-
-        }
-                      
-                      
-                      
-                      
-                      
-                      
-        if (new_post_result.answer5.trim().length > 0) {          
-            
-        html_new_posts_1 += '<p class=\"poll-answer-box-old'+ new_post_result.id +'\">';       
-        
-        html_new_posts_1 += '<div class=\"radio-first  radio-first-old'+ new_post_result.id +'\" style=\"display: none;\"><input class=\"radio-new-class-old'+ new_post_result.id +'\"  type=\"radio\" id=\"poll-id-5-old'+ new_post_result.id +'\" value=\"5\" name=\"radio_group_old' + new_post_result.id + '\">';
-        
-        html_new_posts_1 += '<label for=\"poll-id-5-old'+ new_post_result.id +'\" class=\"poll-answer-style-1\"><span> ' + new_post_result.answer5 + '</span></label><br></div>';
-        
-        html_new_posts_1 +=  '<div class=\"radio-second radio-second-old'+ new_post_result.id +'\" style=\"display: none;\">';
-        
-        html_new_posts_1 +=  '<p class=\"poll-answer-style-1\"> ' + new_post_result.answer5 + ' </p>';
-        
-        html_new_posts_1 +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll5-old'+ new_post_result.id +'\" class=\"poll-progress\"></progress>'; 
-        
-        html_new_posts_1 +=  '<a class=\"poll-score poll-score5-old'+ new_post_result.id +'\"> 30% | 34 votes</a>'; 
-        
-        html_new_posts_1 += '<img class=\"poll-img5-old'+ new_post_result.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        html_new_posts_1 +=  '</div>';
-
-        }
-                      
-                      
-                      
-                      
-           
-                      
-               if (new_post_result.answer6.trim().length > 0) {          
-            
-        html_new_posts_1 += '<p class=\"poll-answer-box-old'+ new_post_result.id +'\">';       
-        
-        html_new_posts_1 += '<div class=\"radio-first  radio-first-old'+ new_post_result.id +'\" style=\"display: none;\"><input class=\"radio-new-class-old'+ new_post_result.id +'\"  type=\"radio\" id=\"poll-id-6-old'+ new_post_result.id +'\" value=\"6\" name=\"radio_group_old' + new_post_result.id + '\">';
-        
-        html_new_posts_1 += '<label for=\"poll-id-6-old'+ new_post_result.id +'\" class=\"poll-answer-style-1\"><span> ' + new_post_result.answer6 + '</span></label><br></div>';
-        
-        html_new_posts_1 +=  '<div class=\"radio-second radio-second-old'+ new_post_result.id +'\" style=\"display: none;\">';
-        
-        html_new_posts_1 +=  '<p class=\"poll-answer-style-1\"> ' + new_post_result.answer6 + ' </p>';
-        
-        html_new_posts_1 +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll6-old'+ new_post_result.id +'\" class=\"poll-progress\"></progress>'; 
-        
-        html_new_posts_1 +=  '<a class=\"poll-score poll-score6-old'+ new_post_result.id +'\"> 30% | 34 votes</a>'; 
-        
-        html_new_posts_1 += '<img class=\"poll-img6-old'+ new_post_result.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        html_new_posts_1 +=  '</div>';
-
-        }
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      if (new_post_result.answer7.trim().length > 0) {          
-            
-        html_new_posts_1 += '<p class=\"poll-answer-box-old'+ new_post_result.id +'\">';       
-        
-        html_new_posts_1 += '<div class=\"radio-first  radio-first-old'+ new_post_result.id +'\" style=\"display: none;\"><input class=\"radio-new-class-old'+ new_post_result.id +'\"  type=\"radio\" id=\"poll-id-7-old'+ new_post_result.id +'\" value=\"7\" name=\"radio_group_old' + new_post_result.id + '\">';
-        
-        html_new_posts_1 += '<label for=\"poll-id-7-old'+ new_post_result.id +'\" class=\"poll-answer-style-1\"><span> ' + new_post_result.answer7 + '</span></label><br></div>';
-        
-        html_new_posts_1 +=  '<div class=\"radio-second radio-second-old'+ new_post_result.id +'\" style=\"display: none;\">';
-        
-        html_new_posts_1 +=  '<p class=\"poll-answer-style-1\"> ' + new_post_result.answer7 + ' </p>';
-        
-        html_new_posts_1 +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll7-old'+ new_post_result.id +'\" class=\"poll-progress\"></progress>'; 
-        
-        html_new_posts_1 +=  '<a class=\"poll-score poll-score7-old'+ new_post_result.id +'\"> 30% | 34 votes</a>'; 
-        
-        html_new_posts_1 += '<img class=\"poll-img7-old'+ new_post_result.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        html_new_posts_1 +=  '</div>';
-
-        }       
-                      
-                      
-                      
-          
-                      
-                      
-                      
-                      
-                             if (new_post_result.answer8.trim().length > 0) {          
-            
-        html_new_posts_1 += '<p class=\"poll-answer-box-old'+ new_post_result.id +'\">';       
-        
-        html_new_posts_1 += '<div class=\"radio-first  radio-first-old'+ new_post_result.id +'\" style=\"display: none;\"><input class=\"radio-new-class-old'+ new_post_result.id +'\"  type=\"radio\" id=\"poll-id-8-old'+ new_post_result.id +'\" value=\"8\" name=\"radio_group_old' + new_post_result.id + '\">';
-        
-        html_new_posts_1 += '<label for=\"poll-id-8-old'+ new_post_result.id +'\" class=\"poll-answer-style-1\"><span> ' + new_post_result.answer8 + '</span></label><br></div>';
-        
-        html_new_posts_1 +=  '<div class=\"radio-second radio-second-old'+ new_post_result.id +'\" style=\"display: none;\">';
-        
-        html_new_posts_1 +=  '<p class=\"poll-answer-style-1\"> ' + new_post_result.answer8 + ' </p>';
-        
-        html_new_posts_1 +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll8-old'+ new_post_result.id +'\" class=\"poll-progress\"></progress>'; 
-        
-        html_new_posts_1 +=  '<a class=\"poll-score poll-score8-old'+ new_post_result.id +'\"> 30% | 34 votes</a>'; 
-        
-        html_new_posts_1 += '<img class=\"poll-img8-old'+ new_post_result.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        html_new_posts_1 +=  '</div>';
-
-        }
-                      
-                      
-                
-                      
-                      
-                      
-                             if (new_post_result.answer9.trim().length > 0) {          
-            
-        html_new_posts_1 += '<p class=\"poll-answer-box-old'+ new_post_result.id +'\">';       
-        
-        html_new_posts_1 += '<div class=\"radio-first  radio-first-old'+ new_post_result.id +'\" style=\"display: none;\"><input class=\"radio-new-class-old'+ new_post_result.id +'\"  type=\"radio\" id=\"poll-id-9-old'+ new_post_result.id +'\" value=\"9\" name=\"radio_group_old' + new_post_result.id + '\">';
-        
-        html_new_posts_1 += '<label for=\"poll-id-9-old'+ new_post_result.id +'\" class=\"poll-answer-style-1\"><span> ' + new_post_result.answer9 + '</span></label><br></div>';
-        
-        html_new_posts_1 +=  '<div class=\"radio-second radio-second-old'+ new_post_result.id +'\" style=\"display: none;\">';
-        
-        html_new_posts_1 +=  '<p class=\"poll-answer-style-1\"> ' + new_post_result.answer9 + ' </p>';
-        
-        html_new_posts_1 +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll9-old'+ new_post_result.id +'\" class=\"poll-progress\"></progress>'; 
-        
-        html_new_posts_1 +=  '<a class=\"poll-score poll-score9-old'+ new_post_result.id +'\"> 30% | 34 votes</a>'; 
-        
-        html_new_posts_1 += '<img class=\"poll-img9-old'+ new_post_result.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        html_new_posts_1 +=  '</div>';
-
-        }
-                      
-                      
-           
-                      
-                if (new_post_result.answer10.trim().length > 0) {          
-            
-        html_new_posts_1 += '<p class=\"poll-answer-box-old'+ new_post_result.id +'\">';       
-        
-        html_new_posts_1 += '<div class=\"radio-first  radio-first-old'+ new_post_result.id +'\" style=\"display: none;\"><input class=\"radio-new-class-old'+ new_post_result.id +'\"  type=\"radio\" id=\"poll-id-10-old'+ new_post_result.id +'\" value=\"10\" name=\"radio_group_old' + new_post_result.id + '\">';
-        
-        html_new_posts_1 += '<label for=\"poll-id-10-old'+ new_post_result.id +'\" class=\"poll-answer-style-1\"><span> ' + new_post_result.answer10 + '</span></label><br></div>';
-        
-        html_new_posts_1 +=  '<div class=\"radio-second radio-second-old'+ new_post_result.id +'\" style=\"display: none;\">';
-        
-        html_new_posts_1 +=  '<p class=\"poll-answer-style-1\"> ' + new_post_result.answer10 + ' </p>';
-        
-        html_new_posts_1 +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll10-old'+ new_post_result.id +'\" class=\"poll-progress\"></progress>'; 
-        
-        html_new_posts_1 +=  '<a class=\"poll-score poll-score10-old'+ new_post_result.id +'\"> 30% | 34 votes</a>'; 
-        
-        html_new_posts_1 += '<img class=\"poll-img10-old'+ new_post_result.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        html_new_posts_1 +=  '</div>';
-
-        }
-                      
-                      
-                      
-                            
-        
-        html_new_posts_1 += '</form>';
-        
-        
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-          html_new_posts_1 += '<div class=\"row\">';                    
-                            
-          html_new_posts_1 += '<div class=\"col-xs-12\">';
-              
-                            
-          html_new_posts_1 += '<a id=\"pollvote_old'+ new_post_result.id +'\" onclick=\"pollvoteold('+ new_post_result.id + ')\" style=\"display: none;\">';    
-        
-          html_new_posts_1 += '<button  class=\"btn poll-1\">';
-        
-          html_new_posts_1 += 'Vote</button></a>';
-              
-              
-          html_new_posts_1 += '<a onclick=\"voteagainold('+ new_post_result.id + ')\" id=\"pollchange_old'+ new_post_result.id +'\" style=\"display: none;\">';    
-        
-          html_new_posts_1 += '<button class=\"btn poll-1\">';
-        
-          html_new_posts_1 += 'Change Vote</button></a>';
-              
-              
-        
-          html_new_posts_1 += '<a class=\"poll-totalold'+ new_post_result.id +'\" style=\"display: none; margin-left: 30px;\">589 total votes</a>';
-              
-          html_new_posts_1 += '</div></div><br>';
-              
-              
-                     
-          html_new_posts_1 += '<div class=\"row\" >';
-                     
-                     
-          html_new_posts_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-          html_new_posts_1 += '<img onclick=\"start_delete_old(' + new_post_result.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
-                     
-                     
-          html_new_posts_1 += '</div>';
-                     
-                     
-          html_new_posts_1 += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
-                     
-                    
-           
-           
-          html_new_posts_1 += '<img class=\" size-2 '+ 'start_delete_old' + new_post_result.id + '   like_delete_old'  +  new_post_result.id  +  '    \" src=\"' + new_post_result.like_src + '\" onclick=\"likeoldpoll(' +  new_post_result.id + ') \" />';
-           
-           
-                     
-          html_new_posts_1 += '<img onclick=\"show_delete_old(' + new_post_result.id + ') \" class=\" size-3 '+ 'start_delete_old' + new_post_result.id +' \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/garbage.svg' + '\" />';
-                     
-          html_new_posts_1 += '</div>';
-                     
-                     
-          html_new_posts_1 += '<div class=\"col-xs-5\" >';
-                     
-                     
-          html_new_posts_1 += '<a class=\"delete-2 '+ 'show_delete_old' + new_post_result.id +'\" onclick=\"deletenewpoll_old(' +  new_post_result.id + ') \">delete</a><a style=\"display: none; font-size: 13px;\" class=\"'+ 'show_delete_old' + new_post_result.id +'\" > //</a>';
-                     
-                     
-          html_new_posts_1 += '<a onclick=\"hide_delete_old(' + new_post_result.id + ') \" class=\"delete-3 '+ 'show_delete_old' + new_post_result.id +'\">don\'t</a>';
-                     
-                     
-          html_new_posts_1 += '</div>';
-                     
-                         
-                     
-          html_new_posts_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-          html_new_posts_1 += '<img class=\" size-1 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" />';
-                     
-                     
-          html_new_posts_1 += '</div>';
-                     
-                     
-                     
-          html_new_posts_1 += '</div></div></div>';
-                     
-                        
-                      
-            window["votebuttonold" + new_post_result.id] = true;
-              
-               // setTimeout(getOldPollVote, 10000, new_post_result.id);     
-                      
-               //       $(".radio-first-old" + new_post_result.id).hide(0);
-                      
-               //       $(".radio-second-old" + new_post_result.id).hide(0);
-                      
-             getOldPollVote(new_post_result.id);
-                    
-                         
-                         
-                         
-                         
-                         
-                         
-                         
-                         
-                     }
-                          
-                          
-                          
-                      }
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                 
-
-                 
-                 
-
-                 
-                 if(new_post_result.type == 'attach' && new_post_result.owner == "<?php echo $user_info['id']; ?>") {
-                     
-        
-                            const haystack = currentArray;
-                     
-                            const needle = new_post_result.timeinput;
-                     
-                            const isInArray = haystack.includes(parseInt(needle));
-
-                     
-                
-                     
-                     
-                           if (isInArray) {
-
-                           // Do nothing.
-                           }     
-                     
-                     
-                     
-                     if (!isInArray)  {
-                     
-                                                
-                html_new_posts_1 += '<div class=\"row\" id=\"'+ 'old_post' + new_post_result.id +'\">';
-                html_new_posts_1 += '<div class=\"col-xs-2\">';
-                html_new_posts_1 += '<a><img src=\" '+ '<?php echo $_SESSION['url_placeholder'];  ?>' + new_post_result.image  +' \" class=\"chat-left-1\"  /></a>';
-                html_new_posts_1 += '</div>';
-                html_new_posts_1 += '<div class=\"col-xs-10\">';
-                html_new_posts_1 += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
-                html_new_posts_1 += '<div class=\"talktext\">';
-                html_new_posts_1 += '<p class=\"text-username\">' + new_post_result.username + '</p>';
-                html_new_posts_1 += '<p class=\"text-body\"><a href=\" ' + new_post_result.path  + ' \" download>' + new_post_result.name + '</a></p>';
-                         
-                         
-                                                 
-                                             html_new_posts_1 += '<div class=\"row\" >';
-                     
-                     
-                     html_new_posts_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     html_new_posts_1 += '<img onclick=\"start_delete(' + new_post_result.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
-                     
-                     
-                     html_new_posts_1 += '</div>';
-                     
-                     
-                     html_new_posts_1 += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                    
-                    html_new_posts_1 += '<img class=\" size-2 '+ 'start_delete' + new_post_result.id + '   like_delete'  +  new_post_result.id  +  '    \" src=\"' +  new_post_result.like_src + '\" onclick=\"likeoldpost(' + new_post_result.id + ') \" />';
-                    
-                     
-                                        html_new_posts_1 += '<img onclick=\"show_delete(' + new_post_result.id + ') \" class=\" size-3 '+ 'start_delete' + new_post_result.id +' \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/garbage.svg' + '\" />';
-                     
-                     html_new_posts_1 += '</div>';
-                     
-                     
-                     html_new_posts_1 += '<div class=\"col-xs-5\" >';
-                     
-                       html_new_posts_1 += '<a class=\"delete-2 '+ 'show_delete' + new_post_result.id +'\" onclick=\"deleteoldpost(' + new_post_result.id + ') \">delete</a><a style=\"display: none; font-size: 13px;\" class=\"'+ 'show_delete' + new_post_result.id +'\" > //</a>';
-                     
-                     
-                      html_new_posts_1 += '<a onclick=\"hide_delete(' + new_post_result.id + ') \" class=\"delete-3 '+ 'show_delete' + new_post_result.id +'\">don\'t</a>';
-                     
-                        
-                   
-                     html_new_posts_1 += '</div>';
-                     
-                     
-                     
-                     
-                     
-                    html_new_posts_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                    html_new_posts_1 += '<img class=\" size-1 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" />';
-                     
-                     
-                     html_new_posts_1 += '</div>';
-                     
-                     
-                     
-                     html_new_posts_1 += '</div>';
-                     
-                     
-                         
-                         
-                         
-                html_new_posts_1 += ' </div></div></div></div>';    
-                      
-                         
-                         
-                     }
-                     
-                     
-        
-                     
-                 }  
-                 
-                 
-                 
-                    if(new_post_result.type == 'attach' && new_post_result.owner != "<?php echo $user_info['id']; ?>") {
-         
-                   html_new_posts_1 += '<div class=\"row\" id=\"'+ 'old_post' + new_post_result.id +'\">';
-                   html_new_posts_1 += '<div class=\"col-xs-10\">';
-                   html_new_posts_1 += '<div class=\"talk-bubble1 tri-right1 left-top1\" class=\"chat-right-1\">';
-                   html_new_posts_1 += '<div class=\"talktext1\">';
-                   html_new_posts_1 += '<p class=\"text-username\">' + new_post_result.username + '</p>';
-                   html_new_posts_1 += '<p class=\"text-body\"><a href=\" ' + new_post_result.path  + ' \" download>' + new_post_result.name + '</a></p>';
-                        
-                        
-                                             html_new_posts_1 += '<div class=\"row\" >';
-                     
-                     
-                     html_new_posts_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     html_new_posts_1 += '<img onclick=\"start_delete(' + new_post_result.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
-                     
-                     
-                     html_new_posts_1 += '</div>';
-                     
-                     
-                     html_new_posts_1 += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                                         
-                    html_new_posts_1 += '<img class=\" size-2 '+ 'start_delete' + new_post_result.id + '   like_delete'  +  new_post_result.id  +  '    \" src=\"' +  new_post_result.like_src + '\" onclick=\"likeoldpost(' + new_post_result.id + ') \" />';
-                    
-                     
-                    
-                     
-                     html_new_posts_1 += '</div>';
-                     
-                     
-                     html_new_posts_1 += '<div class=\"col-xs-5\" >';
-                     
-                     // Empty div.
-                   
-                     html_new_posts_1 += '</div>';
-                     
-                     
-                     
-                     
-                     
-                    html_new_posts_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                    // Empty div.
-                     
-                     html_new_posts_1 += '</div>';
-                     
-                     
-                     
-                     html_new_posts_1 += '</div>';
-                     
-                     
-                     
-                    
-                        
-                        
-                   html_new_posts_1 += ' </div></div></div>';
-                   html_new_posts_1 += '<div class=\"col-xs-2\">';
-                   html_new_posts_1 += '<a><img src=\" ' +  '<?php echo $_SESSION['url_placeholder'];  ?>' + new_post_result.image  +' \" class=\"chat-right-2\"  /></a>';
-                   html_new_posts_1 += '</div>';
-                   html_new_posts_1 += '</div>';
-                    
-                 }
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 if (new_post_result.type == "chat" && new_post_result.owner == "<?php echo $user_info['id']; ?>") {
-
-                     
-                     
-                     
-                     
-                            const haystack = currentArray;
-                     
-                            const needle = new_post_result.timeinput;
-                     
-                            const isInArray = haystack.includes(parseInt(needle));
-
-                     
-                
-                     
-                     
-                           if (isInArray) {
-
-                           // Do nothing.
-                           }     
-                     
-                     
-                     
-                     if (!isInArray)  {
-                         
-                                        
-                                         html_new_posts_1 += '<div class=\"row\" id=\"'+ 'old_post' + new_post_result.id +'\">';
-                html_new_posts_1 += '<div class=\"col-xs-2\">';
-                html_new_posts_1 += '<a><img src=\" '+ '<?php echo $_SESSION['url_placeholder'];  ?>' + new_post_result.image +'  \" class=\"chat-left-1\"  /></a>';
-                html_new_posts_1 += '</div>';
-                html_new_posts_1 += '<div class=\"col-xs-10\">';
-                html_new_posts_1 += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
-                html_new_posts_1 += '<div class=\"talktext\">';
-                html_new_posts_1 += '<p class=\"text-username\">' + new_post_result.username + '</p>';
-                html_new_posts_1 += '<p class=\"text-body\">'  + new_post_result.message + '</p>';
-                                        
-                                        
-                                        
-                                        
-                                                                
-                                             html_new_posts_1 += '<div class=\"row\" >';
-                     
-                     
-                     html_new_posts_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     html_new_posts_1 += '<img onclick=\"start_delete(' + new_post_result.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
-                     
-                     
-                     html_new_posts_1 += '</div>';
-                     
-                     
-                     html_new_posts_1 += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                                         
-                    html_new_posts_1 += '<img class=\" size-2 '+ 'start_delete' + new_post_result.id + '   like_delete'  +  new_post_result.id  +  '    \" src=\"' +  new_post_result.like_src + '\" onclick=\"likeoldpost(' + new_post_result.id + ') \" />';
-                    
-                         
-                         
-                     
-                    html_new_posts_1 += '<img onclick=\"show_delete(' + new_post_result.id + ') \" class=\" size-3 '+ 'start_delete' + new_post_result.id +' \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/garbage.svg' + '\" />';
-                     
-                     html_new_posts_1 += '</div>';
-                     
-                     
-                     html_new_posts_1 += '<div class=\"col-xs-5\" >';
-                     
-                     
-                     html_new_posts_1 += '<a class=\"delete-2 '+ 'show_delete' + new_post_result.id +'\" onclick=\"deleteoldpost(' + new_post_result.id + ') \">delete</a><a style=\"display: none; font-size: 13px;\" class=\"'+ 'show_delete' + new_post_result.id +'\" > //</a>';
-                     
-                     
-                      html_new_posts_1 += '<a onclick=\"hide_delete(' + new_post_result.id + ') \" class=\"delete-3 '+ 'show_delete' + new_post_result.id +'\">don\'t</a>';
-                     
-                         
-                   
-                     html_new_posts_1 += '</div>';
-                     
-                     
-                     
-                     
-                     
-                    html_new_posts_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                    html_new_posts_1 += '<img class=\" size-1 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" />';
-                     
-                     
-                     html_new_posts_1 += '</div>';
-                     
-                     
-                     
-                     html_new_posts_1 += '</div>';
-                     
-                     
-                                        
-                                        
-                                        
-                html_new_posts_1 += ' </div></div></div></div>';  
-                                        
- 
-                                        
-                                        
-                                       
-                         
-                     }
-                     
-    
-                     
-                     
-                     
-
-                     
-                 }
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                if (new_post_result.type == "chat" && new_post_result.owner != "<?php echo $user_info['id']; ?>") {
-                    
-                    
-                   html_new_posts_1 += '<div class=\"row\" id=\"'+ 'old_post' + new_post_result.id +'\">';
-                   html_new_posts_1 += '<div class=\"col-xs-10\">';
-                   html_new_posts_1 += '<div class=\"talk-bubble1 tri-right1 left-top1\" class=\"chat-right-1\">';
-                   html_new_posts_1 += '<div class=\"talktext1\">';
-                   html_new_posts_1 += '<p class=\"text-username\">' + new_post_result.username + '</p>';
-                   html_new_posts_1 += '<p class=\"text-body\">' + new_post_result.message + '</p>';
-                    
-                    
-                                         html_new_posts_1 += '<div class=\"row\" >';
-                     
-                     
-                     html_new_posts_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     html_new_posts_1 += '<img onclick=\"start_delete(' + new_post_result.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
-                     
-                     
-                     html_new_posts_1 += '</div>';
-                     
-                     
-                     html_new_posts_1 += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
-                     
-                    
-                    
-                    
-                    html_new_posts_1 += '<img class=\" size-2 '+ 'start_delete' + new_post_result.id + '   like_delete'  +  new_post_result.id  +  '    \" src=\"' +  new_post_result.like_src + '\" onclick=\"likeoldpost(' + new_post_result.id + ') \" />';
-                    
-                    
-                     
-                    html_new_posts_1 += '';
-                     
-                     html_new_posts_1 += '</div>';
-                     
-                     
-                     html_new_posts_1 += '<div class=\"col-xs-5\" >';
-                     
-                     // Empty div.
-                   
-                     html_new_posts_1 += '</div>';
-                     
-                     
-                     
-                     
-                     
-                    html_new_posts_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                    // Empty div.
-                     
-                     html_new_posts_1 += '</div>';
-                     
-                     
-                     
-                     html_new_posts_1 += '</div>';
-                     
-                     
-                     
-                    
-                    
-                   html_new_posts_1 += ' </div></div></div>';
-                   html_new_posts_1 += '<div class=\"col-xs-2\">';
-                   html_new_posts_1 += '<a><img src=\" ' +  '<?php echo $_SESSION['url_placeholder'];  ?>' + new_post_result.image  +' \" class=\"chat-right-2\"  /></a>';
-                   html_new_posts_1 += '</div>';
-                   html_new_posts_1 += '</div>';
-                    
-                     
-                       
-               
-                     
-                 }
-                 
-                 
-                 
-             }
-             
-             if ( lastTimeIDzeroTest === 1 ) {
-            
-                lastTimeIDzeroTest = 2;
-                 
-             } else {
-            
-                var new_items = $( html_new_posts_1 ).hide();
-                 
-                $( '#postsdiv' ).prepend( new_items );
-                 
-                new_items.show( 300 );
-                 
-             }
-             
-            
-          }, 
-           error: function( xhr, textStatus, errorThrown ) {
-              
-             },
-            complete: function( ) {
-               
-                displayFromDatabase();
-                
-             }
-       } );
-    }
-    
-    
-    
-    
-    
-    
+   
+    atleast1poll = false;
     
     
     
@@ -4297,7 +2986,7 @@ function displayFromDatabasePagination() {
         
     completedPosts = false;
     
-    fetch_old_url = "<?php echo $_SESSION['url_placeholder'];  ?>fetch_old_posts";
+    fetch_old_url = "<?php echo $_SESSION['url_placeholder'];  ?>fetch_recent_poll";
       
     var flag;
         
@@ -4314,19 +3003,31 @@ function displayFromDatabasePagination() {
               
           },
           success: function( data ) {
+              
            
     
               if (data == 100) {
                   
+                  
                   $(window).unbind("scroll");
                   completedPosts = true;
                   $('#loading').hide();
-                  $('#end').show();
+                  
+                  
+                  if(atleast1poll) {
+                    $('#end').show();  
+                  } else {
+                     $('#end').hide(); 
+                      
+                  }
+                  
                  return; 
               }
               
               
                 if (data == 200) {
+                    
+                    $('#nopoll').show();
                   
                   $(window).unbind("scroll");
                   completedPosts = true;
@@ -4366,6 +3067,8 @@ function displayFromDatabasePagination() {
                   if(resultOldPost.type == 'poll' && resultOldPost.owner == "<?php echo $user_info['id']; ?>") { 
                    
                    
+                      atleast1poll = true;
+                              
                       
                       
         oldPostHtml += '<div id=\"'+ 'whole_old_post' + resultOldPost.id +'\" class=\"row poll-div\" style=\"margin-bottom: 20px;\">';
@@ -4755,7 +3458,6 @@ function displayFromDatabasePagination() {
                    //   $(".radio-second-old" + resultOldPost.id).hide(0);
                       
              getOldPollVote(resultOldPost.id);
-                   
                }
                    
                    
@@ -4771,8 +3473,10 @@ function displayFromDatabasePagination() {
                   if(resultOldPost.type == 'poll' && resultOldPost.owner != "<?php echo $user_info['id']; ?>") { 
                    
                    
+                      atleast1poll = true;
                       
                       
+                          
         oldPostHtml += '<div id=\"'+ 'whole_old_post' + resultOldPost.id +'\" class=\"row poll-div-2\" style=\"margin-bottom: 20px;\">';
         
         
@@ -5153,324 +3857,21 @@ function displayFromDatabasePagination() {
                  //     $(".radio-second-old" + resultOldPost.id).hide(0);
                       
              getOldPollVote(resultOldPost.id);
-                   
+
                }
                    
                    
                    
                    
                    
-                 
-                 
-                 
-                 if(resultOldPost.type == 'attach' && resultOldPost.owner == "<?php echo $user_info['id']; ?>") {
-                     
-                oldPostHtml += '<div id=\"'+ 'old_post' + resultOldPost.id +'\" class=\"row\">';
-                oldPostHtml += '<div class=\"col-xs-2\">';
-                oldPostHtml += '<a><img src=\" '+ '<?php echo $_SESSION['url_placeholder'];  ?>' + resultOldPost.image  +' \" class=\"chat-left-1\"  /></a>';
-                oldPostHtml += '</div>';
-                oldPostHtml += '<div class=\"col-xs-10\">';
-                oldPostHtml += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
-                oldPostHtml += '<div class=\"talktext\">';
-                oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + '</p>';
-                oldPostHtml += '<p class=\"text-body\"><a href=\" ' + resultOldPost.path  + ' \" download>' + resultOldPost.name + '</a></p>';
-                     
-                     
-                     
-                        
-                     oldPostHtml += '<div class=\"row\" >';
-                     
-                     
-                     oldPostHtml += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     oldPostHtml += '<img onclick=\"start_delete(' + resultOldPost.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
-                     
-                     
-                     oldPostHtml += '</div>';
-                     
-                     
-                     oldPostHtml += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     oldPostHtml += '<img class=\" size-2 '+ 'start_delete' + resultOldPost.id + '   like_delete'  +  resultOldPost.id  +  '    \" src=\"' +  resultOldPost.like_src + '\" onclick=\"likeoldpost(' + resultOldPost.id + ') \" />';
-                     
-                     oldPostHtml += '<img onclick=\"show_delete(' + resultOldPost.id + ') \" class=\" size-3 '+ 'start_delete' + resultOldPost.id +' \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/garbage.svg' + '\" />';
-                     
-                     oldPostHtml += '</div>';
-                     
-                     
-                     oldPostHtml += '<div class=\"col-xs-5\" >';
-                     
-                     
-                     oldPostHtml += '<a class=\"delete-2 '+ 'show_delete' + resultOldPost.id +'\" onclick=\"deleteoldpost(' + resultOldPost.id + ') \">delete</a><a style=\"display: none; font-size: 13px;\" class=\"'+ 'show_delete' + resultOldPost.id +'\" > //</a>';
-                     
-                     
-                      oldPostHtml += '<a onclick=\"hide_delete(' + resultOldPost.id + ') \" class=\"delete-3 '+ 'show_delete' + resultOldPost.id +'\">don\'t</a>';
-                     
-                     
-                     oldPostHtml += '</div>';
-                     
-                     
-                     
-                     
-                     
-                    oldPostHtml += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     oldPostHtml += '<img class=\" size-1 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" />';
-                     
-                     
-                     oldPostHtml += '</div>';
-                     
-                     
-                     
-                     oldPostHtml += '</div>';
-                     
-                
-                     
-                     
-                     
-                     
-                oldPostHtml += ' </div></div></div></div>';    
-                     
-                 }  
-                 
-                 
-                 
-                    if(resultOldPost.type == 'attach' && resultOldPost.owner != "<?php echo $user_info['id']; ?>") {
-         
-                   oldPostHtml += '<div id=\"'+ 'old_post' + resultOldPost.id +'\" class=\"row\">';
-                   oldPostHtml += '<div class=\"col-xs-10\">';
-                   oldPostHtml += '<div class=\"talk-bubble1 tri-right1 left-top1\" class=\"chat-right-1\">';
-                   oldPostHtml += '<div class=\"talktext1\">';
-                   oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + '</p>';
-                   oldPostHtml += '<p class=\"text-body\"><a href=\" ' + resultOldPost.path  + ' \" download>' + resultOldPost.name + '</a></p>';
-                        
-                        
-                        
-                        
-                        
-                                             oldPostHtml += '<div class=\"row\" >';
-                     
-                     
-                     oldPostHtml += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     oldPostHtml += '<img onclick=\"start_delete(' + resultOldPost.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
-                     
-                     
-                     oldPostHtml += '</div>';
-                     
-                     
-                     oldPostHtml += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     oldPostHtml += '<img class=\" size-2 '+ 'start_delete' + resultOldPost.id + '   like_delete'  +  resultOldPost.id  +  '    \" src=\"' +  resultOldPost.like_src + '\" onclick=\"likeoldpost(' + resultOldPost.id + ') \" />';
-                     
-                    
-                     
-                     oldPostHtml += '</div>';
-                     
-                     
-                     oldPostHtml += '<div class=\"col-xs-5\" >';
-                     
-                     // Empty div.
                    
-                     oldPostHtml += '</div>';
-                     
-                     
-                     
-                     
-                     
-                    oldPostHtml += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                    // Empty div.
-                     
-                     oldPostHtml += '</div>';
-                     
-                     
-                     
-                     oldPostHtml += '</div>';
-                     
-                     
-                     
-                    
-                        
-                        
-                        
-                   oldPostHtml += ' </div></div></div>';
-                   oldPostHtml += '<div class=\"col-xs-2\">';
-                   oldPostHtml += '<a><img src=\" ' +  '<?php echo $_SESSION['url_placeholder'];  ?>' + resultOldPost.image  +' \" class=\"chat-right-2\"  /></a>';
-                   oldPostHtml += '</div>';
-                   oldPostHtml += '</div>';
-                    
-                 }
-                 
-                 
-                 
-                 if (resultOldPost.type == "chat" && resultOldPost.owner == "<?php echo $user_info['id']; ?>") {
-                     
+                   if(!atleast1poll)  {
                        
-                oldPostHtml += '<div id=\"'+ 'old_post' + resultOldPost.id +'\" class=\"row\">';
-                oldPostHtml += '<div class=\"col-xs-2\">';
-                oldPostHtml += '<a><img src=\" '+ '<?php echo $_SESSION['url_placeholder'];  ?>' + resultOldPost.image +'  \" class=\"chat-left-1\"  /></a>';
-                oldPostHtml += '</div>';
-                oldPostHtml += '<div class=\"col-xs-10\">';
-                oldPostHtml += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
-                oldPostHtml += '<div class=\"talktext\">';
-                oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + '</p>';
-                oldPostHtml += '<p class=\"text-body\">'  + resultOldPost.message + '</p>';
-                     
-                
-
-                     
-                     
-                     oldPostHtml += '<div class=\"row\" >';
-                     
-                     
-                     oldPostHtml += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     oldPostHtml += '<img onclick=\"start_delete(' + resultOldPost.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
-                     
-                     
-                     oldPostHtml += '</div>';
-                     
-                     
-                     oldPostHtml += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     oldPostHtml += '<img class=\" size-2 '+ 'start_delete' + resultOldPost.id + '   like_delete'  +  resultOldPost.id  +  '    \" src=\"' +  resultOldPost.like_src + '\" onclick=\"likeoldpost(' + resultOldPost.id + ') \" />';
-                     
-                     oldPostHtml += '<img onclick=\"show_delete(' + resultOldPost.id + ') \" class=\" size-3 '+ 'start_delete' + resultOldPost.id +' \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/garbage.svg' + '\" />';
-                     
-                     oldPostHtml += '</div>';
-                     
-                     
-                     oldPostHtml += '<div class=\"col-xs-5\" >';
-                     
-                     
-                     oldPostHtml += '<a class=\"delete-2 '+ 'show_delete' + resultOldPost.id +'\" onclick=\"deleteoldpost(' + resultOldPost.id + ') \">delete</a><a style=\"display: none; font-size: 13px;\" class=\"'+ 'show_delete' + resultOldPost.id +'\" > //</a>';
-                     
-                     
-                      oldPostHtml += '<a onclick=\"hide_delete(' + resultOldPost.id + ') \" class=\"delete-3 '+ 'show_delete' + resultOldPost.id +'\">don\'t</a>';
-                     
-                     
-                     oldPostHtml += '</div>';
-                     
-                     
-                     
-                     
-                     
-                    oldPostHtml += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     oldPostHtml += '<img class=\" size-1 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" />';
-                     
-                     
-                     oldPostHtml += '</div>';
-                     
-                     
-                     
-                     oldPostHtml += '</div>';
-                     
-                     
-                     
-                     
-                    oldPostHtml += '</div></div></div></div>'; 
-                     
-                 }
-                 
-                 
-                 
-                if (resultOldPost.type == "chat" && resultOldPost.owner != "<?php echo $user_info['id']; ?>") {
-                    
-                    
-                   oldPostHtml += '<div id=\"'+ 'old_post' + resultOldPost.id +'\" class=\"row\">';
-                   oldPostHtml += '<div class=\"col-xs-10\">';
-                   oldPostHtml += '<div class=\"talk-bubble1 tri-right1 left-top1\" class=\"chat-right-1\">';
-                   oldPostHtml += '<div class=\"talktext1\">';
-                   oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + '</p>';
-                   oldPostHtml += '<p class=\"text-body\">' + resultOldPost.message + '</p>';
-                    
-                    
+                       $("#nopoll").show();
                        
-                     oldPostHtml += '<div class=\"row\" >';
-                     
-                     
-                     oldPostHtml += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     oldPostHtml += '<img onclick=\"start_delete(' + resultOldPost.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
-                     
-                     
-                     oldPostHtml += '</div>';
-                     
-                     
-                     oldPostHtml += '<div class=\"col-xs-3\" style=\" height: 25px;\"> ';
-                    
-                    
+                   }
                    
-                     
-                    
-                     oldPostHtml += '<img class=\" size-2 '+ 'start_delete' + resultOldPost.id + '   like_delete'  +  resultOldPost.id  +  '    \" src=\"' +  resultOldPost.like_src + '\" onclick=\"likeoldpost(' + resultOldPost.id + ') \" />';
-                     
-                    
-                    
-                     
-                     oldPostHtml += '</div>';
-                     
-                     
-                     oldPostHtml += '<div class=\"col-xs-5\" >';
-                     
-                     // Empty div.
-                   
-                     oldPostHtml += '</div>';
-                     
-                     
-                     
-                     
-                     
-                    oldPostHtml += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                    // Empty div.
-                     
-                     oldPostHtml += '</div>';
-                     
-                     
-                     
-                     oldPostHtml += '</div>';
-                     
-                     
-                     
-                    
-                    
-                    
-                    
-                   oldPostHtml += ' </div></div></div>';
-                   oldPostHtml += '<div class=\"col-xs-2\">';
-                   oldPostHtml += '<a><img src=\" ' +  '<?php echo $_SESSION['url_placeholder'];  ?>' + resultOldPost.image  +' \" class=\"chat-right-2\"  /></a>';
-                   oldPostHtml += '</div>';
-                   oldPostHtml += '</div>';
-                    
-                     
-                       
-               
-                     
-                 }
-                 
+        
              }
                 
              $( '#postsdiv' ).append( oldPostHtml );                            
@@ -5481,6 +3882,8 @@ function displayFromDatabasePagination() {
           },
         
             error: function( xhr, textStatus, errorThrown ) {
+                
+        
                
                 $('#loading').hide();
                 
@@ -5529,146 +3932,6 @@ function displayFromDatabasePagination() {
     
     
     
-    
-    
-    function sendPostData( e, sent_post_id, text, post_id_num ) {
-        
-       var is_sent_already = function( post_ui, post_id_0 ) {
-           
-           
-           
-                     append_post_sent_1 = "";
-                     
-                     append_post_sent_1 += '<div class=\"row\" >';
-                     
-                     
-                     append_post_sent_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     append_post_sent_1 += '<img onclick=\"start_delete(' + post_id_0 + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
-                     
-                     
-                     append_post_sent_1 += '</div>';
-                     
-                     
-                     append_post_sent_1 += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
-                     
-                    
-           
-           
-                     append_post_sent_1 += '<img class=\" size-2 '+ 'start_delete' + post_id_0 + '   like_delete'  +  post_id_0  +  '    \" src=\"' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/unlike.svg' + '\" onclick=\"likeoldpost(' + post_id_0 + ') \" />';
-           
-           
-                     
-                     append_post_sent_1 += '<img onclick=\"show_delete(' + post_id_0 + ') \" class=\" size-3 '+ 'start_delete' + post_id_0 +' \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/garbage.svg' + '\" />';
-                     
-                     append_post_sent_1 += '</div>';
-                     
-                     
-                     append_post_sent_1 += '<div class=\"col-xs-5\" >';
-                     
-                     
-                     append_post_sent_1 += '<a class=\"delete-2 '+ 'show_delete' + post_id_0 +'\" onclick=\"deletenewpost(' +  post_id_num + ',' + post_id_0 + ') \">delete</a><a style=\"display: none; font-size: 13px;\" class=\"'+ 'show_delete' + post_id_0 +'\" > //</a>';
-                     
-                     
-                      append_post_sent_1 += '<a onclick=\"hide_delete(' + post_id_0 + ') \" class=\"delete-3 '+ 'show_delete' + post_id_0 +'\">don\'t</a>';
-                     
-                     
-                     append_post_sent_1 += '</div>';
-                     
-                     
-                     
-                     
-                     
-                    append_post_sent_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     append_post_sent_1 += '<img class=\" size-1 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" />';
-                     
-                     
-                     append_post_sent_1 += '</div>';
-                     
-                     
-                     
-                     append_post_sent_1 += '</div>';
-                     
-                     
-                     
-           
-      
-           
-           var new_items_chat_append_1 = $( append_post_sent_1 ).hide();
-           
-           $( "#" + post_ui ).prepend( new_items_chat_append_1 );
-           
-           new_items_chat_append_1.show(500);
-           
-       };
-        
-        
-        
-       var text_Trim = $( "#text" ).val().trim();
-       
-       if ( text_Trim != "" ) {
-          
-          $( "#text" ).val( "" );
-           
-          e.preventDefault();
-          
-           
-          post_url_2 = "<?php  echo $_SESSION['url_placeholder'];  ?>" + "send_chat";   
-           
-           
-          current = new Date();
-        
-          currentMilli = current.getTime();
-        
-          
-          
-           
-          currentArray.push(currentMilli);
-               
-           
-          $.ajax( {
-             url: post_url_2,
-             type: "POST",
-             async: true,
-             data: {
-                "done": 1,
-                "message": text,
-                 "group_id": page_group_id,
-                 "time": currentMilli
-             },
-             success: function( data ) {
-                 
-                 
-             var jsonNewPost = JSON.parse( data );
-            
-             var statusNewPost =  jsonNewPost[0];
-            
-             var post_id_new_from_json =  jsonNewPost[1];
-                 
-                if ( statusNewPost == 1 ) {
-                    
-                   is_sent_already( sent_post_id, post_id_new_from_json );
-                    
-                } else {}
-                
-                $( "#text" ).val( "" );
-                
-                e.preventDefault();
-             },
-             error: function( xhr, textStatus, errorThrown ) {
-                $.ajax( this );
-                return;
-             }
-          } );
-       } else {
-          $( "#text" ).val( "" );
-       }
-    }
     
     
     
@@ -6090,362 +4353,5 @@ function hide_delete(post_ui) {
 }
     
     
-    function sendPostDataAttach( post_id, path, name, type, posttype,  post_id_0) {
-        
-        var is_sent = function( post_id_new ) {
-            
-          
-                     append_post_sent_2 = "";
-                     
-                     append_post_sent_2 += '<div class=\"row\" >';
-                     
-                     
-                     append_post_sent_2 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     append_post_sent_2 += '<img onclick=\"start_delete(' + post_id_new + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
-                     
-                     
-                     append_post_sent_2 += '</div>';
-                     
-                     
-                     append_post_sent_2 += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
-            
-            
-            
-                     append_post_sent_2 += '<img class=\" size-2 '+ 'start_delete' + post_id_new + '   like_delete'  +  post_id_new  +  '    \" src=\"' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/unlike.svg' + '\" onclick=\"likeoldpost(' + post_id_new + ') \" />';
-                     
-                     append_post_sent_2 += '<img onclick=\"show_delete(' + post_id_new + ') \" class=\" size-3 '+ 'start_delete' + post_id_new +' \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/garbage.svg' + '\" />';
-                     
-                     append_post_sent_2 += '</div>';
-                     
-                     
-                     append_post_sent_2 += '<div class=\"col-xs-5\" >';
-                     
-                     
-                     append_post_sent_2 += '<a class=\"delete-2 '+ 'show_delete' + post_id_new +'\" onclick=\"deletenewpost(' +  post_id_0 + ',' + post_id_new + ') \">delete</a><a style=\"display: none; font-size: 13px;\" class=\"'+ 'show_delete' + post_id_new +'\" > //</a>';
-                     
-                     
-                      append_post_sent_2 += '<a onclick=\"hide_delete(' + post_id_new + ') \" class=\"delete-3 '+ 'show_delete' + post_id_new +'\">don\'t</a>';
-                     
-                     
-                     append_post_sent_2 += '</div>';
-                     
-                     
-                     
-                     
-                     
-                    append_post_sent_2 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     append_post_sent_2 += '<img class=\" size-1 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" />';
-                     
-                     
-                     append_post_sent_2 += '</div>';
-                     
-                     
-                     
-                     append_post_sent_2 += '</div>';
-                     
-                     
-                     
-           
-      
-           
-           var new_items_chat_append_2 = $( append_post_sent_2 ).hide();
-           
-           $( "#" + post_id ).prepend( new_items_chat_append_2 );
-           
-           new_items_chat_append_2.show(500);
-            
-            
-
-            
-        };
-        
-
-            
-            
-          insert_attach_url = "<?php  echo $_SESSION['url_placeholder'];  ?>" + "insert_attach";
-        
-        
-          current_attach = new Date();
-        
-          currentMilli_attach = current_attach.getTime();
-        
-          
-          
-           
-          currentArray.push(currentMilli_attach);
-            
-  
-          $.ajax( {
-             url: insert_attach_url,
-             type: "POST",
-             async: true,
-             data: {
-                "insert_attach": 1,
-                "path": path,
-                 "name": name,
-                 "type": type,
-                 "posttype": posttype,
-                 "group": page_group_id,
-                 "time": currentMilli_attach
-             },
-             success: function( data ) {
-                 
-                 
-             var jsonNewPostAttach = JSON.parse( data );
-            
-             var statusNewPostAttach =  jsonNewPostAttach[0];
-            
-             var post_id_new_from_json_2 =  jsonNewPostAttach[1];
-                 
-                if ( statusNewPostAttach == 1 ) {
-                    
-                   is_sent( post_id_new_from_json_2 );
-                    
-                } else {}
-                 
-                 
-                 
-             },
-             error: function( xhr, textStatus, errorThrown ) {
-                $.ajax( this );
-                return;
-             }
-          } );
-      
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        function metaLink( data33, new_post_id ) {
-        
- var dooos1 = function( lam, data56, url, title, desc, img ) {
-     
-     var html45 = "";
-     
-    html45 +=   "<a href=\"  " + url + " \"><div class=\"row\" style=\"border: 2px solid #ddd; border-radius: 5px; padding: 10px; margin: 5px;\"><div>" 
-                
-                
-                        
-html45  += "<img src=\"  " + img +"  \" style=\"width: 100%;\" ></div><div><br>";
-                        
-                
-                        
-                        
-                        
-          html45 +=  " <p style=\" font-family: Josefin Slab; font-size: 15px; font-weight: bold;\">   " + title  +  "</p>";  
-                        
-                       html45 +=    "<p style=\" font-family: Josefin Slab; font-size: 15px; font-weight: bold;\">  " + desc + " </p>        </div> </div></a>  ";
-     
-     
-     
-     
-     
-     
-          $( "#" + new_post_id ).html(html45);
-       };
-            
-  
-          $.ajax( {
-             url: "<?php echo $_SESSION['url_placeholder']; ?>link_prepare",
-             type: "POST",
-             async: true,
-             dataType:"text",
-             data: {
-                "preview": 1,
-                 "name": name,
-                 relay: data33
-             },
-             success: function( datasss ) {
-                 
-                 if (datasss) {
-                     
-                     
-                    var jsonData16 = JSON.parse( datasss );
-                     
-                     
-            
-                    //  var attach_path12 =  jsonData16[0];
-                   var metaurl = jsonData16.article["url"];
-                    var metatitle = jsonData16.article["title"];
-                     var metaimage = jsonData16.article['image']['src'];
-                     var metadesc = jsonData16.article['description'];
-                     
-                   //  alert(metaimage);
-                     dooos1(new_post_id, datasss, metaurl, metatitle, metadesc, metaimage);
-                     
-                 }
-                 
-                 
-             },
-             error: function( xhr, textStatus, errorThrown ) {
-                $.ajax( this );
-                return;
-             }
-          } );
-      
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-      function previewLink( text, new_post_id ) {
-        
-            
-  
-          $.ajax( {
-             url: "<?php echo $_SESSION['url_placeholder']; ?>link_preview",
-             type: "POST",
-             async: true,
-             data: {
-                "preview": 1,
-                 "text": text
-             },
-             success: function( data ) {
-                 
-                 if (data) {
-                     
-                    metaLink(data, new_post_id);
-                     
-                 }
-                 
-                 
-             },
-             error: function( xhr, textStatus, errorThrown ) {
-                $.ajax( this );
-                return;
-             }
-          } );
-      
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    function sendAppend( e, attach ) {
-        
-        
-        if ( $("#text").val().length > 200 ) {
-            
-            return;
-            
-        }
-        
-        
-        
-        if (attach) {
-            
-           
-            var jsonChatAppend = JSON.parse( attach );
-            
-            var attach_chat_path =  jsonChatAppend[0];
-            
-            var attach_chat_name =  jsonChatAppend[1];
-            
-            var attach_chat_type = jsonChatAppend[2];
-            
-            var post_type_chat =  jsonChatAppend[3];
-          
-            
-            
-            var new_chat_html = '';
-            new_chat_html += '<div id=\"'+ 'whole_' + new_post_id +'\" class=\"row\">';
-            new_chat_html += '<div class=\"col-xs-2\">';
-            new_chat_html += '<a><img src=\" '+  '<?php echo $_SESSION['url_placeholder'] . $user_info['img_path'];  ?>' +' \" class=\"chat-left-1\"  /></a>';
-            new_chat_html += '</div>';
-            new_chat_html += '<div class=\"col-xs-10\">';
-            new_chat_html += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
-            new_chat_html += '<div class=\"talktext\">';
-            new_chat_html += '<p class=\"text-username\"> ' + '<?php echo $user_info['username']; ?>' + '</p>';
-            new_chat_html += '<p class=\"text-body\"><a href=\" ' + attach_chat_path  + ' \" download>' + attach_chat_name + '</a></p><span id=\"' + new_post_id + '\" ></span>';
-            new_chat_html += ' </div></div></div></div>';
-            
-            var new_items_chat = $( new_chat_html ).hide();
-            $( '#postsdiv' ).prepend( new_items_chat );
-            new_items_chat.show( 'fast' );
-            sendPostDataAttach( new_post_id, attach_chat_path, attach_chat_name, attach_chat_type, post_type_chat, new_post_id_num );
-            
-            new_post_id_num = new_post_id_num + 1;
-            new_post_id = "new_post" + new_post_id_num;
-            
-        } else {
-            
-            
-          var text = $( "#text" ).val();
-          var textTrim = $( "#text" ).val().trim();
-            
-      if ( textTrim != "" ) {
-          
-          var new_chat_html = '';
-          new_chat_html += '<div id=\"'+ 'whole_' + new_post_id +'\" class=\"row\">';
-          new_chat_html += '<div class=\"col-xs-2\">';
-          new_chat_html += '<a><img src=\" '+  '<?php echo $_SESSION['url_placeholder'] . $user_info['img_path'];  ?>' +' \" class=\"chat-left-1\"  /></a>';
-          new_chat_html += '</div>';
-          new_chat_html += '<div class=\"col-xs-10\">';
-          new_chat_html += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
-          new_chat_html += '<div class=\"talktext\">';
-          new_chat_html += '<p class=\"text-username\">' + '<?php echo $user_info['username'];  ?>' + '</p>';        
-          new_chat_html += '<p class=\"text-body\">' + text + '</p><span id=\"' + new_post_id + '\" ></span>';
-          new_chat_html += ' </div></div></div></div>';
-                
-                
-                
-          var new_items_chat = $( new_chat_html ).hide();
-          $( '#postsdiv' ).prepend( new_items_chat );
-          new_items_chat.show( 100 );
-                
-          previewLink(name, new_post_id);
-         
-          
-          sendPostData( e, new_post_id, text,  new_post_id_num);
-                
-                
-          new_post_id_num = new_post_id_num + 1;
-          new_post_id = "new_post" + new_post_id_num;
-       
-       }
-    }
-        
-     
-}
-    
+   
 </script>   
