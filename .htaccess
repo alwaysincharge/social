@@ -11,6 +11,8 @@ RewriteRule ^newgroup frontend/html/pages/newgroup.php [NC,L]
 
 RewriteRule ^dashboard/([0-9]+) frontend/html/pages/dashboard.php?group=$1 [NC,L]
 
+RewriteRule ^todo/([0-9]+) frontend/html/pages/todo.php?group=$1 [NC,L]
+
 RewriteRule ^poll/([0-9]+) frontend/html/pages/poll.php?group=$1 [NC,L]
 
 RewriteRule ^members/([0-9]+) frontend/html/pages/members.php?members=$1 [NC,L]
@@ -50,6 +52,16 @@ RewriteRule ^poll_send backend/poll_send.php [NC,L]
 RewriteRule ^poll_vote backend/poll_vote.php [NC,L]
 
 RewriteRule ^poll_percent backend/poll_percent.php [NC,L]
+
+RewriteRule ^create_todo backend/create_todo.php [NC,L]
+
+RewriteRule ^create_task backend/create_task.php [NC,L]
+
+RewriteRule ^create_comment backend/create_comment.php [NC,L]
+
+RewriteRule ^send_to_doing backend/send_to_doing.php [NC,L]
+
+RewriteRule ^send_to_done backend/send_to_done.php [NC,L]
 
 
 

@@ -1195,6 +1195,37 @@ $("#submitpoll").on("click", function() {
     
     
     
+    function voteagainSearch(back_id) {
+        
+        window["votebuttonSearch" + back_id] = false;
+        
+        
+                 $("#pollvote_Search" + back_id).show();
+                 
+                 $("#pollchange_Search" + back_id).hide();
+                 
+                 $("#pollvote_Search" + back_id).blur();
+                 
+                 
+                 $(".radio-first-Search" + back_id).show(300);
+                 
+                 $(".radio-second-Search" + back_id).hide(300);
+        
+            //    $(".poll-totalold" + front_id).hide().html(totalJsonChoice + " total votes.");
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1297,6 +1328,58 @@ $("#myTextBox").on("input", function() {
     
     
     
+            function pollvoteSearch(back_id)  {
+        
+        
+        
+        var which_radio_Search = "radio_group_Search" + back_id;
+        
+        if ( ( $('input[name="'+ which_radio_Search +'"]:checked').val() > 0 ) && ( $('input[name="'+ which_radio_Search +'"]:checked').val() < 11 ) ) {
+            
+            
+            
+            which_radio_selection_Search = $('input[name="'+ which_radio_Search +'"]:checked').val();
+            
+            
+            
+           sendPollVoteSearch(which_radio_selection_Search, back_id);
+            
+            
+            
+        } else {
+            
+            alert("select soemthing");
+            
+        }
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1326,7 +1409,7 @@ $("#myTextBox").on("input", function() {
                  
                  getPollVote(back_db_id, front_client_id);
                  
-                 setInterval(getPollVote, 10000, back_db_id, front_client_id);
+             //    setInterval(getPollVote, 10000, back_db_id, front_client_id);
                  
         
              },
@@ -1368,7 +1451,7 @@ $("#myTextBox").on("input", function() {
                  
                  getOldPollVote(back_db_id);
                  
-                 setInterval(getOldPollVote, 10000, back_db_id);
+            //     setInterval(getOldPollVote, 10000, back_db_id);
                  
         
              },
@@ -1381,6 +1464,80 @@ $("#myTextBox").on("input", function() {
           } );
         
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    function sendPollVoteSearch(selection, back_db_id)  {
+        
+        
+             poll_vote_url = "<?php echo $_SESSION['url_placeholder'];  ?>poll_vote";
+        
+        
+             $.ajax( {
+             url: poll_vote_url,
+             type: "POST",
+             async: true,
+             data: {
+                "vote": 1,
+                "choice": selection,
+                 "group_id": page_group_id,
+                 "post_id": back_db_id
+             },
+             success: function( data ) {
+                 
+                 
+                 window["votebuttonSearch" + back_db_id] = true;
+                 
+                 getSearchPollVote(back_db_id);
+                 
+            //     setInterval(getOldPollVote, 10000, back_db_id);
+                 
+        
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                
+                 $.ajax( this );
+                return;
+                 
+             }
+          } );
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1623,13 +1780,13 @@ $("#myTextBox").on("input", function() {
                      
                      if(jsonUserOldChoice == 0) {
                          
-                         $(".radio-first-old" + back_id).show(300);
+                         $(".radio-first-old" + back_id).show(30);
                  
                          $(".radio-second-old" + back_id).hide(30);
                          
-                         $("#pollvote_old" + back_id).show(300);
+                         $("#pollvote_old" + back_id).show(30);
                  
-                 $("#pollchange_old" + back_id).hide(300);
+                 $("#pollchange_old" + back_id).hide(30);
                  
                  $("#pollvote_old" + back_id).blur();
                          
@@ -1640,23 +1797,23 @@ $("#myTextBox").on("input", function() {
                      
             
                      
-                    $(".poll-totalold" + back_id).hide(300);
+                    $(".poll-totalold" + back_id).hide(30);
                      
                  
                          
                      } else if  (jsonUserOldChoice > 0)  {
                          
-                         $(".radio-first-old" + back_id).hide(300);
+                         $(".radio-first-old" + back_id).hide(30);
                  
-                         $(".radio-second-old" + back_id).show(300);
+                         $(".radio-second-old" + back_id).show(30);
                          
-                         $("#pollvote_old" + back_id).hide(300);
+                         $("#pollvote_old" + back_id).hide(30);
                  
-                 $("#pollchange_old" + back_id).show(300);
+                 $("#pollchange_old" + back_id).show(30);
                  
                  $("#pollvote_old" + back_id).blur();
                          
-                         $(".poll-totalold" + back_id).show(300).html(totalJsonOldChoiceSum + " total votes.");
+                         $(".poll-totalold" + back_id).show(30).html(totalJsonOldChoiceSum + " total votes.");
                          
                      }
                  
@@ -1734,9 +1891,15 @@ $("#myTextBox").on("input", function() {
              },
              error: function( xhr, textStatus, errorThrown ) {
                 
-                 $.ajax( this );
-                return;
+                
                  
+             },
+                 
+                    complete: function( ) {
+               
+                $.ajax( this );
+                return;
+                
              }
           } );
         
@@ -1748,6 +1911,215 @@ $("#myTextBox").on("input", function() {
     
     
     
+    
+    
+    
+    
+    function getSearchPollVote(back_id)  {
+        
+        
+             poll_percent_url = "<?php echo $_SESSION['url_placeholder'];  ?>poll_percent";
+        
+        
+             $.ajax( {
+             url: poll_percent_url,
+             type: "POST",
+             async: true,
+             timeout: 15000,
+             data: {
+                "percent": 1,
+                 "post_id": back_id
+             },
+             success: function( data ) {
+                 
+                 
+                
+             $(".poll-load-Search-" + back_id).hide();
+                 
+                 
+             //   alert(data);
+                 
+                 
+                 var jsonGetPollSearch = JSON.parse( data );
+            
+                 var jsonSearchChoice1 =  jsonGetPollSearch[0];
+                 
+                 var jsonSearchChoice2 =  jsonGetPollSearch[1];
+                 
+                 var jsonSearchChoice3 =  jsonGetPollSearch[2];
+                 
+                 var jsonSearchChoice4 =  jsonGetPollSearch[3];
+                 
+                 var jsonSearchChoice5 =  jsonGetPollSearch[4];
+                 
+                 var jsonSearchChoice6 =  jsonGetPollSearch[5];
+                 
+                 var jsonSearchChoice7 =  jsonGetPollSearch[6];
+                 
+                 var jsonSearchChoice8 =  jsonGetPollSearch[7];
+                 
+                 var jsonSearchChoice9 =  jsonGetPollSearch[8];
+                 
+                 var jsonSearchChoice10 =  jsonGetPollSearch[9];
+                 
+                 var jsonUserSearchChoice = jsonGetPollSearch[10];
+                 
+                 
+                 var totalJsonSearchChoice = jsonSearchChoice1 + jsonSearchChoice2 + jsonSearchChoice3 + jsonSearchChoice4 + jsonSearchChoice5 + jsonSearchChoice6 + jsonSearchChoice7 + jsonSearchChoice8 + jsonSearchChoice9 + jsonSearchChoice10;
+                 
+                 
+                 var totalJsonSearchChoiceSum = jsonSearchChoice1 + jsonSearchChoice2 + jsonSearchChoice3 + jsonSearchChoice4 + jsonSearchChoice5 + jsonSearchChoice6 + jsonSearchChoice7 + jsonSearchChoice8 + jsonSearchChoice9 + jsonSearchChoice10;
+                 
+                 
+                 if (totalJsonSearchChoice == 0) {
+                     
+                     totalJsonSearchChoice = 1;
+                     
+                 } else {
+                     
+                     totalJsonSearchChoice = totalJsonSearchChoice;
+                     
+                 }
+                 
+                 
+                 
+                 
+                 
+                 if(window["votebuttonSearch" + back_id]) {
+                     
+                     
+                     
+        
+                     
+                     
+                     if(jsonUserSearchChoice == 0) {
+                         
+                         $(".radio-first-Search" + back_id).show(30);
+                 
+                         $(".radio-second-Search" + back_id).hide(30);
+                         
+                         $("#pollvote_Search" + back_id).show(30);
+                 
+                 $("#pollchange_Search" + back_id).hide(30);
+                 
+                 $("#pollvote_Search" + back_id).blur();
+                         
+                
+                     
+                     
+                 
+                     
+            
+                     
+                    $(".poll-totalSearch" + back_id).hide(30);
+                     
+                 
+                         
+                     } else if  (jsonUserSearchChoice > 0)  {
+                         
+                         $(".radio-first-Search" + back_id).hide(30);
+                 
+                         $(".radio-second-Search" + back_id).show(30);
+                         
+                         $("#pollvote_Search" + back_id).hide(30);
+                 
+                 $("#pollchange_Search" + back_id).show(30);
+                 
+                 $("#pollvote_Search" + back_id).blur();
+                         
+                         $(".poll-totalSearch" + back_id).show(30).html(totalJsonSearchChoiceSum + " total votes.");
+                         
+                     }
+                 
+                 
+                 
+                     
+                
+                     
+                 }
+                 
+                 
+                 for ( var poll_img_i_Search = 1; poll_img_i_Search < 11; poll_img_i_Search++ ) {
+                     
+                     $(".poll-img" + poll_img_i_Search + "-Search" + back_id).hide();
+                     
+                 }
+                 
+                 
+                 
+                 
+                 
+                 $(".poll-img" + jsonUserSearchChoice + "-Search" + back_id).show();
+                 
+                 
+                 $(".poll-score1-Search" + back_id).html(Math.round((jsonSearchChoice1/totalJsonSearchChoice) * 100) + "% | " + jsonSearchChoice1 + " votes");
+                 
+                 $("#progressPoll1-Search" + back_id).val(Math.round((jsonSearchChoice1/totalJsonSearchChoice) * 100));
+                 
+                 
+                 
+                 $(".poll-score2-Search" + back_id).html(Math.round((jsonSearchChoice2/totalJsonSearchChoice) * 100) + "% | " + jsonSearchChoice2 + " votes");
+                 
+                 $("#progressPoll2-Search" + back_id).val(Math.round((jsonSearchChoice2/totalJsonSearchChoice) * 100));
+                 
+                 
+                     
+                 $(".poll-score3-Search" + back_id).html(Math.round((jsonSearchChoice3/totalJsonSearchChoice) * 100) + "% | " + jsonSearchChoice3 + " votes");
+                 $("#progressPoll3-Search" + back_id).val(((jsonSearchChoice3/totalJsonSearchChoice) * 100));
+                 
+                 
+                 $(".poll-score4-Search" + back_id).html(Math.round((jsonSearchChoice4/totalJsonSearchChoice) * 100) + "% | " + jsonSearchChoice4 + " votes");
+                 $("#progressPoll4-Search" + back_id).val(((jsonSearchChoice4/totalJsonSearchChoice) * 100));
+                 
+                 
+                 $(".poll-score5-Search" + back_id).html(Math.round((jsonSearchChoice5/totalJsonSearchChoice) * 100) + "% | " + jsonSearchChoice5 + " votes");
+                 $("#progressPoll5-Search" + back_id).val(((jsonSearchChoice5/totalJsonSearchChoice) * 100));
+                 
+                 
+                 
+                 $(".poll-score6-Search" + back_id).html(Math.round((jsonSearchChoice6/totalJsonSearchChoice) * 100) + "% | " + jsonSearchChoice6 + " votes");
+                 $("#progressPoll6-Search" + back_id).val(((jsonSearchChoice6/totalJsonSearchChoice) * 100));
+                 
+                 
+                 $(".poll-score7-Search" + back_id).html(Math.round((jsonSearchChoice7/totalJsonSearchChoice) * 100) + "% | " + jsonSearchChoice7 + " votes");
+                 $("#progressPoll7-Search" + back_id).val(((jsonSearchChoice7/totalJsonSearchChoice) * 100));
+                 
+                 
+                 
+                 $(".poll-score8-Search" + back_id).html(Math.round((jsonSearchChoice8/totalJsonSearchChoice) * 100) + "% | " + jsonSearchChoice8 + " votes");
+                 $("#progressPoll8-Search" + back_id).val(((jsonSearchChoice8/totalJsonSearchChoice) * 100));
+                 
+                 
+                 $(".poll-score9-Search" + back_id).html(Math.round((jsonSearchChoice9/totalJsonSearchChoice) * 100) + "% | " + jsonSearchChoice9 + " votes");
+                 $("#progressPoll9-Search" + back_id).val(((jsonSearchChoice9/totalJsonSearchChoice) * 100));
+                 
+                 
+                 $(".poll-score10-Search" + back_id).html(Math.round((jsonSearchChoice10/totalJsonSearchChoice) * 100) + "% | " + jsonSearchChoice10 + " votes");
+                 $("#progressPoll10-Search" + back_id).val(((jsonSearchChoice10/totalJsonSearchChoice) * 100));
+                 
+                 
+                 
+                                  
+              
+        
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                
+                
+                 
+             },
+                 
+                    complete: function( ) {
+               
+                $.ajax( this );
+                return;
+                
+             }
+          } );
+        
+        
+        
+    }
     
     
     
@@ -2085,7 +2457,7 @@ $("#myTextBox").on("input", function() {
                    
                       
                       
-        htmlSearch += '<div id=\"'+ 'whole_old_post' + resultSearch.id +'\" class=\"row poll-div\" style=\"margin-bottom: 20px;\">';
+        htmlSearch += '<div id=\"'+ 'whole_old_search' + resultSearch.id +'\" class=\"row poll-div\" style=\"margin-bottom: 20px;\">';
         
         
         htmlSearch += '<div class=\"col-xs-2\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/nopic.png\" style=\"width: 40px; margin-left: 10px;\"  /></div>';
@@ -2093,6 +2465,9 @@ $("#myTextBox").on("input", function() {
         htmlSearch += '<div class=\"col-xs-10 poll-body\">';
         
         htmlSearch += '<p class=\"poll-quest-box\"> ' +  resultSearch.question +' </p>';
+                                   
+                                   
+        htmlSearch += '<div class=\"poll-load-Search-'+ resultSearch.id +'\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/wedges.gif\" width=\"90\" height=\"90\"  style=\"display: table; margin: 0 auto;\"  /></div>';
 
     
         htmlSearch += '<form action=\"#\">';
@@ -2102,19 +2477,19 @@ $("#myTextBox").on("input", function() {
     
         htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
         
-        htmlSearch += '<div class=\"radio-first  radio-first-old'+ resultSearch.id +'\"><input class=\"radio-new-class-old'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-1-old'+ resultSearch.id +'\" value=\"1\" name=\"radio_group_old' + resultSearch.id + '\">';
+        htmlSearch += '<div class=\"radio-first  radio-first-Search'+ resultSearch.id +'\" style=\"display: none;\"><input class=\"radio-new-class-Search'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-1-Search'+ resultSearch.id +'\" value=\"1\" name=\"radio_group_Search' + resultSearch.id + '\">';
         
-        htmlSearch += '<label for=\"poll-id-1-old'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer1 + '</span></label><br></div>';
+        htmlSearch += '<label for=\"poll-id-1-Search'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer1 + '</span></label><br></div>';
         
-        htmlSearch +=  '<div class=\"radio-second radio-second-old'+ resultSearch.id +'\" style=\"display: none;\">';
+        htmlSearch +=  '<div class=\"radio-second radio-second-Search'+ resultSearch.id +'\" style=\"display: none;\">';
         
         htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer1 + ' </p>';
         
-        htmlSearch +=  '<progress value=\"100\" max=\"100\" id=\"progressPoll1-old'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        htmlSearch +=  '<progress value=\"100\" max=\"100\" id=\"progressPoll1-Search'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
         
-        htmlSearch +=  '<a class=\"poll-score poll-score1-old'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        htmlSearch +=  '<a class=\"poll-score poll-score1-Search'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
         
-        htmlSearch += '<img class=\"poll-img1-old'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        htmlSearch += '<img class=\"poll-img1-Search'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
         
         htmlSearch +=  '</div>';
                       
@@ -2128,19 +2503,19 @@ $("#myTextBox").on("input", function() {
                 
         htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
         
-        htmlSearch += '<div class=\"radio-first  radio-first-old'+ resultSearch.id +'\"><input class=\"radio-new-class-old'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-2-old'+ resultSearch.id +'\" value=\"2\" name=\"radio_group_old' + resultSearch.id + '\">';
+        htmlSearch += '<div class=\"radio-first  radio-first-Search'+ resultSearch.id +'\" style=\"display: none;\"><input class=\"radio-new-class-Search'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-2-Search'+ resultSearch.id +'\" value=\"2\" name=\"radio_group_Search' + resultSearch.id + '\">';
         
-        htmlSearch += '<label for=\"poll-id-2-old'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer2 + '</span></label><br></div>';
+        htmlSearch += '<label for=\"poll-id-2-Search'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer2 + '</span></label><br></div>';
         
-        htmlSearch +=  '<div class=\"radio-second radio-second-old'+ resultSearch.id +'\" style=\"display: none;\">';
+        htmlSearch +=  '<div class=\"radio-second radio-second-Search'+ resultSearch.id +'\" style=\"display: none;\">';
         
         htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer2 + ' </p>';
         
-        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll2-old'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll2-Search'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
         
-        htmlSearch +=  '<a class=\"poll-score poll-score2-old'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        htmlSearch +=  '<a class=\"poll-score poll-score2-Search'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
         
-        htmlSearch += '<img class=\"poll-img2-old'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        htmlSearch += '<img class=\"poll-img2-Search'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
         
         htmlSearch +=  '</div>';
                       
@@ -2154,19 +2529,19 @@ $("#myTextBox").on("input", function() {
             
         htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
         
-        htmlSearch += '<div class=\"radio-first  radio-first-old'+ resultSearch.id +'\"><input class=\"radio-new-class-old'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-3-old'+ resultSearch.id +'\" value=\"3\" name=\"radio_group_old' + resultSearch.id + '\">';
+        htmlSearch += '<div class=\"radio-first  radio-first-Search'+ resultSearch.id +'\" style=\"display: none;\"><input class=\"radio-new-class-Search'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-3-Search'+ resultSearch.id +'\" value=\"3\" name=\"radio_group_Search' + resultSearch.id + '\">';
         
-        htmlSearch += '<label for=\"poll-id-3-old'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer3 + '</span></label><br></div>';
+        htmlSearch += '<label for=\"poll-id-3-Search'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer3 + '</span></label><br></div>';
         
-        htmlSearch +=  '<div class=\"radio-second radio-second-old'+ resultSearch.id +'\" style=\"display: none;\">';
+        htmlSearch +=  '<div class=\"radio-second radio-second-Search'+ resultSearch.id +'\" style=\"display: none;\">';
         
         htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer3 + ' </p>';
         
-        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll3-old'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll3-Search'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
         
-        htmlSearch +=  '<a class=\"poll-score poll-score3-old'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        htmlSearch +=  '<a class=\"poll-score poll-score3-Search'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
         
-        htmlSearch += '<img class=\"poll-img3-old'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        htmlSearch += '<img class=\"poll-img3-Search'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
         
         htmlSearch +=  '</div>';
 
@@ -2184,19 +2559,19 @@ $("#myTextBox").on("input", function() {
             
         htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
         
-        htmlSearch += '<div class=\"radio-first  radio-first-old'+ resultSearch.id +'\"><input class=\"radio-new-class-old'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-4-old'+ resultSearch.id +'\" value=\"4\" name=\"radio_group_old' + resultSearch.id + '\">';
+        htmlSearch += '<div class=\"radio-first  radio-first-Search'+ resultSearch.id +'\" style=\"display: none;\"><input class=\"radio-new-class-Search'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-4-Search'+ resultSearch.id +'\" value=\"4\" name=\"radio_group_Search' + resultSearch.id + '\">';
         
-        htmlSearch += '<label for=\"poll-id-4-old'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer4 + '</span></label><br></div>';
+        htmlSearch += '<label for=\"poll-id-4-Search'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer4 + '</span></label><br></div>';
         
-        htmlSearch +=  '<div class=\"radio-second radio-second-old'+ resultSearch.id +'\" style=\"display: none;\">';
+        htmlSearch +=  '<div class=\"radio-second radio-second-Search'+ resultSearch.id +'\" style=\"display: none;\">';
         
         htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer4 + ' </p>';
         
-        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll4-old'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll4-Search'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
         
-        htmlSearch +=  '<a class=\"poll-score poll-score4-old'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        htmlSearch +=  '<a class=\"poll-score poll-score4-Search'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
         
-        htmlSearch += '<img class=\"poll-img4-old'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        htmlSearch += '<img class=\"poll-img4-Search'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
         
         htmlSearch +=  '</div>';
 
@@ -2211,19 +2586,19 @@ $("#myTextBox").on("input", function() {
             
         htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
         
-        htmlSearch += '<div class=\"radio-first  radio-first-old'+ resultSearch.id +'\"><input class=\"radio-new-class-old'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-5-old'+ resultSearch.id +'\" value=\"5\" name=\"radio_group_old' + resultSearch.id + '\">';
+        htmlSearch += '<div class=\"radio-first  radio-first-Search'+ resultSearch.id +'\"  style=\"display: none;\"><input class=\"radio-new-class-Search'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-5-Search'+ resultSearch.id +'\" value=\"5\" name=\"radio_group_Search' + resultSearch.id + '\">';
         
-        htmlSearch += '<label for=\"poll-id-5-old'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer5 + '</span></label><br></div>';
+        htmlSearch += '<label for=\"poll-id-5-Search'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer5 + '</span></label><br></div>';
         
-        htmlSearch +=  '<div class=\"radio-second radio-second-old'+ resultSearch.id +'\" style=\"display: none;\">';
+        htmlSearch +=  '<div class=\"radio-second radio-second-Search'+ resultSearch.id +'\" style=\"display: none;\">';
         
         htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer5 + ' </p>';
         
-        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll5-old'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll5-Search'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
         
-        htmlSearch +=  '<a class=\"poll-score poll-score5-old'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        htmlSearch +=  '<a class=\"poll-score poll-score5-Search'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
         
-        htmlSearch += '<img class=\"poll-img5-old'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        htmlSearch += '<img class=\"poll-img5-Search'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
         
         htmlSearch +=  '</div>';
 
@@ -2238,19 +2613,19 @@ $("#myTextBox").on("input", function() {
             
         htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
         
-        htmlSearch += '<div class=\"radio-first  radio-first-old'+ resultSearch.id +'\"><input class=\"radio-new-class-old'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-6-old'+ resultSearch.id +'\" value=\"6\" name=\"radio_group_old' + resultSearch.id + '\">';
+        htmlSearch += '<div class=\"radio-first  radio-first-Search'+ resultSearch.id +'\"  style=\"display: none;\"><input class=\"radio-new-class-Search'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-6-Search'+ resultSearch.id +'\" value=\"6\" name=\"radio_group_Search' + resultSearch.id + '\">';
         
-        htmlSearch += '<label for=\"poll-id-6-old'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer6 + '</span></label><br></div>';
+        htmlSearch += '<label for=\"poll-id-6-Search'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer6 + '</span></label><br></div>';
         
-        htmlSearch +=  '<div class=\"radio-second radio-second-old'+ resultSearch.id +'\" style=\"display: none;\">';
+        htmlSearch +=  '<div class=\"radio-second radio-second-Search'+ resultSearch.id +'\" style=\"display: none;\">';
         
         htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer6 + ' </p>';
         
-        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll6-old'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll6-Search'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
         
-        htmlSearch +=  '<a class=\"poll-score poll-score6-old'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        htmlSearch +=  '<a class=\"poll-score poll-score6-Search'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
         
-        htmlSearch += '<img class=\"poll-img6-old'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        htmlSearch += '<img class=\"poll-img6-Search'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
         
         htmlSearch +=  '</div>';
 
@@ -2266,19 +2641,19 @@ $("#myTextBox").on("input", function() {
             
         htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
         
-        htmlSearch += '<div class=\"radio-first  radio-first-old'+ resultSearch.id +'\"><input class=\"radio-new-class-old'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-7-old'+ resultSearch.id +'\" value=\"7\" name=\"radio_group_old' + resultSearch.id + '\">';
+        htmlSearch += '<div class=\"radio-first  radio-first-Search'+ resultSearch.id +'\" style=\"display: none;\"><input class=\"radio-new-class-Search'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-7-Search'+ resultSearch.id +'\" value=\"7\" name=\"radio_group_Search' + resultSearch.id + '\">';
         
-        htmlSearch += '<label for=\"poll-id-7-old'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer7 + '</span></label><br></div>';
+        htmlSearch += '<label for=\"poll-id-7-Search'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer7 + '</span></label><br></div>';
         
-        htmlSearch +=  '<div class=\"radio-second radio-second-old'+ resultSearch.id +'\" style=\"display: none;\">';
+        htmlSearch +=  '<div class=\"radio-second radio-second-Search'+ resultSearch.id +'\" style=\"display: none;\">';
         
         htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer7 + ' </p>';
         
-        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll7-old'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll7-Search'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
         
-        htmlSearch +=  '<a class=\"poll-score poll-score7-old'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        htmlSearch +=  '<a class=\"poll-score poll-score7-Search'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
         
-        htmlSearch += '<img class=\"poll-img7-old'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        htmlSearch += '<img class=\"poll-img7-Search'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
         
         htmlSearch +=  '</div>';
 
@@ -2295,19 +2670,19 @@ $("#myTextBox").on("input", function() {
             
         htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
         
-        htmlSearch += '<div class=\"radio-first  radio-first-old'+ resultSearch.id +'\"><input class=\"radio-new-class-old'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-8-old'+ resultSearch.id +'\" value=\"8\" name=\"radio_group_old' + resultSearch.id + '\">';
+        htmlSearch += '<div class=\"radio-first  radio-first-Search'+ resultSearch.id +'\" style=\"display: none;\"><input class=\"radio-new-class-Search'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-8-Search'+ resultSearch.id +'\" value=\"8\" name=\"radio_group_Search' + resultSearch.id + '\">';
         
-        htmlSearch += '<label for=\"poll-id-8-old'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer8 + '</span></label><br></div>';
+        htmlSearch += '<label for=\"poll-id-8-Search'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer8 + '</span></label><br></div>';
         
-        htmlSearch +=  '<div class=\"radio-second radio-second-old'+ resultSearch.id +'\" style=\"display: none;\">';
+        htmlSearch +=  '<div class=\"radio-second radio-second-Search'+ resultSearch.id +'\" style=\"display: none;\">';
         
         htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer8 + ' </p>';
         
-        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll8-old'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll8-Search'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
         
-        htmlSearch +=  '<a class=\"poll-score poll-score8-old'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        htmlSearch +=  '<a class=\"poll-score poll-score8-Search'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
         
-        htmlSearch += '<img class=\"poll-img8-old'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        htmlSearch += '<img class=\"poll-img8-Search'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
         
         htmlSearch +=  '</div>';
 
@@ -2322,19 +2697,19 @@ $("#myTextBox").on("input", function() {
             
         htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
         
-        htmlSearch += '<div class=\"radio-first  radio-first-old'+ resultSearch.id +'\"><input class=\"radio-new-class-old'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-9-old'+ resultSearch.id +'\" value=\"9\" name=\"radio_group_old' + resultSearch.id + '\">';
+        htmlSearch += '<div class=\"radio-first  radio-first-Search'+ resultSearch.id +'\" style=\"display: none;\"><input class=\"radio-new-class-Search'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-9-Search'+ resultSearch.id +'\" value=\"9\" name=\"radio_group_Search' + resultSearch.id + '\">';
         
-        htmlSearch += '<label for=\"poll-id-9-old'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer9 + '</span></label><br></div>';
+        htmlSearch += '<label for=\"poll-id-9-Search'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer9 + '</span></label><br></div>';
         
-        htmlSearch +=  '<div class=\"radio-second radio-second-old'+ resultSearch.id +'\" style=\"display: none;\">';
+        htmlSearch +=  '<div class=\"radio-second radio-second-Search'+ resultSearch.id +'\" style=\"display: none;\">';
         
         htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer9 + ' </p>';
         
-        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll9-old'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll9-Search'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
         
-        htmlSearch +=  '<a class=\"poll-score poll-score9-old'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        htmlSearch +=  '<a class=\"poll-score poll-score9-Search'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
         
-        htmlSearch += '<img class=\"poll-img9-old'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        htmlSearch += '<img class=\"poll-img9-Search'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
         
         htmlSearch +=  '</div>';
 
@@ -2347,19 +2722,19 @@ $("#myTextBox").on("input", function() {
             
         htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
         
-        htmlSearch += '<div class=\"radio-first  radio-first-old'+ resultSearch.id +'\"><input class=\"radio-new-class-old'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-10-old'+ resultSearch.id +'\" value=\"10\" name=\"radio_group_old' + resultSearch.id + '\">';
+        htmlSearch += '<div class=\"radio-first  radio-first-Search'+ resultSearch.id +'\" style=\"display: none;\"><input class=\"radio-new-class-Search'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-10-Search'+ resultSearch.id +'\" value=\"10\" name=\"radio_group_Search' + resultSearch.id + '\">';
         
-        htmlSearch += '<label for=\"poll-id-10-old'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer10 + '</span></label><br></div>';
+        htmlSearch += '<label for=\"poll-id-10-Search'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer10 + '</span></label><br></div>';
         
-        htmlSearch +=  '<div class=\"radio-second radio-second-old'+ resultSearch.id +'\" style=\"display: none;\">';
+        htmlSearch +=  '<div class=\"radio-second radio-second-Search'+ resultSearch.id +'\" style=\"display: none;\">';
         
         htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer10 + ' </p>';
         
-        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll10-old'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll10-Search'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
         
-        htmlSearch +=  '<a class=\"poll-score poll-score10-old'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        htmlSearch +=  '<a class=\"poll-score poll-score10-Search'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
         
-        htmlSearch += '<img class=\"poll-img10-old'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        htmlSearch += '<img class=\"poll-img10-Search'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
         
         htmlSearch +=  '</div>';
 
@@ -2385,14 +2760,14 @@ $("#myTextBox").on("input", function() {
           htmlSearch += '<div class=\"col-xs-12\">';
               
                             
-          htmlSearch += '<a  onclick=\"pollvoteold('+ resultSearch.id + ')\">';    
+          htmlSearch += '<a id=\"pollvote_Search'+ resultSearch.id +'\" style=\"display: none;\" onclick=\"pollvoteSearch('+ resultSearch.id + ')\">';    
         
-          htmlSearch += '<button id=\"pollvote_old'+ resultSearch.id +'\" class=\"btn poll-1\">';
+          htmlSearch += '<button  class=\"btn poll-1\">';
         
           htmlSearch += 'Vote</button></a>';
               
               
-          htmlSearch += '<a onclick=\"voteagainold('+ resultSearch.id + ')\" id=\"pollchange_old'+ resultSearch.id +'\" style=\"display: none;\">';    
+          htmlSearch += '<a onclick=\"voteagainSearch('+ resultSearch.id + ')\" id=\"pollchange_Search'+ resultSearch.id +'\" style=\"display: none;\">';    
         
           htmlSearch += '<button class=\"btn poll-1\">';
         
@@ -2400,7 +2775,7 @@ $("#myTextBox").on("input", function() {
               
               
         
-          htmlSearch += '<a class=\"poll-totalold'+ resultSearch.id +'\" style=\"display: none; margin-left: 30px;\">589 total votes</a>';
+          htmlSearch += '<a class=\"poll-totalSearch'+ resultSearch.id +'\" style=\"display: none; margin-left: 30px;\">589 total votes</a>';
               
           htmlSearch += '</div></div><br>';
               
@@ -2461,15 +2836,15 @@ $("#myTextBox").on("input", function() {
                      
                         
                       
-            window["votebuttonold" + resultSearch.id] = true;
+            window["votebuttonSearch" + resultSearch.id] = true;
               
-               // setTimeout(getOldPollVote, 10000, resultSearch.id);     
+               // setTimeout(getSearchPollVote, 10000, resultSearch.id);     
                       
-                      $(".radio-first-old" + resultSearch.id).hide(0);
+                      $(".radio-first-Search" + resultSearch.id).hide(0);
                       
-                      $(".radio-second-old" + resultSearch.id).hide(0);
+                      $(".radio-second-Search" + resultSearch.id).hide(0);
                       
-             getOldPollVote(resultSearch.id);
+             getSearchPollVote(resultSearch.id);
                    
                }
                  
@@ -2481,358 +2856,411 @@ $("#myTextBox").on("input", function() {
                  
                  
                  
-                 
-                 
-                 
-                 
-                 
-
-                 
-                 if(resultSearch.type == 'attach' && resultSearch.owner == "<?php echo $user_info['id']; ?>") {
-                     
-                     
-                                htmlSearch += '<div id=\"'+ 'search_post' + resultSearch.id +'\" class=\"row\">';
-                htmlSearch += '<div class=\"col-xs-2\">';
-                htmlSearch += '<a><img src=\" '+ '<?php echo $_SESSION['url_placeholder'];  ?>' + resultSearch.image  +' \" class=\"chat-left-1\"  /></a>';
-                htmlSearch += '</div>';
-                htmlSearch += '<div class=\"col-xs-10\">';
-                htmlSearch += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
-                htmlSearch += '<div class=\"talktext\">';
-                htmlSearch += '<p class=\"text-username\">' + resultSearch.username + '</p>';
-                htmlSearch += '<p class=\"text-body\"><a href=\" ' + resultSearch.path  + ' \" download>' + resultSearch.name + '</a></p>';
-                     
-                     
-                     
-                        
-                     htmlSearch += '<div class=\"row\" >';
-                     
-                     
-                     htmlSearch += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     htmlSearch += '<img onclick=\"start_delete(' + resultSearch.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
-                     
-                     
-                     htmlSearch += '</div>';
-                     
-                     
-                     htmlSearch += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     htmlSearch += '<img class=\" size-2 '+ 'start_delete' + resultSearch.id + '   like_delete'  +  resultSearch.id  +  '    \" src=\"' +  resultSearch.like_src + '\" onclick=\"likeoldpost(' + resultSearch.id + ') \" />';
-                     
-                     htmlSearch += '<img onclick=\"show_delete(' + resultSearch.id + ') \" class=\" size-3 '+ 'start_delete' + resultSearch.id +' \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/garbage.svg' + '\" />';
-                     
-                     htmlSearch += '</div>';
-                     
-                     
-                     htmlSearch += '<div class=\"col-xs-5\" >';
-                     
-                     
-                     htmlSearch += '<a class=\"delete-2 '+ 'show_delete' + resultSearch.id +'\" onclick=\"deleteoldpost(' + resultSearch.id + ') \">delete</a><a style=\"display: none; font-size: 13px;\" class=\"'+ 'show_delete' + resultSearch.id +'\" > //</a>';
-                     
-                     
-                      htmlSearch += '<a onclick=\"hide_delete(' + resultSearch.id + ') \" class=\"delete-3 '+ 'show_delete' + resultSearch.id +'\">don\'t</a>';
-                     
-                     
-                     htmlSearch += '</div>';
-                     
-                     
-                     
-                     
-                     
-                    htmlSearch += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     htmlSearch += '<img class=\" size-1 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" />';
-                     
-                     
-                     htmlSearch += '</div>';
-                     
-                     
-                     
-                     htmlSearch += '</div>';
-                     
-                
-                     
-                     
-                     
-                     
-                htmlSearch += ' </div></div></div></div>';         
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                 }  
-                 
-                 
-                 
-                    if(resultSearch.type == 'attach' && resultSearch.owner != "<?php echo $user_info['id']; ?>") {
-         
-                
-                        
-                        
-                                           htmlSearch += '<div id=\"'+ 'search_post' + resultOldPost.id +'\" class=\"row\">';
-                   htmlSearch += '<div class=\"col-xs-10\">';
-                   htmlSearch += '<div class=\"talk-bubble1 tri-right1 left-top1\" class=\"chat-right-1\">';
-                   htmlSearch += '<div class=\"talktext1\">';
-                   htmlSearch += '<p class=\"text-username\">' + resultOldPost.username + '</p>';
-                   htmlSearch += '<p class=\"text-body\"><a href=\" ' + resultOldPost.path  + ' \" download>' + resultOldPost.name + '</a></p>';
-                        
-                        
-                        
-                        
-                        
-                                             htmlSearch += '<div class=\"row\" >';
-                     
-                     
-                     htmlSearch += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     htmlSearch += '<img onclick=\"start_delete(' + resultOldPost.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
-                     
-                     
-                     htmlSearch += '</div>';
-                     
-                     
-                     htmlSearch += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     htmlSearch += '<img class=\" size-2 '+ 'start_delete' + resultOldPost.id + '   like_delete'  +  resultOldPost.id  +  '    \" src=\"' +  resultOldPost.like_src + '\" onclick=\"likeoldpost(' + resultOldPost.id + ') \" />';
-                     
-                    
-                     
-                     htmlSearch += '</div>';
-                     
-                     
-                     htmlSearch += '<div class=\"col-xs-5\" >';
-                     
-                     // Empty div.
+                               if(resultSearch.type == 'poll' && resultSearch.owner != "<?php echo $user_info['id']; ?>") { 
                    
-                     htmlSearch += '</div>';
-                     
-                     
-                     
-                     
-                     
-                    htmlSearch += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                    // Empty div.
-                     
-                     htmlSearch += '</div>';
-                     
-                     
-                     
-                     htmlSearch += '</div>';
-                     
-                     
-                     
-                    
-                        
-                        
-                        
-                   htmlSearch += ' </div></div></div>';
-                   htmlSearch += '<div class=\"col-xs-2\">';
-                   htmlSearch += '<a><img src=\" ' +  '<?php echo $_SESSION['url_placeholder'];  ?>' + resultOldPost.image  +' \" class=\"chat-right-2\"  /></a>';
-                   htmlSearch += '</div>';
-                   htmlSearch += '</div>';
-                    
-                        
-                        
-                        
-                        
-                        
-                        
-                    
-                 }
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 if (resultSearch.type == "chat" && resultSearch.owner == "<?php echo $user_info['id']; ?>") {
-                     
-                     
-                     
-                                     htmlSearch += '<div id=\"'+ 'search_post' + resultSearch.id +'\" class=\"row\">';
-                htmlSearch += '<div class=\"col-xs-2\">';
-                htmlSearch += '<a><img src=\" '+ '<?php echo $_SESSION['url_placeholder'];  ?>' + resultSearch.image +'  \" class=\"chat-left-1\"  /></a>';
-                htmlSearch += '</div>';
-                htmlSearch += '<div class=\"col-xs-10\">';
-                htmlSearch += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
-                htmlSearch += '<div class=\"talktext\">';
-                htmlSearch += '<p class=\"text-username\">' + resultSearch.username + '</p>';
-                htmlSearch += '<p class=\"text-body\">'  + resultSearch.message + '</p>';
-                     
-                
+                   
+                      
+                      
+        htmlSearch += '<div id=\"'+ 'whole_old_search' + resultSearch.id +'\" class=\"row poll-div-2\" style=\"margin-bottom: 20px;\">';
+        
+        
+        
+        
+        htmlSearch += '<div class=\"col-xs-10 poll-body\">';
+        
+        htmlSearch += '<p class=\"poll-quest-box\"> ' +  resultSearch.question +' </p>';
+                                   
+                                   
+        htmlSearch += '<div class=\"poll-load-Search-'+ resultSearch.id +'\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/wedges.gif\" width=\"90\" height=\"90\"  style=\"display: table; margin: 0 auto;\"  /></div>';
 
-                     
-                     
-                     htmlSearch += '<div class=\"row\" >';
-                     
-                     
-                     htmlSearch += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     htmlSearch += '<img onclick=\"start_delete(' + resultSearch.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
-                     
-                     
-                     htmlSearch += '</div>';
-                     
-                     
-                     htmlSearch += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     htmlSearch += '<img class=\" size-2 '+ 'start_delete' + resultSearch.id + '   like_delete'  +  resultSearch.id  +  '    \" src=\"' +  resultSearch.like_src + '\" onclick=\"likeoldpost(' + resultSearch.id + ') \" />';
-                     
-                     htmlSearch += '<img onclick=\"show_delete(' + resultSearch.id + ') \" class=\" size-3 '+ 'start_delete' + resultSearch.id +' \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/garbage.svg' + '\" />';
-                     
-                     htmlSearch += '</div>';
-                     
-                     
-                     htmlSearch += '<div class=\"col-xs-5\" >';
-                     
-                     
-                     htmlSearch += '<a class=\"delete-2 '+ 'show_delete' + resultSearch.id +'\" onclick=\"deleteoldpost(' + resultSearch.id + ') \">delete</a><a style=\"display: none; font-size: 13px;\" class=\"'+ 'show_delete' + resultSearch.id +'\" > //</a>';
-                     
-                     
-                      htmlSearch += '<a onclick=\"hide_delete(' + resultSearch.id + ') \" class=\"delete-3 '+ 'show_delete' + resultSearch.id +'\">don\'t</a>';
-                     
-                     
-                     htmlSearch += '</div>';
-                     
-                     
-                     
-                     
-                     
-                    htmlSearch += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     htmlSearch += '<img class=\" size-1 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" />';
-                     
-                     
-                     htmlSearch += '</div>';
-                     
-                     
-                     
-                     htmlSearch += '</div>';
-                     
-                     
-                     
-                     
-                    htmlSearch += '</div></div></div></div>'; 
-                     
-                 }
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                if (resultSearch.type == "chat" && resultSearch.owner != "<?php echo $user_info['id']; ?>") {
-                    
+    
+        htmlSearch += '<form action=\"#\">';
+    
+        
+        
+    
+        htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
+        
+        htmlSearch += '<div class=\"radio-first  radio-first-Search'+ resultSearch.id +'\" style=\"display: none;\"><input class=\"radio-new-class-Search'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-1-Search'+ resultSearch.id +'\" value=\"1\" name=\"radio_group_Search' + resultSearch.id + '\">';
+        
+        htmlSearch += '<label for=\"poll-id-1-Search'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer1 + '</span></label><br></div>';
+        
+        htmlSearch +=  '<div class=\"radio-second radio-second-Search'+ resultSearch.id +'\" style=\"display: none;\">';
+        
+        htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer1 + ' </p>';
+        
+        htmlSearch +=  '<progress value=\"100\" max=\"100\" id=\"progressPoll1-Search'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        htmlSearch +=  '<a class=\"poll-score poll-score1-Search'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        
+        htmlSearch += '<img class=\"poll-img1-Search'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        htmlSearch +=  '</div>';
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                
+        htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
+        
+        htmlSearch += '<div class=\"radio-first  radio-first-Search'+ resultSearch.id +'\" style=\"display: none;\"><input class=\"radio-new-class-Search'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-2-Search'+ resultSearch.id +'\" value=\"2\" name=\"radio_group_Search' + resultSearch.id + '\">';
+        
+        htmlSearch += '<label for=\"poll-id-2-Search'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer2 + '</span></label><br></div>';
+        
+        htmlSearch +=  '<div class=\"radio-second radio-second-Search'+ resultSearch.id +'\" style=\"display: none;\">';
+        
+        htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer2 + ' </p>';
+        
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll2-Search'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        htmlSearch +=  '<a class=\"poll-score poll-score2-Search'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        
+        htmlSearch += '<img class=\"poll-img2-Search'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        htmlSearch +=  '</div>';
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+            if (resultSearch.answer3.trim().length > 0) {          
+            
+        htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
+        
+        htmlSearch += '<div class=\"radio-first  radio-first-Search'+ resultSearch.id +'\" style=\"display: none;\"><input class=\"radio-new-class-Search'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-3-Search'+ resultSearch.id +'\" value=\"3\" name=\"radio_group_Search' + resultSearch.id + '\">';
+        
+        htmlSearch += '<label for=\"poll-id-3-Search'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer3 + '</span></label><br></div>';
+        
+        htmlSearch +=  '<div class=\"radio-second radio-second-Search'+ resultSearch.id +'\" style=\"display: none;\">';
+        
+        htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer3 + ' </p>';
+        
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll3-Search'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        htmlSearch +=  '<a class=\"poll-score poll-score3-Search'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        
+        htmlSearch += '<img class=\"poll-img3-Search'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        htmlSearch +=  '</div>';
+
+        }
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+            if (resultSearch.answer4.trim().length > 0) {          
+            
+        htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
+        
+        htmlSearch += '<div class=\"radio-first  radio-first-Search'+ resultSearch.id +'\" style=\"display: none;\"><input class=\"radio-new-class-Search'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-4-Search'+ resultSearch.id +'\" value=\"4\" name=\"radio_group_Search' + resultSearch.id + '\">';
+        
+        htmlSearch += '<label for=\"poll-id-4-Search'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer4 + '</span></label><br></div>';
+        
+        htmlSearch +=  '<div class=\"radio-second radio-second-Search'+ resultSearch.id +'\" style=\"display: none;\">';
+        
+        htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer4 + ' </p>';
+        
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll4-Search'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        htmlSearch +=  '<a class=\"poll-score poll-score4-Search'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        
+        htmlSearch += '<img class=\"poll-img4-Search'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        htmlSearch +=  '</div>';
+
+        }
+                      
+                      
+                      
+                      
+                      
+                      
+        if (resultSearch.answer5.trim().length > 0) {          
+            
+        htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
+        
+        htmlSearch += '<div class=\"radio-first  radio-first-Search'+ resultSearch.id +'\"  style=\"display: none;\"><input class=\"radio-new-class-Search'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-5-Search'+ resultSearch.id +'\" value=\"5\" name=\"radio_group_Search' + resultSearch.id + '\">';
+        
+        htmlSearch += '<label for=\"poll-id-5-Search'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer5 + '</span></label><br></div>';
+        
+        htmlSearch +=  '<div class=\"radio-second radio-second-Search'+ resultSearch.id +'\" style=\"display: none;\">';
+        
+        htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer5 + ' </p>';
+        
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll5-Search'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        htmlSearch +=  '<a class=\"poll-score poll-score5-Search'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        
+        htmlSearch += '<img class=\"poll-img5-Search'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        htmlSearch +=  '</div>';
+
+        }
+                      
+                      
+                      
+                      
+           
+                      
+               if (resultSearch.answer6.trim().length > 0) {          
+            
+        htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
+        
+        htmlSearch += '<div class=\"radio-first  radio-first-Search'+ resultSearch.id +'\"  style=\"display: none;\"><input class=\"radio-new-class-Search'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-6-Search'+ resultSearch.id +'\" value=\"6\" name=\"radio_group_Search' + resultSearch.id + '\">';
+        
+        htmlSearch += '<label for=\"poll-id-6-Search'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer6 + '</span></label><br></div>';
+        
+        htmlSearch +=  '<div class=\"radio-second radio-second-Search'+ resultSearch.id +'\" style=\"display: none;\">';
+        
+        htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer6 + ' </p>';
+        
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll6-Search'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        htmlSearch +=  '<a class=\"poll-score poll-score6-Search'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        
+        htmlSearch += '<img class=\"poll-img6-Search'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        htmlSearch +=  '</div>';
+
+        }
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      if (resultSearch.answer7.trim().length > 0) {          
+            
+        htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
+        
+        htmlSearch += '<div class=\"radio-first  radio-first-Search'+ resultSearch.id +'\" style=\"display: none;\"><input class=\"radio-new-class-Search'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-7-Search'+ resultSearch.id +'\" value=\"7\" name=\"radio_group_Search' + resultSearch.id + '\">';
+        
+        htmlSearch += '<label for=\"poll-id-7-Search'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer7 + '</span></label><br></div>';
+        
+        htmlSearch +=  '<div class=\"radio-second radio-second-Search'+ resultSearch.id +'\" style=\"display: none;\">';
+        
+        htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer7 + ' </p>';
+        
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll7-Search'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        htmlSearch +=  '<a class=\"poll-score poll-score7-Search'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        
+        htmlSearch += '<img class=\"poll-img7-Search'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        htmlSearch +=  '</div>';
+
+        }       
+                      
+                      
+                      
           
+                      
+                      
+                      
+                      
+                             if (resultSearch.answer8.trim().length > 0) {          
+            
+        htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
+        
+        htmlSearch += '<div class=\"radio-first  radio-first-Search'+ resultSearch.id +'\" style=\"display: none;\"><input class=\"radio-new-class-Search'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-8-Search'+ resultSearch.id +'\" value=\"8\" name=\"radio_group_Search' + resultSearch.id + '\">';
+        
+        htmlSearch += '<label for=\"poll-id-8-Search'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer8 + '</span></label><br></div>';
+        
+        htmlSearch +=  '<div class=\"radio-second radio-second-Search'+ resultSearch.id +'\" style=\"display: none;\">';
+        
+        htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer8 + ' </p>';
+        
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll8-Search'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        htmlSearch +=  '<a class=\"poll-score poll-score8-Search'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        
+        htmlSearch += '<img class=\"poll-img8-Search'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        htmlSearch +=  '</div>';
+
+        }
+                      
+                      
+                
+                      
+                      
+                      
+                             if (resultSearch.answer9.trim().length > 0) {          
+            
+        htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
+        
+        htmlSearch += '<div class=\"radio-first  radio-first-Search'+ resultSearch.id +'\" style=\"display: none;\"><input class=\"radio-new-class-Search'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-9-Search'+ resultSearch.id +'\" value=\"9\" name=\"radio_group_Search' + resultSearch.id + '\">';
+        
+        htmlSearch += '<label for=\"poll-id-9-Search'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer9 + '</span></label><br></div>';
+        
+        htmlSearch +=  '<div class=\"radio-second radio-second-Search'+ resultSearch.id +'\" style=\"display: none;\">';
+        
+        htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer9 + ' </p>';
+        
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll9-Search'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        htmlSearch +=  '<a class=\"poll-score poll-score9-Search'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        
+        htmlSearch += '<img class=\"poll-img9-Search'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        htmlSearch +=  '</div>';
+
+        }
+                      
+                      
+           
+                      
+                if (resultSearch.answer10.trim().length > 0) {          
+            
+        htmlSearch += '<p class=\"poll-answer-box-old'+ resultSearch.id +'\">';       
+        
+        htmlSearch += '<div class=\"radio-first  radio-first-Search'+ resultSearch.id +'\" style=\"display: none;\"><input class=\"radio-new-class-Search'+ resultSearch.id +'\"  type=\"radio\" id=\"poll-id-10-Search'+ resultSearch.id +'\" value=\"10\" name=\"radio_group_Search' + resultSearch.id + '\">';
+        
+        htmlSearch += '<label for=\"poll-id-10-Search'+ resultSearch.id +'\" class=\"poll-answer-style-1\"><span> ' + resultSearch.answer10 + '</span></label><br></div>';
+        
+        htmlSearch +=  '<div class=\"radio-second radio-second-Search'+ resultSearch.id +'\" style=\"display: none;\">';
+        
+        htmlSearch +=  '<p class=\"poll-answer-style-1\"> ' + resultSearch.answer10 + ' </p>';
+        
+        htmlSearch +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll10-Search'+ resultSearch.id +'\" class=\"poll-progress\"></progress>'; 
+        
+        htmlSearch +=  '<a class=\"poll-score poll-score10-Search'+ resultSearch.id +'\"> 30% | 34 votes</a>'; 
+        
+        htmlSearch += '<img class=\"poll-img10-Search'+ resultSearch.id +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
+        
+        htmlSearch +=  '</div>';
+
+        }
+                      
+                      
+                      
+                            
+        
+        htmlSearch += '</form>';
+        
+        
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+        htmlSearch += '<div class=\"row\">';                    
+                            
+          htmlSearch += '<div class=\"col-xs-12\">';
+              
+                            
+          htmlSearch += '<a id=\"pollvote_Search'+ resultSearch.id +'\" style=\"display: none;\" onclick=\"pollvoteSearch('+ resultSearch.id + ')\">';    
+        
+          htmlSearch += '<button  class=\"btn poll-1\">';
+        
+          htmlSearch += 'Vote</button></a>';
+              
+              
+          htmlSearch += '<a onclick=\"voteagainSearch('+ resultSearch.id + ')\" id=\"pollchange_Search'+ resultSearch.id +'\" style=\"display: none;\">';    
+        
+          htmlSearch += '<button class=\"btn poll-1\">';
+        
+          htmlSearch += 'Change Vote</button></a>';
+              
+              
+        
+          htmlSearch += '<a class=\"poll-totalSearch'+ resultSearch.id +'\" style=\"display: none; margin-left: 30px;\">589 total votes</a>';
+              
+          htmlSearch += '</div></div><br>';
+              
+              
+                     
+          htmlSearch += '<div class=\"row\" >';
+                     
+                     
+          htmlSearch += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
                      
                     
-                   htmlSearch += '<div id=\"'+ 'search_post' + resultSearch.id +'\" class=\"row\">';
-                   htmlSearch += '<div class=\"col-xs-10\">';
-                   htmlSearch += '<div class=\"talk-bubble1 tri-right1 left-top1\" class=\"chat-right-1\">';
-                   htmlSearch += '<div class=\"talktext1\">';
-                   htmlSearch += '<p class=\"text-username\">' + resultSearch.username + '</p>';
-                   htmlSearch += '<p class=\"text-body\">' + resultSearch.message + '</p>';
-                    
-                    
-                       
-                     htmlSearch += '<div class=\"row\" >';
+                     
+          htmlSearch += '<img onclick=\"start_delete_old(' + resultSearch.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
                      
                      
-                     htmlSearch += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
+          htmlSearch += '</div>';
+                     
+                     
+          htmlSearch += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
                      
                     
+           
+           
+          htmlSearch += '<img class=\" size-2 '+ 'start_delete_old' + resultSearch.id + '   like_delete_old'  +  resultSearch.id  +  '    \" src=\"' + resultSearch.like_src + '\" onclick=\"likeoldpoll(' +  resultSearch.id + ') \" />';
+           
+           
+
                      
-                     htmlSearch += '<img onclick=\"start_delete(' + resultSearch.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
+          htmlSearch += '</div>';
                      
                      
-                     htmlSearch += '</div>';
+          htmlSearch += '<div class=\"col-xs-5\" >';
+                     
+
                      
                      
-                     htmlSearch += '<div class=\"col-xs-3\" style=\" height: 25px;\"> ';
-                    
-                    
+          htmlSearch += '</div>';
+                     
+                         
+                     
+          htmlSearch += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
+            
+                     
+                     
+          htmlSearch += '</div>';
+                     
+                     
+                     
+          htmlSearch += '</div></div>';
+                                   
+                                   
+                                   
+          htmlSearch += '<div class=\"col-xs-2\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/nopic.png\" style=\"width: 40px; margin-left: 10px;\"  /></div></div>';
+                     
+                        
+                      
+            window["votebuttonSearch" + resultSearch.id] = true;
+              
+               // setTimeout(getSearchPollVote, 10000, resultSearch.id);     
+                      
+                      $(".radio-first-Search" + resultSearch.id).hide(0);
+                      
+                      $(".radio-second-Search" + resultSearch.id).hide(0);
+                      
+             getSearchPollVote(resultSearch.id);
                    
-                     
-                    
-                     htmlSearch += '<img class=\" size-2 '+ 'start_delete' + resultSearch.id + '   like_delete'  +  resultSearch.id  +  '    \" src=\"' +  resultSearch.like_src + '\" onclick=\"likeoldpost(' + resultSearch.id + ') \" />';
-                     
-                    
-                    
-                     
-                     htmlSearch += '</div>';
-                     
-                     
-                     htmlSearch += '<div class=\"col-xs-5\" >';
-                     
-                     // Empty div.
-                   
-                     htmlSearch += '</div>';
-                     
-                     
-                     
-                     
-                     
-                    htmlSearch += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                    // Empty div.
-                     
-                     htmlSearch += '</div>';
-                     
-                     
-                     
-                     htmlSearch += '</div>';
-                     
-                     
-                     
-                    
-                    
-                    
-                    
-                   htmlSearch += ' </div></div></div>';
-                   htmlSearch += '<div class=\"col-xs-2\">';
-                   htmlSearch += '<a><img src=\" ' +  '<?php echo $_SESSION['url_placeholder'];  ?>' + resultSearch.image  +' \" class=\"chat-right-2\"  /></a>';
-                   htmlSearch += '</div>';
-                   htmlSearch += '</div>';
-                    
-                     
-                       
-                       
-               
-                     
-                 }
+               }
                  
                  
                  
-             }
+                 
+                 
+                 
+                 
+
+                 
+                 
+                 
+                 
+                 
+     }
          
                 // Return and prepend just parsed json from the database to the page. 
                 var new_items_search = $( htmlSearch ).hide();
@@ -4254,6 +4682,8 @@ function displayFromDatabasePagination() {
         function deletenewpoll_old(back_id) {
     
        $("#whole_old_post" + back_id).hide(200);
+            
+        $("#whole_old_search" + back_id).hide(200);
      
        delete_post_url_new = "<?php  echo $_SESSION['url_placeholder'];  ?>" + "delete_post";
        

@@ -292,9 +292,9 @@ $user_info = $user_details_result->fetch_assoc();
                     
                         
                         
-                    <div class="col-xs-2" id="chatboxicon" style="cursor: pointer;">
+                    <div class="col-xs-3" id="chatboxicon" style="cursor: pointer;">
                         
-                        <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/chatting.svg" class="input-style-1"  />
+                        <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/chatbox.svg" class="input-style-1"  />
                         
                         <p class="input-style-2">Chat</p>
                         
@@ -304,18 +304,12 @@ $user_info = $user_details_result->fetch_assoc();
                         
                         
                       
-                    <div class="col-xs-2">
-                        
-                         <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/typography.svg" class="input-style-1"  />
-                        
-                         <p class="input-style-2">Text post</p>
-                        
-                    </div>
+                  
                         
                         
                         
                         
-                    <div class="col-xs-2">
+                    <div class="col-xs-3">
                         
                         <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/camera.svg" class="input-style-1"  />
                         
@@ -327,20 +321,20 @@ $user_info = $user_details_result->fetch_assoc();
                         
                         
                         
-                    <div class="col-xs-2">
+                    <a href="<?php echo $_SESSION['url_placeholder'] . "todo/" . $_GET['group'];  ?>"><div class="col-xs-3">
                         
-                        <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/video-camera.svg" class="input-style-1" />
+                        <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/list.svg" class="input-style-1" />
                         
-                         <p class="input-style-2">Videos</p>
+                         <p class="input-style-2">To-do list</p>
                         
-                    </div>
-                        
-                        
+                        </div></a>
                         
                         
                         
                         
-                    <div class="col-xs-2" id="pollicon" style="cursor: pointer;">
+                        
+                        
+                    <div class="col-xs-3" id="pollicon" style="cursor: pointer;">
                         
                         <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/hands.svg" class="input-style-1"  />
                         
@@ -350,14 +344,14 @@ $user_info = $user_details_result->fetch_assoc();
                         
                         
                        
-                        <a href="<?php echo $_SESSION['url_placeholder'] . "members/" . $_GET['group'];  ?>">
+                    <!--    <a href="<?php echo $_SESSION['url_placeholder'] . "members/" . $_GET['group'];  ?>">
                         <div class="col-xs-2">
                         
                         <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/collaboration.svg" class="input-style-1"  />
                         
                          <p class="input-style-2">Members</p>
                         
-                        </div> </a>
+                        </div> </a> -->
                         
                         
                     
@@ -1511,7 +1505,7 @@ $("#myTextBox").on("input", function() {
                  
                  getPollVote(back_db_id, front_client_id);
                  
-                 setInterval(getPollVote, 10000, back_db_id, front_client_id);
+              //   setInterval(getPollVote, 10000, back_db_id, front_client_id);
                  
         
              },
@@ -1556,7 +1550,7 @@ $("#myTextBox").on("input", function() {
                  
                  getOldPollVote(back_db_id);
                  
-                 setInterval(getOldPollVote, 10000, back_db_id);
+              //   setInterval(getOldPollVote, 10000, back_db_id);
                  
         
              },
@@ -1569,6 +1563,9 @@ $("#myTextBox").on("input", function() {
           } );
         
     }
+    
+    
+    
     
     
     
@@ -1711,9 +1708,14 @@ $("#myTextBox").on("input", function() {
              },
              error: function( xhr, textStatus, errorThrown ) {
                 
-                 $.ajax( this );
-                return;
+              
                  
+             },
+                  complete: function( ) {
+               
+                $.ajax( this );
+                return;
+                
              }
           } );
         
@@ -1923,9 +1925,15 @@ $("#myTextBox").on("input", function() {
              },
              error: function( xhr, textStatus, errorThrown ) {
                 
-                 $.ajax( this );
-                return;
                  
+                 
+             }, 
+                 
+                complete: function( ) {
+               
+                $.ajax( this );
+                return;
+                
              }
           } );
         
@@ -5325,7 +5333,7 @@ function displayFromDatabasePagination() {
                 oldPostHtml += '<div class=\"col-xs-10\">';
                 oldPostHtml += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
                 oldPostHtml += '<div class=\"talktext\">';
-                oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + '</p>';
+             //   oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + '</p>';
                 oldPostHtml += '<p class=\"text-body\">'  + resultOldPost.message + '</p>';
                      
                 
@@ -5531,7 +5539,7 @@ function displayFromDatabasePagination() {
     
     
     
-    function sendPostData( e, sent_post_id, text, post_id_num ) {
+    function sendPostData(textMessage, e, sent_post_id, text, post_id_num ) {
         
        var is_sent_already = function( post_ui, post_id_0 ) {
            
@@ -5608,12 +5616,9 @@ function displayFromDatabasePagination() {
        };
         
         
-        
-       var text_Trim = $( "#text" ).val().trim();
-       
-       if ( text_Trim != "" ) {
+
           
-          $( "#text" ).val( "" );
+          // true shit
            
           e.preventDefault();
           
@@ -5635,9 +5640,10 @@ function displayFromDatabasePagination() {
              url: post_url_2,
              type: "POST",
              async: true,
+             timeout: 15000,
              data: {
                 "done": 1,
-                "message": text,
+                "message": textMessage,
                  "group_id": page_group_id,
                  "time": currentMilli
              },
@@ -5656,7 +5662,7 @@ function displayFromDatabasePagination() {
                     
                 } else {}
                 
-                $( "#text" ).val( "" );
+              //  $( "#text" ).val( "" );
                 
                 e.preventDefault();
              },
@@ -5665,9 +5671,7 @@ function displayFromDatabasePagination() {
                 return;
              }
           } );
-       } else {
-          $( "#text" ).val( "" );
-       }
+      
     }
     
     
@@ -6423,7 +6427,7 @@ html45  += "<img src=\"  " + img +"  \" style=\"width: 100%;\" ></div><div><br>"
           new_chat_html += '<div class=\"col-xs-10\">';
           new_chat_html += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
           new_chat_html += '<div class=\"talktext\">';
-          new_chat_html += '<p class=\"text-username\">' + '<?php echo $user_info['username'];  ?>' + '</p>';        
+        //  new_chat_html += '<p class=\"text-username\">' + '<?php echo $user_info['username'];  ?>' + '</p>';        
           new_chat_html += '<p class=\"text-body\">' + text + '</p><span id=\"' + new_post_id + '\" ></span>';
           new_chat_html += ' </div></div></div></div>';
                 
@@ -6436,12 +6440,17 @@ html45  += "<img src=\"  " + img +"  \" style=\"width: 100%;\" ></div><div><br>"
           previewLink(name, new_post_id);
          
           
-          sendPostData( e, new_post_id, text,  new_post_id_num);
+          sendPostData(text, e, new_post_id, text,  new_post_id_num);
                 
-                
+             $( "#text" ).val( "" ); 
+          
           new_post_id_num = new_post_id_num + 1;
           new_post_id = "new_post" + new_post_id_num;
        
+       } else {
+           
+           $( "#text" ).val( "" );
+           e.preventDefault();
        }
     }
         

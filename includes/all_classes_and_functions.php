@@ -18,4 +18,6 @@
 
 <?php include_once('poll_class.php'); ?>
 
+<?php include_once('todo_class.php'); ?>
+
 <?php $_SESSION['url_placeholder'] = '/social/'; ?>

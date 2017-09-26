@@ -172,6 +172,16 @@ a:hover {
     border-radius: 5px;
 }
 
+
+
+
+
+
+
+
+
+
+
 .size-0 {
     height: 10px; width: 10px; margin-top: 5px; margin-right: 10px; cursor: pointer;
 }
@@ -182,11 +192,11 @@ a:hover {
 }
 
 .size-2 {
-    height: 20px; width: 20px; margin-top: 5px; margin-left: -12px; margin-right: 10px; display: none; cursor: pointer;
+    height: 15px; width: 15px; margin-top: 5px; margin-left: -12px; margin-right: 10px; display: none; cursor: pointer;
 }
 
 .size-3 {
-    height: 20px; width: 20px; cursor: pointer; display: none;
+    height: 15px; width: 15px; cursor: pointer; display: none;
 }
 
 .delete-1 {
@@ -355,7 +365,7 @@ padding: 0 0 0 0;
 }
 
 .post-editor {
-    width: 100%; display: table; margin: 0 auto; margin-bottom: 20px; background: white; padding-top: 17px; padding-bottom: 17px; border-radius: 5px;
+    width: 100%; display: table; margin: 0 auto; margin-bottom: 20px; background: white; padding-top: 17px; padding-bottom: 17px; border-radius: 3px;
 }
 
 .post-nogroups {
@@ -509,6 +519,13 @@ padding: 0 0 0 0;
     margin-left: 10px;   font-family: Work Sans; font-size: 15px; outline:0 !important;
 }
 
+
+
+.new-todo-1 {
+    margin-left: 20px; font-family: Work Sans; font-size: 13px; outline:0 !important; padding: 3px; margin-top: 40px !important;
+}
+
+
 .poll-1 {
   font-family: Work Sans; font-size: 15px; outline:0 !important;
 }
@@ -595,6 +612,46 @@ padding: 0 0 0 0;
 }
 
 
+
+
+
+.input-todo-1 {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-family: Work Sans;
+   font-size: 15px;
+    margin-top: 10px;
+    resize: none;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    width: 200px;
+    height: 50px;
+    padding: 7px;
+     outline:0 !important;
+}
+
+
+
+
+
+
+.input-task-1 {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-family: Work Sans;
+    font-size: 13px;
+    margin-top: 10px;
+    resize: none;
+    margin-left: 0px;
+    margin-bottom: 10px;
+    width: 200px;
+    height: 50px;
+    padding: 7px;
+     outline:0 !important;
+}
+
+
+
 .input-style-2 {
     display: table; margin: 0 auto; margin-top: 20px;    font-family: Work Sans;
    font-size: 13px;
@@ -603,7 +660,7 @@ padding: 0 0 0 0;
 
 
 .input-style-1 {
-    border-radius: 5px; display: table; margin: 0 auto; width: 40px; height: 40px;
+    border-radius: 5px; display: table; margin: 0 auto; width: 30px; height: 30px;
 }
 
 
@@ -626,10 +683,141 @@ font-family: Work Sans;
 
 .text-body {
 
-font-family: Work Sans;
+    font-family: Work Sans;
+    font-size: 14px;
     font-weight: lighter;
     color: black;
     padding-bottom: 10px;
+    
+    
+}
+
+.to-do-right {
+    
+    border-right: 1px solid #ddd;
+    
+}
+
+.to-do-class {
+    
+    min-height: 200px;
+    
+}
+
+.to-do-title {
+    
+    font-family: Work Sans;
+    font-size: 17px;
+    display: table;
+    margin: 0 auto;
+    
+    
+}
+
+
+.to-do-comment {
+    
+ font-family: Work Sans;
+    font-size: 13px;
+    background: #ebebeb;
+padding:  7px;
+    border-radius: 3px;
+    width: 200px;
+    display: table;
+    margin: 0 auto;
+    margin-top: 10px;
+
+}
+
+
+.to-do-info {
+    
+    width: 200px;
+    font-family: Work Sans;
+    font-size: 15px;
+    color: #c9c9c9;
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: -20px;
+    
+}
+
+
+
+.to-do-link {
+
+    font-size: 12px;
+    
+}
+
+
+
+.segment {
+    margin-top: 20px;
+}
+
+
+
+.to-do-link-2 {
+
+    font-size: 13px;
+    font-family: Work Sans;
+    margin-left: 20px;
+    margin-top: 10px;
+    
+    cursor: pointer;
+}
+
+
+.task-link-2 {
+
+    font-size: 13px;
+    font-family: Work Sans;
+    margin-left: 0px;
+    margin-top: 10px;
+    
+    cursor: pointer;
+}
+
+.to-do-box {
+    
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    
+    width: 204px;
+    display: table;
+    margin: 0 auto;
+    
+    
+    
+}
+
+.to-do-task {
+    
+    width: 200px;
+    font-family: Work Sans;
+    font-size: 15px;
+    display: table;
+    margin: 0 auto;
+    margin-top: 10px;
+    
+}
+
+.to-do-main {
+    background: white;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+
+.to-do-heading {
+    margin-bottom: 30px;
+    margin-left: 13px;
+    padding-top: 10px;
+    font-size: 25px;
+    font-family: Work Sans;
+    
 }
 
 
@@ -654,9 +842,7 @@ font-family: Work Sans;
 	background-color: white;
     border-radius: 3px;
     margin-top: 0px;
-    font-family: Josefin Slab;
    font-size: 15px;
-    font-weight: bold;
 }
 
 
@@ -690,7 +876,10 @@ font-family: Work Sans;
 
 /* talk bubble contents */
 .talktext{
-  padding: 1em;
+  padding-left: 16px;
+    padding-top: 5px;
+    padding-right: 6px;
+    padding-bottom: 3px;
 	text-align: left;
   line-height: 1.5em;
     

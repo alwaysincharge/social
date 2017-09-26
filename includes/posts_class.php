@@ -38,6 +38,46 @@ class Posts {
     
     
     
+    
+       public function create_todo($owner_input, $body_input, $group_input, $time_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("INSERT INTO posts (listname, owner, group_id, deleted, type, timeinput) VALUES (?, ?, ?, ?, ?, ?)");
+        
+       $stmt->bind_param("siissi", $body, $owner, $group, $deleted, $type, $time);
+        
+       $body = $body_input;
+        
+       $owner = $owner_input;
+           
+       $group = $group_input;
+           
+       $time = $time_input;
+           
+       $deleted = "live";   
+           
+       $type = "todo";
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
        public function create_poll($owner_input, $group_input, $time_input, $question_input, $answer1_input, $answer2_input, $answer3_input, $answer4_input, $answer5_input, $answer6_input, $answer7_input, $answer8_input, $answer9_input, $answer10_input) {
 
        global $database;
