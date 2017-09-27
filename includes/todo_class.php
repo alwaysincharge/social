@@ -73,6 +73,30 @@ class Todo {
        }
     
     
+    
+    
+    
+       public function delete_task($task_id_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("update to_do_list set deleted = 'deleted' where id = ? limit 1");
+        
+       $stmt->bind_param("i", $task_id);
+        
+       $task_id = $task_id_input;    
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
        public function doing_task($task_id_input) {
 
        global $database;

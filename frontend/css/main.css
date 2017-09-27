@@ -522,7 +522,7 @@ padding: 0 0 0 0;
 
 
 .new-todo-1 {
-    margin-left: 20px; font-family: Work Sans; font-size: 13px; outline:0 !important; padding: 3px; margin-top: 40px !important;
+    margin-left: 20px; font-family: Work Sans; font-size: 13px; outline:0 !important; padding: 3px; margin-top: 10px !important;
 }
 
 
@@ -619,7 +619,7 @@ padding: 0 0 0 0;
     border: 1px solid #ddd;
     border-radius: 3px;
     font-family: Work Sans;
-   font-size: 15px;
+   font-size: 13px;
     margin-top: 10px;
     resize: none;
     margin-left: 20px;
@@ -720,7 +720,7 @@ font-family: Work Sans;
  font-family: Work Sans;
     font-size: 13px;
     background: #ebebeb;
-padding:  7px;
+    padding:  7px;
     border-radius: 3px;
     width: 200px;
     display: table;
@@ -732,21 +732,31 @@ padding:  7px;
 
 .to-do-info {
     
-    width: 200px;
-    font-family: Work Sans;
-    font-size: 15px;
-    color: #c9c9c9;
-    margin-left: 20px;
-    margin-top: 10px;
-    margin-bottom: -20px;
     
+    font-family: Work Sans;
+    font-size: 13px;
+    color: #a3a3a3;
+    
+    padding-top: 10px;
+    
+    display: table;
+    margin: 0 auto;
 }
 
+
+
+.to-do-link-2 {
+    
+    font-size: 12px;
+    font-family: Work Sans;
+    
+}
 
 
 .to-do-link {
 
     font-size: 12px;
+    font-family: Work Sans;
     
 }
 
@@ -787,7 +797,7 @@ padding:  7px;
     width: 204px;
     display: table;
     margin: 0 auto;
-    
+    margin-bottom: 30px;
     
     
 }
@@ -815,7 +825,7 @@ padding:  7px;
     margin-bottom: 30px;
     margin-left: 13px;
     padding-top: 10px;
-    font-size: 25px;
+    font-size: 17px;
     font-family: Work Sans;
     
 }

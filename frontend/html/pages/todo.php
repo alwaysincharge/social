@@ -251,98 +251,7 @@ $user_info = $user_details_result->fetch_assoc();
             </a><br><br>
                     
                     <div id="main-div">
-                    
-                    <div  class="to-do-main">
-                    
-                    <p class="to-do-heading">Planning of the office party.</p>
-                        
-                        
-                        
-                        
-                    <div class="row">
-                        
-                        
-                    <div class="col-xs-4 to-do-right to-do-class">
-                        
-                       <p class="to-do-title">To-do</p>
-                        
-                        <p class="to-do-info">Tasks you want to accomplish.</p>
-                        
-                        
-                
-            <button  class="btn new-todo-1" style="margin-left: 15px; margin-top: 20px;">   
-                    
-            Create task</button>
-                             
-                             
-                             <textarea id="newtask"  maxlength="100" name="keywords" class="input-todo-1"  placeholder="add new task" ></textarea>
-                             
-                             <a class="to-do-link-2">submit</a>
-            
-            
-                        
-                    </div>
-                        
-                        
-                    <div class="col-xs-4 to-do-right to-do-class">
-                        
-                        <p class="to-do-title">Doing</p>
-                        
-                        <p class="to-do-info">Tasks that are still going on.</p>
-                        
-                        
-                        
-                        
-                        <div class="to-do-box">
-                            
-                        <p class="to-do-task">Tasks that are still going on.<br>
-                            
-                        <span class="to-do-link"><a>comment</a></span>
-                        
-                        </p>
-                            
-                            
-                            
-                            
-                            
-                        
-                        <p class="to-do-comment">You should pass by my house before going to the lake.<br><br>
-                            
-                        <span class="to-do-link"><a>delete </a>//<a> move to "done"</a></span>
-                            
-                        </p>
-                            
-                            
-                            
-                        
-                        <p class="to-do-comment">You should pass by my house before going to the lake.<br><br>
-                            
-                            
-                        <span class="to-do-link"><a>delete </a>//<a> move to "done"</a></span></p>
-                        
-                        </div>
-                        
-                        
-                        
-                    </div>
-                        
-                        
-                    <div class="col-xs-4 to-do-class">
-                        
-                        <p class="to-do-title">Done</p>
-                        
-                        
-                        <p class="to-do-info">All tasks that have been completed will appear here.</p>
-                        
-                        
-                    </div>
-                        
-                        
-                    </div>
-                    
-                    
-                    </div>
-                        
+                      
                         
                     </div>
 
@@ -799,7 +708,21 @@ $("#createtodo").on("click", function(){
              },
              success: function( data ) {
                  
-             console.log(data);
+             var jsonNewComment = JSON.parse( data );
+            
+             var statusNewComment =  jsonNewComment[0];
+                 
+             var idNewComment =  jsonNewComment[1];
+                 
+
+                 
+             if (statusNewComment == 1) {
+                 
+                 
+                 
+             $("#newcomment_id_" + comment).prepend('<input class=\"comment_hidden_input_'+ comment +'\" type=\"hidden\" value=\"' + idNewComment + '\"  />');
+                 
+             }
 
                  
              },
@@ -880,6 +803,39 @@ $("#createtodo").on("click", function(){
     
     
     
+    
+        function deleteTaskSend( back_id ) {
+        
+          
+          $.ajax( {
+             url: "<?php echo $_SESSION['url_placeholder']; ?>delete_task",
+             type: "POST",
+             async: true,
+             data: {
+                "task": 1,
+                 "task_id": back_id
+                
+             },
+             success: function( data ) {
+                 
+             console.log(data);
+
+                 
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                $.ajax( this );
+                return;
+             }
+          } );
+      
+    }
+    
+    
+    
+    
+    
+    
+    
     function appendTodo(body) {
         
         
@@ -909,7 +865,7 @@ $("#createtodo").on("click", function(){
         
         append_todo += '<a onclick=\"appendNewtask('+ new_post_id_num +')\" class=\"to-do-link-2\">submit</a>';
         
-        append_todo += '</div><br><br>';
+        append_todo += '</div>';
         
         append_todo += '<div class=\"segment\" id=\"segment_todo_'+ new_post_id_num +'\"></div>';
         
@@ -935,7 +891,7 @@ $("#createtodo").on("click", function(){
         
         append_todo += '<p class=\"to-do-title\">Done</p>';
         
-        append_todo += '<p class=\"to-do-info\">All tasks that have been completed will appear here.</p>';
+        append_todo += '<p class=\"to-do-info\">Completed tasks.</p>';
         
         append_todo += '<div class=\"segment\" id=\"segment_done_'+ new_post_id_num +'\"></div>';
         
@@ -967,8 +923,32 @@ $("#createtodo").on("click", function(){
     
     
     
+    function deleteTask (front)  {
+        
+        
+        $("#new_single_task_" + front).hide(300);
+        
+        $("#new_single_task_2_" + front).hide(300);
+        
+        $("#new_single_task_3_" + front).hide(300);
+        
+        deleteTaskSend($(".task_hidden_input_" + front).val());
+        
+    }
     
     
+    
+    
+    function deleteComment (front)  {
+        
+        
+        $("#newcomment_id_" + front).hide(300);
+        
+
+        
+       deleteTaskSend($(".comment_hidden_input_" + front).val());
+        
+    }
     
     
     
@@ -977,6 +957,24 @@ $("#createtodo").on("click", function(){
         
         
         $("#new_task_" + new_post_num).toggle(300);
+        
+    }
+    
+    
+    
+    function toggleDeleteTask (new_task_num)  {
+        
+        
+        $(".delete-link-1-" + new_task_num).toggle(300);
+        
+    }
+    
+    
+    
+    function toggleDeleteComment (new_comment_num)  {
+        
+        
+        $(".delete-link-2-" + new_comment_num).toggle(300);
         
     }
     
@@ -1017,8 +1015,9 @@ $("#createtodo").on("click", function(){
                             
         append_task_1 += '<p class=\"to-do-task\">'+ task_body +'<br>';
                             
-        append_task_1 += '<span class=\"to-do-link\"><a onclick=\"toggleNewComment('+ new_task_id_num  +')\">comment</a> /<a onclick=\"moveToDoing('+ new_task_id_num + ',' +   new_post_num + ',\'' + task_body +  '\')\"> "doing"</a> / <a>delete</a></span></p>';   
-            
+        append_task_1 += '<span class=\"to-do-link\"><a onclick=\"toggleNewComment('+ new_task_id_num  +')\">comment</a> /<a onclick=\"moveToDoing('+ new_task_id_num + ',' +   new_post_num + ',\'' + task_body +  '\')\"> "doing"</a> / <a onclick=\"toggleDeleteTask('+ new_task_id_num  +')\">delete</a></span></p>';   
+          
+            append_task_1 += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ new_task_id_num +'\"><a>delete? </a> <a onclick=\"deleteTask('+ new_task_id_num  + ')\">Yes </a>//<a onclick=\"toggleDeleteTask('+ new_task_id_num  +')\"> No </a></p>';
             
         append_task_1 += '<textarea  id=\"new_task_comment_'+ new_task_id_num +'\" class=\"input-task-1 new_task_comment_'+ new_task_id_num +'\"  maxlength=\"100\" name=\"keywords\"  style=\"display: none;\"  placeholder=\"add new comment\" ></textarea>';
         
@@ -1028,7 +1027,7 @@ $("#createtodo").on("click", function(){
             
         append_task_1 += '';
         
-        append_task_1 += '</div><br>';
+        append_task_1 += '</div>';
         
         
         var new_items_task_1 = $( append_task_1 ).hide();
@@ -1073,13 +1072,16 @@ $("#createtodo").on("click", function(){
       
         append_comment_1 = '';
             
-        append_comment_1 += '<p id=\"newcomment_id_'+ new_comment_id_num  +'\" class=\"to-do-comment\">'+ comment_body +'<br><br>';
+        append_comment_1 += '<div id=\"newcomment_id_'+ new_comment_id_num  +'\">';
+            
+        append_comment_1 += '<p  class=\"to-do-comment\">'+ comment_body +'<br>';
         
-        append_comment_1 += '<span class=\"to-do-link\"><a>delete </a></span></p>';
+        append_comment_1 += '<span class=\"to-do-link\"><a onclick=\"toggleDeleteComment('+ new_comment_id_num  +')\">delete </a></span></p>';
                             
             
-        
-        
+        append_comment_1 += '<p class=\"to-do-link delete-link-2-'+ new_comment_id_num +'\" ><a>delete? </a> <a onclick=\"deleteComment('+ new_comment_id_num  + ')\">Yes </a>//<a onclick=\"toggleDeleteComment('+ new_comment_id_num  +')\"> No </a></p>';
+       
+        append_comment_1 += '</div>';
         
         var new_items_comment_1 = $( append_comment_1 ).hide();
         
@@ -1089,7 +1091,7 @@ $("#createtodo").on("click", function(){
         new_items_comment_1.show( 100 );
             
             
-            
+        $(".delete-link-2-" + new_comment_id_num).hide();
         
         
             
@@ -1127,13 +1129,15 @@ $("#createtodo").on("click", function(){
       
         append_comment_2 = '';
             
-        append_comment_2 += '<p id=\"newcomment_id_'+ new_comment_id_num  +'\" class=\"to-do-comment\">'+ comment_body +'<br><br>';
-        
-        append_comment_2 += '<span class=\"to-do-link\"><a>delete </a></span></p>';
-                            
+        append_comment_2 += '<div id=\"newcomment_id_'+ new_comment_id_num  +'\">';
             
+        append_comment_2 += '<p class=\"to-do-comment\">'+ comment_body +'<br>';
         
+        append_comment_2 += '<span class=\"to-do-link\"><a onclick=\"toggleDeleteComment('+ new_comment_id_num  +')\">delete </a></span></p>';
+                            
+        append_comment_2 += '<p class=\"to-do-link delete-link-2-'+ new_comment_id_num +'\" ><a>delete? </a> <a onclick=\"deleteComment('+ new_comment_id_num  + ')\">Yes </a>//<a onclick=\"toggleDeleteComment('+ new_comment_id_num  +')\"> No </a></p>';   
         
+        append_comment_2 += '</div>'
         
         var new_items_comment_2 = $( append_comment_2 ).hide();
         
@@ -1142,7 +1146,7 @@ $("#createtodo").on("click", function(){
         
         new_items_comment_2.show( 100 );
             
-            
+            $(".delete-link-2-" + new_comment_id_num).hide();
             
         
         
@@ -1183,7 +1187,10 @@ $("#createtodo").on("click", function(){
                             
         append_task_2 += '<p class=\"to-do-task\">'+ task_body +'<br>';
                             
-        append_task_2 += '<span class=\"to-do-link\"><a onclick=\"toggleNewComment2('+ task_id  +')\">comment</a> / <a onclick=\"moveToDone('+ task_id + ',' +   post_id + ',\'' + task_body +  '\')\">"done"</a> / <a>delete</a></span></p>'; 
+        append_task_2 += '<span class=\"to-do-link\"><a onclick=\"toggleNewComment2('+ task_id  +')\">comment</a> / <a onclick=\"moveToDone('+ task_id + ',' +   post_id + ',\'' + task_body +  '\')\">"done"</a> / <a onclick=\"toggleDeleteTask('+ task_id  +')\">delete</a></span></p>'; 
+        
+        
+        append_task_2 += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ task_id +'\"><a>delete? </a> <a onclick=\"deleteTask('+ task_id  + ')\">Yes </a>//<a onclick=\"toggleDeleteTask('+ task_id  +')\"> No </a></p>';
         
         
         append_task_2 += '<textarea  id=\"new_task_comment_2_'+ task_id +'\" class=\"input-task-1 new_task_comment_2_'+ task_id +'\"  maxlength=\"100\" name=\"keywords\"  style=\"display: none;\"  placeholder=\"add new comment\" ></textarea>';
@@ -1192,7 +1199,7 @@ $("#createtodo").on("click", function(){
         
         append_task_2 += '<div id=\"append_task_comment_2_'+ task_id +'\"></div>';
         
-        append_task_2 += '</div><br>';
+        append_task_2 += '</div>';
         
         
         var new_items_task_2 = $( append_task_2 ).hide();
@@ -1232,9 +1239,11 @@ $("#createtodo").on("click", function(){
                             
         append_task_3 += '<p class=\"to-do-task\">'+ task_body +'<br>';
                             
-        append_task_3 += '<span class=\"to-do-link\"><a>comment</a> / <a>delete</a></span></p>';   
+        append_task_3 += '<span class=\"to-do-link\"><a onclick=\"toggleDeleteTask('+ task_id  +')\">delete</a></span></p>';  
+            
+        append_task_3 += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ task_id +'\"><a>delete? </a> <a onclick=\"deleteTask('+ task_id  + ')\">Yes </a>//<a onclick=\"toggleDeleteTask('+ task_id  +')\"> No </a></p>';
         
-        append_task_3 += '</div><br>';
+        append_task_3 += '</div>';
         
         
         var new_items_task_3 = $( append_task_3 ).hide();

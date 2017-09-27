@@ -63,6 +63,8 @@ RewriteRule ^send_to_doing backend/send_to_doing.php [NC,L]
 
 RewriteRule ^send_to_done backend/send_to_done.php [NC,L]
 
+RewriteRule ^delete_task backend/delete_task.php [NC,L]
+
 
 
 
