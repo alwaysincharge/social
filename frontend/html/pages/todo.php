@@ -590,6 +590,8 @@ $("#createtodo").on("click", function(){
                  
              $("#new_post_" + front_id).prepend('<input id=\"hidden_input_'+ front_id +'\" type=\"hidden\" value=\"' + idNewTodo + '\"  />');
                  
+             $(".new_post_opt_" + front_id).show(300);
+                 
              }
                  
              },
@@ -652,6 +654,9 @@ $("#createtodo").on("click", function(){
                  
                  
              $("#new_single_task_" + front_num).prepend('<input class=\"task_hidden_input_'+ front_num +'\" type=\"hidden\" value=\"' + idNewTask + '\"  />');
+                 
+                 
+             $("#new_task_option_todo_" + front_num).show(300);
                  
              }
                  
@@ -722,6 +727,9 @@ $("#createtodo").on("click", function(){
                  
              $("#newcomment_id_" + comment).prepend('<input class=\"comment_hidden_input_'+ comment +'\" type=\"hidden\" value=\"' + idNewComment + '\"  />');
                  
+                 
+             $("#new_comment_option_" + comment).show(300);
+                 
              }
 
                  
@@ -743,7 +751,7 @@ $("#createtodo").on("click", function(){
     
     
     
-    function sendToDoing( back_id ) {
+    function sendToDoing(front_num, back_id ) {
         
           
           $.ajax( {
@@ -757,8 +765,19 @@ $("#createtodo").on("click", function(){
              },
              success: function( data ) {
                  
-             console.log(data);
+             var jsonDoing = JSON.parse( data );
+            
+             var statusDoing =  jsonDoing[0];
+                 
+             var idDoing =  jsonDoing[1];
+                 
 
+                 
+             if (statusDoing == 1) {
+                 
+             $("#new_task_option_doing_" + front_num).show(300);
+                 
+             }
                  
              },
              error: function( xhr, textStatus, errorThrown ) {
@@ -773,7 +792,7 @@ $("#createtodo").on("click", function(){
     
     
     
-    function sendToDone( back_id ) {
+    function sendToDone(front_num, back_id ) {
         
           
           $.ajax( {
@@ -787,8 +806,19 @@ $("#createtodo").on("click", function(){
              },
              success: function( data ) {
                  
-             console.log(data);
+             var jsonDone = JSON.parse( data );
+            
+             var statusDone =  jsonDone[0];
+                 
+             var idDone =  jsonDone[1];
+                 
 
+                 
+             if (statusDone == 1) {
+                 
+             $("#new_task_option_done_" + front_num).show(300);
+                 
+             }
                  
              },
              error: function( xhr, textStatus, errorThrown ) {
@@ -839,9 +869,38 @@ $("#createtodo").on("click", function(){
     function appendTodo(body) {
         
         
+        current_username = '<?php echo $user_info['username']; ?>';
+        
+        
         append_todo = '<div id=\"new_post_'+ new_post_id_num +'\" class=\"to-do-main\">';
         
-        append_todo += '<p class=\"to-do-heading\"> '+ body +' </p>';
+        append_todo += '<div class=\"row\">';
+        
+        append_todo += '<div class=\"col-xs-6\">';
+        
+        append_todo += '<p style=\"margin-left: 30px;\" class=\"to-do-heading\"> '+ body +' </p>';
+        
+        append_todo += '</div>';
+        
+        append_todo += '<div class=\"col-xs-6\" style=\"padding-top: 10px;\"><div class=\"new_post_opt_'+ new_post_id_num +'\" style=\"display: none; float: right; padding-right: 20px;\">';
+        
+        append_todo += '<a class=\"work-font\">'+  current_username +' | </a>';
+        
+        append_todo += '<a class=\"work-font delete_new_opt_'+ new_post_id_num +'\">delete?</a> <a onclick=\"deletenewpost(' + new_post_id_num + ') \" class=\"work-font delete_new_opt_'+ new_post_id_num +'\">yes  //</a> <a class=\"work-font delete_new_opt_'+ new_post_id_num +'\" onclick=\"show_delete(' + new_post_id_num + ') \">no</a>';
+        
+        append_todo += '<a><img style=\" margin-left: 10px; height: 15px; width: 15px;\" onclick=\"show_delete(' + new_post_id_num + ') \" class=\" size-3-todo '+ 'start_delete' + new_post_id_num +' \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/garbage.svg' + '\" /></a>';
+        
+        
+        append_todo += '<a><img  style=\" margin-left: 10px; height: 15px; width: 15px;\" class=\" '+ 'start_delete' + new_post_id_num + '   like_delete'  +  new_post_id_num  +  '    \" src=\"' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/unlike.svg' + '\" onclick=\"likenewpost(' + new_post_id_num + ') \" /></a>';
+        
+        
+        append_todo += '<a>  <img style=\" width: 17px; margin-left: 7px;\" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a>';
+        
+        append_todo += '</div></div>';
+        
+        append_todo += '</div>';
+        
+        
         
         append_todo += '<div class=\"row\">';
         
@@ -910,7 +969,7 @@ $("#createtodo").on("click", function(){
         new_items_todo.show( 100 );
         
         
-        
+        $(".delete_new_opt_" + new_post_id_num).hide();
         
                     
         createtodo(new_post_id_num, body);          
@@ -920,6 +979,93 @@ $("#createtodo").on("click", function(){
     
                         
     }
+    
+    
+    
+    
+    
+        
+    function likenewpost(front_id) {
+           
+           
+            if ( $('.like_delete' + front_id).attr('src') == '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/unlike.svg' ) {
+              
+                   
+              
+                   $('.like_delete' + front_id).attr('src', '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/like.svg');
+              
+               
+           } else if ($('.like_delete' + front_id).attr('src') == '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/like.svg') {
+              
+              
+                   $('.like_delete' + front_id).attr('src', '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/unlike.svg');
+               
+               
+           }
+           
+           like_new_back_id = $("#hidden_input_" + front_id).val();
+           
+       like_old_url = "<?php  echo $_SESSION['url_placeholder'];  ?>" + "like_old";
+       
+       $.ajax( {
+             url: like_old_url,
+             type: "POST",
+             async: true,
+             data: {
+                "likepost": 1,
+                "post_id": like_new_back_id,
+                 "group_id": page_group_id
+             },
+             success: function( data ) {
+          
+             },
+           
+             error: function( xhr, textStatus, errorThrown ) {
+             
+                 
+                 
+             }
+          } ); 
+           
+           
+     } 
+    
+    
+    
+    
+    
+      function deletenewpost(front_id) {
+    
+       $("#new_post_" + front_id).hide(200);
+     
+       delete_post_url_new = "<?php  echo $_SESSION['url_placeholder'];  ?>" + "delete_post";
+        
+       delete_new_back_id = $("#hidden_input_" + front_id).val();
+       
+       $.ajax( {
+             url: delete_post_url_new,
+             type: "POST",
+             async: true,
+             data: {
+                "deletepost": 1,
+                "post_id": delete_new_back_id
+             },
+             success: function( data ) {
+                 
+             },
+           
+             error: function( xhr, textStatus, errorThrown ) {
+             
+                 
+                 
+             }
+          } );  
+       
+       
+   }  
+    
+    
+    
     
     
     
@@ -957,6 +1103,15 @@ $("#createtodo").on("click", function(){
         
         
         $("#new_task_" + new_post_num).toggle(300);
+        
+    }
+    
+    
+    
+    function show_delete (new_post_num)  {
+        
+        
+        $(".delete_new_opt_" + new_post_num).toggle(300);
         
     }
     
@@ -1014,8 +1169,10 @@ $("#createtodo").on("click", function(){
         append_task_1 += '<div id=\"new_single_task_'+ new_task_id_num +'\" class=\"to-do-box\">';
                             
         append_task_1 += '<p class=\"to-do-task\">'+ task_body +'<br>';
+            
+        
                             
-        append_task_1 += '<span class=\"to-do-link\"><a onclick=\"toggleNewComment('+ new_task_id_num  +')\">comment</a> /<a onclick=\"moveToDoing('+ new_task_id_num + ',' +   new_post_num + ',\'' + task_body +  '\')\"> "doing"</a> / <a onclick=\"toggleDeleteTask('+ new_task_id_num  +')\">delete</a></span></p>';   
+        append_task_1 += '<div id=\"new_task_option_todo_'+ new_task_id_num +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment('+ new_task_id_num  +')\">comment</a> /<a onclick=\"moveToDoing('+ new_task_id_num + ',' +   new_post_num + ',\'' + task_body +  '\')\"> "doing"</a> / <a onclick=\"toggleDeleteTask('+ new_task_id_num  +')\">delete</a> <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';   
           
             append_task_1 += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ new_task_id_num +'\"><a>delete? </a> <a onclick=\"deleteTask('+ new_task_id_num  + ')\">Yes </a>//<a onclick=\"toggleDeleteTask('+ new_task_id_num  +')\"> No </a></p>';
             
@@ -1076,7 +1233,7 @@ $("#createtodo").on("click", function(){
             
         append_comment_1 += '<p  class=\"to-do-comment\">'+ comment_body +'<br>';
         
-        append_comment_1 += '<span class=\"to-do-link\"><a onclick=\"toggleDeleteComment('+ new_comment_id_num  +')\">delete </a></span></p>';
+        append_comment_1 += '<div id=\"new_comment_option_'+ new_comment_id_num +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleDeleteComment('+ new_comment_id_num  +')\">delete </a>     <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';
                             
             
         append_comment_1 += '<p class=\"to-do-link delete-link-2-'+ new_comment_id_num +'\" ><a>delete? </a> <a onclick=\"deleteComment('+ new_comment_id_num  + ')\">Yes </a>//<a onclick=\"toggleDeleteComment('+ new_comment_id_num  +')\"> No </a></p>';
@@ -1133,7 +1290,7 @@ $("#createtodo").on("click", function(){
             
         append_comment_2 += '<p class=\"to-do-comment\">'+ comment_body +'<br>';
         
-        append_comment_2 += '<span class=\"to-do-link\"><a onclick=\"toggleDeleteComment('+ new_comment_id_num  +')\">delete </a></span></p>';
+        append_comment_2 += '<div id=\"new_comment_option_'+ new_comment_id_num +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleDeleteComment('+ new_comment_id_num  +')\">delete </a><a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';
                             
         append_comment_2 += '<p class=\"to-do-link delete-link-2-'+ new_comment_id_num +'\" ><a>delete? </a> <a onclick=\"deleteComment('+ new_comment_id_num  + ')\">Yes </a>//<a onclick=\"toggleDeleteComment('+ new_comment_id_num  +')\"> No </a></p>';   
         
@@ -1187,7 +1344,7 @@ $("#createtodo").on("click", function(){
                             
         append_task_2 += '<p class=\"to-do-task\">'+ task_body +'<br>';
                             
-        append_task_2 += '<span class=\"to-do-link\"><a onclick=\"toggleNewComment2('+ task_id  +')\">comment</a> / <a onclick=\"moveToDone('+ task_id + ',' +   post_id + ',\'' + task_body +  '\')\">"done"</a> / <a onclick=\"toggleDeleteTask('+ task_id  +')\">delete</a></span></p>'; 
+        append_task_2 += '<div id=\"new_task_option_doing_'+ task_id +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment2('+ task_id  +')\">comment</a> / <a onclick=\"moveToDone('+ task_id + ',' +   post_id + ',\'' + task_body +  '\')\">"done"</a> / <a onclick=\"toggleDeleteTask('+ task_id  +')\">delete</a>  <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>'; 
         
         
         append_task_2 += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ task_id +'\"><a>delete? </a> <a onclick=\"deleteTask('+ task_id  + ')\">Yes </a>//<a onclick=\"toggleDeleteTask('+ task_id  +')\"> No </a></p>';
@@ -1210,7 +1367,7 @@ $("#createtodo").on("click", function(){
         new_items_task_2.show( 300 );
         
 
-        sendToDoing($(".task_hidden_input_" + task_id).val());
+        sendToDoing(task_id, $(".task_hidden_input_" + task_id).val());
             
       //  new_task_id_num = new_task_id_num + 1;
         
@@ -1239,7 +1396,7 @@ $("#createtodo").on("click", function(){
                             
         append_task_3 += '<p class=\"to-do-task\">'+ task_body +'<br>';
                             
-        append_task_3 += '<span class=\"to-do-link\"><a onclick=\"toggleDeleteTask('+ task_id  +')\">delete</a></span></p>';  
+        append_task_3 += '<div id=\"new_task_option_done_'+ task_id +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleDeleteTask('+ task_id  +')\">delete</a>  <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';  
             
         append_task_3 += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ task_id +'\"><a>delete? </a> <a onclick=\"deleteTask('+ task_id  + ')\">Yes </a>//<a onclick=\"toggleDeleteTask('+ task_id  +')\"> No </a></p>';
         
@@ -1253,7 +1410,7 @@ $("#createtodo").on("click", function(){
         
         new_items_task_3.show( 300 );
         
-        sendToDone($(".task_hidden_input_" + task_id).val());
+        sendToDone(task_id, $(".task_hidden_input_" + task_id).val());
             
       //  new_task_id_num = new_task_id_num + 1;
         

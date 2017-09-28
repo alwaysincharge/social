@@ -12,6 +12,12 @@
 if(isset($_POST['task']))  {
     
     $todo->doing_task($_POST['task_id']);
+    
+    $todo_id = mysqli_insert_id($database->connection);
+    
+    $attach_array = array("send_success"=> 1, "task_id"=> $todo_id);     
+    
+    echo json_encode(array_values($attach_array));
         
     
 }

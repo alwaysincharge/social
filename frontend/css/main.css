@@ -199,6 +199,15 @@ a:hover {
     height: 15px; width: 15px; cursor: pointer; display: none;
 }
 
+
+.size-3-todo {
+    height: 15px; width: 15px; cursor: pointer; 
+}
+
+.work-font {
+    font-family: Work Sans;
+}
+
 .delete-1 {
     display: none; font-family: Work Sans; margin-right: 5px; font-weight: lighter; font-size: 13px;
 }
@@ -752,6 +761,9 @@ font-family: Work Sans;
     
 }
 
+a {
+    cursor: pointer;
+}
 
 .to-do-link {
 
@@ -760,7 +772,15 @@ font-family: Work Sans;
     
 }
 
+.main-cursor {
+    
+    cursor: pointer;
+}
 
+.size-check {
+    width: 10px;
+    height: 10px;
+}
 
 .segment {
     margin-top: 20px;
