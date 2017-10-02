@@ -160,7 +160,7 @@ class Posts {
 
        global $database;
         
-       $stmt = $database->connection->prepare("SELECT id from posts where group_id = ? and owner != 0 and deleted = 'live' limit 1");
+       $stmt = $database->connection->prepare("SELECT id from posts where group_id = ? and owner != 0 and deleted = 'live' and posts.type != 'todo' limit 1");
         
        $stmt->bind_param("i", $group);
            
@@ -261,7 +261,7 @@ class Posts {
 
        global $database;
         
-       $stmt = $database->connection->prepare("SELECT posts.id as id, posts.message as message, posts.owner as owner, posts.group_id as group_id, posts.type as type, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, users.username as username, users.img_path as image FROM posts INNER JOIN users ON users.id = posts.owner where  posts.group_id = ? AND deleted = 'live' order by posts.id desc limit 12");
+       $stmt = $database->connection->prepare("SELECT posts.id as id, posts.message as message, posts.owner as owner, posts.group_id as group_id, posts.type as type, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, users.username as username, users.img_path as image FROM posts INNER JOIN users ON users.id = posts.owner where  posts.group_id = ? AND deleted = 'live' and posts.type != 'todo' order by posts.id desc limit 12");
            
        $stmt->bind_param("i", $group);
           
@@ -392,7 +392,7 @@ class Posts {
 
        global $database;
         
-       $stmt = $database->connection->prepare("SELECT posts.id as id, posts.message as message, posts.owner as owner, posts.group_id as group_id, posts.type as type, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, users.username as username, users.img_path as image FROM posts INNER JOIN users ON users.id = posts.owner where posts.id < ? AND posts.group_id = ? AND deleted = 'live' order by id desc limit 12");
+       $stmt = $database->connection->prepare("SELECT posts.id as id, posts.message as message, posts.owner as owner, posts.group_id as group_id, posts.type as type, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, users.username as username, users.img_path as image FROM posts INNER JOIN users ON users.id = posts.owner where posts.id < ? AND posts.group_id = ? AND deleted = 'live' and posts.type != 'todo' order by id desc limit 12");
         
        $stmt->bind_param("ii", $offset, $group);
         
