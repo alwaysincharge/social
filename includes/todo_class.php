@@ -96,6 +96,72 @@ class Todo {
     
     
     
+       public function count_tasks($todo_id_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("select * from to_do_list where post_id = ? and deleted = 'live' ");
+        
+       $stmt->bind_param("i", $todo_id);
+        
+       $todo_id = $todo_id_input;    
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+       public function get_one_task($todo_id_input, $state_id_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("
+       SELECT to_do_list.id as id, to_do_list.owner as owner, to_do_list.group_id as group_id, to_do_list.type as type, to_do_list.body as body, users.username as username, users.img_path as image FROM to_do_list INNER JOIN users ON users.id = to_do_list.owner where  to_do_list.post_id = ? AND to_do_list.state = ? and to_do_list.deleted = 'live' AND to_do_list.type = 'task'  order by to_do_list.id desc ");
+        
+       $stmt->bind_param("ii", $todo_id, $state_id);
+        
+       $todo_id = $todo_id_input;  
+               
+       $state_id = $state_id_input;    
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+       public function get_one_comment($todo_id_input, $state_id_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("
+       SELECT to_do_list.id as id, to_do_list.owner as owner, to_do_list.group_id as group_id, to_do_list.type as type, to_do_list.body as body, users.username as username, users.img_path as image FROM to_do_list INNER JOIN users ON users.id = to_do_list.owner where  to_do_list.comment_id = ? AND to_do_list.state = ? and to_do_list.deleted = 'live' AND to_do_list.type = 'comment' order by to_do_list.id desc ");
+        
+       $stmt->bind_param("ii", $todo_id, $state_id);
+        
+       $todo_id = $todo_id_input;  
+               
+       $state_id = $state_id_input;    
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
     
        public function doing_task($task_id_input) {
 

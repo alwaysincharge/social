@@ -14,7 +14,7 @@ if (isset($_POST['deletepost']))  {
           
     $posts->delete_post_by_id($_POST['post_id'], $_SESSION['admin_id']);
     
-    
+   // echo $_POST['post_id'];
 }
         
 } else {

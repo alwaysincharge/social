@@ -241,14 +241,7 @@ $user_info = $user_details_result->fetch_assoc();
                 <div class="col-xs-9">
                     
                     
-            <input id="todobody"  maxlength="100" name="keywords" class="search-main" style="margin-left: 150px; font-size: 13px;"  placeholder="what are you working on?" />
-                         <a>
-                
-            <button id="createtodo" class="btn new-group-1-todo" style="margin-left: 15px; margin-top: 0px; padding: 5px;">   
-                    
-            create to-do list</button>
-            
-            </a><br><br>
+       
                     
                     <div id="main-div">
                       
@@ -495,6 +488,10 @@ $all_members_of_this_group_result = $all_members_of_this_group->get_result();
 <script type="text/javascript">
     
 page_group_id = "<?php echo $_GET['group'];  ?>";
+
+top_post_id = "<?php echo $_GET['todo'];  ?>";
+    
+    
     
 currentArray = [];
     
@@ -617,7 +614,7 @@ $("#createtodo").on("click", function(){
     
     
     
-    function sendNewTask( front_num, body, post_front_num ) {
+    function sendNewTask( front_num, body, back_num ) {
         
        //   alert(front_num)
           
@@ -628,7 +625,7 @@ $("#createtodo").on("click", function(){
           currentArray.push(currentMilli_2);
             
   
-          db_todo_id = $("#hidden_input_" + post_front_num).val();
+        
         
         
       //  alert($("#hidden_input_" + post_front_num).val())
@@ -644,7 +641,7 @@ $("#createtodo").on("click", function(){
                  "body": body,
                  "group_id": page_group_id,
                  "time": currentMilli_2,
-                 "post_id": db_todo_id
+                 "post_id": back_num
              },
              success: function( data ) {
                                   console.log(data)
@@ -655,7 +652,7 @@ $("#createtodo").on("click", function(){
                  
              var idNewTask =  jsonNewTask[1];
                  
-
+//alert(statusNewTask)
                  
              if (statusNewTask == 1) {
                  
@@ -843,7 +840,7 @@ $("#createtodo").on("click", function(){
     
     
         function deleteTaskSend( back_id ) {
-        
+       // alert(back_id)
           
           $.ajax( {
              url: "<?php echo $_SESSION['url_placeholder']; ?>delete_task",
@@ -1038,7 +1035,7 @@ $("#createtodo").on("click", function(){
                
            }
            
-           like_new_back_id = $("#hidden_input_" + front_id).val();
+          
            
        like_old_url = "<?php  echo $_SESSION['url_placeholder'];  ?>" + "like_old";
        
@@ -1048,7 +1045,7 @@ $("#createtodo").on("click", function(){
              async: true,
              data: {
                 "likepost": 1,
-                "post_id": like_new_back_id,
+                "post_id": front_id,
                  "group_id": page_group_id
              },
              success: function( data ) {
@@ -1075,7 +1072,7 @@ $("#createtodo").on("click", function(){
      
        delete_post_url_new = "<?php  echo $_SESSION['url_placeholder'];  ?>" + "delete_post";
         
-       delete_new_back_id = $("#hidden_input_" + front_id).val();
+
        
        $.ajax( {
              url: delete_post_url_new,
@@ -1083,7 +1080,7 @@ $("#createtodo").on("click", function(){
              async: true,
              data: {
                 "deletepost": 1,
-                "post_id": delete_new_back_id
+                "post_id": front_id
              },
              success: function( data ) {
                  
@@ -1113,6 +1110,41 @@ $("#createtodo").on("click", function(){
         
         $("#new_single_task_3_" + front).hide(300);
         
+        deleteTaskSend(front);
+        
+    }
+    
+    
+    
+    
+       function deleteTaskAppend (front)  {
+        
+           
+        
+        $("#new_single_task_" + front).hide(300);
+        
+        $("#new_single_task_2_" + front).hide(300);
+        
+        $("#new_single_task_3_" + front).hide(300);
+         //  alert($(".task_hidden_input_" + front).val())
+        
+        deleteTaskSend($(".task_hidden_input_" + front).val());
+        
+    }
+    
+    
+    
+    
+    
+     function deleteTaskNew (front)  {
+        
+        
+        $("#new_single_task_" + front).hide(300);
+        
+        $("#new_single_task_2_" + front).hide(300);
+        
+        $("#new_single_task_3_" + front).hide(300);
+        
         deleteTaskSend($(".task_hidden_input_" + front).val());
         
     }
@@ -1126,10 +1158,23 @@ $("#createtodo").on("click", function(){
         $("#newcomment_id_" + front).hide(300);
         
 
+        if ($(".comment_hidden_input_" + front).val() == null)  {
+            
+            deleteTaskSend(front);
+            
+        } else {
+            
+            deleteTaskSend($(".comment_hidden_input_" + front).val());
+            
+        }
         
-       deleteTaskSend($(".comment_hidden_input_" + front).val());
+        
         
     }
+    
+    
+    
+
     
     
     
@@ -1154,6 +1199,15 @@ $("#createtodo").on("click", function(){
     
     function toggleDeleteTask (new_task_num)  {
         
+        
+        $(".delete-link-1-" + new_task_num).toggle(300);
+        
+    }
+    
+    
+    function toggleDeleteTaskNew (new_task_num)  {
+        
+       // alert("mooewfoiw");
         
         $(".delete-link-1-" + new_task_num).toggle(300);
         
@@ -1198,24 +1252,24 @@ $("#createtodo").on("click", function(){
             
             task_body = $("#new_task_body_" + new_post_num).val();
             
-            
-                 append_task_1 = '';
+           // alert(new_post_num)
+        append_task_1 = '';
         
-        append_task_1 += '<div id=\"new_single_task_'+ new_task_id_num +'\" class=\"to-do-box\">';
+        append_task_1 += '<div id=\"new_single_task_'+ new_task_id +'\" class=\"to-do-box\">';
                             
         append_task_1 += '<p class=\"to-do-task\">'+ task_body +'<br>';
             
         
                             
-        append_task_1 += '<div id=\"new_task_option_todo_'+ new_task_id_num +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment('+ new_task_id_num  +')\">comment</a> /<a onclick=\"moveToDoing('+ new_task_id_num + ',' +   new_post_num + ',\'' + task_body +  '\')\"> "doing"</a> / <a onclick=\"toggleDeleteTask('+ new_task_id_num  +')\">delete</a> <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';   
+        append_task_1 += '<div id=\"new_task_option_todo_'+ new_task_id +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment(\''+ new_task_id  +'\')\">comment</a> /<a onclick=\"moveToDoing(\''+ new_task_id + '\',' +   new_post_num + ',\'' + task_body +  '\')\"> "doing"</a> / <a onclick=\"toggleDeleteTaskNew(\''+ new_task_id  +'\')\">delete</a> <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';   
           
-            append_task_1 += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ new_task_id_num +'\"><a>delete? </a> <a onclick=\"deleteTask('+ new_task_id_num  + ')\">Yes </a>//<a onclick=\"toggleDeleteTask('+ new_task_id_num  +')\"> No </a></p>';
+            append_task_1 += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ new_task_id +'\"><a>delete? </a> <a onclick=\"deleteTaskNew(\''+ new_task_id  + '\')\">Yes </a>//<a onclick=\"toggleDeleteTaskNew(\''+ new_task_id  +'\')\"> No </a></p>';
             
-        append_task_1 += '<textarea  id=\"new_task_comment_'+ new_task_id_num +'\" class=\"input-task-1 new_task_comment_'+ new_task_id_num +'\"  maxlength=\"100\" name=\"keywords\"  style=\"display: none;\"  placeholder=\"add new comment\" ></textarea>';
+        append_task_1 += '<textarea  id=\"new_task_comment_'+ new_task_id +'\" class=\"input-task-1 new_task_comment_'+ new_task_id +'\"  maxlength=\"100\" name=\"keywords\"  style=\"display: none;\"  placeholder=\"add new comment\" ></textarea>';
         
-        append_task_1 += '<a class=\"task-link-2 new_task_comment_'+ new_task_id_num +'\"  style=\"display: none;\" onclick=\"appendNewComment('+ new_task_id_num +')\" >submit</a>';
+        append_task_1 += '<a class=\"task-link-2 new_task_comment_'+ new_task_id +'\"  style=\"display: none;\" onclick=\"appendNewComment(\''+ new_task_id +'\')\" >submit</a>';
             
-        append_task_1 += '<div id=\"append_task_comment_'+ new_task_id_num +'\"></div>';
+        append_task_1 += '<div id=\"append_task_comment_'+ new_task_id +'\"></div>';
             
         append_task_1 += '';
         
@@ -1229,9 +1283,9 @@ $("#createtodo").on("click", function(){
         
         new_items_task_1.show( 100 );
         
-         //   alert("sending this" + new_task_id_num)
+         //   alert("sending this" + new_task_id)
             
-        sendNewTask(new_task_id_num, task_body, new_post_num);
+        sendNewTask(new_task_id, task_body, new_post_num);
             
         new_task_id_num = new_task_id_num + 1;
         
@@ -1287,7 +1341,18 @@ $("#createtodo").on("click", function(){
         
         
             
-        sendNewComment($(".task_hidden_input_" + new_task_num).val(), comment_body, new_comment_id_num, "to-do");
+            if ($(".task_hidden_input_" + new_task_num).val() == null) {
+                
+                sendNewComment(new_task_num, comment_body, new_comment_id_num, "to-do");
+                
+            } else {
+                
+                sendNewComment($(".task_hidden_input_" + new_task_num).val(), comment_body, new_comment_id_num, "to-do");
+                
+                
+            }
+            
+        
             
         new_comment_id_num = new_comment_id_num + 1;
         
@@ -1313,6 +1378,8 @@ $("#createtodo").on("click", function(){
     
     function appendNewComment_2(new_task_num) {
         
+        alert($("#new_task_comment_2_" + new_task_num).val())
+        
         if ($("#new_task_comment_2_" + new_task_num).val().trim().length > 0) {
             
         comment_body = $("#new_task_comment_2_" + new_task_num).val();
@@ -1325,13 +1392,17 @@ $("#createtodo").on("click", function(){
             
         append_comment_2 += '<p class=\"to-do-comment\">'+ comment_body +'<br>';
         
-        append_comment_2 += '<div id=\"new_comment_option_'+ new_comment_id_num +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleDeleteComment('+ new_comment_id_num  +')\">delete </a><a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';
+        append_comment_2 += '<div id=\"new_comment_option_'+ new_comment_id_num +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleDeleteComment(\''+ new_comment_id_num  +'\')\">delete </a><a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';
                             
-        append_comment_2 += '<p class=\"to-do-link delete-link-2-'+ new_comment_id_num +'\" ><a>delete? </a> <a onclick=\"deleteComment('+ new_comment_id_num  + ')\">Yes </a>//<a onclick=\"toggleDeleteComment('+ new_comment_id_num  +')\"> No </a></p>';   
+        append_comment_2 += '<p class=\"to-do-link delete-link-2-'+ new_comment_id_num +'\" ><a>delete? </a> <a onclick=\"deleteComment(\''+ new_comment_id_num  + '\')\">Yes </a>//<a onclick=\"toggleDeleteComment('+ new_comment_id_num  +')\"> No </a></p>';   
         
         append_comment_2 += '</div>'
         
         var new_items_comment_2 = $( append_comment_2 ).hide();
+            
+            
+            
+
         
         
         $( '#append_task_comment_2_' + new_task_num ).prepend( new_items_comment_2 );
@@ -1343,7 +1414,20 @@ $("#createtodo").on("click", function(){
         
         
             
-        sendNewComment($(".task_hidden_input_" + new_task_num).val(), comment_body, new_comment_id_num, "doing");
+            
+                        if ($(".task_hidden_input_" + new_task_num).val() == null) {
+                            
+                sendNewComment(new_task_num, comment_body, new_comment_id_num, "doing");
+                
+            } else {
+                
+                sendNewComment($(".task_hidden_input_" + new_task_num).val(), comment_body, new_comment_id_num, "doing");
+                
+                
+            }
+            
+            
+        
             
         new_comment_id_num = new_comment_id_num + 1;
         
@@ -1371,7 +1455,7 @@ $("#createtodo").on("click", function(){
         $("#new_single_task_" + task_id).hide();
         
         
-        
+      // alert(post_id)
         
         append_task_2 = '';
         
@@ -1379,21 +1463,21 @@ $("#createtodo").on("click", function(){
                             
         append_task_2 += '<p class=\"to-do-task\">'+ task_body +'<br>';
                             
-        append_task_2 += '<div id=\"new_task_option_doing_'+ task_id +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment2('+ task_id  +')\">comment</a> / <a onclick=\"moveToDone('+ task_id + ',' +   post_id + ',\'' + task_body +  '\')\">"done"</a> / <a onclick=\"toggleDeleteTask('+ task_id  +')\">delete</a>  <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>'; 
+        append_task_2 += '<div id=\"new_task_option_doing_'+ task_id +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment2(\''+ task_id  +'\')\">comment</a> / <a onclick=\"moveToDone(\''+ task_id + '\',' +   post_id + ',\'' + task_body +  '\')\">"done"</a> / <a onclick=\"toggleDeleteTask(\''+ task_id  +'\')\">delete</a>  <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>'; 
         
         
-        append_task_2 += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ task_id +'\"><a>delete? </a> <a onclick=\"deleteTask('+ task_id  + ')\">Yes </a>//<a onclick=\"toggleDeleteTask('+ task_id  +')\"> No </a></p>';
+        append_task_2 += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ task_id +'\"><a>delete? </a> <a onclick=\"deleteTaskAppend(\''+ task_id  + '\')\">Yes </a>//<a onclick=\"toggleDeleteTask(\''+ task_id  +'\')\"> No </a></p>';
         
         
         append_task_2 += '<textarea  id=\"new_task_comment_2_'+ task_id +'\" class=\"input-task-1 new_task_comment_2_'+ task_id +'\"  maxlength=\"100\" name=\"keywords\"  style=\"display: none;\"  placeholder=\"add new comment\" ></textarea>';
         
-        append_task_2 += '<a class=\"task-link-2 new_task_comment_2_'+ task_id +'\"  style=\"display: none;\" onclick=\"appendNewComment_2('+ task_id +')\" >submit</a>';
+        append_task_2 += '<a class=\"task-link-2 new_task_comment_2_'+ task_id +'\"  style=\"display: none;\" onclick=\"appendNewComment_2(\''+ task_id +'\')\" >submit</a>';
         
         append_task_2 += '<div id=\"append_task_comment_2_'+ task_id +'\"></div>';
         
         append_task_2 += '</div>';
         
-        
+     //   alert(task_id)
         var new_items_task_2 = $( append_task_2 ).hide();
         
         
@@ -1401,8 +1485,19 @@ $("#createtodo").on("click", function(){
         
         new_items_task_2.show( 300 );
         
+        
+        
+        if ($(".task_hidden_input_" + task_id).val() == null) {
+            
+            sendToDoing(task_id, task_id);
+            
+            
+        } else {
+            
+            sendToDoing(task_id, $(".task_hidden_input_" + task_id).val());
+        }
 
-        sendToDoing(task_id, $(".task_hidden_input_" + task_id).val());
+         
             
       //  new_task_id_num = new_task_id_num + 1;
         
@@ -1431,9 +1526,9 @@ $("#createtodo").on("click", function(){
                             
         append_task_3 += '<p class=\"to-do-task\">'+ task_body +'<br>';
                             
-        append_task_3 += '<div id=\"new_task_option_done_'+ task_id +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleDeleteTask('+ task_id  +')\">delete</a>  <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';  
+        append_task_3 += '<div id=\"new_task_option_done_'+ task_id +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleDeleteTask(\''+ task_id  +'\')\">delete</a>  <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';  
             
-        append_task_3 += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ task_id +'\"><a>delete? </a> <a onclick=\"deleteTask('+ task_id  + ')\">Yes </a>//<a onclick=\"toggleDeleteTask('+ task_id  +')\"> No </a></p>';
+        append_task_3 += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ task_id +'\"><a>delete? </a> <a onclick=\"deleteTaskAppend(\''+ task_id  + '\')\">Yes </a>//<a onclick=\"toggleDeleteTask(\''+ task_id  +'\')\"> No </a></p>';
         
         append_task_3 += '</div>';
         
@@ -1444,8 +1539,18 @@ $("#createtodo").on("click", function(){
         $( '#segment_done_' + post_id ).prepend( new_items_task_3 );
         
         new_items_task_3.show( 300 );
+            
+            if ($(".task_hidden_input_" + task_id).val() == null)  {
+                
+                sendToDone(task_id, task_id);
+                
+            } else {
+                
+                sendToDone(task_id, $(".task_hidden_input_" + task_id).val());
+                
+            }
         
-        sendToDone(task_id, $(".task_hidden_input_" + task_id).val());
+        
             
       //  new_task_id_num = new_task_id_num + 1;
         
@@ -1504,7 +1609,7 @@ function displayFromDatabasePagination() {
         
     
     
-    fetch_old_url = "<?php echo $_SESSION['url_placeholder'];  ?>fetch_old_todos";
+    fetch_old_url = "<?php echo $_SESSION['url_placeholder'];  ?>fetch_one_todo";
       
     var flag;
         
@@ -1516,8 +1621,8 @@ function displayFromDatabasePagination() {
           data: {
               
              "fetchold": 1,
-             "offset": firstTimeID,
-              "group": page_group_id
+             "post_id": top_post_id
+              
               
           },
           success: function( data ) {
@@ -1531,7 +1636,7 @@ function displayFromDatabasePagination() {
                 
                var jsonOldLength = jsonOldPost.old_posts.length;
               
-               var oldPostHtml = "";
+            
                 
                for ( var for_oldpost = 0; for_oldpost < jsonOldLength; for_oldpost++ ) {
                    
@@ -1544,33 +1649,117 @@ function displayFromDatabasePagination() {
             
                 if (resultOldPost.type == "todo") {
                     
-                    how_many_tasks(resultOldPost.id);
+                 getTaskOne();
                     
-                    oldPostHtml += '<div class=\"old-todo-row row\">';
+                 getTaskTwo();
                     
-                    oldPostHtml += '<div class=\"col-xs-2\">';
+                 getTaskThree();
                     
-                    oldPostHtml += '<a><img src=\" '+ '<?php echo $_SESSION['url_placeholder'];  ?>' + resultOldPost.image  +' \" class=\"chat-left-1\"  /></a>';
                     
-                    oldPostHtml += '</div>';
+                    append_todo_old = '<div id=\"new_post_'+ resultOldPost.id +'\" class=\"to-do-main\">';
+        
+        append_todo_old += '<div class=\"row\">';
+        
+        append_todo_old += '<div class=\"col-xs-6\">';
+        
+        append_todo_old += '<p style=\"margin-left: 30px;\" class=\"to-do-heading\"> '+ resultOldPost.listname +' </p>';
+        
+        append_todo_old += '</div>';
+        
+        append_todo_old += '<div class=\"col-xs-6\" style=\"padding-top: 10px;\"><div class=\"new_post_opt_'+ resultOldPost.id +'\" style=\"float: right; padding-right: 20px;\">';
+        
+        append_todo_old += '<a class=\"work-font\">'+  resultOldPost.username +' | </a>';
+        
+        append_todo_old += '<a style=\"display: none;\" class=\"work-font delete_new_opt_'+ resultOldPost.id +'\">delete?</a> <a onclick=\"deletenewpost(' + resultOldPost.id + ') \" style=\"display: none;\" class=\"work-font delete_new_opt_'+ resultOldPost.id +'\">yes  //</a> <a style=\"display: none;\" class=\"work-font delete_new_opt_'+ resultOldPost.id +'\" onclick=\"show_delete(' + resultOldPost.id + ') \">no</a>';
+        
                     
-                    oldPostHtml += '<div class=\"col-xs-10\">';
+                    if (resultOldPost.owner  == '<?php  echo $_SESSION['admin_id']; ?>')  {
+                        
+                        append_todo_old += '<a><img style=\" margin-left: 10px; height: 15px; width: 15px;\" onclick=\"show_delete(' + resultOldPost.id + ') \" class=\" size-3-todo '+ 'start_delete' + resultOldPost.id +' \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/garbage.svg' + '\" /></a>';
+                        
+                    } else {
+
                     
-                    oldPostHtml += '<div class=\"old-todo-main\">';
                     
-                    oldPostHtml += '<p class=\"old-todo-para\">'+ resultOldPost.listname +'</p>';
-                    
-                    oldPostHtml += '<a><div class=\"old-todo-links\"> <a>'+ resultOldPost.username +' |</a> <a class=\"old-num-task-'+ resultOldPost.id +'\">23 Tasks |</a> <a href=\"'+ '<?php echo $_SESSION['url_placeholder']; ?>list/' + page_group_id + '/' + resultOldPost.id +'">View To-do list</a> </div></a>';
-                    
-                    oldPostHtml += '</div></div></div>';
-                    
+                    }
+        
+        
+        
+        append_todo_old += '<a><img  style=\" margin-left: 10px; height: 15px; width: 15px;\" class=\" '+ 'start_delete' + resultOldPost.id + '   like_delete'  +  resultOldPost.id  +  '    \" src=\"'  +  resultOldPost.like_src +'\" onclick=\"likenewpost(' + resultOldPost.id + ') \" /></a>';
+        
+        
+        append_todo_old += '<a>  <img style=\" width: 17px; margin-left: 7px;\" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a>';
+        
+        append_todo_old += '</div></div>';
+        
+        append_todo_old += '</div>';
+        
+        
+        
+        append_todo_old += '<div class=\"row\">';
+        
+        
+        
+        
+        
+        append_todo_old += '<div class=\"col-xs-4 to-do-right to-do-class\">';
+        
+        append_todo_old += '<p class=\"to-do-title\">To-do</p>';
+        
+        append_todo_old += '<p class=\"to-do-info\">Tasks you want to accomplish.</p>';
+        
+        append_todo_old += '<button id=\"new_create_task_'+ resultOldPost.id +'\" onclick=\"toggleNewtask('+ resultOldPost.id +')\"  class=\"btn new-todo-1\" style=\"margin-top: 20px;\">Create task</button>';
+        
+        
+        append_todo_old += '<div id=\"new_task_'+ resultOldPost.id +'\" style=\"display: none;\">';
+        
+        
+        append_todo_old += '<textarea id=\"new_task_body_'+ resultOldPost.id +'\"  maxlength=\"100\" name=\"keywords\" class=\"input-todo-1\"  placeholder=\"add new task\" ></textarea>';
+        
+        append_todo_old += '<a onclick=\"appendNewtask('+ resultOldPost.id +')\" class=\"to-do-link-2\">submit</a>';
+        
+        append_todo_old += '</div>';
+        
+        append_todo_old += '<div class=\"segment\" id=\"segment_todo_'+ resultOldPost.id +'\"></div>';
+        
+        append_todo_old += '</div>';
+        
+        
+        
+        
+        append_todo_old += '<div class=\"col-xs-4 to-do-right to-do-class\">';
+        
+        append_todo_old += '<p class=\"to-do-title\">Doing</p>';
+        
+        append_todo_old += '<p class=\"to-do-info\">Tasks that are still going on.</p>';
+        
+        append_todo_old += '<div class=\"segment\" id=\"segment_doing_'+ resultOldPost.id +'\"></div>';
+        
+        append_todo_old += '</div>';
+        
+        
+        
+        
+        append_todo_old += '<div class=\"col-xs-4 to-do-class\">';
+        
+        append_todo_old += '<p class=\"to-do-title\">Done</p>';
+        
+        append_todo_old += '<p class=\"to-do-info\">Completed tasks.</p>';
+        
+        append_todo_old += '<div class=\"segment\" id=\"segment_done_'+ resultOldPost.id +'\"></div>';
+        
+        append_todo_old += '</div>';
+        
+        
+        
+        append_todo_old += '</div></div>';
                     
                      
                  }
                  
              }
                 
-             $( '#main-div' ).append( oldPostHtml );                            
+             $( '#main-div' ).append( append_todo_old );                            
                                                               
         } 
              
@@ -1586,18 +1775,7 @@ function displayFromDatabasePagination() {
             complete: function( ) {
                   
                 
-                    
-                $(window).bind("scroll", (function () {
                 
-                  if ( ( window.innerHeight + window.scrollY ) >= document.body.offsetHeight ) {
-                      
-                      displayFromDatabasePagination();
-                      
-                      $(window).unbind("scroll");
-                      
-                  }
-                
-            } ));           
                 
           }
         
@@ -1613,6 +1791,367 @@ function displayFromDatabasePagination() {
     
     
     
+ 
+function getTaskOne() {
+        
+    
+    
+    fetch_task_url = "<?php echo $_SESSION['url_placeholder'];  ?>get_task_with_number";
+      
+       $.ajax( {
+        
+          url: fetch_task_url,
+          type: "POST",
+          async: true,
+          data: {
+              
+             "fetchold": 1,
+             "post_id": top_post_id,
+              "type": 1
+              
+              
+          },
+          success: function( data ) {
+           
+
+           // alert(data)
+            
+            console.log(data)
+                                                              
+ 
+                
+               var jsonOldTask = JSON.parse( data );
+                
+               var jsonOldLengthTask = jsonOldTask.old_posts.length;
+              
+                  append_task_old = '';
+               for ( var for_oldtask = 0; for_oldtask < jsonOldLengthTask; for_oldtask++ ) {
+                   
+                   
+                  var resultOldTask = jsonOldTask.old_posts[ for_oldtask ];
+                   
+                
+                   
+                   
+            
+                if (resultOldTask.type == "task") {
+                    
+                 //   how_many_tasks(resultOldPost.id);
+                    
+                    
+                    
+                    
+          
+        
+        append_task_old += '<div id=\"new_single_task_'+ resultOldTask.id +'\" class=\"to-do-box\">';
+                            
+        append_task_old += '<p class=\"to-do-task\">'+ resultOldTask.body +'<br>';
+            
+        
+                    if (resultOldTask.owner == "<?php echo $user_info['id']; ?>") {
+                      
+                        append_task_old += '<div id=\"new_task_option_todo_'+ resultOldTask.id +'\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment('+ resultOldTask.id  +')\">comment</a> /<a onclick=\"moveToDoing('+ resultOldTask.id + ',' +   top_post_id + ',\'' + resultOldTask.body +  '\')\"> "doing"</a> / <a onclick=\"toggleDeleteTask('+ resultOldTask.id  +')\">delete</a> <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';   
+                        
+                        
+                    } else {
+                        
+                        append_task_old += '<div id=\"new_task_option_todo_'+ resultOldTask.id +'\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment('+ resultOldTask.id  +')\">comment</a> <a style=\"display: none;\" onclick=\"moveToDoing('+ resultOldTask.id + ',' +   resultOldTask.id + ',\'' + resultOldTask.body +  '\')\"> "doing"</a>  <a style=\"display: none;\" onclick=\"toggleDeleteTask('+ resultOldTask.id  +')\">delete</a> <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';   
+                        
+                        
+                    }
+                            
+        
+          
+            append_task_old += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ resultOldTask.id +'\"><a>delete? </a> <a onclick=\"deleteTask('+ resultOldTask.id  + ')\">Yes </a>//<a onclick=\"toggleDeleteTask('+ resultOldTask.id  +')\"> No </a></p>';
+            
+        append_task_old += '<textarea  id=\"new_task_comment_'+ resultOldTask.id +'\" class=\"input-task-1 new_task_comment_'+ resultOldTask.id +'\"  maxlength=\"100\" name=\"keywords\"  style=\"display: none;\"  placeholder=\"add new comment\" ></textarea>';
+        
+        append_task_old += '<a class=\"task-link-2 new_task_comment_'+ resultOldTask.id +'\"  style=\"display: none;\" onclick=\"appendNewComment('+ resultOldTask.id +')\" >submit</a>';
+            
+        append_task_old += '<div id=\"append_task_comment_'+ resultOldTask.id +'\"></div>';
+            
+        append_task_old += '';
+        
+        append_task_old += '</div>';
+        
+                    
+          getCommentOne(resultOldTask.id);         
+
+                     
+                 }
+                 
+             }
+                
+             $( '#segment_todo_' + top_post_id ).append( append_task_old );                            
+                                                              
+        
+             
+             
+          },
+        
+            error: function( xhr, textStatus, errorThrown ) {
+               
+             
+                
+             },
+                    
+            complete: function( ) {
+                  
+                
+                
+                
+          }
+        
+        
+       } ); 
+       
+
+}
+    
+    
+       
+       
+    
+ 
+        
+    
+ 
+function getTaskTwo() {
+        
+    
+    
+    fetch_task_url = "<?php echo $_SESSION['url_placeholder'];  ?>get_task_with_number";
+      
+       $.ajax( {
+        
+          url: fetch_task_url,
+          type: "POST",
+          async: true,
+          data: {
+              
+             "fetchold": 1,
+             "post_id": top_post_id,
+              "type": 2
+              
+              
+          },
+          success: function( data ) {
+           
+
+           // alert(data)
+            
+            console.log(data)
+                                                              
+ 
+                
+               var jsonOldTaskTwo = JSON.parse( data );
+                
+               var jsonOldLengthTaskTwo = jsonOldTaskTwo.old_posts.length;
+              
+                  append_task_old_two = '';
+               for ( var for_oldtaskTwo = 0; for_oldtaskTwo < jsonOldLengthTaskTwo; for_oldtaskTwo++ ) {
+                   
+                   
+                  var resultOldTaskTwo = jsonOldTaskTwo.old_posts[ for_oldtaskTwo ];
+                   
+                
+                   
+                   
+            
+                if (resultOldTaskTwo.type == "task") {
+                    
+                 //   how_many_tasks(resultOldPost.id);
+                    
+                    
+                    
+                    
+          
+        
+        append_task_old_two += '<div id=\"new_single_task_2_'+ resultOldTaskTwo.id +'\" class=\"to-do-box\">';
+                            
+        append_task_old_two += '<p class=\"to-do-task\">'+ resultOldTaskTwo.body +'<br>';
+                    
+                    
+            
+        if (resultOldTaskTwo.owner == "<?php echo $user_info['id']; ?>") {
+                            
+        append_task_old_two += '<div id=\"new_task_option_todo_'+ resultOldTaskTwo.id +'\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment2(\''+ resultOldTaskTwo.id  +'\')\">comment</a> /<a onclick=\"moveToDone('+ resultOldTaskTwo.id + ',' +   top_post_id + ',\'' + resultOldTaskTwo.body +  '\')\"> "done"</a> / <a onclick=\"toggleDeleteTask('+ resultOldTaskTwo.id  +')\">delete</a> <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';   
+          
+        } else {
+            
+            append_task_old_two += '<div id=\"new_task_option_todo_'+ resultOldTaskTwo.id +'\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment2(\''+ resultOldTaskTwo.id  +'\')\">comment</a> <a style=\"display: none;\" onclick=\"moveToDoing('+ resultOldTaskTwo.id + ',' +   resultOldTaskTwo.id + ',\'' + resultOldTaskTwo.body +  '\')\"> "done"</a> <a style=\"display: none;\" onclick=\"toggleDeleteTask('+ resultOldTaskTwo.id  +')\">delete</a> <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>'; 
+            
+            
+            
+        }
+            
+            
+            
+            append_task_old_two += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ resultOldTaskTwo.id +'\"><a>delete? </a> <a onclick=\"deleteTask('+ resultOldTaskTwo.id  + ')\">Yes </a>//<a onclick=\"toggleDeleteTask('+ resultOldTaskTwo.id  +')\"> No </a></p>';
+            
+        append_task_old_two += '<textarea  id=\"new_task_comment_2_'+ resultOldTaskTwo.id +'\" class=\"input-task-1 new_task_comment_2_'+ resultOldTaskTwo.id +'\"  maxlength=\"100\" name=\"keywords\"  style=\"display: none;\"  placeholder=\"add new comment\" ></textarea>';
+        
+        append_task_old_two += '<a class=\"task-link-2 new_task_comment_2_'+ resultOldTaskTwo.id +'\"  style=\"display: none;\" onclick=\"appendNewComment_2(\''+ resultOldTaskTwo.id +'\')\" >submit</a>';
+            
+        append_task_old_two += '<div id=\"append_task_comment_2_'+ resultOldTaskTwo.id +'\"></div>';
+            
+        append_task_old_two += '';
+        
+        append_task_old_two += '</div>';
+        
+                    
+                    
+        getCommentTwo(resultOldTaskTwo.id);
+                     
+                 }
+                 
+             }
+                
+             $( '#segment_doing_' + top_post_id ).append( append_task_old_two );                            
+                                                              
+        
+             
+             
+          },
+        
+            error: function( xhr, textStatus, errorThrown ) {
+               
+             
+                
+             },
+                    
+            complete: function( ) {
+                  
+                
+                
+                
+          }
+        
+        
+       } ); 
+       
+
+}
+    
+    
+       
+    
+    
+    
+    
+function getTaskThree() {
+        
+    
+    
+    fetch_task_url = "<?php echo $_SESSION['url_placeholder'];  ?>get_task_with_number";
+      
+       $.ajax( {
+        
+          url: fetch_task_url,
+          type: "POST",
+          async: true,
+          data: {
+              
+             "fetchold": 1,
+             "post_id": top_post_id,
+              "type": 3
+              
+              
+          },
+          success: function( data ) {
+           
+
+           // alert(data)
+            
+            console.log(data)
+                                                              
+ 
+                
+               var jsonOldTaskThree = JSON.parse( data );
+                
+               var jsonOldLengthTaskThree = jsonOldTaskThree.old_posts.length;
+              
+                  append_task_old_Three = '';
+               for ( var for_oldtaskThree = 0; for_oldtaskThree < jsonOldLengthTaskThree; for_oldtaskThree++ ) {
+                   
+                   
+                  var resultOldTaskThree = jsonOldTaskThree.old_posts[ for_oldtaskThree ];
+                   
+                
+                   
+                   
+            
+                if (resultOldTaskThree.type == "task") {
+                    
+                 //   how_many_tasks(resultOldPost.id);
+                    
+                    
+                    
+                    
+          
+        
+        append_task_old_Three += '<div id=\"new_single_task_3_'+ resultOldTaskThree.id +'\" class=\"to-do-box\">';
+                            
+        append_task_old_Three += '<p class=\"to-do-task\">'+ resultOldTaskThree.body +'<br>';
+            
+        if (resultOldTaskThree.owner == "<?php echo $user_info['id']; ?>") {
+                            
+        append_task_old_Three += '<div id=\"new_task_option_todo_'+ resultOldTaskThree.id +'\" ><span class=\"to-do-link\"><a onclick=\"toggleDeleteTask('+ resultOldTaskThree.id  +')\">delete</a> <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';
+            
+        } else {
+            
+            append_task_old_Three += '<div id=\"new_task_option_todo_'+ resultOldTaskThree.id +'\" ><span class=\"to-do-link\"><a onclick=\"toggleDeleteTask('+ resultOldTaskThree.id  +')\"    style=\"display: none;\">delete</a> <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';
+            
+
+            
+        }
+          
+            append_task_old_Three += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ resultOldTaskThree.id +'\"><a>delete? </a> <a onclick=\"deleteTask('+ resultOldTaskThree.id  + ')\">Yes </a>//<a onclick=\"toggleDeleteTask('+ resultOldTaskThree.id  +')\"> No </a></p>';
+            
+        append_task_old_Three += '<textarea  id=\"new_task_comment_'+ resultOldTaskThree.id +'\" class=\"input-task-1 new_task_comment_'+ resultOldTaskThree.id +'\"  maxlength=\"100\" name=\"keywords\"  style=\"display: none;\"  placeholder=\"add new comment\" ></textarea>';
+        
+        append_task_old_Three += '<a class=\"task-link-2 new_task_comment_'+ resultOldTaskThree.id +'\"  style=\"display: none;\" onclick=\"appendNewComment('+ resultOldTaskThree.id +')\" >submit</a>';
+            
+        append_task_old_Three += '<div id=\"append_task_comment_'+ resultOldTaskThree.id +'\"></div>';
+            
+        append_task_old_Three += '';
+        
+        append_task_old_Three += '</div>';
+        
+                    
+                    
+
+                     
+                 }
+                 
+             }
+                
+             $( '#segment_done_' + top_post_id ).append( append_task_old_Three );                            
+                                                              
+        
+             
+             
+          },
+        
+            error: function( xhr, textStatus, errorThrown ) {
+               
+             
+                
+             },
+                    
+            complete: function( ) {
+                  
+                
+                
+                
+          }
+        
+        
+       } ); 
+       
+
+}
+        
     
     
     
@@ -1623,6 +2162,225 @@ function displayFromDatabasePagination() {
     
     
     
+    
+    
+    
+        
+    
+function getCommentOne(post_id) {
+        
+    
+    
+    fetch_Comment_url = "<?php echo $_SESSION['url_placeholder'];  ?>get_comment_with_number";
+      
+       $.ajax( {
+        
+          url: fetch_Comment_url,
+          type: "POST",
+          async: true,
+          data: {
+              
+             "fetchold": 1,
+             "post_id": post_id,
+              "type": 1
+              
+              
+          },
+          success: function( data ) {
+           
+
+           // alert(data)
+            
+            console.log(data)
+                                                              
+ 
+                
+               var jsonOldCommentOne = JSON.parse( data );
+                
+               var jsonOldLengthCommentOne = jsonOldCommentOne.old_posts.length;
+              
+                  append_comment_old = '';
+               for ( var for_oldCommentOne = 0; for_oldCommentOne < jsonOldLengthCommentOne; for_oldCommentOne++ ) {
+                   
+                   
+                  var resultOldCommentOne = jsonOldCommentOne.old_posts[ for_oldCommentOne ];
+                   
+                
+                   
+                   
+            
+                if (resultOldCommentOne.type == "comment") {
+                    
+                 //   how_many_Comments(resultOldPost.id);
+                    
+                    
+        
+            
+        append_comment_old += '<div id=\"newcomment_id_'+ resultOldCommentOne.id  +'\">';
+            
+        append_comment_old += '<p  class=\"to-do-comment\">'+ resultOldCommentOne.body +'<br>';
+                    
+                    
+                    if (resultOldCommentOne.owner == "<?php echo $user_info['id']; ?>")  {
+                    
+        
+        append_comment_old += '<div id=\"new_comment_option_'+ resultOldCommentOne.id +'\"><span class=\"to-do-link\"><a onclick=\"toggleDeleteComment('+ resultOldCommentOne.id  +')\">delete </a>     <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';
+                            
+                    } else {
+                        
+                             append_comment_old += '<div id=\"new_comment_option_'+ resultOldCommentOne.id +'\"><span class=\"to-do-link\"> <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';  
+                        
+                    }
+            
+        append_comment_old += '<p class=\"to-do-link delete-link-2-'+ resultOldCommentOne.id +'\" style=\"display: none;\"><a >delete? </a> <a onclick=\"deleteComment('+ resultOldCommentOne.id  + ')\">Yes </a>//<a onclick=\"toggleDeleteComment('+ resultOldCommentOne.id  +')\"> No </a></p>';
+       
+        append_comment_old += '</div>';  
+                    
+          
+                    $(".delete-link-2-" + resultOldCommentOne.id).hide();
+        
+
+                     
+                 }
+                 
+             }
+                
+             $( '#append_task_comment_' + post_id ).append( append_comment_old );                            
+                                                              
+        
+             
+             
+          },
+        
+            error: function( xhr, textStatus, errorThrown ) {
+               
+             
+                
+             },
+                    
+            complete: function( ) {
+                  
+                
+                
+                
+          }
+        
+        
+       } ); 
+       
+
+}
+       
+    
+    
+    
+    
+function getCommentTwo(post_id) {
+        
+    
+    
+    fetch_Comment_url = "<?php echo $_SESSION['url_placeholder'];  ?>get_comment_with_number";
+      
+       $.ajax( {
+        
+          url: fetch_Comment_url,
+          type: "POST",
+          async: true,
+          data: {
+              
+             "fetchold": 1,
+             "post_id": post_id,
+              "type": 2
+              
+              
+          },
+          success: function( data ) {
+           
+
+           // alert(data)
+            
+            console.log(data)
+                                                              
+ 
+                
+               var jsonOldCommentTwo = JSON.parse( data );
+                
+               var jsonOldLengthCommentTwo = jsonOldCommentTwo.old_posts.length;
+              
+                  append_comment_old_two = '';
+               for ( var for_oldCommentTwo = 0; for_oldCommentTwo < jsonOldLengthCommentTwo; for_oldCommentTwo++ ) {
+                   
+                   
+                  var resultOldCommentTwo = jsonOldCommentTwo.old_posts[ for_oldCommentTwo ];
+                   
+                
+                   
+                   
+            
+                if (resultOldCommentTwo.type == "comment") {
+                    
+                 //   how_many_Comments(resultOldPost.id);
+                    
+                    
+        
+            
+        append_comment_old_two += '<div id=\"newcomment_id_'+ resultOldCommentTwo.id  +'\">';
+            
+        append_comment_old_two += '<p  class=\"to-do-comment\">'+ resultOldCommentTwo.body +'<br>';
+                    
+                    
+                    if (resultOldCommentTwo.owner == "<?php echo $user_info['id']; ?>")  {
+                        
+                                append_comment_old_two += '<div id=\"new_comment_option_'+ resultOldCommentTwo.id +'\"><span class=\"to-do-link\"><a onclick=\"toggleDeleteComment('+ resultOldCommentTwo.id  +')\">delete </a>     <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';
+                        
+                    } else {
+                        
+                                append_comment_old_two += '<div id=\"new_comment_option_'+ resultOldCommentTwo.id +'\"><span class=\"to-do-link\"> <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';
+                        
+                    }
+        
+
+                            
+            
+        append_comment_old_two += '<p class=\"to-do-link delete-link-2-'+ resultOldCommentTwo.id +'\" style=\"display: none;\"><a >delete? </a> <a onclick=\"deleteComment('+ resultOldCommentTwo.id  + ')\">Yes </a>//<a onclick=\"toggleDeleteComment('+ resultOldCommentTwo.id  +')\"> No </a></p>';
+       
+        append_comment_old_two += '</div>';  
+                    
+          
+                    $(".delete-link-2-" + resultOldCommentTwo.id).hide();
+        
+
+                     
+                 }
+                 
+             }
+                
+             $( '#append_task_comment_2_' + post_id ).append( append_comment_old_two );                            
+                                                              
+        
+             
+             
+          },
+        
+            error: function( xhr, textStatus, errorThrown ) {
+               
+             
+                
+             },
+                    
+            complete: function( ) {
+                  
+                
+                
+                
+          }
+        
+        
+       } ); 
+       
+
+}
+       
     
     
     

@@ -31,6 +31,8 @@ RewriteRule ^fetch_recent_poll backend/fetch_recent_poll.php [NC,L]
 
 RewriteRule ^fetch_old_posts backend/fetch_old_posts.php [NC,L]
 
+RewriteRule ^fetch_old_todos backend/fetch_old_todos.php [NC,L]
+
 RewriteRule ^send_attach backend/send_attach.php [NC,L]
 
 RewriteRule ^insert_attach backend/insert_attach.php [NC,L]
@@ -64,6 +66,17 @@ RewriteRule ^send_to_doing backend/send_to_doing.php [NC,L]
 RewriteRule ^send_to_done backend/send_to_done.php [NC,L]
 
 RewriteRule ^delete_task backend/delete_task.php [NC,L]
+
+RewriteRule ^tasks_count backend/tasks_count.php [NC,L]
+
+RewriteRule ^fetch_one_todo backend/fetch_one_todo.php [NC,L]
+
+RewriteRule ^get_task_with_number backend/get_task_with_number.php [NC,L]
+
+RewriteRule ^get_comment_with_number backend/get_comment_with_number.php [NC,L]
+
+
+RewriteRule ^list/([0-9]+)/([0-9]+)$  frontend/html/pages/list.php?group=$1&todo=$2 [NC,L]
 
 
 

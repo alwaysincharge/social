@@ -174,6 +174,25 @@ class Posts {
     
     
     
+    
+           public function is_there_a_todo_in_this_group($group_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT id from posts where group_id = ? and owner != 0 and deleted = 'live' and type = 'todo' limit 1");
+        
+       $stmt->bind_param("i", $group);
+           
+       $group = $group_input;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
        public function is_there_a_poll_in_this_group($group_input) {
 
        global $database;
@@ -260,6 +279,35 @@ class Posts {
     
     
     
+       public function get_first_few_todos($group_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT posts.id as id, posts.message as message, posts.owner as owner, posts.group_id as group_id, posts.type as type, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, posts.listname as listname, users.username as username, users.img_path as image FROM posts INNER JOIN users ON users.id = posts.owner where  posts.group_id = ? AND deleted = 'live' and posts.type = 'todo' order by posts.id desc limit 12");
+           
+       $stmt->bind_param("i", $group);
+          
+       $group = $group_input;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
       public function get_first_few_polls($group_input) {
 
        global $database;
@@ -269,6 +317,28 @@ class Posts {
        $stmt->bind_param("i", $group);
           
        $group = $group_input;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+       public function get_one_todo($post_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT posts.id as id, posts.owner as owner, posts.group_id as group_id, posts.type as type, posts.listname as listname, users.username as username, users.img_path as image FROM posts INNER JOIN users ON users.id = posts.owner where  posts.id = ? AND deleted = 'live' AND posts.type = 'todo' limit 1");
+           
+       $stmt->bind_param("i", $post);
+          
+       $post = $post_input;
           
        $stmt->execute();
            
@@ -335,6 +405,34 @@ class Posts {
        return $stmt;    
 
        }
+    
+    
+    
+    
+    
+    
+       public function get_next_few_todos($offset_input, $group_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT posts.id as id, posts.message as message, posts.owner as owner, posts.group_id as group_id, posts.type as type, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, posts.listname as listname, users.username as username, users.img_path as image FROM posts INNER JOIN users ON users.id = posts.owner where posts.id < ? AND posts.group_id = ? AND deleted = 'live' and posts.type = 'todo' order by id desc limit 12");
+        
+       $stmt->bind_param("ii", $offset, $group);
+        
+       $offset = $offset_input;
+           
+       $group = $group_input;
+           
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
     
     
     
