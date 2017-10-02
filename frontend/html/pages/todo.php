@@ -69,7 +69,7 @@ $user_info = $user_details_result->fetch_assoc();
                     }
                 
                 ?>
-               </span>  <span class="logo-heading-2">//</span> all polls</a>
+               </span>  <span class="logo-heading-2">//</span> all to-dos</a>
                             
         </div>
         
@@ -82,7 +82,7 @@ $user_info = $user_details_result->fetch_assoc();
             <div style="float: right;">
             
             
-            <input id="myTextBox"  maxlength="100" name="keywords" class="search-main" placeholder="Search group polls" />
+            <input id="myTextBox"  maxlength="100" name="keywords" class="search-main" placeholder="Search group to-dos" />
                 
             
             
@@ -250,19 +250,55 @@ $user_info = $user_details_result->fetch_assoc();
             
             </a><br><br>
                     
+                    
+                    
                     <div id="main-div">
-                      
-                        
-                        
-                        
-                        
-                        
                         
                     </div>
 
                     
-                      
+
+                       <div style="display: table; margin: 0 auto; width: 200px;">
+                    
+                    
+                        <img id="loading" style="display: none;" width="60px" height="60px" src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/wedges.gif" /> 
                         
+                    
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                                         <div style="display: table; margin: 0 auto;">
+                        
+                                                <p id="start" style="display: none; margin-left: -50px; margin-bottom: 30px; font-size: 20px; font-family: Eczar;">
+                        
+                        No to-dos created yet. 
+                        </p>
+                        
+                        
+                        
+                        <p id="continue" style="display: none;  margin-left: -50px; margin-bottom: 30px; font-size: 20px; font-family: Eczar;">
+                        
+                        No to-dos created yet. 
+                        </p>
+                        
+                        
+                        <p id="end" style="display: none;  margin-left: -50px; margin-bottom: 30px; font-size: 20px; font-family: Eczar;">
+                        
+                        End of posts.
+                        </p>
+                        
+                        
+                        </div>
+                 
+                    
+                      
+                    
+
+                       
                          
                 
                 </div>
@@ -995,7 +1031,9 @@ $("#createtodo").on("click", function(){
         
         append_todo += '</div></div>';
         
+        $("#start").hide();
         
+        $("#continue").hide();
         
         var new_items_todo = $( append_todo ).hide();
         
@@ -1480,7 +1518,7 @@ $("#createtodo").on("click", function(){
     
     
     
-    
+   /* 
     
     
       $( window ).on( "scroll", function() {
@@ -1496,13 +1534,13 @@ $("#createtodo").on("click", function(){
     } );
     
     
-    
+    */
     
     
  
 function displayFromDatabasePagination() {
         
-    
+    completedPosts = false;
     
     fetch_old_url = "<?php echo $_SESSION['url_placeholder'];  ?>fetch_old_todos";
       
@@ -1521,11 +1559,34 @@ function displayFromDatabasePagination() {
               
           },
           success: function( data ) {
+              
+              
+              if (data == 100) {
+                  
+                  $(window).unbind("scroll");
+                  completedPosts = true;
+                  $('#loading').hide();
+                  $('#end').show();
+                 return; 
+              }
+              
+              
+                if (data == 200) {
+                  
+                  $(window).unbind("scroll");
+                  completedPosts = true;
+                  $('#loading').hide();
+                  $('#end').hide();
+                  $('#continue').show();
+                  $('#start').hide();
+                 return; 
+              }
+              
            
 
             if (flag.readyState == 4 && flag.status == 200) { 
                                                               
- 
+               $('#loading').hide();
                 
                var jsonOldPost = JSON.parse( data );
                 
@@ -1585,7 +1646,9 @@ function displayFromDatabasePagination() {
                     
             complete: function( ) {
                   
+                 $("#loading").hide();
                 
+                if (!completedPosts) {
                     
                 $(window).bind("scroll", (function () {
                 
@@ -1597,13 +1660,25 @@ function displayFromDatabasePagination() {
                       
                   }
                 
-            } ));           
+            } ));     }      
                 
           }
         
         
        } ); 
-       
+     
+        if (!completedPosts) {
+        
+      $('#loading').show();
+    
+    } 
+    
+    
+    if (completedPosts) { 
+    
+    $('#loading').hide();
+        
+    }
 
 }
     

@@ -69,7 +69,7 @@ $user_info = $user_details_result->fetch_assoc();
                     }
                 
                 ?>
-               </span>  <span class="logo-heading-2">//</span> all polls</a>
+               </span>  <span class="logo-heading-2">//</span> all to-dos</a>
                             
         </div>
         
@@ -82,7 +82,7 @@ $user_info = $user_details_result->fetch_assoc();
             <div style="float: right;">
             
             
-            <input id="myTextBox"  maxlength="100" name="keywords" class="search-main" placeholder="Search group polls" />
+            <input id="myTextBox"  maxlength="100" name="keywords" class="search-main" placeholder="Search group to-dos" />
                 
             
             
@@ -246,7 +246,7 @@ $user_info = $user_details_result->fetch_assoc();
                     <div id="main-div">
                       
                         
-                        
+                        <a href="<?php echo $_SESSION['url_placeholder'];  ?>todo/<?php echo $_GET['group']; ?>" style="font-family: Work Sans;">New To-do | All group to-dos.</a>
                         
                         
                         
@@ -491,6 +491,8 @@ page_group_id = "<?php echo $_GET['group'];  ?>";
 
 top_post_id = "<?php echo $_GET['todo'];  ?>";
     
+current_username = '<?php echo $user_info['username']; ?>';
+    
     
     
 currentArray = [];
@@ -644,7 +646,7 @@ $("#createtodo").on("click", function(){
                  "post_id": back_num
              },
              success: function( data ) {
-                                  console.log(data)
+                                  
               
              var jsonNewTask = JSON.parse( data );
             
@@ -853,7 +855,7 @@ $("#createtodo").on("click", function(){
              },
              success: function( data ) {
                  
-             console.log(data);
+             
 
                  
              },
@@ -901,7 +903,7 @@ $("#createtodo").on("click", function(){
     function appendTodo(body) {
         
         
-        current_username = '<?php echo $user_info['username']; ?>';
+        
         
         
         append_todo = '<div id=\"new_post_'+ new_post_id_num +'\" class=\"to-do-main\">';
@@ -1126,7 +1128,7 @@ $("#createtodo").on("click", function(){
         $("#new_single_task_2_" + front).hide(300);
         
         $("#new_single_task_3_" + front).hide(300);
-         //  alert($(".task_hidden_input_" + front).val())
+         
         
         deleteTaskSend($(".task_hidden_input_" + front).val());
         
@@ -1137,6 +1139,9 @@ $("#createtodo").on("click", function(){
     
     
      function deleteTaskNew (front)  {
+         
+         
+        
         
         
         $("#new_single_task_" + front).hide(300);
@@ -1205,6 +1210,15 @@ $("#createtodo").on("click", function(){
     }
     
     
+    
+        function toggleDoingTask (new_task_num)  {
+        
+        
+        $(".doing-link-1-" + new_task_num).toggle(300);
+        
+    }
+    
+    
     function toggleDeleteTaskNew (new_task_num)  {
         
        // alert("mooewfoiw");
@@ -1257,13 +1271,15 @@ $("#createtodo").on("click", function(){
         
         append_task_1 += '<div id=\"new_single_task_'+ new_task_id +'\" class=\"to-do-box\">';
                             
-        append_task_1 += '<p class=\"to-do-task\">'+ task_body +'<br>';
+        append_task_1 += '<p class=\"to-do-task\">'+ '<a style=\"cursor: auto;\">' + current_username + ' | </a>' + task_body +'<br>';
             
         
                             
-        append_task_1 += '<div id=\"new_task_option_todo_'+ new_task_id +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment(\''+ new_task_id  +'\')\">comment</a> /<a onclick=\"moveToDoing(\''+ new_task_id + '\',' +   new_post_num + ',\'' + task_body +  '\')\"> "doing"</a> / <a onclick=\"toggleDeleteTaskNew(\''+ new_task_id  +'\')\">delete</a> <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';   
+        append_task_1 += '<div id=\"new_task_option_todo_'+ new_task_id +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment(\''+ new_task_id  +'\')\">comment</a> /<a onclick=\"toggleDoingTask(\''+ new_task_id  +'\')\"> "doing"</a> / <a onclick=\"toggleDeleteTaskNew(\''+ new_task_id  +'\')\">delete</a> <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';   
           
             append_task_1 += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ new_task_id +'\"><a>delete? </a> <a onclick=\"deleteTaskNew(\''+ new_task_id  + '\')\">Yes </a>//<a onclick=\"toggleDeleteTaskNew(\''+ new_task_id  +'\')\"> No </a></p>';
+            
+            append_task_1 += '<p style=\"display: none;\" class=\"to-do-link doing-link-1-'+ new_task_id +'\"><a>move to "doing"? </a> <a  onclick=\"moveToDoing(\''+ new_task_id + '\',' +   new_post_num + ',\'' + task_body +  '\')\">Yes </a>//<a onclick=\"toggleDoingTask(\''+ new_task_id  +'\')\"> No </a></p>';
             
         append_task_1 += '<textarea  id=\"new_task_comment_'+ new_task_id +'\" class=\"input-task-1 new_task_comment_'+ new_task_id +'\"  maxlength=\"100\" name=\"keywords\"  style=\"display: none;\"  placeholder=\"add new comment\" ></textarea>';
         
@@ -1320,7 +1336,7 @@ $("#createtodo").on("click", function(){
             
         append_comment_1 += '<div id=\"newcomment_id_'+ new_comment_id_num  +'\">';
             
-        append_comment_1 += '<p  class=\"to-do-comment\">'+ comment_body +'<br>';
+        append_comment_1 += '<p  class=\"to-do-comment\">'+ '<a style=\"cursor: auto;\">' + current_username + ' | </a>' + comment_body +'<br>';
         
         append_comment_1 += '<div id=\"new_comment_option_'+ new_comment_id_num +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleDeleteComment('+ new_comment_id_num  +')\">delete </a>     <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';
                             
@@ -1378,7 +1394,7 @@ $("#createtodo").on("click", function(){
     
     function appendNewComment_2(new_task_num) {
         
-        alert($("#new_task_comment_2_" + new_task_num).val())
+        
         
         if ($("#new_task_comment_2_" + new_task_num).val().trim().length > 0) {
             
@@ -1390,7 +1406,7 @@ $("#createtodo").on("click", function(){
             
         append_comment_2 += '<div id=\"newcomment_id_'+ new_comment_id_num  +'\">';
             
-        append_comment_2 += '<p class=\"to-do-comment\">'+ comment_body +'<br>';
+        append_comment_2 += '<p class=\"to-do-comment\">'+ '<a style=\"cursor: auto;\">' + current_username + ' | </a>' + comment_body +'<br>';
         
         append_comment_2 += '<div id=\"new_comment_option_'+ new_comment_id_num +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleDeleteComment(\''+ new_comment_id_num  +'\')\">delete </a><a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';
                             
@@ -1461,12 +1477,15 @@ $("#createtodo").on("click", function(){
         
         append_task_2 += '<div id=\"new_single_task_2_'+ task_id +'\" class=\"to-do-box\">';
                             
-        append_task_2 += '<p class=\"to-do-task\">'+ task_body +'<br>';
+        append_task_2 += '<p class=\"to-do-task\">'+ '<a style=\"cursor: auto;\">' + current_username + ' | </a>' + task_body +'<br>';
                             
-        append_task_2 += '<div id=\"new_task_option_doing_'+ task_id +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment2(\''+ task_id  +'\')\">comment</a> / <a onclick=\"moveToDone(\''+ task_id + '\',' +   post_id + ',\'' + task_body +  '\')\">"done"</a> / <a onclick=\"toggleDeleteTask(\''+ task_id  +'\')\">delete</a>  <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>'; 
+        append_task_2 += '<div id=\"new_task_option_doing_'+ task_id +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment2(\''+ task_id  +'\')\">comment</a> / <a onclick=\"toggleDoingTask(\''+ task_id  +'\')\">"done"</a> / <a onclick=\"toggleDeleteTask(\''+ task_id  +'\')\">delete</a>  <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>'; 
         
         
         append_task_2 += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ task_id +'\"><a>delete? </a> <a onclick=\"deleteTaskAppend(\''+ task_id  + '\')\">Yes </a>//<a onclick=\"toggleDeleteTask(\''+ task_id  +'\')\"> No </a></p>';
+        
+        
+        append_task_2 += '<p style=\"display: none;\" class=\"to-do-link doing-link-1-'+ task_id +'\"><a>move to "done"? </a> <a onclick=\"moveToDone(\''+ task_id + '\',' +   post_id + ',\'' + task_body +  '\')\">Yes </a>//<a onclick=\"toggleDoingTask(\''+ task_id  +'\')\"> No </a></p>';
         
         
         append_task_2 += '<textarea  id=\"new_task_comment_2_'+ task_id +'\" class=\"input-task-1 new_task_comment_2_'+ task_id +'\"  maxlength=\"100\" name=\"keywords\"  style=\"display: none;\"  placeholder=\"add new comment\" ></textarea>';
@@ -1524,7 +1543,7 @@ $("#createtodo").on("click", function(){
         
         append_task_3 += '<div id=\"new_single_task_3_'+ task_id +'\" class=\"to-do-box\">';
                             
-        append_task_3 += '<p class=\"to-do-task\">'+ task_body +'<br>';
+        append_task_3 += '<p class=\"to-do-task\">'+ '<a style=\"cursor: auto;\">' + current_username + ' | </a>' + task_body +'<br>';
                             
         append_task_3 += '<div id=\"new_task_option_done_'+ task_id +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleDeleteTask(\''+ task_id  +'\')\">delete</a>  <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';  
             
@@ -1816,7 +1835,7 @@ function getTaskOne() {
 
            // alert(data)
             
-            console.log(data)
+
                                                               
  
                 
@@ -1845,12 +1864,12 @@ function getTaskOne() {
         
         append_task_old += '<div id=\"new_single_task_'+ resultOldTask.id +'\" class=\"to-do-box\">';
                             
-        append_task_old += '<p class=\"to-do-task\">'+ resultOldTask.body +'<br>';
+        append_task_old += '<p class=\"to-do-task\">'+ '<a style=\"cursor: auto;\">' + resultOldTask.username + ' | </a>' + resultOldTask.body +'<br>';
             
         
                     if (resultOldTask.owner == "<?php echo $user_info['id']; ?>") {
                       
-                        append_task_old += '<div id=\"new_task_option_todo_'+ resultOldTask.id +'\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment('+ resultOldTask.id  +')\">comment</a> /<a onclick=\"moveToDoing('+ resultOldTask.id + ',' +   top_post_id + ',\'' + resultOldTask.body +  '\')\"> "doing"</a> / <a onclick=\"toggleDeleteTask('+ resultOldTask.id  +')\">delete</a> <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';   
+                        append_task_old += '<div id=\"new_task_option_todo_'+ resultOldTask.id +'\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment('+ resultOldTask.id  +')\">comment</a> /<a onclick=\"toggleDoingTask('+ resultOldTask.id  +')\"> "doing"</a> / <a onclick=\"toggleDeleteTask('+ resultOldTask.id  +')\">delete</a> <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';   
                         
                         
                     } else {
@@ -1863,6 +1882,9 @@ function getTaskOne() {
         
           
             append_task_old += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ resultOldTask.id +'\"><a>delete? </a> <a onclick=\"deleteTask('+ resultOldTask.id  + ')\">Yes </a>//<a onclick=\"toggleDeleteTask('+ resultOldTask.id  +')\"> No </a></p>';
+                    
+                    
+             append_task_old += '<p style=\"display: none;\" class=\"to-do-link doing-link-1-'+ resultOldTask.id +'\"><a>move to "doing"? </a> <a onclick=\"moveToDoing('+ resultOldTask.id + ',' +   top_post_id + ',\'' + resultOldTask.body +  '\')\">Yes </a>//<a onclick=\"toggleDoingTask('+ resultOldTask.id  +')\"> No </a></p>';
             
         append_task_old += '<textarea  id=\"new_task_comment_'+ resultOldTask.id +'\" class=\"input-task-1 new_task_comment_'+ resultOldTask.id +'\"  maxlength=\"100\" name=\"keywords\"  style=\"display: none;\"  placeholder=\"add new comment\" ></textarea>';
         
@@ -1940,7 +1962,7 @@ function getTaskTwo() {
 
            // alert(data)
             
-            console.log(data)
+            
                                                               
  
                 
@@ -1969,13 +1991,13 @@ function getTaskTwo() {
         
         append_task_old_two += '<div id=\"new_single_task_2_'+ resultOldTaskTwo.id +'\" class=\"to-do-box\">';
                             
-        append_task_old_two += '<p class=\"to-do-task\">'+ resultOldTaskTwo.body +'<br>';
+        append_task_old_two += '<p class=\"to-do-task\">'+ '<a style=\"cursor: auto;\">' + resultOldTaskTwo.username + ' | </a>'+ resultOldTaskTwo.body +'<br>';
                     
                     
             
         if (resultOldTaskTwo.owner == "<?php echo $user_info['id']; ?>") {
                             
-        append_task_old_two += '<div id=\"new_task_option_todo_'+ resultOldTaskTwo.id +'\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment2(\''+ resultOldTaskTwo.id  +'\')\">comment</a> /<a onclick=\"moveToDone('+ resultOldTaskTwo.id + ',' +   top_post_id + ',\'' + resultOldTaskTwo.body +  '\')\"> "done"</a> / <a onclick=\"toggleDeleteTask('+ resultOldTaskTwo.id  +')\">delete</a> <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';   
+        append_task_old_two += '<div id=\"new_task_option_todo_'+ resultOldTaskTwo.id +'\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment2(\''+ resultOldTaskTwo.id  +'\')\">comment</a> /<a  onclick=\"toggleDoingTask('+ resultOldTaskTwo.id  +')\"> "done"</a> / <a onclick=\"toggleDeleteTask('+ resultOldTaskTwo.id  +')\">delete</a> <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';   
           
         } else {
             
@@ -1988,6 +2010,9 @@ function getTaskTwo() {
             
             
             append_task_old_two += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ resultOldTaskTwo.id +'\"><a>delete? </a> <a onclick=\"deleteTask('+ resultOldTaskTwo.id  + ')\">Yes </a>//<a onclick=\"toggleDeleteTask('+ resultOldTaskTwo.id  +')\"> No </a></p>';
+                    
+                    
+          append_task_old_two += '<p style=\"display: none;\" class=\"to-do-link doing-link-1-'+ resultOldTaskTwo.id +'\"><a>move to "done"? </a> <a onclick=\"moveToDone('+ resultOldTaskTwo.id + ',' +   top_post_id + ',\'' + resultOldTaskTwo.body +  '\')\">Yes </a>//<a onclick=\"toggleDoingTask('+ resultOldTaskTwo.id  +')\"> No </a></p>';
             
         append_task_old_two += '<textarea  id=\"new_task_comment_2_'+ resultOldTaskTwo.id +'\" class=\"input-task-1 new_task_comment_2_'+ resultOldTaskTwo.id +'\"  maxlength=\"100\" name=\"keywords\"  style=\"display: none;\"  placeholder=\"add new comment\" ></textarea>';
         
@@ -2063,7 +2088,7 @@ function getTaskThree() {
 
            // alert(data)
             
-            console.log(data)
+            
                                                               
  
                 
@@ -2092,7 +2117,7 @@ function getTaskThree() {
         
         append_task_old_Three += '<div id=\"new_single_task_3_'+ resultOldTaskThree.id +'\" class=\"to-do-box\">';
                             
-        append_task_old_Three += '<p class=\"to-do-task\">'+ resultOldTaskThree.body +'<br>';
+        append_task_old_Three += '<p class=\"to-do-task\">'+ '<a style=\"cursor: auto;\">' + resultOldTaskThree.username + ' | </a>' + resultOldTaskThree.body +'<br>';
             
         if (resultOldTaskThree.owner == "<?php echo $user_info['id']; ?>") {
                             
@@ -2191,7 +2216,7 @@ function getCommentOne(post_id) {
 
            // alert(data)
             
-            console.log(data)
+        
                                                               
  
                 
@@ -2218,7 +2243,7 @@ function getCommentOne(post_id) {
             
         append_comment_old += '<div id=\"newcomment_id_'+ resultOldCommentOne.id  +'\">';
             
-        append_comment_old += '<p  class=\"to-do-comment\">'+ resultOldCommentOne.body +'<br>';
+        append_comment_old += '<p  class=\"to-do-comment\">'+ '<a style=\"cursor: auto;\">' + resultOldCommentOne.username + ' | </a>' + resultOldCommentOne.body +'<br>';
                     
                     
                     if (resultOldCommentOne.owner == "<?php echo $user_info['id']; ?>")  {
@@ -2299,7 +2324,7 @@ function getCommentTwo(post_id) {
 
            // alert(data)
             
-            console.log(data)
+        
                                                               
  
                 
@@ -2326,7 +2351,7 @@ function getCommentTwo(post_id) {
             
         append_comment_old_two += '<div id=\"newcomment_id_'+ resultOldCommentTwo.id  +'\">';
             
-        append_comment_old_two += '<p  class=\"to-do-comment\">'+ resultOldCommentTwo.body +'<br>';
+        append_comment_old_two += '<p  class=\"to-do-comment\">'+ '<a style=\"cursor: auto;\">' + resultOldCommentTwo.username + ' | </a>' + resultOldCommentTwo.body +'<br>';
                     
                     
                     if (resultOldCommentTwo.owner == "<?php echo $user_info['id']; ?>")  {
