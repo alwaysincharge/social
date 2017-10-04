@@ -576,6 +576,7 @@ $("#createtodo").on("click", function(){
           $.ajax( {
              url: "<?php echo $_SESSION['url_placeholder']; ?>create_todo",
              type: "POST",
+              timeout: 15000,
              async: true,
              data: {
                 "todo": 1,
@@ -637,6 +638,7 @@ $("#createtodo").on("click", function(){
           $.ajax( {
              url: "<?php echo $_SESSION['url_placeholder']; ?>create_task",
              type: "POST",
+              timeout: 15000,
              async: true,
              data: {
                 "task": 1,
@@ -708,6 +710,7 @@ $("#createtodo").on("click", function(){
           $.ajax( {
              url: "<?php echo $_SESSION['url_placeholder']; ?>create_comment",
              type: "POST",
+              timeout: 15000,
              async: true,
              data: {
                  "comment": 1,
@@ -764,6 +767,7 @@ $("#createtodo").on("click", function(){
           $.ajax( {
              url: "<?php echo $_SESSION['url_placeholder']; ?>send_to_doing",
              type: "POST",
+              timeout: 15000,
              async: true,
              data: {
                 "task": 1,
@@ -805,6 +809,7 @@ $("#createtodo").on("click", function(){
           $.ajax( {
              url: "<?php echo $_SESSION['url_placeholder']; ?>send_to_done",
              type: "POST",
+              timeout: 15000,
              async: true,
              data: {
                 "task": 1,
@@ -847,6 +852,7 @@ $("#createtodo").on("click", function(){
           $.ajax( {
              url: "<?php echo $_SESSION['url_placeholder']; ?>delete_task",
              type: "POST",
+              timeout: 15000,
              async: true,
              data: {
                 "task": 1,
@@ -876,6 +882,7 @@ $("#createtodo").on("click", function(){
           $.ajax( {
              url: "<?php echo $_SESSION['url_placeholder']; ?>tasks_count",
              type: "POST",
+              timeout: 15000,
              async: true,
              data: {
                 "task": 1,
@@ -1044,6 +1051,7 @@ $("#createtodo").on("click", function(){
        $.ajax( {
              url: like_old_url,
              type: "POST",
+           timeout: 15000,
              async: true,
              data: {
                 "likepost": 1,
@@ -1079,6 +1087,7 @@ $("#createtodo").on("click", function(){
        $.ajax( {
              url: delete_post_url_new,
              type: "POST",
+           timeout: 15000,
              async: true,
              data: {
                 "deletepost": 1,
@@ -1636,6 +1645,7 @@ function displayFromDatabasePagination() {
         
           url: fetch_old_url,
           type: "POST",
+        timeout: 15000,
           async: true,
           data: {
               
@@ -1821,6 +1831,7 @@ function getTaskOne() {
         
           url: fetch_task_url,
           type: "POST",
+           timeout: 15000,
           async: true,
           data: {
               
@@ -1948,6 +1959,7 @@ function getTaskTwo() {
         
           url: fetch_task_url,
           type: "POST",
+           timeout: 15000,
           async: true,
           data: {
               
@@ -2074,6 +2086,7 @@ function getTaskThree() {
         
           url: fetch_task_url,
           type: "POST",
+           timeout: 15000,
           async: true,
           data: {
               
@@ -2202,6 +2215,7 @@ function getCommentOne(post_id) {
         
           url: fetch_Comment_url,
           type: "POST",
+           timeout: 15000,
           async: true,
           data: {
               
@@ -2310,6 +2324,7 @@ function getCommentTwo(post_id) {
         
           url: fetch_Comment_url,
           type: "POST",
+           timeout: 15000,
           async: true,
           data: {
               

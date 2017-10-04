@@ -614,6 +614,7 @@ $("#createtodo").on("click", function(){
              url: "<?php echo $_SESSION['url_placeholder']; ?>create_todo",
              type: "POST",
              async: true,
+              timeout: 15000,
              data: {
                 "todo": 1,
                  "body": body,
@@ -635,6 +636,8 @@ $("#createtodo").on("click", function(){
              $("#new_post_" + front_id).prepend('<input id=\"hidden_input_'+ front_id +'\" type=\"hidden\" value=\"' + idNewTodo + '\"  />');
                  
              $(".new_post_opt_" + front_id).show(300);
+                 
+             $("#new_create_task_" + front_id).show(300);
                  
              }
                  
@@ -674,6 +677,7 @@ $("#createtodo").on("click", function(){
           $.ajax( {
              url: "<?php echo $_SESSION['url_placeholder']; ?>create_task",
              type: "POST",
+              timeout: 15000,
              async: true,
              data: {
                 "task": 1,
@@ -701,6 +705,11 @@ $("#createtodo").on("click", function(){
                  
                  
              $("#new_task_option_todo_" + front_num).show(300);
+                 
+             
+                 
+                 
+                 
                  
              }
                  
@@ -745,6 +754,7 @@ $("#createtodo").on("click", function(){
           $.ajax( {
              url: "<?php echo $_SESSION['url_placeholder']; ?>create_comment",
              type: "POST",
+              timeout: 15000,
              async: true,
              data: {
                  "comment": 1,
@@ -801,6 +811,7 @@ $("#createtodo").on("click", function(){
           $.ajax( {
              url: "<?php echo $_SESSION['url_placeholder']; ?>send_to_doing",
              type: "POST",
+              timeout: 15000,
              async: true,
              data: {
                 "task": 1,
@@ -842,6 +853,7 @@ $("#createtodo").on("click", function(){
           $.ajax( {
              url: "<?php echo $_SESSION['url_placeholder']; ?>send_to_done",
              type: "POST",
+              timeout: 15000,
              async: true,
              data: {
                 "task": 1,
@@ -884,6 +896,7 @@ $("#createtodo").on("click", function(){
           $.ajax( {
              url: "<?php echo $_SESSION['url_placeholder']; ?>delete_task",
              type: "POST",
+              timeout: 15000,
              async: true,
              data: {
                 "task": 1,
@@ -913,6 +926,7 @@ $("#createtodo").on("click", function(){
           $.ajax( {
              url: "<?php echo $_SESSION['url_placeholder']; ?>tasks_count",
              type: "POST",
+              timeout: 15000,
              async: true,
              data: {
                 "task": 1,
@@ -985,7 +999,7 @@ $("#createtodo").on("click", function(){
         
         append_todo += '<p class=\"to-do-info\">Tasks you want to accomplish.</p>';
         
-        append_todo += '<button id=\"new_create_task_'+ new_post_id_num +'\" onclick=\"toggleNewtask('+ new_post_id_num +')\"  class=\"btn new-todo-1\" style=\"margin-top: 20px;\">Create task</button>';
+        append_todo += '<button id=\"new_create_task_'+ new_post_id_num +'\" onclick=\"toggleNewtask('+ new_post_id_num +')\"  class=\"btn new-todo-1\" style=\"margin-top: 20px; display: none;\">Create task</button>';
         
         
         append_todo += '<div id=\"new_task_'+ new_post_id_num +'\" style=\"display: none;\">';
@@ -1083,6 +1097,7 @@ $("#createtodo").on("click", function(){
        $.ajax( {
              url: like_old_url,
              type: "POST",
+           timeout: 15000,
              async: true,
              data: {
                 "likepost": 1,
@@ -1118,6 +1133,7 @@ $("#createtodo").on("click", function(){
        $.ajax( {
              url: delete_post_url_new,
              type: "POST",
+           timeout: 15000,
              async: true,
              data: {
                 "deletepost": 1,
@@ -1199,6 +1215,15 @@ $("#createtodo").on("click", function(){
     
     
     
+        function toggleDoingTask (new_task_num)  {
+        
+        
+        $(".doing-link-1-" + new_task_num).toggle(300);
+        
+    }
+    
+    
+    
     function toggleDeleteComment (new_comment_num)  {
         
         
@@ -1245,9 +1270,12 @@ $("#createtodo").on("click", function(){
             
         
                             
-        append_task_1 += '<div id=\"new_task_option_todo_'+ new_task_id_num +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment('+ new_task_id_num  +')\">comment</a> /<a onclick=\"moveToDoing('+ new_task_id_num + ',' +   new_post_num + ',\'' + task_body +  '\')\"> "doing"</a> / <a onclick=\"toggleDeleteTask('+ new_task_id_num  +')\">delete</a> <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';   
+        append_task_1 += '<div id=\"new_task_option_todo_'+ new_task_id_num +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment('+ new_task_id_num  +')\">comment</a> /<a onclick=\"toggleDoingTask('+ new_task_id_num  +')\"> "doing"</a> / <a onclick=\"toggleDeleteTask('+ new_task_id_num  +')\">delete</a> <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';   
           
             append_task_1 += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ new_task_id_num +'\"><a>delete? </a> <a onclick=\"deleteTask('+ new_task_id_num  + ')\">Yes </a>//<a onclick=\"toggleDeleteTask('+ new_task_id_num  +')\"> No </a></p>';
+            
+            
+            append_task_1 += '<p style=\"display: none;\" class=\"to-do-link doing-link-1-'+ new_task_id_num +'\"><a>move to "doing"? </a> <a  onclick=\"moveToDoing('+ new_task_id_num + ',' +   new_post_num + ',\'' + task_body +  '\')\">Yes </a>//<a onclick=\"toggleDoingTask('+ new_task_id_num  +')\"> No </a></p>';
             
         append_task_1 += '<textarea  id=\"new_task_comment_'+ new_task_id_num +'\" class=\"input-task-1 new_task_comment_'+ new_task_id_num +'\"  maxlength=\"100\" name=\"keywords\"  style=\"display: none;\"  placeholder=\"add new comment\" ></textarea>';
         
@@ -1417,10 +1445,14 @@ $("#createtodo").on("click", function(){
                             
         append_task_2 += '<p class=\"to-do-task\">'+ task_body +'<br>';
                             
-        append_task_2 += '<div id=\"new_task_option_doing_'+ task_id +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment2('+ task_id  +')\">comment</a> / <a onclick=\"moveToDone('+ task_id + ',' +   post_id + ',\'' + task_body +  '\')\">"done"</a> / <a onclick=\"toggleDeleteTask('+ task_id  +')\">delete</a>  <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>'; 
+        append_task_2 += '<div id=\"new_task_option_doing_'+ task_id +'\" style=\"display: none;\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment2('+ task_id  +')\">comment</a> / <a onclick=\"toggleDoingTask('+ task_id  +')\">"done"</a> / <a onclick=\"toggleDeleteTask('+ task_id  +')\">delete</a>  <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>'; 
         
         
         append_task_2 += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ task_id +'\"><a>delete? </a> <a onclick=\"deleteTask('+ task_id  + ')\">Yes </a>//<a onclick=\"toggleDeleteTask('+ task_id  +')\"> No </a></p>';
+        
+        
+        
+        append_task_2 += '<p style=\"display: none;\" class=\"to-do-link doing-link-1-'+ task_id +'\"><a>move to "done"? </a> <a onclick=\"moveToDone('+ task_id + ',' +   post_id + ',\'' + task_body +  '\')\">Yes </a>//<a onclick=\"toggleDoingTask('+ task_id  +')\"> No </a></p>';
         
         
         append_task_2 += '<textarea  id=\"new_task_comment_2_'+ task_id +'\" class=\"input-task-1 new_task_comment_2_'+ task_id +'\"  maxlength=\"100\" name=\"keywords\"  style=\"display: none;\"  placeholder=\"add new comment\" ></textarea>';
@@ -1550,6 +1582,7 @@ function displayFromDatabasePagination() {
         
           url: fetch_old_url,
           type: "POST",
+        timeout: 15000,
           async: true,
           data: {
               

@@ -211,9 +211,18 @@ $user_info = $user_details_result->fetch_assoc();
                 </div>
                     
                 </div>
+                
+                <div class="dropdown">
             
             <img src="<?php echo $_SESSION['url_placeholder'];  ?><?php echo $user_info['img_path'];  ?>" width="35" height="35" class="current-user-img"  />
+                    
+                    
+                    <div class="dropdown-content-2">
+                        <a href="<?php echo $_SESSION['url_placeholder'];  ?>profile" style="font-size: 15px; font-family: Work Sans;">Edit profile</a> //
+                        <a href="<?php echo $_SESSION['url_placeholder'];  ?>logout" style="font-size: 15px; font-family: Work Sans;">Logout</a>
+                    </div>
             
+                </div>
             
             </div>
             

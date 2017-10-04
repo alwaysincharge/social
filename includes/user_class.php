@@ -137,7 +137,47 @@ class User {
     
     
     
+         public function edit_username($username_input, $user_input) {
+         
+         global $database;
+                            
+         $stmt = $database->connection->prepare("update users set username = ? where id = ? limit 1");
+        
+         $stmt->bind_param("si", $username, $user);
+
+         // set parameters and execute
+        
+         $username = $username_input;
+             
+         $user = $user_input;
+          
+         $stmt->execute();
+              
+         return $stmt;  
+        
+         }
     
+    
+    
+         public function edit_profilepic($img_input, $user_input) {
+         
+         global $database;
+                            
+         $stmt = $database->connection->prepare("update users set img_path = ? where id = ? limit 1");
+        
+         $stmt->bind_param("si", $img, $user);
+
+         // set parameters and execute
+        
+         $img = $img_input;
+             
+         $user = $user_input;
+          
+         $stmt->execute();
+              
+         return $stmt;  
+        
+         }
     
     
     

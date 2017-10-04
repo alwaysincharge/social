@@ -497,9 +497,29 @@ padding: 0 0 0 0;
     z-index: 1;
 }
 
-.dropdown:hover .dropdown-content {
+
+.dropdown-content-2 {
+    margin-top: -10px;
+    margin-left: -130px;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+
+.dropdown:hover .dropdown-content  {
     display: block;
 }
+
+
+.dropdown:hover .dropdown-content-2 {
+    display: block;
+}
+
 
 .member-list {
      width: 400px; margin-left: 5px; margin-bottom: 20px;
@@ -507,9 +527,19 @@ padding: 0 0 0 0;
 
 #membererror {
     
-   font-weight: bold; font-size: 16px;font-family: Josefin Slab; margin-top: 10px;  
+    font-size: 13px;font-family: Work Sans; margin-top: 10px;  
     
 }
+
+
+#groupnotif {
+    
+    font-size: 13px;font-family: Work Sans; margin-top: 10px;  
+    
+}
+
+
+
 
 .member-list-item {
     font-weight: bold; font-size: 16px;font-family: Josefin Slab;
@@ -529,7 +559,7 @@ padding: 0 0 0 0;
 }
 
 .membership-subtitle {
-    font-weight: bold; font-size: 16px;font-family: Josefin Slab;
+     font-size: 16px;font-family: Work Sans;
 }
 
 

@@ -9,6 +9,8 @@ RewriteRule ^login frontend/html/pages/login.php [NC,L]
 
 RewriteRule ^newgroup frontend/html/pages/newgroup.php [NC,L]
 
+RewriteRule ^profile frontend/html/pages/profile.php [NC,L]
+
 RewriteRule ^dashboard/([0-9]+) frontend/html/pages/dashboard.php?group=$1 [NC,L]
 
 RewriteRule ^todo/([0-9]+) frontend/html/pages/todo.php?group=$1 [NC,L]
@@ -34,6 +36,8 @@ RewriteRule ^fetch_old_posts backend/fetch_old_posts.php [NC,L]
 RewriteRule ^fetch_old_todos backend/fetch_old_todos.php [NC,L]
 
 RewriteRule ^send_attach backend/send_attach.php [NC,L]
+
+RewriteRule ^edit_username backend/edit_username.php [NC,L]
 
 RewriteRule ^insert_attach backend/insert_attach.php [NC,L]
 
