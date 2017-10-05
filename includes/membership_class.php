@@ -108,7 +108,29 @@ class Member {
        return $stmt;    
 
        }
+    
+    
+    
+    
+    
+       public function non_current_user_members_of_group($group_id_input) {
 
+       global $database;
+        
+       $stmt = $database->connection->prepare("select membership.id as id, membership.group_id as group_id, membership.member_id as member_id, users.username as username, users.img_path as image from membership INNER JOIN users ON users.id = membership.member_id where membership.group_id = ? and membership.deleted = 'live' ");
+        
+       $stmt->bind_param("i", $group_id);
+           
+       $group_id = $group_id_input;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+
+    
+    
 
 }
 

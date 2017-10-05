@@ -171,33 +171,32 @@
                              
                              <p class="membership-subtitle">List of group members (7)</p>
                              
+                             
+                             
+                             
+                <?php
+                
+                $all_members = $member->non_current_user_members_of_group($_GET['members']);
+
+                $all_members_result = $all_members->get_result();
+
+             
+                    while($member_info = $all_members_result->fetch_assoc()) { ?>
+                        
+                      
+                                    
                              <div class="row member-list">
                              
                              <div class="col-xs-2" style="">
                                  
-                <img src="
-                              
-                <?php
-                
-                $get_find_group_by_id = $group->find_group_by_id($_GET['members']);
-
-                $get_find_group_by_id_result = $get_find_group_by_id->get_result();
-
-             
-                    while($group_img = $get_find_group_by_id_result->fetch_assoc()) {
-                        
-                        echo $group_img['img_path'];
-                        
-                    }
-                
-                ?>   " width="55" height="55" class="writer-profile-img"  />
+                <img src="<?php echo $_SESSION['url_placeholder'] . $member_info['image'];  ?>" width="55" height="55" class="writer-profile-img"  />
                              
                                  
                              </div>
                              
                              
                              <div class="col-xs-10">
-                                 <p class="member-list-member">atsunewjoint</p>
+                                 <p class="member-list-member"><?php echo $member_info['username'];  ?></p>
                                  <a class="member-list-state">member</a><a> |  </a>
                                  <a class="member-list-item">remove</a><a> | </a>
                                  <a class="member-list-item">make admin</a>
@@ -208,94 +207,18 @@
                              
                              </div>
                              
-                             
-                             
-                             
-                             
-                             
-                            <div class="row member-list">
-                             
-                             <div class="col-xs-2" style="">
-                                 
-                <img src="
-                              
-                <?php
-                
-                $get_find_group_by_id = $group->find_group_by_id($_GET['members']);
-
-                $get_find_group_by_id_result = $get_find_group_by_id->get_result();
-
-             
-                    while($group_img = $get_find_group_by_id_result->fetch_assoc()) {
+                                                                       
+                                                                              
                         
-                        echo $group_img['img_path'];
-                        
-                    }
-                
-                ?>   " width="55" height="55" class="writer-profile-img"  />
-                             
-                                 
-                             </div>
+                  <?php }?> 
                              
                              
-                             <div class="col-xs-10">
-                                 <p class="member-list-member">atsunewjoint</p>
-                                 <a class="member-list-state">member</a><a> |  </a>
-                                 <a class="member-list-item">remove</a><a> | </a>
-                                 <a class="member-list-item">make admin</a>
-                             </div>
-                                 
-                                 
+                             
+                             
+                             
+                             
+                             
 
-                             
-                             </div>
-                             
-                             
-                             
-                             
-                             
-                             
-                             
-                             
-                             
-                            <div class="row member-list">
-                             
-                             <div class="col-xs-2" style="">
-                                 
-                <img src="
-                              
-                <?php
-                
-                $get_find_group_by_id = $group->find_group_by_id($_GET['members']);
-
-                $get_find_group_by_id_result = $get_find_group_by_id->get_result();
-
-             
-                    while($group_img = $get_find_group_by_id_result->fetch_assoc()) {
-                        
-                        echo $group_img['img_path'];
-                        
-                    }
-                
-                ?>   " width="55" height="55" class="writer-profile-img"  />
-                             
-                                 
-                             </div>
-                             
-                             
-                             <div class="col-xs-10">
-                                 <p class="member-list-member">atsunewjoint</p>
-                                 <a class="member-list-state">member</a><a> |  </a>
-                                 <a class="member-list-item">remove</a><a> | </a>
-                                 <a class="member-list-item">make admin</a>
-                             </div>
-                                 
-                                 
-
-                             
-                             </div>
-                             
-                             
                              
                     
                         

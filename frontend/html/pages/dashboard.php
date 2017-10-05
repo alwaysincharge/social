@@ -301,7 +301,7 @@ $user_info = $user_details_result->fetch_assoc();
                     
                         
                         
-                    <div class="col-xs-3" id="chatboxicon" style="cursor: pointer;">
+                    <div class="col-xs-2" id="chatboxicon" style="cursor: pointer;">
                         
                         <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/chatbox.svg" class="input-style-1"  />
                         
@@ -318,7 +318,7 @@ $user_info = $user_details_result->fetch_assoc();
                         
                         
                         
-                    <div class="col-xs-3">
+                    <div class="col-xs-2">
                         
                         <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/camera.svg" class="input-style-1"  />
                         
@@ -330,7 +330,7 @@ $user_info = $user_details_result->fetch_assoc();
                         
                         
                         
-                    <a href="<?php echo $_SESSION['url_placeholder'] . "todo/" . $_GET['group'];  ?>"><div class="col-xs-3">
+                    <a href="<?php echo $_SESSION['url_placeholder'] . "todo/" . $_GET['group'];  ?>"><div class="col-xs-2">
                         
                         <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/list.svg" class="input-style-1" />
                         
@@ -343,7 +343,7 @@ $user_info = $user_details_result->fetch_assoc();
                         
                         
                         
-                    <div class="col-xs-3" id="pollicon" style="cursor: pointer;">
+                    <div class="col-xs-2" id="pollicon" style="cursor: pointer;">
                         
                         <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/hands.svg" class="input-style-1"  />
                         
@@ -353,16 +353,28 @@ $user_info = $user_details_result->fetch_assoc();
                         
                         
                        
-                    <!--    <a href="<?php echo $_SESSION['url_placeholder'] . "members/" . $_GET['group'];  ?>">
+                       <a href="<?php echo $_SESSION['url_placeholder'] . "members/" . $_GET['group'];  ?>">
                         <div class="col-xs-2">
                         
-                        <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/collaboration.svg" class="input-style-1"  />
+                        <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/network.svg" class="input-style-1"  />
                         
                          <p class="input-style-2">Members</p>
                         
-                        </div> </a> -->
+                        </div> </a> 
                         
                         
+                        
+                        
+                        
+                          
+                       <a href="<?php echo $_SESSION['url_placeholder'] . "members/" . $_GET['group'];  ?>">
+                        <div class="col-xs-2">
+                        
+                        <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/save.svg" class="input-style-1"  />
+                        
+                         <p class="input-style-2">Likes</p>
+                        
+                        </div> </a> 
                     
                     </div>
                     
@@ -2803,6 +2815,8 @@ function uploadFile() {
        if ( ( window.innerHeight + window.scrollY ) >= document.body.offsetHeight ) {
            
         displayFromDatabasePagination();
+           
+           
            
           $(window).unbind("scroll");
            
@@ -5506,6 +5520,8 @@ function displayFromDatabasePagination() {
              },
                     
             complete: function( ) {
+                
+                
                   
                 if (!completedPosts) {
                     

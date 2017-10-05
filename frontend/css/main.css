@@ -432,8 +432,8 @@ padding: 0 0 0 0;
 
 .logo-heading-1 {
     font-family: Eczar;
-   font-size: 29px;
-    font-weight: bolder;
+   font-size: 22px;
+    font-weight: bold;
                       
    
 }
@@ -542,16 +542,16 @@ padding: 0 0 0 0;
 
 
 .member-list-item {
-    font-weight: bold; font-size: 16px;font-family: Josefin Slab;
+     font-size: 16px;font-family: Work Sans;
 }
 
 .member-list-member {
-    font-weight: bold; font-size: 16px;font-family: Josefin Slab;
+     font-size: 16px;font-family: Work Sans;
 }
 
 
 .member-list-state {
-    font-weight: bold; font-size: 16px;font-family: Josefin Slab;
+     font-size: 16px;font-family: Work Sans;
 }
 
 .new-member-1 {
