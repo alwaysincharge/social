@@ -102,6 +102,15 @@
     
 }
 
+/*
+body {
+   transform: scale(0.9);
+   transform-origin: 0 0;
+    
+    display: table;
+    margin:  0 auto;
+}
+*/
 
 .poll-body {
     background: white; border-radius: 5px; padding-top: 10px; padding-bottom: 10px; font-family: Work Sans;
@@ -574,7 +583,7 @@ padding: 0 0 0 0;
 
 
 .membership-title {
-    display: table; margin: 0 auto; font-weight: bold; font-size: 21px;font-family: Josefin Slab; margin-bottom: 30px;
+    display: table; margin: 0 auto; font-size: 21px; font-family: Work Sans; margin-bottom: 30px;
 }
 
 .chat-left-2 {

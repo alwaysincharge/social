@@ -4318,11 +4318,11 @@ function displayFromDatabase() {
     
     
     
+  
     
     
     
-    
-    
+
     
 function displayFromDatabasePagination() {
         
@@ -4346,6 +4346,7 @@ function displayFromDatabasePagination() {
           },
           success: function( data ) {
            
+              console.log(data)
     
               if (data == 100) {
                   
@@ -4368,7 +4369,7 @@ function displayFromDatabasePagination() {
                  return; 
               }
               
-              
+               
               
             if (flag.readyState == 4 && flag.status == 200) { 
                                                               
@@ -5504,7 +5505,9 @@ function displayFromDatabasePagination() {
                  
              }
                 
-             $( '#postsdiv' ).append( oldPostHtml );                            
+             $( '#postsdiv' ).append( oldPostHtml );      
+                
+               
                                                               
         } 
              

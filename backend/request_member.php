@@ -11,6 +11,44 @@ if(request_is_post()) {
 if (isset($_POST['newuser']))  {
     
     
+    
+    
+         $is_admin = $member->get_admin($_SESSION['admin_id'], $_POST['group']); 
+          
+          $is_admin_result = $is_admin->get_result();
+          
+          if ($is_admin_result->num_rows == 1) {
+              
+              
+              
+             while($admin_or_super_row = $is_admin_result->fetch_assoc()) {
+            
+                 
+                 if ($admin_or_super_row['admin'] == "member")  {
+                    
+                    
+                     
+                     exit();   
+                     
+                 }
+                 
+
+                   
+             }
+    
+          }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
       $newuser = $user->does_user_exist($_POST['username']); 
     
       $newuser_result = $newuser->get_result();

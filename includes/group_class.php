@@ -42,11 +42,37 @@ class Group {
 
        global $database;
         
-       $stmt = $database->connection->prepare("select * from groups where id = ? limit 1");
+       $stmt = $database->connection->prepare("select * from groups where id = ? and deleted = 'live' limit 1");
         
        $stmt->bind_param("i", $id);
         
        $id = $id_input;      
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        
+       public function remove_group($group_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("update groups set deleted = 'deleted' where id = ? limit 1");
+        
+       $stmt->bind_param("i", $group);
+        
+       $group = $group_input;      
           
        $stmt->execute();
            

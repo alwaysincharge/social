@@ -4,6 +4,36 @@
 <?php $session->if_not_logged_in($_SESSION['url_placeholder'] . 'login'); ?>
 
 
+<?php
+                
+$all_the_members = $member->all_the_members($_GET['members']);
+
+$all_the_members_result = $all_the_members->get_result();
+
+$num_members = $all_the_members_result->fetch_assoc();
+
+
+
+
+
+
+ $is_admin = $member->get_admin($_SESSION['admin_id'], $_GET['members']); 
+          
+ $is_admin_result = $is_admin->get_result();
+          
+ if ($is_admin_result->num_rows == 1) {
+                      
+    $admin_or_super_row = $is_admin_result->fetch_assoc();
+     
+ }
+
+
+
+
+
+?>
+
+
 
 <html lang="en">
     
@@ -149,14 +179,84 @@
                         
                     
                          <div class="row membership-main">
-                        
-                         <p class="membership-title">Membership Settings</p>
+                             
+                             
+                             
+                             
+                             
+                             
+                                       
+                             <?php
+                             
+                             
+                             
+         $is_admin = $member->get_admin($_SESSION['admin_id'], $_GET['members']); 
+          
+          $is_admin_result = $is_admin->get_result();
+          
+          if ($is_admin_result->num_rows == 1) {
+              
+              
+              
+             while($admin_or_super_row = $is_admin_result->fetch_assoc()) {
+            
+                 
+                 if  ($admin_or_super_row['admin'] == "superadmin") { ?>
+                    
+                            
+                             
+                             <button onclick="toggle_delete()" class="btn new-group-1" style="margin-left: 0px;">delete group</button> 
+                             
+                             
+                                <div class="show_delete" style="font-family: Work Sans; display: none;"><br>
+                                 
+                                 <a>are you sure you want to delete the group?</a>
+                                 
+                                 <a onclick="delete_group()">yes</a> 
+                                     
+                                 <a onclick="toggle_delete()"> // no</a>
+                                     
+                                     
+                                 </div>
+                                 <br><br><br>                 
+            <?php     }
+                   
+             }
+    
+          }
+
+                             ?>
+                             
+                             
+                             
+                             
+                             
+                             
+                             
                         
                              
                              
                              
-                        
-                             <div class="new-member-1">
+                             
+                             <?php
+                             
+                             
+                             
+         $is_admin = $member->get_admin($_SESSION['admin_id'], $_GET['members']); 
+          
+          $is_admin_result = $is_admin->get_result();
+          
+          if ($is_admin_result->num_rows == 1) {
+              
+              
+              
+             while($admin_or_super_row = $is_admin_result->fetch_assoc()) {
+            
+                 
+                 if ( ($admin_or_super_row['admin'] == "superadmin") ||  ($admin_or_super_row['admin'] == "admin") ){ ?>
+                    
+                    
+                                                  <div class="new-member-1">
                                  
                                  <p class="membership-subtitle">You can add new members below</p>
                                  
@@ -166,17 +266,67 @@
                                  
                              </div>
                              
+                      
+                     
+            <?php     }
+                 
+
+                   
+             }
+    
+          }
+    ?>
+                             
+                             
+                             
+                        
+                             
+                             
+                            
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
                              
 
                              
-                             <p class="membership-subtitle">List of group members (7)</p>
+
+                             
+                             <p class="membership-subtitle">List of group members (<?php echo $num_members['count'];  ?>)</p>
+                 
                              
                              
+                             
+                             
+                             
+                             
+                                           
                              
                              
                 <?php
+                             
+                             
+                             $is_admin = $member->get_admin($_SESSION['admin_id'], $_GET['members']); 
+          
+ $is_admin_result = $is_admin->get_result();
+          
+ if ($is_admin_result->num_rows == 1) {
+                      
+    $admin_or_super_row = $is_admin_result->fetch_assoc();
+     
+ }
+
+                             
+                             
                 
-                $all_members = $member->non_current_user_members_of_group($_GET['members']);
+                $all_members = $member->current_user_members_of_group($_GET['members']);
 
                 $all_members_result = $all_members->get_result();
 
@@ -185,7 +335,7 @@
                         
                       
                                     
-                             <div class="row member-list">
+                             <div class="row member-list member-list<?php echo $member_info['member_id'];  ?>">
                              
                              <div class="col-xs-2" style="">
                                  
@@ -197,9 +347,171 @@
                              
                              <div class="col-xs-10">
                                  <p class="member-list-member"><?php echo $member_info['username'];  ?></p>
-                                 <a class="member-list-state">member</a><a> |  </a>
-                                 <a class="member-list-item">remove</a><a> | </a>
-                                 <a class="member-list-item">make admin</a>
+                                 <a class="member-list-state  member-list-state<?php echo $member_info['member_id']; ?>"><?php echo $member_info['admin'];  ?></a>
+                                 
+                                
+                                 
+                    <?php
+
+                    if ($admin_or_super_row['admin'] != "superadmin")  { ?>
+                                 
+                                 
+                    <a> |  </a>
+                                 
+                    <a onclick="toggle_leave(<?php echo $member_info['member_id']; ?>)" class="member-list-item">leave group</a><br> 
+                    
+                                 
+                                 <div class="show_leave<?php echo $member_info['member_id']; ?>" style="font-family: Work Sans; display: none;">
+                                 
+                                 <a>Are you sure you want to leave?</a>
+                                 
+                                 <a onclick="leave_group(<?php echo $member_info['member_id']; ?>)">yes</a> 
+                                     
+                                 <a onclick="toggle_leave(<?php echo $member_info['member_id']; ?>)"> // no</a>
+                                     
+                                     
+                                 </div>
+                                 
+                      
+                     
+                    <?php    } ?>
+                         
+                                 
+
+                                 
+                                 
+                                 
+                             </div>
+                                 
+                                 
+
+                             
+                             </div>
+                             
+                                                                       
+                                                                              
+                        
+                  <?php }?> 
+                             
+                          
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                <?php
+                             
+                             $is_admin = $member->get_admin($_SESSION['admin_id'], $_GET['members']); 
+          
+ $is_admin_result = $is_admin->get_result();
+          
+ if ($is_admin_result->num_rows == 1) {
+                      
+    $admin_or_super_row = $is_admin_result->fetch_assoc();
+     
+ }
+
+                             
+                             
+                
+                $all_members = $member->non_current_user_members_of_group($_GET['members']);
+
+                $all_members_result = $all_members->get_result();
+
+             
+                    while($member_info = $all_members_result->fetch_assoc()) { ?>
+                        
+                      
+                                    
+                             <div class="row member-list member-list<?php echo $member_info['member_id'];  ?>">
+                             
+                             <div class="col-xs-2" style="">
+                                 
+                <img src="<?php echo $_SESSION['url_placeholder'] . $member_info['image'];  ?>" width="55" height="55" class="writer-profile-img"  />
+                             
+                                 
+                             </div>
+                             
+                             
+                             <div class="col-xs-10">
+                                 <p class="member-list-member"><?php echo $member_info['username'];  ?></p>
+                                 <a class="member-list-state  member-list-state<?php echo $member_info['member_id']; ?>"><?php echo $member_info['admin'];  ?></a>
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                    <?php
+
+                    if ($admin_or_super_row['admin'] == "superadmin")  { ?>
+                                 
+                                 
+                    <a> |  </a>
+                                 
+                    <a onclick="toggle_remove(<?php echo $member_info['member_id']; ?>)" class="member-list-item">remove</a>
+                    
+                    <a> | </a>
+                                 
+                    <a  onclick="toggle_admin(<?php echo $member_info['member_id']; ?>)"  class="member-list-item">make admin</a>
+                                 
+                                 
+                                 
+                                    <div class="show_remove<?php echo $member_info['member_id']; ?>" style="font-family: Work Sans; display: none;">
+                                 
+                                 <a>are you sure?</a>
+                                 
+                                 <a onclick="remove_member(<?php echo $member_info['member_id']; ?>)">yes</a> 
+                                     
+                                 <a onclick="toggle_remove(<?php echo $member_info['member_id']; ?>)"> // no</a>
+                                     
+                                     
+                                 </div>
+                                 
+                                 
+                                         
+                       
+                                  <div class="show_admin<?php echo $member_info['member_id']; ?>" style="font-family: Work Sans; display: none;">
+                                 
+                                 <a>are you sure?</a>
+                                 
+                                 <a onclick="make_admin(<?php echo $member_info['member_id']; ?>)">yes</a> 
+                                     
+                                 <a onclick="toggle_admin(<?php echo $member_info['member_id']; ?>)"> // no</a>
+                                     
+                                     
+                                 </div>
+                                 
+                                 
+                     
+                    <?php    } ?>
+                                 
+                                 
+                                 
+
+                                 
+                                 
+                                 
                              </div>
                                  
                                  
@@ -472,8 +784,62 @@ $all_members_of_this_group_result = $all_members_of_this_group->get_result();
 
 <script>
     
+page_group_id = "<?php echo $_GET['members'];  ?>";
     
 var url_placeholder = "<?php echo $_SESSION['url_placeholder']; ?>";
+    
+    
+    
+    
+    
+    
+    function toggle_leave(person)  {
+        
+        
+        $(".show_leave" + person).toggle(300);
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+      function toggle_admin(person)  {
+        
+        
+        $(".show_admin" + person).toggle(300);
+        
+        
+    }
+    
+    
+    
+    
+      function toggle_remove(person)  {
+        
+        
+        $(".show_remove" + person).toggle(300);
+        
+        
+    }
+    
+    
+    
+    
+     function toggle_delete()  {
+        
+        
+        $(".show_delete").toggle(300);
+        
+        
+    }
+    
+    
+    
+    
     
 
 $("#add").on('click', function() {
@@ -549,7 +915,7 @@ function add_new_user(newmember, group_id) {
         
     }).done(function(data) {
         
-    
+    console.log(data)
         
            if (data == 1) {
                 
@@ -619,5 +985,229 @@ function add_new_user(newmember, group_id) {
     
     
 }
+    
+    
+    
+    
+    
+
+   function make_admin(person) {
+       
+       
+       
+       admin_url = "<?php  echo $_SESSION['url_placeholder'];  ?>" + "make_admin";
+       
+       $.ajax( {
+             url: admin_url,
+             type: "POST",
+             async: true,
+             data: {
+                "admin": 1,
+                "person": person,
+                 "group": page_group_id
+             },
+             success: function( data ) {
+                 
+                 
+                 
+                if (data == 100)  {
+                    
+                   $(".member-list-state" + person).html("admin"); 
+                    
+                }
+                 
+                 
+                 if (data == 200)  {
+                     
+                    $(".member-list-state" + person).html("member");
+                     
+                 }
+                 
+                 
+                 $(".show_admin" + person).hide(300);
+                 
+             },
+           
+             error: function( xhr, textStatus, errorThrown ) {
+             
+                 
+                 
+             }
+          } );
+       
+       
+   }     
+    
+
+    
+    
+    
+    
+   
+   function remove_member(person) {
+       
+       
+       
+       admin_url = "<?php  echo $_SESSION['url_placeholder'];  ?>" + "remove_member";
+       
+       $.ajax( {
+             url: admin_url,
+             type: "POST",
+             async: true,
+             data: {
+                "admin": 1,
+                "person": person,
+                 "group": page_group_id
+             },
+             success: function( data ) {
+                 
+                 console.log(data)
+                 
+                if (data == 100)  {
+                    
+                   $(".member-list" + person).hide(300); 
+                    
+                }
+                 
+                 
+               
+                 
+             },
+           
+             error: function( xhr, textStatus, errorThrown ) {
+             
+                 
+                 
+             }
+          } );
+       
+       
+   }     
+    
+ 
+    
+    
+    
+    
+    
+    
+    
+      
+   
+   function leave_group(person) {
+       
+       
+       
+       admin_url = "<?php  echo $_SESSION['url_placeholder'];  ?>" + "leave_group";
+       
+       $.ajax( {
+             url: admin_url,
+             type: "POST",
+             async: true,
+             data: {
+                "admin": 1,
+                 "group": page_group_id
+             },
+             success: function( data ) {
+                 
+                 console.log(data)
+                 
+                if (data == 100)  {
+                    
+                   $(".member-list" + person).hide(300); 
+                    
+                }
+                 
+                 
+               
+                 
+             },
+           
+             error: function( xhr, textStatus, errorThrown ) {
+             
+                 
+                 
+             }
+          } );
+       
+       
+   }     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    function delete_group(person) {
+       
+       
+       
+       admin_url = "<?php  echo $_SESSION['url_placeholder'];  ?>" + "delete_group";
+       
+       $.ajax( {
+             url: admin_url,
+             type: "POST",
+             async: true,
+             data: {
+                "admin": 1,
+                 "group": page_group_id
+             },
+             success: function( data ) {
+                 
+                 console.log(data)
+                 
+                if (data == 100)  {
+                    
+                   window.location.href = "<?php  echo $_SESSION['url_placeholder'];  ?>" + "nogroups";
+                    
+                }
+                 
+                 
+               
+                 
+             },
+           
+             error: function( xhr, textStatus, errorThrown ) {
+             
+                 
+                 
+             }
+          } );
+       
+       
+   }     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 </script>

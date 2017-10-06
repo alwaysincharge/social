@@ -27,6 +27,8 @@ RewriteRule ^decline_request backend/decline_request.php [NC,L]
 
 RewriteRule ^send_chat backend/send_chat.php [NC,L]
 
+RewriteRule ^make_admin backend/make_admin.php [NC,L]
+
 RewriteRule ^fetch_recent_posts backend/fetch_recent_posts.php [NC,L]
 
 RewriteRule ^fetch_recent_poll backend/fetch_recent_poll.php [NC,L]
@@ -36,6 +38,10 @@ RewriteRule ^fetch_old_posts backend/fetch_old_posts.php [NC,L]
 RewriteRule ^fetch_old_todos backend/fetch_old_todos.php [NC,L]
 
 RewriteRule ^send_attach backend/send_attach.php [NC,L]
+
+RewriteRule ^leave_group backend/leave_group.php [NC,L]
+
+RewriteRule ^delete_group backend/delete_group.php [NC,L]
 
 RewriteRule ^edit_username backend/edit_username.php [NC,L]
 
@@ -72,6 +78,8 @@ RewriteRule ^send_to_done backend/send_to_done.php [NC,L]
 RewriteRule ^delete_task backend/delete_task.php [NC,L]
 
 RewriteRule ^tasks_count backend/tasks_count.php [NC,L]
+
+RewriteRule ^remove_member backend/remove_member.php [NC,L]
 
 RewriteRule ^fetch_one_todo backend/fetch_one_todo.php [NC,L]
 
