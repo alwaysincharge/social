@@ -63,7 +63,7 @@ $num_members = $all_the_members_result->fetch_assoc();
     
    <nav class="nav-head">
     
-    <div class="row nav-main-row">
+    <div class="row nav-main-row div-scale">
         
         
         <div class="col-xs-6">
@@ -95,26 +95,7 @@ $num_members = $all_the_members_result->fetch_assoc();
         <div class="col-xs-6">
             
             
-            <input maxlength="100" name="keywords" class="search-main" placeholder="Search this group" />
-                
-            
-            
-            
-            <a href="<?php echo $_SESSION['url_placeholder'];  ?>newgroup">
-                
-            <button class="btn new-group-1">   
-                
-            <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/pencil.png" width="20" height="20" class="new-group-2"  />
-                    
-            Create new group</button>
-            
-            </a>
-            
-            
-            
-            
-            <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/a.jpg" width="35" height="35" class="current-user-img"  />
-            
+       
                     
         </div>
         
@@ -129,7 +110,7 @@ $num_members = $all_the_members_result->fetch_assoc();
     
     
     
-            <div class="row main-body-div">
+            <div class="row main-body-div div-scale">
                 
                 
                 

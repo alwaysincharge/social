@@ -102,15 +102,14 @@
     
 }
 
-/*
-body {
+
+.div-scale {
    transform: scale(0.9);
    transform-origin: 0 0;
     
-    display: table;
-    margin:  0 auto;
+    padding-left: 70px;
 }
-*/
+
 
 .poll-body {
     background: white; border-radius: 5px; padding-top: 10px; padding-bottom: 10px; font-family: Work Sans;
@@ -228,6 +227,10 @@ font-family: Work Sans;
 
 .size-1 {
     height: 10px; width: 10px; margin-top: 5px; margin-right: 10px;
+}
+
+.size-1-x {
+    height: 15px; width: 15px; margin-top: 5px; margin-right: 10px; cursor: pointer;
 }
 
 .size-2 {
@@ -679,6 +682,10 @@ padding: 0 0 0 0;
 
     color: black;
     
+}
+
+.reply-body {
+    margin-left: 0px; margin-bottom: 10px; padding: 10px; font-size: 14px; border-radius: 3px; margin-top: 5px; width: 90%; font-family: Work Sans; background: #e3e3e3; color: #707070; 
 }
 
 .search-main {

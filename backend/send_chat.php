@@ -19,7 +19,7 @@ if (isset($_POST['done'])) {
         }
     
     
-    $posts->create_post_chat($_POST['message'], $_SESSION['admin_id'], $_POST['group_id'], $_POST['time']);
+    $posts->create_post_chat($_POST['message'], $_SESSION['admin_id'], $_POST['group_id'], $_POST['time'], $_POST['reply_id'], $_POST['important']);
     
     $post_id = mysqli_insert_id($database->connection);
     

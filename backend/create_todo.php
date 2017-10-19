@@ -28,7 +28,7 @@ if(isset($_POST['todo']))  {
     
     
     
-    $posts->create_todo($_SESSION['admin_id'], $_POST['body'], $_POST['group_id'], $_POST['time']);
+    $posts->create_todo($_SESSION['admin_id'], $_POST['body'], $_POST['group_id'], $_POST['time'], $_POST['important']);
     
     $post_id = mysqli_insert_id($database->connection);
     

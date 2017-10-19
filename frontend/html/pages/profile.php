@@ -47,7 +47,7 @@ $user_info = $user_details_result->fetch_assoc();
     
    <nav class="nav-head">
     
-    <div class="row nav-main-row">
+    <div class="row nav-main-row div-scale">
         
         
         <div class="col-xs-6">
@@ -81,7 +81,7 @@ edit profile
     
     
     
-            <div class="row main-body-div">
+            <div class="row main-body-div div-scale">
                 
                 
                 

@@ -35,7 +35,7 @@ class Member {
 
        global $database;
         
-       $stmt = $database->connection->prepare("select * from membership where member_id = ? order by group_id desc limit 1");
+       $stmt = $database->connection->prepare("select * from membership where member_id = ? and deleted = 'live' order by group_id desc limit 1");
         
        $stmt->bind_param("i", $user);
         
@@ -54,7 +54,7 @@ class Member {
 
        global $database;
         
-       $stmt = $database->connection->prepare("select * from membership where member_id = ? AND group_id != ? order by group_id desc");
+       $stmt = $database->connection->prepare("select * from membership where member_id = ? AND group_id != ? and deleted = 'live' order by group_id desc");
         
        $stmt->bind_param("ii", $user, $not_group_id);
         
@@ -97,7 +97,7 @@ class Member {
 
        global $database;
         
-       $stmt = $database->connection->prepare("select count(*) as count from membership where group_id = ?");
+       $stmt = $database->connection->prepare("select count(*) as count from membership where group_id = ? and deleted = 'live' ");
         
        $stmt->bind_param("i", $group_id);
            

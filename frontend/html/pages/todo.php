@@ -49,7 +49,7 @@ $user_info = $user_details_result->fetch_assoc();
     
    <nav class="nav-head">
     
-    <div class="row nav-main-row">
+    <div class="row nav-main-row div-scale">
         
         
         <div class="col-xs-6">
@@ -231,7 +231,7 @@ $user_info = $user_details_result->fetch_assoc();
     
     
     
-            <div class="row main-body-div">
+            <div class="row main-body-div div-scale">
                 
                 
                 
@@ -248,7 +248,12 @@ $user_info = $user_details_result->fetch_assoc();
                     
             create to-do list</button>
             
-            </a><br><br>
+            </a>
+                    
+                       <a id="check1" style="margin-left: 30px; font-family: Work Sans;"><label><input id="important1" type="checkbox" value=""> Important?</label></a>
+                    
+                    
+                    <br><br>
                     
                     
                     
@@ -598,7 +603,7 @@ $("#createtodo").on("click", function(){
     
     
     
-      function createtodo(front_id, body ) {
+      function createtodo(front_id, body , important) {
         
           
           
@@ -619,7 +624,8 @@ $("#createtodo").on("click", function(){
                 "todo": 1,
                  "body": body,
                  "group_id": page_group_id,
-                 "time": currentMilli
+                 "time": currentMilli,
+                 "important": important
              },
              success: function( data ) {
                  
@@ -1058,8 +1064,23 @@ $("#createtodo").on("click", function(){
         
         $(".delete_new_opt_" + new_post_id_num).hide();
         
+        
                     
-        createtodo(new_post_id_num, body);          
+          if ($('#important1').is(':checked')) {
+        
+          important_var = "true";   
+          
+          } else {
+        
+          important_var = "false";
+          
+          }  
+        
+                    
+        createtodo(new_post_id_num, body, important_var);
+        
+        
+         $('#important1').prop('checked', false);
         
         
         new_post_id_num = new_post_id_num + 1;

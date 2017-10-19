@@ -8,6 +8,8 @@
 
 <?php
 
+
+
 $user_details = $user->find_one_user($_SESSION['admin_id']);
 
 $user_details_result = $user_details->get_result();
@@ -27,11 +29,13 @@ $user_info = $user_details_result->fetch_assoc();
 <head>
     
     
-	<title>Friday Camp - connect with people, you already know.</title>
+    
+    <title>Friday Camp - connect with people, you already know.</title>
     
     <meta name="description" content="Create, display and update your resume, find jobs, find a co-founder, message your hero, meet other techies, all here.">
     
     <?php include('../templates/head_info.php'); ?>
+    
     
     
 </head>
@@ -40,19 +44,19 @@ $user_info = $user_details_result->fetch_assoc();
     
     
     
-<body class="dashboard-body" style="min-height: 110%;">
+<body class="dashboard-body">
     
     
     
 
     
     
-   <nav class="nav-head">
+   <nav class="nav-head ">
     
-    <div class="row nav-main-row">
+    <div class="row nav-main-row div-scale">
         
         
-        <div class="col-xs-6">
+        <div class="col-xs-4">
             
             <a class="logo-heading-1">friday camp <span class="logo-heading-2">//</span> <span class="logo-heading-3">
                 <?php
@@ -76,7 +80,7 @@ $user_info = $user_details_result->fetch_assoc();
         
         
         
-        <div class="col-xs-6">
+        <div class="col-xs-8">
             
             
             <div style="float: right;">
@@ -95,10 +99,15 @@ $user_info = $user_details_result->fetch_assoc();
             
             </a>
             
+                
+                <a href="<?php echo $_SESSION['url_placeholder'];  ?>important"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/import.svg" width="35" height="35" class="current-user-img"  /> <span style="font-family: Work Sans;" id="alert_one"></span></a>
+                
+                
+                
             
                 <div class="dropdown">
            
-                      <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/notification.svg" width="35" height="35" class="current-user-img"  />
+                      <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/notification.svg" width="35" height="35" class="current-user-img"  /> (87)
                     
                 <div class="dropdown-content">
                     
@@ -240,7 +249,7 @@ $user_info = $user_details_result->fetch_assoc();
     
     
     
-            <div class="row main-body-div">
+            <div class="row main-body-div div-scale">
                 
                 
                 
@@ -379,8 +388,31 @@ $user_info = $user_details_result->fetch_assoc();
                     </div>
                     
                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                       <div style="margin-top: 20px; display: none;" id="typing">
+                        
+                      <p style="font-family: Work Sans; font-size: 16px;">Someone is typing...</p>
+                      
                     
+                        
+                    </div>
                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                     
                     
                    <div id="chatbox" style="display: none; margin-bottom: -40px;">
@@ -388,6 +420,24 @@ $user_info = $user_details_result->fetch_assoc();
                         <textarea id="text" type="text" class="search-main" maxlength="200" placeholder="write something" style="margin-bottom: 10px; width: 100%; height: 70px; resize: none; outline: none;"></textarea>
                        
                        
+                       
+                       <div id="replybox" style="width: 350px; background: white; padding: 7px; border-radius: 3px; display: none;">
+                           
+                       <input id="replyid" type="hidden" value="" />
+                           
+                           
+                       <input id="replytextvalue" type="hidden" value="" />
+                           
+                           
+                       <input id="replyusernamevalue" type="hidden" value="" />
+                           
+                       
+                       
+                       <p style="font-family: Work Sans; font-size: 19px;">Reply to:</p>
+                       <p style="font-family: Work Sans; font-size: 15px;" id="replytext"></p>
+                       
+                       <a id="closereply">X</a>
+                       </div>
                        
                                               
                        <label id="file1label" for="file1" class="custom-file-upload" style="display: none; background: #ddd; padding: 6px; border-radius: 4px; font-family: Josefin Slab;
@@ -423,12 +473,12 @@ $user_info = $user_details_result->fetch_assoc();
                     
                         <a id="chatboxfile"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/attachment.svg" style="width: 13px; cursor: pointer;"  /></a>
                     
-                        <a id="chatboxclose"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/cancel.svg" style="width: 13px; margin-left: 10px; cursor: pointer;"  /></a> <br><br>
+                        <a id="chatboxclose"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/cancel.svg" style="width: 13px; margin-left: 10px; cursor: pointer;"  /></a> 
                        
-                       
+                       <a id="check1" style="margin-left: 30px; font-family: Work Sans;"><label><input id="important1" type="checkbox" value=""> Important?</label></a> 
 
-                
-                    
+               <br><br>
+        
                    </div> 
                     
                 
@@ -477,14 +527,18 @@ $user_info = $user_details_result->fetch_assoc();
                         
                         
                         
-                    <a id="pollboxclose"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/cancel.svg" style="width: 13px; margin-left: 10px; cursor: pointer;"  /></a> <br>
+                    <a id="pollboxclose"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/cancel.svg" style="width: 13px; margin-left: 10px; cursor: pointer;"  /></a> 
+                      
                         
+                    <a id="check1" style="margin-left: 30px; font-family: Work Sans;"><label><input id="important2" type="checkbox" value=""> Important?</label></a> 
+
                         
+                        <br>
                     </div>
                  
-                    
-                    
-                    
+                        
+                        
+                 
                     
                     
 <div id="postsdiv" style="margin-top: 40px;">
@@ -622,7 +676,7 @@ $user_info = $user_details_result->fetch_assoc();
                 <div class="col-xs-3 group-list-div">
                     
                     
-                    
+                   
                     
                     
                 <?php
@@ -817,8 +871,363 @@ $all_members_of_this_group_result = $all_members_of_this_group->get_result();
 
 <script type="text/javascript">
     
-
+    
+    
+    
+    
  
+    function count_important()  {
+       
+       
+             typing_url_count = "<?php echo $_SESSION['url_placeholder'];  ?>count";
+        
+        
+             $.ajax( {
+             url: typing_url_count,
+             type: "POST",
+             async: true,
+             timeout: 15000,
+             data: {
+                "important": 1,
+                 
+             },
+             success: function( data ) {
+                 
+                 
+            var jsonCountAppend = JSON.parse( data );
+            
+            var attach_count_status =  jsonCountAppend[0];
+            
+            var attach_count_back_count =  jsonCountAppend[1];
+        
+            
+        
+           if (attach_count_status == 1) {
+               
+               if (attach_count_back_count == 0) {
+                   
+                   $("#alert_one").hide();
+                   
+               } else if (attach_count_back_count > 99) {
+                   
+                   $("#alert_one").show();
+                   
+                   $("#alert_one").html("(99+)");
+                   
+               }  else {
+                   
+                   $("#alert_one").show();
+                   
+                   $("#alert_one").html("(" + attach_count_back_count + ")");
+                   
+                   
+               }
+               
+           }
+        
+                   
+                  setTimeout(count_important, 5000);
+        
+        
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                 
+                 
+            
+                
+                  setTimeout(count_important, 5000);
+    
+                 
+                
+             }
+          } );
+       
+       
+   } 
+       
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+      $( '#text' ).on( "focus", function() {
+       
+
+              
+    $("#text").keyup(function(ee){
+        
+         if ( ee.which != 13 ) {
+             
+             send_typing();
+              
+          }
+        
+        
+    });
+    
+          
+          
+    } );
+    
+    
+
+    
+   function send_typing()  {
+       
+       
+             typing_url = "<?php echo $_SESSION['url_placeholder'];  ?>send_typing";
+        
+        
+             $.ajax( {
+             url: typing_url,
+             type: "POST",
+             async: true,
+             timeout: 5000,
+             data: {
+                "typing": 1,
+                 "group_id": page_group_id,
+             },
+             success: function( data ) {
+                 
+                 
+                 
+        
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                
+                
+             }
+          } );
+       
+       
+   } 
+    
+    
+    typing_alt_1 = setTimeout(hide_typing, 2000);
+    
+    var_alt_1 = setTimeout(title_alt_1, 500);
+    
+        var_alt_2 = setTimeout(title_alt_2, 500);
+    
+    
+    function display_typing()  {
+        
+        clearTimeout(typing_alt_1);
+        
+        $("#typing").show(300);
+        
+        typing_alt_1 = setTimeout(hide_typing, 2000);
+        
+    }
+    
+    
+    
+     function hide_typing()  {
+        
+        
+        $("#typing").hide(300);
+        
+       
+        
+    }
+    
+    
+    
+    
+    function get_typing()  {
+       
+       
+             typing_url_2 = "<?php echo $_SESSION['url_placeholder'];  ?>get_typing";
+        
+        
+             $.ajax( {
+             url: typing_url_2,
+             type: "POST",
+             async: true,
+             timeout: 5000,
+             data: {
+                "typing": 1,
+                 "group_id": page_group_id,
+             },
+             success: function( data ) {
+                 
+                 
+                 
+                if (data.trim() == "100") {
+                    
+                    display_typing();
+                    
+                }
+                 
+                                  
+              setTimeout(get_typing, 500);
+        
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                
+                                  
+              setTimeout(get_typing, 500);
+                 
+                
+             }
+          } );
+       
+       
+   } 
+    
+    
+    
+    
+    
+    
+    
+beep = new Audio();
+    
+beep.src = "<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/alert.mp3";
+    
+
+
+
+ leave = false;
+    
+    
+     
+function alert_alt_1() {
+    
+    
+    if (leave) {
+        
+       beep.play();
+        
+    }
+ 
+    
+}   
+    
+    
+    
+function title_alt_1() {
+    
+    
+    if (leave)  {
+        
+        
+           $("title").text("New message(s)");
+    
+           var_alt_2 = setTimeout(title_alt_2, 500); 
+        
+        
+    }
+    
+
+}
+    
+    
+    
+function title_alt_2() {
+    
+    if (leave)  {
+        
+         $("title").text("Friday Camp - connect with people, you already know.");
+    
+     var_alt_1 = setTimeout(title_alt_1, 500); 
+        
+    }
+    
+  
+}
+    
+    
+    
+
+
+  function call_out_time()  {
+      
+      
+      if (!leave) {
+          
+          
+        $("title").text("Friday Camp - connect with people, you already know.");
+        
+        clearTimeout(var_alt_1);
+        
+    
+      
+        clearTimeout(var_alt_2);
+      
+          
+          
+          
+      }
+      
+
+        
+        
+    }
+    
+    
+     $( document ).ready( function() {
+         
+         count_important();
+         
+         get_typing();
+    
+         time_out_1 = setInterval(call_out_time, 500);
+         
+         
+   
+         
+         
+    } );
+    
+    
+    
+ 
+$(window).focus(function() {
+    //do something
+        
+    time_out_1 = setInterval(call_out_time, 500);
+        
+    leave = false;
+});
+    
+    
+    
+  
+    
+    
+$(window).blur(function() {
+    //do something
+        
+    // time_out_1 = setInterval(call_out_time, 100);
+        
+    clearInterval(time_out_1);
+    
+    clearInterval(time_out_1);
+    
+    leave = true;
+    
+});
+    
+    
+    
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 var url_placeholder = "<?php echo $_SESSION['url_placeholder'];  ?>";  
     
     
@@ -826,6 +1235,8 @@ var url_placeholder = "<?php echo $_SESSION['url_placeholder'];  ?>";
 page_group_id = "<?php echo $_GET['group'];  ?>";
     
 currentArray = [];
+    
+replyArray = [];
     
    var lastTimeID = 0;
     var firstTimeID = 0;
@@ -1155,7 +1566,7 @@ $("#submitpoll").on("click", function() {
     
     
     
-   function sendPoll(poll_q, poll_a1, poll_a2, poll_a3, poll_a4, poll_a5, poll_a6, poll_a7, poll_a8, poll_a9, poll_a10, post_id_poll, poll_num_poll) {
+   function sendPoll(poll_q, poll_a1, poll_a2, poll_a3, poll_a4, poll_a5, poll_a6, poll_a7, poll_a8, poll_a9, poll_a10, post_id_poll, poll_num_poll, important) {
        
        
        
@@ -1285,6 +1696,7 @@ $("#submitpoll").on("click", function() {
            "poll_a8": poll_a8,
            "poll_a9": poll_a9,
            "poll_a10": poll_a10,
+           "important": important,
            "group_id": page_group_id,
            "time": currentMilliPoll
            
@@ -1299,7 +1711,7 @@ $("#submitpoll").on("click", function() {
     
        success: function( data ) {  
             
-                  
+     //  console.log(data)           
         
             var jsonPollAppend = JSON.parse( data );
             
@@ -1356,6 +1768,128 @@ $("#submitpoll").on("click", function() {
         
         
     }
+    
+    
+    
+    
+    
+    
+    function reply_old(back_id) {
+
+         window.scrollTo(0, 0);
+        
+        //  closeAllBoxes();
+      
+        $('#chatbox').show(100);
+        
+        $("#replybox").show(300);
+        
+          
+        
+        
+        if ($("#old_reply_text"+ back_id).val().length > 101) {
+            
+            short_reply_text = $("#old_reply_text"+ back_id).val().substr(0, 100) + "...";
+            
+        } else if ($("#old_reply_text"+ back_id).val().length <= 101) {
+            
+            short_reply_text =  $("#old_reply_text"+ back_id).val();
+            
+        }
+        
+        
+        
+        $("#replytext").html(short_reply_text);
+        
+        
+          $("#replytextvalue").val(short_reply_text);
+        
+        
+          $("#replyusernamevalue").val($("#old_reply_username"+ back_id).val());
+        
+        
+          $("#replyid").val(back_id);
+        
+        
+    }
+   
+    
+    
+    
+    
+    
+    
+    
+    function reply_old_search(back_id) {
+
+         window.scrollTo(0, 0);
+        
+        
+        
+        
+        
+        $("#myTextBox").val("");
+        
+         $("#content-div").show(600);
+            
+            $("#search-div").hide(500);
+        
+        //  closeAllBoxes();
+      
+        $('#chatbox').show(100);
+        
+        $("#replybox").show(300);
+        
+          
+        
+        
+        if ($("#old_reply_text_search"+ back_id).val().length > 101) {
+            
+            short_reply_text = $("#old_reply_text_search"+ back_id).val().substr(0, 100) + "...";
+            
+        } else if ($("#old_reply_text_search"+ back_id).val().length <= 101) {
+            
+            short_reply_text =  $("#old_reply_text_search"+ back_id).val();
+            
+        }
+        
+        
+        
+        $("#replytext").html(short_reply_text);
+        
+        
+          $("#replytextvalue").val(short_reply_text);
+        
+        
+          $("#replyusernamevalue").val($("#old_reply_username"+ back_id).val());
+        
+        
+          $("#replyid").val(back_id);
+        
+        
+    }
+   
+    
+    
+    
+    
+    
+    
+    $("#closereply").on("click", function() {
+        
+        $("#replyid").val("");
+          
+          $("#replytextvalue").val("");
+          
+          $("#replyusernamevalue").val("");
+        
+        
+      $("#replybox").hide(300);
+    
+});
+    
+    
+    
     
     
     
@@ -2240,9 +2774,28 @@ $("#myTextBox").on("input", function() {
           var new_items_poll = $( new_poll_html ).hide();
           $( '#postsdiv' ).prepend( new_items_poll );
           new_items_poll.show( 100 );
+        
+        
+        
+          if ($('#important2').is(':checked')) {
+        
+          important_var_2 = "true";   
+          
+          } else {
+        
+          important_var_2 = "false";
+          
+          }
+          
+          
+        
                 
         
-          sendPoll(poll_q, poll_a1, poll_a2, poll_a3, poll_a4, poll_a5, poll_a6, poll_a7, poll_a8, poll_a9, poll_a10, new_post_id, new_post_id_num);
+          sendPoll(poll_q, poll_a1, poll_a2, poll_a3, poll_a4, poll_a5, poll_a6, poll_a7, poll_a8, poll_a9, poll_a10, new_post_id, new_post_id_num, important_var_2);
+        
+        
+        
+          $('#important2').prop('checked', false);
                 
           new_post_id_num = new_post_id_num + 1;
           new_post_id = "new_post" + new_post_id_num;
@@ -2280,7 +2833,7 @@ $("#myTextBox").on("input", function() {
           },
           success: function( d ) {
               
-           console.log(d);
+           
              var jsonSearch = JSON.parse( d );
              var jsonSearchLength = jsonSearch.new_search.length;
              var htmlSearch = "";
@@ -2400,12 +2953,12 @@ $("#myTextBox").on("input", function() {
                 
                         
                         
-                                           htmlSearch += '<div id=\"'+ 'search_post' + resultOldPost.id +'\" class=\"row\">';
+                                           htmlSearch += '<div id=\"'+ 'search_post' + resultSearch.id +'\" class=\"row\">';
                    htmlSearch += '<div class=\"col-xs-10\">';
                    htmlSearch += '<div class=\"talk-bubble1 tri-right1 left-top1\" class=\"chat-right-1\">';
                    htmlSearch += '<div class=\"talktext1\">';
-                   htmlSearch += '<p class=\"text-username\">' + resultOldPost.username + '</p>';
-                   htmlSearch += '<p class=\"text-body\"><a href=\" ' + resultOldPost.path  + ' \" download>' + resultOldPost.name + '</a></p>';
+                   htmlSearch += '<p class=\"text-username\">' + resultSearch.username + '</p>';
+                   htmlSearch += '<p class=\"text-body\"><a href=\" ' + resultSearch.path  + ' \" download>' + resultSearch.name + '</a></p>';
                         
                         
                         
@@ -2418,7 +2971,7 @@ $("#myTextBox").on("input", function() {
                      
                     
                      
-                     htmlSearch += '<img onclick=\"start_delete(' + resultOldPost.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
+                     htmlSearch += '<img onclick=\"start_delete(' + resultSearch.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
                      
                      
                      htmlSearch += '</div>';
@@ -2428,7 +2981,7 @@ $("#myTextBox").on("input", function() {
                      
                     
                      
-                     htmlSearch += '<img class=\" size-2 '+ 'start_delete' + resultOldPost.id + '   like_delete'  +  resultOldPost.id  +  '    \" src=\"' +  resultOldPost.like_src + '\" onclick=\"likeoldpost(' + resultOldPost.id + ') \" />';
+                     htmlSearch += '<img class=\" size-2 '+ 'start_delete' + resultSearch.id + '   like_delete'  +  resultSearch.id  +  '    \" src=\"' +  resultSearch.like_src + '\" onclick=\"likeoldpost(' + resultSearch.id + ') \" />';
                      
                     
                      
@@ -2464,7 +3017,7 @@ $("#myTextBox").on("input", function() {
                         
                    htmlSearch += ' </div></div></div>';
                    htmlSearch += '<div class=\"col-xs-2\">';
-                   htmlSearch += '<a><img src=\" ' +  '<?php echo $_SESSION['url_placeholder'];  ?>' + resultOldPost.image  +' \" class=\"chat-right-2\"  /></a>';
+                   htmlSearch += '<a><img src=\" ' +  '<?php echo $_SESSION['url_placeholder'];  ?>' + resultSearch.image  +' \" class=\"chat-right-2\"  /></a>';
                    htmlSearch += '</div>';
                    htmlSearch += '</div>';
                     
@@ -2485,7 +3038,7 @@ $("#myTextBox").on("input", function() {
                  
                  if (resultSearch.type == "chat" && resultSearch.owner == "<?php echo $user_info['id']; ?>") {
                      
-                     
+                     find_reply_search(resultSearch.reply_id, resultSearch.id);
                      
                                      htmlSearch += '<div id=\"'+ 'search_post' + resultSearch.id +'\" class=\"row\">';
                 htmlSearch += '<div class=\"col-xs-2\">';
@@ -2498,7 +3051,7 @@ $("#myTextBox").on("input", function() {
                 htmlSearch += '<p class=\"text-body\">'  + resultSearch.message + '</p>';
                      
                 
-
+                 htmlSearch += '<div id=\"append_reply_search' + resultSearch.id + '\" ></div>';
                      
                      
                      htmlSearch += '<div class=\"row\" >';
@@ -2542,9 +3095,17 @@ $("#myTextBox").on("input", function() {
                      
                     htmlSearch += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
                      
-                    
                      
-                     htmlSearch += '<img class=\" size-1 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" />';
+                     
+                     
+                     htmlSearch += '<img   onclick=\"reply_old_search(' + resultSearch.id + ') \"  class=\" size-1-x \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/reply.svg' + '\" />';
+                     
+                     
+                     
+                     htmlSearch += '<input type=\"hidden\" id=\"old_reply_text_search'+ resultSearch.id  +'\" value=\"'+ resultSearch.message + '\" />';
+                     
+                     
+                     htmlSearch += '<input type=\"hidden\" id=\"old_reply_username_search'+ resultSearch.id  +'\" value=\"'+ resultSearch.username + '\" />';
                      
                      
                      htmlSearch += '</div>';
@@ -2572,7 +3133,7 @@ $("#myTextBox").on("input", function() {
                 if (resultSearch.type == "chat" && resultSearch.owner != "<?php echo $user_info['id']; ?>") {
                     
           
-                     
+                     find_reply_search(resultSearch.reply_id, resultSearch.id);
                     
                    htmlSearch += '<div id=\"'+ 'search_post' + resultSearch.id +'\" class=\"row\">';
                    htmlSearch += '<div class=\"col-xs-10\">';
@@ -2581,7 +3142,7 @@ $("#myTextBox").on("input", function() {
                    htmlSearch += '<p class=\"text-username\">' + resultSearch.username + '</p>';
                    htmlSearch += '<p class=\"text-body\">' + resultSearch.message + '</p>';
                     
-                    
+                    htmlSearch += '<div id=\"append_reply_search' + resultSearch.id + '\" ></div>';
                        
                      htmlSearch += '<div class=\"row\" >';
                      
@@ -2623,7 +3184,15 @@ $("#myTextBox").on("input", function() {
                     htmlSearch += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
                      
                     
-                    // Empty div.
+                      htmlSearch += '<img   onclick=\"reply_old_search(' + resultSearch.id + ') \"  class=\" size-1-x \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/reply.svg' + '\" />';
+                     
+                     
+                     
+                     htmlSearch += '<input type=\"hidden\" id=\"old_reply_text_search'+ resultSearch.id  +'\" value=\"'+ resultSearch.message + '\" />';
+                     
+                     
+                     htmlSearch += '<input type=\"hidden\" id=\"old_reply_username_search'+ resultSearch.id  +'\" value=\"'+ resultSearch.username + '\" />';
+                     
                      
                      htmlSearch += '</div>';
                      
@@ -2759,7 +3328,7 @@ function uploadFile() {
             _('status').innerHTML = "";
             
               
-              sendAppend("", event.target.responseText);
+              sendAppend("", event.target.responseText, $("#file1").val());
             
             $('#file1label').hide(160);
             
@@ -2832,7 +3401,7 @@ function uploadFile() {
        $( '#text' ).keypress( function( e ) {
           if ( e.which == 13 ) {
              
-             sendAppend( e, null );
+             sendAppend( e, null, null );
               
           }
        } );
@@ -2841,15 +3410,15 @@ function uploadFile() {
     
     function closeAllBoxes()  {
         
-        $('#chatbox').hide(100);
+        $('#chatbox').hide();
             
         $('#text').val("");
         
-        $('#file1label').hide(160);
+        $('#file1label').hide();
         
         
         
-        $('#pollbox').hide(100);
+        $('#pollbox').hide();
         
     }
     
@@ -3048,8 +3617,23 @@ function displayFromDatabase() {
                   
                     if(new_post_result.type == 'poll' && new_post_result.owner != "<?php echo $user_info['id']; ?>") { 
                    
-                   
-                      
+                    
+                                            
+                         if ( lastTimeIDzeroTest === 1 ) {
+
+                 
+                         } else {
+            
+                            title_alt_1();
+            
+                            alert_alt_1();
+                             
+                              // hide_typing();
+                             
+                         }
+                        
+                        
+                        
                       
         html_new_posts_1 += '<div id=\"'+ 'whole_old_post' + new_post_result.id +'\" class=\"row poll-div-2\" style=\"margin-bottom: 20px;\">';
         
@@ -3474,7 +4058,19 @@ function displayFromDatabase() {
                      if (!isInArray)  {
                          
                          
-                         
+                    
+                         if ( lastTimeIDzeroTest === 1 ) {
+
+                 
+                         } else {
+            
+                            title_alt_1();
+            
+                             alert_alt_1();
+                             
+                              // hide_typing();
+                 
+                         }
                          
                         html_new_posts_1 += '<div id=\"'+ 'whole_old_post' + new_post_result.id +'\" class=\"row poll-div\" style=\"margin-bottom: 20px;\">';
         
@@ -3914,6 +4510,113 @@ function displayFromDatabase() {
                      
                      
                      if (!isInArray)  {
+                         
+                         
+                         
+                    
+                         if ( lastTimeIDzeroTest === 1 ) {
+
+                 
+                         } else {
+            
+                            title_alt_1();
+    
+                            alert_alt_1();
+                             
+                             // hide_typing();
+                             
+                         }
+                            
+                                
+                     if ( (new_post_result.file_type == 'image/jpeg') || (new_post_result.file_type == 'image/jpg') ||  (new_post_result.file_type == 'image/png') || (new_post_result.file_type == 'image/gif')  ) {
+                         
+                         
+                         html_new_posts_1 += '<div id=\"'+ 'old_post' + new_post_result.id +'\" class=\"row\" style=\"background: white; border-radius: 3px; margin-bottom: 30px;\">';
+                    
+                         html_new_posts_1 += '<div style=\"padding: 12px;\"><a class=\"text-username\"> ' + new_post_result.username + '</a><a class=\"text-body\" href=\" ' + new_post_result.path  + ' \" download>' + ' | Download' + '</a></div>';
+                    
+                         html_new_posts_1 += '<img style=\"width: 100%;\" src=\"'+ new_post_result.path +'\" />';
+                    
+        
+                    /*
+                         oldPostHtml += '<span style=\"display: table; margin: 0 auto; width: 300px; margin-top: 10px;\" id=\"' + new_post_id + '\" ></span>'; */
+           
+                         
+                         
+                         
+                         
+                         
+                         html_new_posts_1 += '<span style=\"display: table; margin: 0 auto; width: 300px; margin-top: 10px;\"><div class=\"row\" >';
+                     
+                     
+                     html_new_posts_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
+                     
+                    
+                     
+                     html_new_posts_1 += '<img onclick=\"start_delete(' + new_post_result.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
+                     
+                     
+                     html_new_posts_1 += '</div>';
+                     
+                     
+                     html_new_posts_1 += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
+                     
+                    
+                     
+                     html_new_posts_1 += '<img class=\" size-2 '+ 'start_delete' + new_post_result.id + '   like_delete'  +  new_post_result.id  +  '    \" src=\"' +  new_post_result.like_src + '\" onclick=\"likeoldpost(' + new_post_result.id + ') \" />';
+                     
+        
+                     
+                         
+                    html_new_posts_1 += '<img onclick=\"show_delete(' + new_post_result.id + ') \" class=\" size-3 '+ 'start_delete' + new_post_result.id +' \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/garbage.svg' + '\" />';
+                     
+                         
+                         
+                     html_new_posts_1 += '</div>';
+                     
+                     
+                     html_new_posts_1 += '<div class=\"col-xs-5\" >';
+                         
+                         
+                     html_new_posts_1 += '<a class=\"delete-2 '+ 'show_delete' + new_post_result.id +'\" onclick=\"deleteoldpost(' + new_post_result.id + ') \">delete</a><a style=\"display: none; font-size: 13px;\" class=\"'+ 'show_delete' + new_post_result.id +'\" > //</a>';
+                     
+                     
+                      html_new_posts_1 += '<a onclick=\"hide_delete(' + new_post_result.id + ') \" class=\"delete-3 '+ 'show_delete' + new_post_result.id +'\">don\'t</a>';
+                     
+                        
+                     
+                  
+                     
+                     html_new_posts_1 += '</div>';
+                     
+                     
+                     
+                     
+                     
+                    html_new_posts_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
+                     
+                    
+                     
+                     html_new_posts_1 += '<img class=\" size-1 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" />';
+                     
+                     
+                     html_new_posts_1 += '</div>';
+                     
+                     
+                     
+                     html_new_posts_1 += '</div></span>';
+                     
+
+                         
+                         html_new_posts_1 += '</div>';
+                         
+                         
+                         
+                     }    else {
+                         
+                         
+                         
+                                                  
                      
                                                 
                 html_new_posts_1 += '<div class=\"row\" id=\"'+ 'old_post' + new_post_result.id +'\">';
@@ -3989,6 +4692,15 @@ function displayFromDatabase() {
                       
                          
                          
+                         
+                         
+                         
+                         
+                         
+                     }
+                         
+                         
+
                      }
                      
                      
@@ -3999,7 +4711,102 @@ function displayFromDatabase() {
                  
                  
                     if(new_post_result.type == 'attach' && new_post_result.owner != "<?php echo $user_info['id']; ?>") {
-         
+                        
+                        
+                        
+                    
+                         if ( lastTimeIDzeroTest === 1 ) {
+
+                 
+                         } else {
+            
+                            title_alt_1();
+            
+                            alert_alt_1();
+                             
+                         // hide_typing();
+                 
+                         }
+                        
+                             
+                                
+                     if ( (new_post_result.file_type == 'image/jpeg') || (new_post_result.file_type == 'image/jpg') ||  (new_post_result.file_type == 'image/png') || (new_post_result.file_type == 'image/gif')  ) {
+                         
+                         
+                         html_new_posts_1 += '<div id=\"'+ 'old_post' + new_post_result.id +'\" class=\"row\" style=\"background: white; border-radius: 3px; margin-bottom: 30px;\">';
+                    
+                         html_new_posts_1 += '<div style=\"padding: 12px;\"><a class=\"text-username\"> ' + new_post_result.username + '</a><a class=\"text-body\" href=\" ' + new_post_result.path  + ' \" download>' + ' | Download' + '</a></div>';
+                    
+                         html_new_posts_1 += '<img style=\"width: 100%;\" src=\"'+ new_post_result.path +'\" />';
+                    
+        
+                    /*
+                         oldPostHtml += '<span style=\"display: table; margin: 0 auto; width: 300px; margin-top: 10px;\" id=\"' + new_post_id + '\" ></span>'; */
+           
+                         
+                         
+                         
+                         
+                         
+                         html_new_posts_1 += '<span style=\"display: table; margin: 0 auto; width: 300px; margin-top: 10px;\"><div class=\"row\" >';
+                     
+                     
+                     html_new_posts_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
+                     
+                    
+                     
+                     html_new_posts_1 += '<img onclick=\"start_delete(' + new_post_result.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
+                     
+                     
+                     html_new_posts_1 += '</div>';
+                     
+                     
+                     html_new_posts_1 += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
+                     
+                    
+                     
+                     html_new_posts_1 += '<img class=\" size-2 '+ 'start_delete' + new_post_result.id + '   like_delete'  +  new_post_result.id  +  '    \" src=\"' +  new_post_result.like_src + '\" onclick=\"likeoldpost(' + new_post_result.id + ') \" />';
+                     
+        
+                     
+                     html_new_posts_1 += '</div>';
+                     
+                     
+                     html_new_posts_1 += '<div class=\"col-xs-5\" >';
+                     
+                  
+                     
+                     html_new_posts_1 += '</div>';
+                     
+                     
+                     
+                     
+                     
+                    html_new_posts_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
+                     
+                    
+                     
+                     html_new_posts_1 += '<img class=\" size-1 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" />';
+                     
+                     
+                     html_new_posts_1 += '</div>';
+                     
+                     
+                     
+                     html_new_posts_1 += '</div></span>';
+                     
+
+                         
+                         html_new_posts_1 += '</div>';
+                         
+                         
+                         
+                     } else {
+                         
+                         
+                         
+                         
+                         
                    html_new_posts_1 += '<div class=\"row\" id=\"'+ 'old_post' + new_post_result.id +'\">';
                    html_new_posts_1 += '<div class=\"col-xs-10\">';
                    html_new_posts_1 += '<div class=\"talk-bubble1 tri-right1 left-top1\" class=\"chat-right-1\">';
@@ -4066,6 +4873,20 @@ function displayFromDatabase() {
                    html_new_posts_1 += '</div>';
                    html_new_posts_1 += '</div>';
                     
+                         
+                         
+                         
+                         
+                     }
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+         
                  }
                  
                  
@@ -4104,7 +4925,26 @@ function displayFromDatabase() {
                      
                      if (!isInArray)  {
                          
-                                        
+                         
+                            
+                        
+                         
+                                            
+                         if ( lastTimeIDzeroTest === 1 ) {
+
+                 
+                         } else {
+                             
+                             title_alt_1();
+                             
+                              alert_alt_1();
+                             
+                              hide_typing();
+            
+                           find_reply(new_post_result.reply_id, new_post_result.id);
+                 
+                         }
+                    
                                          html_new_posts_1 += '<div class=\"row\" id=\"'+ 'old_post' + new_post_result.id +'\">';
                 html_new_posts_1 += '<div class=\"col-xs-2\">';
                 html_new_posts_1 += '<a><img src=\" '+ '<?php echo $_SESSION['url_placeholder'];  ?>' + new_post_result.image +'  \" class=\"chat-left-1\"  /></a>';
@@ -4116,7 +4956,7 @@ function displayFromDatabase() {
                 html_new_posts_1 += '<p class=\"text-body\">'  + new_post_result.message + '</p>';
                                         
                                         
-                                        
+                                 html_new_posts_1 += '<div id=\"append_reply' + new_post_result.id + '\" ></div>';       
                                         
                                                                 
                                              html_new_posts_1 += '<div class=\"row\" >';
@@ -4166,8 +5006,15 @@ function displayFromDatabase() {
                     html_new_posts_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
                      
                     
-                    html_new_posts_1 += '<img class=\" size-1 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" />';
+                         
+                    html_new_posts_1 += '<img   onclick=\"reply_old(' + new_post_result.id + ') \"  class=\" size-1-x \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/reply.svg' + '\" />';
                      
+                     
+                     
+                     html_new_posts_1 += '<input type=\"hidden\" id=\"old_reply_text'+ new_post_result.id  +'\" value=\"'+ new_post_result.message + '\" />';
+                     
+                     
+                     html_new_posts_1 += '<input type=\"hidden\" id=\"old_reply_username'+ new_post_result.id  +'\" value=\"'+ new_post_result.username + '\" />';
                      
                      html_new_posts_1 += '</div>';
                      
@@ -4213,12 +5060,40 @@ function displayFromDatabase() {
                 if (new_post_result.type == "chat" && new_post_result.owner != "<?php echo $user_info['id']; ?>") {
                     
                     
+                    
+                         if ( lastTimeIDzeroTest === 1 ) {
+
+                 
+                         } else {
+            
+                            title_alt_1();
+                             
+                            alert_alt_1();
+                             
+                            hide_typing();
+            
+                            find_reply(new_post_result.reply_id, new_post_result.id);
+                             
+                             
+       
+                 
+                         }
+                    
+                    
+                    
+                    
+                    
+                     
+                    
+                    
                    html_new_posts_1 += '<div class=\"row\" id=\"'+ 'old_post' + new_post_result.id +'\">';
                    html_new_posts_1 += '<div class=\"col-xs-10\">';
                    html_new_posts_1 += '<div class=\"talk-bubble1 tri-right1 left-top1\" class=\"chat-right-1\">';
                    html_new_posts_1 += '<div class=\"talktext1\">';
                    html_new_posts_1 += '<p class=\"text-username\">' + new_post_result.username + '</p>';
                    html_new_posts_1 += '<p class=\"text-body\">' + new_post_result.message + '</p>';
+                    
+                    html_new_posts_1 += '<div id=\"append_reply' + new_post_result.id + '\" ></div>';
                     
                     
                                          html_new_posts_1 += '<div class=\"row\" >';
@@ -4261,7 +5136,14 @@ function displayFromDatabase() {
                     html_new_posts_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
                      
                     
-                    // Empty div.
+                    html_new_posts_1 += '<img   onclick=\"reply_old(' + new_post_result.id + ') \"  class=\" size-1-x \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/reply.svg' + '\" />';
+                     
+                     
+                     
+                     html_new_posts_1 += '<input type=\"hidden\" id=\"old_reply_text'+ new_post_result.id  +'\" value=\"'+ new_post_result.message + '\" />';
+                     
+                     
+                     html_new_posts_1 += '<input type=\"hidden\" id=\"old_reply_username'+ new_post_result.id  +'\" value=\"'+ new_post_result.username + '\" />';
                      
                      html_new_posts_1 += '</div>';
                      
@@ -4300,6 +5182,10 @@ function displayFromDatabase() {
                 $( '#postsdiv' ).prepend( new_items );
                  
                 new_items.show( 300 );
+                 
+
+                   
+  
                  
              }
              
@@ -4346,7 +5232,7 @@ function displayFromDatabasePagination() {
           },
           success: function( data ) {
            
-              console.log(data)
+            console.log(data)
     
               if (data == 100) {
                   
@@ -5197,6 +6083,104 @@ function displayFromDatabasePagination() {
                  
                  if(resultOldPost.type == 'attach' && resultOldPost.owner == "<?php echo $user_info['id']; ?>") {
                      
+                     
+                     
+                     
+                     if ( (resultOldPost.file_type == 'image/jpeg') || (resultOldPost.file_type == 'image/jpg') ||  (resultOldPost.file_type == 'image/png') || (resultOldPost.file_type == 'image/gif')  ) {
+                         
+                         
+                         oldPostHtml += '<div id=\"'+ 'old_post' + resultOldPost.id +'\" class=\"row\" style=\"background: white; border-radius: 3px; margin-bottom: 30px;\">';
+                    
+                         oldPostHtml += '<div style=\"padding: 12px;\"><a class=\"text-username\"> ' + resultOldPost.username + '</a><a class=\"text-body\" href=\" ' + resultOldPost.path  + ' \" download>' + ' | Download' + '</a></div>';
+                    
+                         oldPostHtml += '<img style=\"width: 100%;\" src=\"'+ resultOldPost.path +'\" />';
+                    
+        
+                    /*
+                         oldPostHtml += '<span style=\"display: table; margin: 0 auto; width: 300px; margin-top: 10px;\" id=\"' + new_post_id + '\" ></span>'; */
+           
+                         
+                         
+                         
+                         
+                         
+                         oldPostHtml += '<span style=\"display: table; margin: 0 auto; width: 300px; margin-top: 10px;\"><div class=\"row\" >';
+                     
+                     
+                     oldPostHtml += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
+                     
+                    
+                     
+                     oldPostHtml += '<img onclick=\"start_delete(' + resultOldPost.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
+                     
+                     
+                     oldPostHtml += '</div>';
+                     
+                     
+                     oldPostHtml += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
+                     
+                    
+                     
+                     oldPostHtml += '<img class=\" size-2 '+ 'start_delete' + resultOldPost.id + '   like_delete'  +  resultOldPost.id  +  '    \" src=\"' +  resultOldPost.like_src + '\" onclick=\"likeoldpost(' + resultOldPost.id + ') \" />';
+                     
+                     oldPostHtml += '<img onclick=\"show_delete(' + resultOldPost.id + ') \" class=\" size-3 '+ 'start_delete' + resultOldPost.id +' \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/garbage.svg' + '\" />';
+                     
+                     oldPostHtml += '</div>';
+                     
+                     
+                     oldPostHtml += '<div class=\"col-xs-5\" >';
+                     
+                     
+                     oldPostHtml += '<a class=\"delete-2 '+ 'show_delete' + resultOldPost.id +'\" onclick=\"deleteoldpost(' + resultOldPost.id + ') \">delete</a><a style=\"display: none; font-size: 13px;\" class=\"'+ 'show_delete' + resultOldPost.id +'\" > //</a>';
+                     
+                     
+                      oldPostHtml += '<a onclick=\"hide_delete(' + resultOldPost.id + ') \" class=\"delete-3 '+ 'show_delete' + resultOldPost.id +'\">don\'t</a>';
+                     
+                     
+                     oldPostHtml += '</div>';
+                     
+                     
+                     
+                     
+                     
+                    oldPostHtml += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
+                     
+                    
+                     
+                     oldPostHtml += '<img class=\" size-1 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" />';
+                     
+                     
+                     oldPostHtml += '</div>';
+                     
+                     
+                     
+                     oldPostHtml += '</div></span>';
+                     
+                
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         oldPostHtml += '</div>';
+                         
+                         
+                         
+                     } else {
+                         
+                         
+                                              
+                     
                 oldPostHtml += '<div id=\"'+ 'old_post' + resultOldPost.id +'\" class=\"row\">';
                 oldPostHtml += '<div class=\"col-xs-2\">';
                 oldPostHtml += '<a><img src=\" '+ '<?php echo $_SESSION['url_placeholder'];  ?>' + resultOldPost.image  +' \" class=\"chat-left-1\"  /></a>';
@@ -5269,11 +6253,114 @@ function displayFromDatabasePagination() {
                      
                 oldPostHtml += ' </div></div></div></div>';    
                      
+                         
+                     }
+                     
+
+                     
+
                  }  
                  
                  
                  
                     if(resultOldPost.type == 'attach' && resultOldPost.owner != "<?php echo $user_info['id']; ?>") {
+                        
+                        
+                        
+                        
+                                
+                     if ( (resultOldPost.file_type == 'image/jpeg') || (resultOldPost.file_type == 'image/jpg') ||  (resultOldPost.file_type == 'image/png') || (resultOldPost.file_type == 'image/gif')  ) {
+                         
+                         
+                         oldPostHtml += '<div id=\"'+ 'old_post' + resultOldPost.id +'\" class=\"row\" style=\"background: white; border-radius: 3px; margin-bottom: 30px;\">';
+                    
+                         oldPostHtml += '<div style=\"padding: 12px;\"><a class=\"text-username\"> ' + resultOldPost.username + '</a><a class=\"text-body\" href=\" ' + resultOldPost.path  + ' \" download>' + ' | Download' + '</a></div>';
+                    
+                         oldPostHtml += '<img style=\"width: 100%;\" src=\"'+ resultOldPost.path +'\" />';
+                    
+        
+                    /*
+                         oldPostHtml += '<span style=\"display: table; margin: 0 auto; width: 300px; margin-top: 10px;\" id=\"' + new_post_id + '\" ></span>'; */
+           
+                         
+                         
+                         
+                         
+                         
+                         oldPostHtml += '<span style=\"display: table; margin: 0 auto; width: 300px; margin-top: 10px;\"><div class=\"row\" >';
+                     
+                     
+                     oldPostHtml += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
+                     
+                    
+                     
+                     oldPostHtml += '<img onclick=\"start_delete(' + resultOldPost.id + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
+                     
+                     
+                     oldPostHtml += '</div>';
+                     
+                     
+                     oldPostHtml += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
+                     
+                    
+                     
+                     oldPostHtml += '<img class=\" size-2 '+ 'start_delete' + resultOldPost.id + '   like_delete'  +  resultOldPost.id  +  '    \" src=\"' +  resultOldPost.like_src + '\" onclick=\"likeoldpost(' + resultOldPost.id + ') \" />';
+                     
+        
+                     
+                     oldPostHtml += '</div>';
+                     
+                     
+                     oldPostHtml += '<div class=\"col-xs-5\" >';
+                     
+                  
+                     
+                     oldPostHtml += '</div>';
+                     
+                     
+                     
+                     
+                     
+                    oldPostHtml += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
+                     
+                    
+                     
+                     oldPostHtml += '<img class=\" size-1 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" />';
+                     
+                     
+                     oldPostHtml += '</div>';
+                     
+                     
+                     
+                     oldPostHtml += '</div></span>';
+                     
+                
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         oldPostHtml += '</div>';
+                         
+                         
+                         
+                     }  else {
+                         
+                         
+                         
+                         
+                         
+                        
          
                    oldPostHtml += '<div id=\"'+ 'old_post' + resultOldPost.id +'\" class=\"row\">';
                    oldPostHtml += '<div class=\"col-xs-10\">';
@@ -5343,13 +6430,31 @@ function displayFromDatabasePagination() {
                    oldPostHtml += '</div>';
                    oldPostHtml += '</div>';
                     
+                         
+                         
+                     }
+                        
+                        
+                        
+                        
+                        
+                        
                  }
                  
                  
+                   
+                   
+                   
+                   
+                   
+                   
                  
                  if (resultOldPost.type == "chat" && resultOldPost.owner == "<?php echo $user_info['id']; ?>") {
                      
-                       
+                     
+                     
+                     find_reply(resultOldPost.reply_id, resultOldPost.id);
+                     
                 oldPostHtml += '<div id=\"'+ 'old_post' + resultOldPost.id +'\" class=\"row\">';
                 oldPostHtml += '<div class=\"col-xs-2\">';
                 oldPostHtml += '<a><img src=\" '+ '<?php echo $_SESSION['url_placeholder'];  ?>' + resultOldPost.image +'  \" class=\"chat-left-1\"  /></a>';
@@ -5359,6 +6464,10 @@ function displayFromDatabasePagination() {
                 oldPostHtml += '<div class=\"talktext\">';
              //   oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + '</p>';
                 oldPostHtml += '<p class=\"text-body\">'  + resultOldPost.message + '</p>';
+                     
+                     
+                     
+                oldPostHtml += '<div id=\"append_reply' + resultOldPost.id + '\" ></div>';
                      
                 
 
@@ -5382,6 +6491,9 @@ function displayFromDatabasePagination() {
                     
                      
                      oldPostHtml += '<img class=\" size-2 '+ 'start_delete' + resultOldPost.id + '   like_delete'  +  resultOldPost.id  +  '    \" src=\"' +  resultOldPost.like_src + '\" onclick=\"likeoldpost(' + resultOldPost.id + ') \" />';
+                     
+                     
+                    
                      
                      oldPostHtml += '<img onclick=\"show_delete(' + resultOldPost.id + ') \" class=\" size-3 '+ 'start_delete' + resultOldPost.id +' \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/garbage.svg' + '\" />';
                      
@@ -5407,7 +6519,7 @@ function displayFromDatabasePagination() {
                      
                     
                      
-                     oldPostHtml += '<img class=\" size-1 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" />';
+                     oldPostHtml += '<img   onclick=\"reply_old(' + resultOldPost.id + ') \"  class=\" size-1-x \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/reply.svg' + '\" />';
                      
                      
                      oldPostHtml += '</div>';
@@ -5416,8 +6528,10 @@ function displayFromDatabasePagination() {
                      
                      oldPostHtml += '</div>';
                      
+                     oldPostHtml += '<input type=\"hidden\" id=\"old_reply_text'+ resultOldPost.id  +'\" value=\"'+ resultOldPost.message + '\" />';
                      
                      
+                     oldPostHtml += '<input type=\"hidden\" id=\"old_reply_username'+ resultOldPost.id  +'\" value=\"'+ resultOldPost.username + '\" />';
                      
                     oldPostHtml += '</div></div></div></div>'; 
                      
@@ -5428,6 +6542,12 @@ function displayFromDatabasePagination() {
                 if (resultOldPost.type == "chat" && resultOldPost.owner != "<?php echo $user_info['id']; ?>") {
                     
                     
+                    
+                    
+                    
+                    find_reply(resultOldPost.reply_id, resultOldPost.id);
+                    
+                    
                    oldPostHtml += '<div id=\"'+ 'old_post' + resultOldPost.id +'\" class=\"row\">';
                    oldPostHtml += '<div class=\"col-xs-10\">';
                    oldPostHtml += '<div class=\"talk-bubble1 tri-right1 left-top1\" class=\"chat-right-1\">';
@@ -5436,6 +6556,9 @@ function displayFromDatabasePagination() {
                    oldPostHtml += '<p class=\"text-body\">' + resultOldPost.message + '</p>';
                     
                     
+                oldPostHtml += '<div id=\"append_reply' + resultOldPost.id + '\" ></div>';
+                     
+                
                        
                      oldPostHtml += '<div class=\"row\" >';
                      
@@ -5477,7 +6600,14 @@ function displayFromDatabasePagination() {
                     oldPostHtml += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
                      
                     
-                    // Empty div.
+                  oldPostHtml += '<img   onclick=\"reply_old(' + resultOldPost.id + ') \"  class=\" size-1-x \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/reply.svg' + '\" />';
+                     
+                     
+                     
+                     oldPostHtml += '<input type=\"hidden\" id=\"old_reply_text'+ resultOldPost.id  +'\" value=\"'+ resultOldPost.message + '\" />';
+                     
+                     
+                     oldPostHtml += '<input type=\"hidden\" id=\"old_reply_username'+ resultOldPost.id  +'\" value=\"'+ resultOldPost.username + '\" />';
                      
                      oldPostHtml += '</div>';
                      
@@ -5567,7 +6697,7 @@ function displayFromDatabasePagination() {
     
     
     
-    function sendPostData(textMessage, e, sent_post_id, text, post_id_num ) {
+    function sendPostData(textMessage, e, sent_post_id, text, post_id_num, reply_id, important ) {
         
        var is_sent_already = function( post_ui, post_id_0 ) {
            
@@ -5618,12 +6748,21 @@ function displayFromDatabasePagination() {
                      
                      
                     append_post_sent_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
+           
+           
+           
+           
+                     append_post_sent_1 += '<img   onclick=\"reply_old(' + post_id_0 + ') \"  class=\" size-1-x \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/reply.svg' + '\" />';
                      
-                    
-                     
-                     append_post_sent_1 += '<img class=\" size-1 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" />';
                      
                      
+                      append_post_sent_1 += '<input type=\"hidden\" id=\"old_reply_text'+ post_id_0  +'\" value=\"'+ textMessage + '\" />';
+                     
+                     
+                      append_post_sent_1 += '<input type=\"hidden\" id=\"old_reply_username'+ post_id_0 +'\" value=\"'+ '<?php echo $user_info['username']; ?>' + '\" />';
+                     
+           
+           
                      append_post_sent_1 += '</div>';
                      
                      
@@ -5673,9 +6812,13 @@ function displayFromDatabasePagination() {
                 "done": 1,
                 "message": textMessage,
                  "group_id": page_group_id,
+                 "reply_id": reply_id,
+                 "important": important,
                  "time": currentMilli
              },
              success: function( data ) {
+                 
+                 console.log(data);
                  
                  
              var jsonNewPost = JSON.parse( data );
@@ -5733,6 +6876,169 @@ function displayFromDatabasePagination() {
        
        
    } 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        
+   function find_reply(reply_id, post_id) {
+       
+       
+       
+       post_url = "<?php  echo $_SESSION['url_placeholder'];  ?>" + "find_reply";
+       
+       
+       find_reply_id = reply_id;
+       
+       
+       if (find_reply_id)  {
+    
+             $.ajax( {
+             url: post_url,
+             type: "POST",
+             async: true,
+           timeout: 15000,
+             data: {
+                "find": 1,
+                "reply_id": find_reply_id
+             },
+             success: function( data ) {
+                 
+                
+                 
+                var jsonOldReply = JSON.parse( data );
+                 
+                var jsonReplyLength = jsonOldReply.old_posts.length;
+                
+                 
+                 
+                 
+               for ( var for_oldreply = 0; for_oldreply < jsonReplyLength; for_oldreply++ ) {
+                   
+                   
+                    var resultOldReply = jsonOldReply.old_posts[ for_oldreply ];
+                   
+                    new_reply_html = "";
+                   
+                    new_reply_html += '<p style=\"font-family: Work Sans; font-weight: lighter;\" class=\"reply-body\">'+'<a> '+ resultOldReply.username +' </a> | ' +  resultOldReply.message  +'</p><br>'; 
+                   
+                   
+                   
+                   var new_items_reply = $( new_reply_html ).hide();
+                   
+                   $( '#append_reply' + post_id ).prepend( new_items_reply );
+                   
+                   new_items_reply.show( 100 );
+                   
+                   
+               }
+                 
+                
+                 
+             },
+           
+             error: function( xhr, textStatus, errorThrown ) {
+             
+                   $.ajax( this );
+                return;
+                 
+             }
+          } );
+           
+       }
+       
+     
+       
+       
+   } 
+    
+    
+    
+    
+    
+    
+    
+    
+     
+   function find_reply_search(reply_id_s, post_id) {
+       
+       
+       
+       post_url = "<?php  echo $_SESSION['url_placeholder'];  ?>" + "find_reply";
+       
+       find_reply_id_s = reply_id_s;
+       
+       
+       if (find_reply_id_s) {
+           
+                 
+       $.ajax( {
+             url: post_url,
+             type: "POST",
+             async: true,
+           timeout: 15000,
+             data: {
+                "find": 1,
+                "reply_id": find_reply_id_s
+             },
+             success: function( data ) {
+                 
+                var jsonOldReply_search = JSON.parse( data );
+                 
+                var jsonReplyLength_search = jsonOldReply_search.old_posts.length;
+                
+                 
+                 
+                 
+               for ( var for_oldreply_search = 0; for_oldreply_search < jsonReplyLength_search; for_oldreply_search++ ) {
+                   
+                   
+                    var resultOldReply_search = jsonOldReply_search.old_posts[ for_oldreply_search ];
+                   
+                    new_reply_html_search = "";
+                   
+                    new_reply_html_search += '<p style=\"font-family: Work Sans; font-weight: lighter;\" class=\"reply-body\">'+'<a> '+ resultOldReply_search.username +' </a> | ' +  resultOldReply_search.message  +'</p><br>'; 
+                   
+                   
+                   $( '#append_reply_search' + post_id ).html( new_reply_html_search );
+                   
+                  
+                   
+               }
+                 
+    
+                 
+             },
+           
+             error: function( xhr, textStatus, errorThrown ) {
+             
+                   $.ajax( this );
+                return;
+                 
+             }
+          } );
+        
+           
+       }
+
+       
+   } 
+    
+    
+    
+    
+    
+    
+    
     
     
   
@@ -6122,7 +7428,9 @@ function hide_delete(post_ui) {
 }
     
     
-    function sendPostDataAttach( post_id, path, name, type, posttype,  post_id_0) {
+    function sendPostDataAttach( post_id, path, name, type, posttype,  post_id_0, important) {
+        
+        alert(important)
         
         var is_sent = function( post_id_new ) {
             
@@ -6223,12 +7531,13 @@ function hide_delete(post_ui) {
                  "name": name,
                  "type": type,
                  "posttype": posttype,
+                 "important": important,
                  "group": page_group_id,
                  "time": currentMilli_attach
              },
              success: function( data ) {
                  
-                 
+                 console.log(data)
              var jsonNewPostAttach = JSON.parse( data );
             
              var statusNewPostAttach =  jsonNewPostAttach[0];
@@ -6393,7 +7702,8 @@ html45  += "<img src=\"  " + img +"  \" style=\"width: 100%;\" ></div><div><br>"
     
     
     
-    function sendAppend( e, attach ) {
+    function sendAppend( e, attach, file ) {
+        
         
         
         if ( $("#text").val().length > 200 ) {
@@ -6402,6 +7712,9 @@ html45  += "<img src=\"  " + img +"  \" style=\"width: 100%;\" ></div><div><br>"
             
         }
         
+        
+        
+   
         
         
         if (attach) {
@@ -6419,12 +7732,68 @@ html45  += "<img src=\"  " + img +"  \" style=\"width: 100%;\" ></div><div><br>"
           
             
             
+            if ( (attach_chat_type == "image/jpeg") || (attach_chat_type == "image/jpg") || (attach_chat_type == "image/png") || (attach_chat_type == "image/gif") )
+                
+                
+                {
+                    
+            var new_chat_html = '';
+                    
+            new_chat_html += '<div id=\"'+ 'whole_' + new_post_id +'\" class=\"row\" style=\"background: white; border-radius: 3px; margin-bottom: 30px;\">';
+                    
+            new_chat_html += '<div style=\"padding: 12px;\"><a class=\"text-username\"> ' + '<?php echo $user_info['username']; ?>' + '</a><a class=\"text-body\" href=\" ' + attach_chat_path  + ' \" download>' + ' | Download' + '</a></div>';
+                    
+            new_chat_html += '<img style=\"width: 100%;\" src=\"'+ attach_chat_path +'\" />';
+                    
+        
+                    
+            new_chat_html += '<span style=\"display: table; margin: 0 auto; width: 300px; margin-top: 10px;\" id=\"' + new_post_id + '\" ></span>';
+           
+            new_chat_html += '</div>';
+            
+            var new_items_chat = $( new_chat_html ).hide();
+            $( '#postsdiv' ).prepend( new_items_chat );
+            new_items_chat.show( 'fast' );
+                    
+               
+                    
+                    
+                              if ($('#important1').is(':checked')) {
+        
+          important_var = "true";   
+          
+          } else {
+        
+          important_var = "false";
+          
+          }   
+                    
+                    
+                    
+            sendPostDataAttach( new_post_id, attach_chat_path, attach_chat_name, attach_chat_type, post_type_chat, new_post_id_num, important_var );
+            
+                    
+            $('#important1').prop('checked', false);
+                    
+                    
+            new_post_id_num = new_post_id_num + 1;
+            new_post_id = "new_post" + new_post_id_num;
+            
+                    
+                    
+                } else {
+                    
+                    
+                    
             var new_chat_html = '';
             new_chat_html += '<div id=\"'+ 'whole_' + new_post_id +'\" class=\"row\">';
             new_chat_html += '<div class=\"col-xs-2\">';
             new_chat_html += '<a><img src=\" '+  '<?php echo $_SESSION['url_placeholder'] . $user_info['img_path'];  ?>' +' \" class=\"chat-left-1\"  /></a>';
             new_chat_html += '</div>';
             new_chat_html += '<div class=\"col-xs-10\">';
+            
+        
+            
             new_chat_html += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
             new_chat_html += '<div class=\"talktext\">';
             new_chat_html += '<p class=\"text-username\"> ' + '<?php echo $user_info['username']; ?>' + '</p>';
@@ -6434,11 +7803,36 @@ html45  += "<img src=\"  " + img +"  \" style=\"width: 100%;\" ></div><div><br>"
             var new_items_chat = $( new_chat_html ).hide();
             $( '#postsdiv' ).prepend( new_items_chat );
             new_items_chat.show( 'fast' );
-            sendPostDataAttach( new_post_id, attach_chat_path, attach_chat_name, attach_chat_type, post_type_chat, new_post_id_num );
+                    
+                  
+          if ($('#important1').is(':checked')) {
+        
+          important_var = "true";   
+          
+          } else {
+        
+          important_var = "false";
+          
+          }   
+                    
+                    
+            sendPostDataAttach( new_post_id, attach_chat_path, attach_chat_name, attach_chat_type, post_type_chat, new_post_id_num , important_var);
             
+            $('#important1').prop('checked', false);
+                    
+                    
+                    
             new_post_id_num = new_post_id_num + 1;
             new_post_id = "new_post" + new_post_id_num;
             
+                    
+                    
+                    
+                }
+                
+                
+            
+      
         } else {
             
             
@@ -6453,10 +7847,38 @@ html45  += "<img src=\"  " + img +"  \" style=\"width: 100%;\" ></div><div><br>"
           new_chat_html += '<a><img src=\" '+  '<?php echo $_SESSION['url_placeholder'] . $user_info['img_path'];  ?>' +' \" class=\"chat-left-1\"  /></a>';
           new_chat_html += '</div>';
           new_chat_html += '<div class=\"col-xs-10\">';
+          
+          
+         
+          
           new_chat_html += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
+          
+          
+          
+          
           new_chat_html += '<div class=\"talktext\">';
-        //  new_chat_html += '<p class=\"text-username\">' + '<?php echo $user_info['username'];  ?>' + '</p>';        
-          new_chat_html += '<p class=\"text-body\">' + text + '</p><span id=\"' + new_post_id + '\" ></span>';
+        //  new_chat_html += '<p class=\"text-username\">' + '<?php echo $user_info['username'];  ?>' + '</p>'; 
+          
+          
+          
+
+          
+
+          
+          
+          new_chat_html += '<p class=\"text-body\">' + text + '</p>';
+          
+                    if ($("#replytextvalue").val().trim().length > 0) {
+              
+                        new_chat_html += '<p class=\"reply-body\">'+'<a> '+ $("#replyusernamevalue").val()  +' </a> | ' +    $("#replytextvalue").val()  +'</p><br>'; 
+              
+              
+          }
+          
+          
+          new_chat_html += '<span id=\"' + new_post_id + '\" ></span>';
+          
+          
           new_chat_html += ' </div></div></div></div>';
                 
                 
@@ -6466,11 +7888,42 @@ html45  += "<img src=\"  " + img +"  \" style=\"width: 100%;\" ></div><div><br>"
           new_items_chat.show( 100 );
                 
           previewLink(name, new_post_id);
+          
+          
+          
+          
+          
+          if ($('#important1').is(':checked')) {
+        
+          important_var = "true";   
+          
+          } else {
+        
+          important_var = "false";
+          
+          }
+          
+          
+          
+          
+          
          
           
-          sendPostData(text, e, new_post_id, text,  new_post_id_num);
+          sendPostData(text, e, new_post_id, text,  new_post_id_num, $("#replyid").val(), important_var);
+          
+          $('#important1').prop('checked', false);
+          
+          
+          $("#replyid").val("");
+          
+          $("#replytextvalue").val("");
+          
+          $("#replyusernamevalue").val("");
+          
+          $("#replybox").hide()
+          
                 
-             $( "#text" ).val( "" ); 
+          $( "#text" ).val( "" ); 
           
           new_post_id_num = new_post_id_num + 1;
           new_post_id = "new_post" + new_post_id_num;
@@ -6484,5 +7937,6 @@ html45  += "<img src=\"  " + img +"  \" style=\"width: 100%;\" ></div><div><br>"
         
      
 }
+    
     
 </script>   

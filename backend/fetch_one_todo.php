@@ -34,6 +34,9 @@ if(isset($_POST['fetchold']))  {
           while($r = $is_there_result->fetch_assoc()) {
               
               
+               //   $r["stamp"] = date("l jS \of F Y h:i:s A", $r["timeoutput"]);
+              
+              
                   $already_like = $like->find_like($_SESSION['admin_id'], $r['id'], $r['group_id']);
     
                   $already_like_result = $already_like->get_result();
