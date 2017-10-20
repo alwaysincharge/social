@@ -376,7 +376,7 @@ $user_info = $user_details_result->fetch_assoc();
                         
                         
                           
-                       <a href="<?php echo $_SESSION['url_placeholder'] . "members/" . $_GET['group'];  ?>">
+                       <a href="<?php echo $_SESSION['url_placeholder'] . "likes" ?>">
                         <div class="col-xs-2">
                         
                         <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/save.svg" class="input-style-1"  />
@@ -892,6 +892,9 @@ $all_members_of_this_group_result = $all_members_of_this_group->get_result();
                  
              },
              success: function( data ) {
+                 
+                 
+             //    console.log(data);
                  
                  
             var jsonCountAppend = JSON.parse( data );

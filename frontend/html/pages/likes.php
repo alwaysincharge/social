@@ -59,7 +59,7 @@ $user_info = $user_details_result->fetch_assoc();
         <div class="col-xs-6">
             
             <a class="logo-heading-1">friday camp <span class="logo-heading-2">//</span> <span class="logo-heading-3">
-important
+likes
                </span></a>
                             
         </div>
@@ -441,11 +441,11 @@ important
                     
 
                     
-                    <p style="font-family: Work Sans; font-size: 20px; margin-left: 20px;">Important posts.</p>
+                    <p style="font-family: Work Sans; font-size: 20px; margin-left: 20px;">Liked posts.</p>
                     
                     
                     
-                    <p style="font-family: Work Sans; font-size: 17px; margin-left: 20px;">These are posts that the post creators wanted all members of the respective groups to see.</p>
+                    <p style="font-family: Work Sans; font-size: 17px; margin-left: 20px;">These are posts that you have liked from all your groups.</p>
                     
                     
 
@@ -479,50 +479,6 @@ important
 <script type="text/javascript">
     
     
-    
-    
-    
- 
-    function scout_important(back)  {
-       
-       
-             typing_url_count = "<?php echo $_SESSION['url_placeholder'];  ?>scout";
-        
-        
-             $.ajax( {
-             url: typing_url_count,
-             type: "POST",
-             async: true,
-             timeout: 15000,
-             data: {
-                "important": 1,
-                 "post_id": back
-                 
-             },
-             success: function( data ) {
-                 
-          
-
-        
-             },
-             error: function( xhr, textStatus, errorThrown ) {
-                 
-                 
-            
-                
-                  
-                 $.ajax( this );
-                return;
-                 
-    
-                 
-                
-             }
-          } );
-       
-       
-   } 
-       
     
     
     
@@ -2702,7 +2658,7 @@ function displayFromDatabasePagination() {
         
     completedPosts = false;
     
-    fetch_old_url = "<?php echo $_SESSION['url_placeholder'];  ?>fetch_important_posts";
+    fetch_old_url = "<?php echo $_SESSION['url_placeholder'];  ?>fetch_likes_posts";
       
     var flag;
         
@@ -2765,7 +2721,7 @@ function displayFromDatabasePagination() {
                   firstTimeID = resultOldPost.id;
                    
                    
-                   scout_important(resultOldPost.id);
+                
                    
                    
                    

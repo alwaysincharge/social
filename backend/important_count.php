@@ -25,14 +25,14 @@ if (isset($_POST['important'])) {
     
     $count_result2 = $count2->get_result();
     
-    $count_num2 = $count_result2->num_rows;
+    $count_num2 = $count_result2->fetch_assoc();
+    
+  //  echo $count_num['count'] . " and " . $count_num2['count'];
     
     
+    $attach_array = array("send_success"=> 1, "post_id"=> $count_num['count'] - $count_num2['count']);     
     
-    
-    $attach_array = array("send_success"=> 1, "post_id"=> $count_num['count'] - $count_num2);     
-    
-    echo json_encode(array_values($attach_array));
+ echo json_encode(array_values($attach_array));
     
     
 }

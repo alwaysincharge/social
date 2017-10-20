@@ -17,6 +17,8 @@ RewriteRule ^todo/([0-9]+) frontend/html/pages/todo.php?group=$1 [NC,L]
 
 RewriteRule ^important frontend/html/pages/important.php [NC,L]
 
+RewriteRule ^likes frontend/html/pages/likes.php [NC,L]
+
 RewriteRule ^poll/([0-9]+) frontend/html/pages/poll.php?group=$1 [NC,L]
 
 RewriteRule ^members/([0-9]+) frontend/html/pages/members.php?members=$1 [NC,L]
@@ -42,6 +44,8 @@ RewriteRule ^fetch_recent_poll backend/fetch_recent_poll.php [NC,L]
 RewriteRule ^fetch_old_posts backend/fetch_old_posts.php [NC,L]
 
 RewriteRule ^fetch_important_posts backend/fetch_important_posts.php [NC,L]
+
+RewriteRule ^fetch_likes_posts backend/fetch_likes_posts.php [NC,L]
 
 RewriteRule ^fetch_old_todos backend/fetch_old_todos.php [NC,L]
 

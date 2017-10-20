@@ -180,12 +180,124 @@ class Posts {
        
        INNER JOIN membership ON membership.group_id = posts.group_id
        
-       where  membership.member_id = ? AND posts.deleted = 'live' and posts.important = 'true' order by posts.id desc limit 1");
+       where groups.deleted = 'live' and membership.deleted = 'live' and  membership.member_id = ? AND posts.deleted = 'live' and posts.important = 'true' order by posts.id desc limit 1");
            
        $stmt->bind_param("i", $id);
           
        $id = $_SESSION['admin_id'];
           
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+       public function is_there_like_in_this_group() {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT posts.id as id, posts.message as message, posts.owner as owner, posts.group_id as group_id, posts.type as type, posts.reply_id as reply_id, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question, posts.timeoutput as timeoutput, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, posts.listname as listname, users.username as username, users.img_path as image, groups.name as groupname FROM posts 
+       
+       INNER JOIN users ON users.id = posts.owner 
+       
+       INNER JOIN groups ON groups.id = posts.group_id
+       
+       INNER JOIN membership ON membership.group_id = posts.group_id
+       
+       INNER JOIN bookmark ON bookmark.post = posts.id
+       
+       where  membership.member_id = ? AND posts.deleted = 'live' and bookmark.owner = ? and groups.deleted = 'live'  and membership.deleted = 'live' order by posts.id desc limit 1");
+           
+       $stmt->bind_param("ii", $id, $id);
+          
+       $id = $_SESSION['admin_id'];
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+       public function get_first_like_posts() {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT posts.id as id, posts.message as message, posts.owner as owner, posts.group_id as group_id, posts.type as type, posts.reply_id as reply_id, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question, posts.timeoutput as timeoutput, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, posts.listname as listname, users.username as username, users.img_path as image, groups.name as groupname, bookmark.owner as book_owner FROM posts 
+       
+       INNER JOIN users ON users.id = posts.owner 
+       
+       INNER JOIN groups ON groups.id = posts.group_id
+       
+       INNER JOIN membership ON membership.group_id = posts.group_id
+       
+       INNER JOIN bookmark ON bookmark.post = posts.id
+       
+       where  membership.member_id = ? AND posts.deleted = 'live' and bookmark.owner = ? and groups.deleted = 'live' and membership.deleted = 'live' order by posts.id desc limit 12");
+           
+       $stmt->bind_param("ii", $id, $id);
+          
+       $id = $_SESSION['admin_id'];
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+       public function get_next_like_posts($offset_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT posts.id as id, posts.message as message, posts.owner as owner, posts.group_id as group_id, posts.type as type, posts.reply_id as reply_id, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question, posts.timeoutput as timeoutput, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, posts.listname as listname, users.username as username, users.img_path as image, groups.name as groupname, bookmark.owner as book_owner FROM posts 
+       
+       INNER JOIN users ON users.id = posts.owner 
+       
+       INNER JOIN groups ON groups.id = posts.group_id
+       
+       INNER JOIN membership ON membership.group_id = posts.group_id
+       
+       INNER JOIN bookmark ON bookmark.post = posts.id
+       
+     
+       where  membership.member_id = ? AND posts.deleted = 'live' and groups.deleted = 'live' and bookmark.owner = ? and posts.id < ?  and membership.deleted = 'live' order by posts.id desc limit 12
+       
+       ");
+        
+       $stmt->bind_param("iii", $id, $id, $offset);
+           
+       $id = $_SESSION['admin_id'];
+        
+       $offset = $offset_input;
+           
        $stmt->execute();
            
        return $stmt;    
@@ -331,7 +443,7 @@ class Posts {
 
        global $database;
         
-       $stmt = $database->connection->prepare("SELECT posts.id as id, posts.message as message, posts.owner as owner, posts.group_id as group_id, posts.type as type, posts.reply_id as reply_id, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question, posts.timeoutput as timeoutput, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, posts.listname as listname, users.username as username, users.img_path as image, groups.name as groupname FROM posts 
+       $stmt = $database->connection->prepare("SELECT posts.id as id, posts.message as message, posts.owner as owner, posts.group_id as group_id, posts.type as type, posts.reply_id as reply_id, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question, posts.timeoutput as timeoutput, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, posts.listname as listname, users.username as username, users.img_path as image, groups.name as groupname, groups.id as groupid FROM posts 
        
        INNER JOIN users ON users.id = posts.owner 
        
@@ -339,7 +451,7 @@ class Posts {
        
        INNER JOIN membership ON membership.group_id = posts.group_id
        
-       where  membership.member_id = ? AND posts.deleted = 'live' and posts.important = 'true' order by posts.id desc limit 12");
+       where groups.deleted = 'live' and membership.deleted = 'live' and  membership.member_id = ? AND posts.deleted = 'live' and posts.important = 'true' order by posts.id desc limit 12");
            
        $stmt->bind_param("i", $id);
           
@@ -367,7 +479,9 @@ class Posts {
 
        global $database;
         
-       $stmt = $database->connection->prepare("SELECT count(posts.id) as count FROM posts 
+       $stmt = $database->connection->prepare("
+       
+       SELECT count(posts.id) as count FROM posts 
        
        INNER JOIN users ON users.id = posts.owner 
        
@@ -375,7 +489,9 @@ class Posts {
        
        INNER JOIN membership ON membership.group_id = posts.group_id
        
-       where  membership.member_id = ? AND posts.deleted = 'live' and posts.important = 'true' ");
+       where groups.deleted = 'live' and membership.deleted = 'live' and  membership.member_id = ? AND posts.deleted = 'live' and posts.important = 'true' 
+       
+       ");
            
        $stmt->bind_param("i", $id);
           
@@ -421,13 +537,23 @@ class Posts {
 
        global $database;
         
-       $stmt = $database->connection->prepare("select important.id as id, important.member_id, posts.deleted from important
+       $stmt = $database->connection->prepare("
        
-       INNER JOIN posts ON posts.id = important.post_id 
+       SELECT count(posts.id) as count FROM posts 
        
-       where important.member_id = ? and posts.deleted = 'live' ");
+       INNER JOIN users ON users.id = posts.owner 
+       
+       INNER JOIN groups ON groups.id = posts.group_id
+       
+       INNER JOIN membership ON membership.group_id = posts.group_id
+       
+       INNER JOIN important ON important.post_id = posts.id
+       
+       where groups.deleted = 'live' and membership.deleted = 'live' and  membership.member_id = ? AND posts.deleted = 'live' and posts.important = 'true' and important.member_id = ?
+       
+       ");
            
-       $stmt->bind_param("i", $id);
+       $stmt->bind_param("ii", $id, $id);
           
        $id = $_SESSION['admin_id'];
           
@@ -494,7 +620,7 @@ class Posts {
         
        $stmt = $database->connection->prepare("
        
-       SELECT posts.id as id, posts.message as message, posts.owner as owner, posts.group_id as group_id, posts.type as type, posts.reply_id as reply_id, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question, posts.timeoutput as timeoutput, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, posts.listname as listname, users.username as username, users.img_path as image, groups.name as groupname FROM posts 
+       SELECT posts.id as id, posts.message as message, posts.owner as owner, posts.group_id as group_id, posts.type as type, posts.reply_id as reply_id, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question, posts.timeoutput as timeoutput, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, posts.listname as listname, users.username as username, users.img_path as image, groups.name as groupname, groups.id as groupid FROM posts 
        
        INNER JOIN users ON users.id = posts.owner 
        
@@ -502,7 +628,7 @@ class Posts {
        
        INNER JOIN membership ON membership.group_id = posts.group_id
        
-       where  membership.member_id = ? AND posts.deleted = 'live' and posts.important = 'true' and posts.id < ? order by posts.id desc limit 12
+       where groups.deleted = 'live' and membership.deleted = 'live' and  membership.member_id = ? AND posts.deleted = 'live' and posts.important = 'true' and posts.id < ? order by posts.id desc limit 12
        
        ");
         
