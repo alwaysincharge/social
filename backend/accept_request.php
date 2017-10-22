@@ -39,7 +39,7 @@ if (isset($_POST['group_id']))  {
               $request->delete_request($_SESSION['admin_id'], $_POST['group_id']);
               
               
-              redirect_to($_SESSION['url_placeholder'] . 'nogroups');
+              echo 100;
               
           } 
     

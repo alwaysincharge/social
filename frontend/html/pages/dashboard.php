@@ -100,127 +100,12 @@ $user_info = $user_details_result->fetch_assoc();
             </a>
             
                 
-                <a href="<?php echo $_SESSION['url_placeholder'];  ?>important"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/import.svg" width="35" height="35" class="current-user-img"  /> <span style="font-family: Work Sans;" id="alert_one"></span></a>
+                <a href="<?php echo $_SESSION['url_placeholder'];  ?>important"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/import.svg" width="30" height="30" class="current-user-img"  /> <span style="font-family: Work Sans;" id="alert_one"></span></a>
                 
                 
+                <a href="<?php echo $_SESSION['url_placeholder'];  ?>add"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/notification.svg" width="30" height="30" class="current-user-img"  /> <span style="font-family: Work Sans;" id="alert_two"></span></a>
                 
             
-                <div class="dropdown">
-           
-                      <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/notification.svg" width="35" height="35" class="current-user-img"  /> (87)
-                    
-                <div class="dropdown-content">
-                    
-                      <?php
-                    
-                    
-                      $request_list = $request->current_member_requests($_SESSION['admin_id']); 
-          
-                      $request_list_result = $request_list->get_result();
-          
-          
-                      if ($request_list_result->num_rows > 0) {
-              
-                        
-                          while($row_list_request = $request_list_result->fetch_assoc()) { ?>
-                              
-                              
-                                <?php 
-                              
-                                $group_details = $group->find_group_by_id($row_list_request['group_id']); 
-          
-                                $group_details_result = $group_details->get_result();
-                              
-                                $row_group = $group_details_result->fetch_assoc();
-                              
-                                
-                              
-                              
-                              
-                              
-                                $user_details = $user->find_one_user($row_list_request['sender_id']); 
-          
-                                $user_details_result = $user_details->get_result();
-                              
-                                $row_user = $user_details_result->fetch_assoc();
-                                                                                          
-                                ?>
-                    
-                    
-                              
-                              <div class="row" id="group<?php echo $row_group['id'];  ?>">
-                    
-                                  <div class="col-xs-2">
-                                  
-                                      <img src="<?php echo $row_group['img_path'];  ?>" width="35" height="35" class="current-user-img"  />
-                                  
-                                  </div>
-                    
-                                  
-                                  
-                                  <div class="col-xs-6" style="font-weight: bold; font-size: 16px;font-family: Josefin Slab;">
-                                  <p><?php echo $row_user['username'];  ?> wants you to join <span style="color: blue;"><?php echo $row_group['name'];  ?></span></p>
-                                  
-                                  </div>
-                                  
-                                  
-                                  <div class="col-xs-4">
-                                      
-                                      
-                                      <form method="post" action="<?php echo $_SESSION['url_placeholder'];  ?>accept_request" style="width: 30px; display: inline;">
-                                      
-                                      <input type="text" name="group_id" style="display: none;" value="<?php echo $row_group['id'];  ?>" />
-                                         
-                                          
-                                      
-                                          
-                                     <input type="submit" name="submit" value="accept" class="btn" style="outline: 0px ! important; font-weight: bold; font-size: 14px;font-family: Josefin Slab; background: #ddd; padding: 7px; border-radius: 4px; margin-right: 1px;" /> 
-                                      
-                                      
-                                      </form>
-                                      
-                                      
-                                              
-                                      
-                                      
-                                      
-                                      
-                                                      <div style="width: 30px; display: inline;">
-                                      
-
-                                         
-                                          
-                                      
-                                          
-                                     <input type="submit" onclick="myFunction('<?php echo $row_group['id'];  ?>')" name="submit" value="decline" class="btn" style="font-weight: bold; font-size: 14px;font-family: Josefin Slab; background: #ddd; padding: 7px; border-radius: 4px; margin-right: 0px;" /> 
-                                      
-                                      
-                                      </div>
-                                      
-                                      
-
-                                  
-                                  </div>
-                    
-                    
-                              </div>
-                              
-                       <?php   }
-                          
-                          
-        
-                      } else {
-                          
-                          echo "none";
-                      }
-            
-                    
-                      ?>
-                    
-                </div>
-                    
-                </div>
-                
                 <div class="dropdown">
             
             <img src="<?php echo $_SESSION['url_placeholder'];  ?><?php echo $user_info['img_path'];  ?>" width="35" height="35" class="current-user-img"  />
@@ -875,6 +760,160 @@ $all_members_of_this_group_result = $all_members_of_this_group->get_result();
     
     
     
+    function sendPostData(textMessage, e, sent_post_id, text, post_id_num, reply_id, important ) {
+        
+        
+        
+       var is_sent_already = function( post_ui, post_id_0 ) {
+           
+           
+           
+                     append_post_sent_1 = "";
+                     
+                     append_post_sent_1 += '<div class=\"row\" >';
+                     
+                     
+                     append_post_sent_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
+                     
+                    
+                     
+                     append_post_sent_1 += '<img onclick=\"start_delete(' + post_id_0 + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
+                     
+                     
+                     append_post_sent_1 += '</div>';
+                     
+                     
+                     append_post_sent_1 += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
+                     
+                    
+           
+           
+                     append_post_sent_1 += '<img class=\" size-2 '+ 'start_delete' + post_id_0 + '   like_delete'  +  post_id_0  +  '    \" src=\"' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/unlike.svg' + '\" onclick=\"likeoldpost(' + post_id_0 + ') \" />';
+           
+           
+                     
+                     append_post_sent_1 += '<img onclick=\"show_delete(' + post_id_0 + ') \" class=\" size-3 '+ 'start_delete' + post_id_0 +' \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/garbage.svg' + '\" />';
+                     
+                     append_post_sent_1 += '</div>';
+                     
+                     
+                     append_post_sent_1 += '<div class=\"col-xs-5\" >';
+                     
+                     
+                     append_post_sent_1 += '<a class=\"delete-2 '+ 'show_delete' + post_id_0 +'\" onclick=\"deletenewpost(' +  post_id_num + ',' + post_id_0 + ') \">delete</a><a style=\"display: none; font-size: 13px;\" class=\"'+ 'show_delete' + post_id_0 +'\" > //</a>';
+                     
+                     
+                      append_post_sent_1 += '<a onclick=\"hide_delete(' + post_id_0 + ') \" class=\"delete-3 '+ 'show_delete' + post_id_0 +'\">don\'t</a>';
+                     
+                     
+                     append_post_sent_1 += '</div>';
+                     
+                     
+                     
+                     
+                     
+                    append_post_sent_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
+           
+           
+           
+           
+                     append_post_sent_1 += '<img   onclick=\"reply_old(' + post_id_0 + ') \"  class=\" size-1-x \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/reply.svg' + '\" />';
+                     
+                     
+                     
+                      append_post_sent_1 += '<input type=\"hidden\" id=\"old_reply_text'+ post_id_0  +'\" value=\"'+ textMessage + '\" />';
+                     
+                     
+                      append_post_sent_1 += '<input type=\"hidden\" id=\"old_reply_username'+ post_id_0 +'\" value=\"'+ '<?php echo $user_info['username']; ?>' + '\" />';
+                     
+           
+           
+                     append_post_sent_1 += '</div>';
+                     
+                     
+                     
+                     append_post_sent_1 += '</div>';
+                     
+                     
+                     
+           
+      
+           
+           var new_items_chat_append_1 = $( append_post_sent_1 ).hide();
+           
+           $( "#" + post_ui ).prepend( new_items_chat_append_1 );
+           
+           new_items_chat_append_1.show(500);
+           
+       };
+        
+        
+
+          
+          // true shit
+           
+          e.preventDefault();
+          
+           
+          post_url_2 = "<?php  echo $_SESSION['url_placeholder'];  ?>" + "send_chat";   
+           
+           
+          current = new Date();
+        
+          currentMilli =  current.getTime();
+        
+          
+          
+           
+         currentArray.push(currentMilli);
+               
+           
+          $.ajax( {
+             url: post_url_2,
+             type: "POST",
+             async: true,
+             timeout: 15000,
+             data: {
+                "done": 1,
+                "message": textMessage,
+                 "group_id": page_group_id,
+                 "reply_id": reply_id,
+                 "important": important,
+                 "time": currentMilli
+             },
+             success: function( data ) {
+                 
+            //  alert(true)   
+                 
+                 
+             var jsonNewPost = JSON.parse( data );
+            
+             var statusNewPost =  jsonNewPost[0];
+            
+             var post_id_new_from_json =  jsonNewPost[1];
+                 
+                if ( statusNewPost == 1 ) {
+                    
+                   is_sent_already( sent_post_id, post_id_new_from_json );
+                    
+                } else {}
+                
+              //  $( "#text" ).val( "" );
+                
+                e.preventDefault();
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                $.ajax( this );
+                return;
+             }
+          } );
+      
+    }
+    
+    
+    
+    
+    
  
     function count_important()  {
        
@@ -958,6 +997,88 @@ $all_members_of_this_group_result = $all_members_of_this_group->get_result();
     
     
     
+     
+    function count_request()  {
+       
+       
+             typing_url_request = "<?php echo $_SESSION['url_placeholder'];  ?>tally";
+        
+        
+             $.ajax( {
+             url: typing_url_request,
+             type: "POST",
+             async: true,
+             timeout: 15000,
+             data: {
+                "important": 1,
+                 
+             },
+             success: function( data ) {
+                 
+                 
+             //    console.log(data);
+                 
+                 
+            var jsonCountAppend_request = JSON.parse( data );
+            
+            var attach_count_status_request =  jsonCountAppend_request[0];
+            
+            var attach_count_back_count_request =  jsonCountAppend_request[1];
+        
+            
+        
+           if (attach_count_status_request == 1) {
+               
+               if (attach_count_back_count_request == 0) {
+                   
+                   $("#alert_two").hide();
+                   
+               } else if (attach_count_back_count_request > 99) {
+                   
+                   $("#alert_two").show();
+                   
+                   $("#alert_two").html("(99+)");
+                   
+               }  else {
+                   
+                   $("#alert_two").show();
+                   
+                   $("#alert_two").html("(" + attach_count_back_count_request + ")");
+                   
+                   
+               }
+               
+           }
+        
+                   
+                  setTimeout(count_request, 5000);
+        
+        
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                 
+                 
+            
+                
+                  setTimeout(count_request, 5000);
+    
+                 
+                
+             }
+          } );
+       
+       
+   } 
+       
+    
+  
+    
+    
+    
+    
+    
+    
+    
       $( '#text' ).on( "focus", function() {
        
 
@@ -990,7 +1111,7 @@ $all_members_of_this_group_result = $all_members_of_this_group->get_result();
              url: typing_url,
              type: "POST",
              async: true,
-             timeout: 5000,
+             timeout: 1000,
              data: {
                 "typing": 1,
                  "group_id": page_group_id,
@@ -1024,7 +1145,7 @@ $all_members_of_this_group_result = $all_members_of_this_group->get_result();
         
         $("#typing").show(300);
         
-        typing_alt_1 = setTimeout(hide_typing, 2000);
+        typing_alt_1 = setTimeout(hide_typing, 900);
         
     }
     
@@ -1036,6 +1157,7 @@ $all_members_of_this_group_result = $all_members_of_this_group->get_result();
         $("#typing").hide(300);
         
        
+        
         
     }
     
@@ -1177,6 +1299,8 @@ function title_alt_2() {
      $( document ).ready( function() {
          
          count_important();
+         
+         count_request();
          
          get_typing();
     
@@ -5235,7 +5359,7 @@ function displayFromDatabasePagination() {
           },
           success: function( data ) {
            
-            console.log(data)
+            
     
               if (data == 100) {
                   
@@ -6700,153 +6824,8 @@ function displayFromDatabasePagination() {
     
     
     
-    function sendPostData(textMessage, e, sent_post_id, text, post_id_num, reply_id, important ) {
-        
-       var is_sent_already = function( post_ui, post_id_0 ) {
-           
-           
-           
-                     append_post_sent_1 = "";
-                     
-                     append_post_sent_1 += '<div class=\"row\" >';
-                     
-                     
-                     append_post_sent_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-                     
-                    
-                     
-                     append_post_sent_1 += '<img onclick=\"start_delete(' + post_id_0 + ') \" class=\" size-0 \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/arrow.svg' + '\" />';
-                     
-                     
-                     append_post_sent_1 += '</div>';
-                     
-                     
-                     append_post_sent_1 += '<div class=\"col-xs-3\" style=\" height: 25px;\">';
-                     
-                    
-           
-           
-                     append_post_sent_1 += '<img class=\" size-2 '+ 'start_delete' + post_id_0 + '   like_delete'  +  post_id_0  +  '    \" src=\"' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/unlike.svg' + '\" onclick=\"likeoldpost(' + post_id_0 + ') \" />';
-           
-           
-                     
-                     append_post_sent_1 += '<img onclick=\"show_delete(' + post_id_0 + ') \" class=\" size-3 '+ 'start_delete' + post_id_0 +' \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/garbage.svg' + '\" />';
-                     
-                     append_post_sent_1 += '</div>';
-                     
-                     
-                     append_post_sent_1 += '<div class=\"col-xs-5\" >';
-                     
-                     
-                     append_post_sent_1 += '<a class=\"delete-2 '+ 'show_delete' + post_id_0 +'\" onclick=\"deletenewpost(' +  post_id_num + ',' + post_id_0 + ') \">delete</a><a style=\"display: none; font-size: 13px;\" class=\"'+ 'show_delete' + post_id_0 +'\" > //</a>';
-                     
-                     
-                      append_post_sent_1 += '<a onclick=\"hide_delete(' + post_id_0 + ') \" class=\"delete-3 '+ 'show_delete' + post_id_0 +'\">don\'t</a>';
-                     
-                     
-                     append_post_sent_1 += '</div>';
-                     
-                     
-                     
-                     
-                     
-                    append_post_sent_1 += '<div class=\"col-xs-2\" style=\" height: 25px;\">';
-           
-           
-           
-           
-                     append_post_sent_1 += '<img   onclick=\"reply_old(' + post_id_0 + ') \"  class=\" size-1-x \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/reply.svg' + '\" />';
-                     
-                     
-                     
-                      append_post_sent_1 += '<input type=\"hidden\" id=\"old_reply_text'+ post_id_0  +'\" value=\"'+ textMessage + '\" />';
-                     
-                     
-                      append_post_sent_1 += '<input type=\"hidden\" id=\"old_reply_username'+ post_id_0 +'\" value=\"'+ '<?php echo $user_info['username']; ?>' + '\" />';
-                     
-           
-           
-                     append_post_sent_1 += '</div>';
-                     
-                     
-                     
-                     append_post_sent_1 += '</div>';
-                     
-                     
-                     
-           
-      
-           
-           var new_items_chat_append_1 = $( append_post_sent_1 ).hide();
-           
-           $( "#" + post_ui ).prepend( new_items_chat_append_1 );
-           
-           new_items_chat_append_1.show(500);
-           
-       };
-        
-        
-
-          
-          // true shit
-           
-          e.preventDefault();
-          
-           
-          post_url_2 = "<?php  echo $_SESSION['url_placeholder'];  ?>" + "send_chat";   
-           
-           
-          current = new Date();
-        
-          currentMilli = current.getTime();
-        
-          
-          
-           
-          currentArray.push(currentMilli);
-               
-           
-          $.ajax( {
-             url: post_url_2,
-             type: "POST",
-             async: true,
-             timeout: 15000,
-             data: {
-                "done": 1,
-                "message": textMessage,
-                 "group_id": page_group_id,
-                 "reply_id": reply_id,
-                 "important": important,
-                 "time": currentMilli
-             },
-             success: function( data ) {
-                 
-                 console.log(data);
-                 
-                 
-             var jsonNewPost = JSON.parse( data );
-            
-             var statusNewPost =  jsonNewPost[0];
-            
-             var post_id_new_from_json =  jsonNewPost[1];
-                 
-                if ( statusNewPost == 1 ) {
-                    
-                   is_sent_already( sent_post_id, post_id_new_from_json );
-                    
-                } else {}
-                
-              //  $( "#text" ).val( "" );
-                
-                e.preventDefault();
-             },
-             error: function( xhr, textStatus, errorThrown ) {
-                $.ajax( this );
-                return;
-             }
-          } );
-      
-    }
+    
+    
     
     
     
@@ -7540,7 +7519,7 @@ function hide_delete(post_ui) {
              },
              success: function( data ) {
                  
-                 console.log(data)
+                 
              var jsonNewPostAttach = JSON.parse( data );
             
              var statusNewPostAttach =  jsonNewPostAttach[0];
