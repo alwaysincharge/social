@@ -123,7 +123,7 @@ if(isset($_POST['poll']))  {
     
     
     
-    $posts->create_poll($_SESSION['admin_id'], $_POST['group_id'], $_POST['time'], $_POST['poll_q'], $_POST['poll_a1'], $_POST['poll_a2'], $_POST['poll_a3'], $_POST['poll_a4'], $_POST['poll_a5'], $_POST['poll_a6'], $_POST['poll_a7'], $_POST['poll_a8'], $_POST['poll_a9'], $_POST['poll_a10'], $_POST['important']);
+    $posts->create_poll($_SESSION['admin_id'], $_POST['group_id'], $_POST['time'], strip_tags($_POST['poll_q']), strip_tags($_POST['poll_a1']), strip_tags($_POST['poll_a2']), strip_tags($_POST['poll_a3']), strip_tags($_POST['poll_a4']), strip_tags($_POST['poll_a5']), strip_tags($_POST['poll_a6']), strip_tags($_POST['poll_a7']), strip_tags($_POST['poll_a8']), strip_tags($_POST['poll_a9']), strip_tags($_POST['poll_a10']), $_POST['important']);
     
     $post_id = mysqli_insert_id($database->connection);
     

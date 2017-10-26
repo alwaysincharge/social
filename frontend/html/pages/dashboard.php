@@ -17,6 +17,28 @@ $user_details_result = $user_details->get_result();
 $user_info = $user_details_result->fetch_assoc();
 
 
+
+
+
+$is_mem = $member->this_user_this_group_alive($_SESSION['admin_id'], $_GET['group']);
+
+$is_mem_r = $is_mem->get_result();
+
+$is_num = $is_mem_r->num_rows;
+
+
+
+if ($is_num != 1) {
+    
+    redirect_to($_SESSION['url_placeholder'] . 'nogroups');
+    
+}
+
+
+
+
+
+
 ?>
 
 
@@ -58,7 +80,7 @@ $user_info = $user_details_result->fetch_assoc();
         
         <div class="col-xs-4">
             
-            <a class="logo-heading-1">friday camp <span class="logo-heading-2">//</span> <span class="logo-heading-3">
+            <a href="<?php  echo $_SESSION['url_placeholder'];  ?>nogroups" class="logo-heading-1">friday camp <span class="logo-heading-2">//</span> <span class="logo-heading-3">
                 <?php
                 
                 $get_find_group_by_id = $group->find_group_by_id($_GET['group']);
@@ -68,7 +90,17 @@ $user_info = $user_details_result->fetch_assoc();
              
                     while($group_name = $get_find_group_by_id_result->fetch_assoc()) {
                         
-                        echo $group_name['name'];
+                        if (strlen($group_name['name']) <= 16)  {
+                            
+                            echo $group_name['name'];
+                            
+                        } else if (strlen($group_name['name']) > 16) {
+                            
+                            echo "<span style='font-size: 18px;'>" . substr($group_name['name'], 0, 16). "...</span>";
+                            
+                        }
+                        
+                        
                         
                     }
                 
@@ -86,7 +118,7 @@ $user_info = $user_details_result->fetch_assoc();
             <div style="float: right;">
             
             
-            <input id="myTextBox"  maxlength="100" name="keywords" class="search-main" placeholder="Search group chat and files" />
+            <input id="myTextBox"  maxlength="100" name="keywords" class="search-main" placeholder="Search group chat" />
                 
             
             
@@ -99,25 +131,30 @@ $user_info = $user_details_result->fetch_assoc();
             
             </a>
             
+                 <a data-toggle="tooltip" data-placement="bottom" title="important posts" href="<?php echo $_SESSION['url_placeholder'];  ?>important"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/import.svg" width="30" height="30" class="current-user-img"  /> <span style="font-family: Work Sans;" id="alert_one"></span></a>
                 
-                <a href="<?php echo $_SESSION['url_placeholder'];  ?>important"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/import.svg" width="30" height="30" class="current-user-img"  /> <span style="font-family: Work Sans;" id="alert_one"></span></a>
+                
+                <a data-toggle="tooltip" data-placement="bottom" title="replies" href="<?php echo $_SESSION['url_placeholder'];  ?>reply"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/replypage.svg" width="30" height="30" class="current-user-img"  /> <span style="font-family: Work Sans;" id="alert_three"></span></a>
                 
                 
-                <a href="<?php echo $_SESSION['url_placeholder'];  ?>add"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/notification.svg" width="30" height="30" class="current-user-img"  /> <span style="font-family: Work Sans;" id="alert_two"></span></a>
+                <a data-toggle="tooltip" data-placement="bottom" title="group requests" href="<?php echo $_SESSION['url_placeholder'];  ?>add"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/notification.svg" width="30" height="30" class="current-user-img"  /> <span style="font-family: Work Sans;" id="alert_two"></span></a>
                 
-            
-                <div class="dropdown">
+                
+
+                
+                      <div class="dropdown">
             
             <img src="<?php echo $_SESSION['url_placeholder'];  ?><?php echo $user_info['img_path'];  ?>" width="35" height="35" class="current-user-img"  />
                     
                     
                     <div class="dropdown-content-2">
+                        <p style="font-size: 15px; font-family: Work Sans;"><i><?php echo $user_info['username'];  ?></i></p>
+                        
                         <a href="<?php echo $_SESSION['url_placeholder'];  ?>profile" style="font-size: 15px; font-family: Work Sans;">Edit profile</a> //
                         <a href="<?php echo $_SESSION['url_placeholder'];  ?>logout" style="font-size: 15px; font-family: Work Sans;">Logout</a>
                     </div>
             
                 </div>
-            
             </div>
             
                     
@@ -319,33 +356,23 @@ $user_info = $user_details_result->fetch_assoc();
                        
                        
                        <p style="font-family: Work Sans; font-size: 19px;">Reply to:</p>
-                       <p style="font-family: Work Sans; font-size: 15px;" id="replytext"></p>
+                       <p style="font-family: Work Sans; font-size: 15px; word-wrap: break-word;" id="replytext"></p>
                        
                        <a id="closereply">X</a>
                        </div>
                        
-                                              
-                       <label id="file1label" for="file1" class="custom-file-upload" style="display: none; background: #ddd; padding: 6px; border-radius: 4px; font-family: Josefin Slab;
-   font-size: 16px; cursor: pointer;
-   font-weight: bold;">
-    select file
-</label>
-                       <input type="file" id="file1" class="btn" style="display: none;"/><br>
                        
                        <!-- <input type="button" value="Upload file" onclick="uploadFile()" /><br> -->
                        
                        <progress value="0" max="100" id="progressBar" style="height: 5px; width: 250px; display: none;"></progress> 
                        
-                       <a id="status" style="display: inline; font-family: Josefin Slab;
-   font-size: 26px;
-   font-weight: bold; color: blue; margin-left: 20px;"></a>
+                       <a id="status" style="display: inline; font-family: Work Sans;
+   font-size: 16px; margin-left: 20px;"></a>
                        
                        
-                       <a id="progressMessage" style="font-family: Josefin Slab;
-   font-size: 16px;
-   font-weight: bold;"></a>
-                       
-                       
+                       <a id="progressMessage" style="font-family: Work Sans;
+   font-size: 15px;
+   "></a><br>
                        
                        
                        
@@ -353,12 +380,25 @@ $user_info = $user_details_result->fetch_assoc();
                        
                        
                        
+                       
+                       
+                                              
+                       <label id="file1label" for="file1" class="custom-file-upload" style="background: #ddd; padding: 3px; border-radius: 4px; font-family: Josefin Slab;
+   font-size: 16px; cursor: pointer; margin-left: 0px; margin-top: 10px;
+   font-weight: bold;">
+    select file
+</label>
+                       <input type="file" id="file1" class="btn" style="display: none;"/><br>
                        
                      
                     
-                        <a id="chatboxfile"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/attachment.svg" style="width: 13px; cursor: pointer;"  /></a>
+                      <!--  <a id="chatboxfile"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/attachment.svg" style="width: 13px; cursor: pointer;"  /></a> -->
                     
-                        <a id="chatboxclose"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/cancel.svg" style="width: 13px; margin-left: 10px; cursor: pointer;"  /></a> 
+                        <a id="chatboxclose"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/cancel.svg" style="width: 13px; margin-left: 0px; cursor: pointer;"  /></a> 
+                       
+                       
+                         <a id="abort" style="text-decoration: underline; display: none; font-family: Work Sans;  
+    max-width: 190px;">cancel upload</a>
                        
                        <a id="check1" style="margin-left: 30px; font-family: Work Sans;"><label><input id="important1" type="checkbox" value=""> Important?</label></a> 
 
@@ -479,7 +519,20 @@ $user_info = $user_details_result->fetch_assoc();
                     
                     
                         
-                    <p style="display: table; margin: 0 auto; margin-top: 16px; font-weight: bold; font-size: 19px;font-family: Work Sans;">Searching for "<span id="term1"></span>".</p>
+                    <p id="somesearch" style="display: table; margin: 0 auto; margin-top: 10px; font-size: 16px;font-family: Work Sans; width: 300px; word-break: break-all;">Showing results for "<span class="term1"></span>".
+                        
+                        
+                        <a class="termclose"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/cancel.svg" style="width: 13px; margin-left: 10px; cursor: pointer;"  /></a> 
+                        
+                        </p>
+                        
+                        
+                    <p id="nosearch" style="display: table; margin: 0 auto; margin-top: 10px; font-size: 16px;font-family: Work Sans; width: 300px; word-break: break-all;">Sorry. No results for "<span class="term1"></span>".
+                        
+                        
+                        <a class="termclose"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/cancel.svg" style="width: 13px; margin-left: 10px; cursor: pointer;"  /></a> 
+                        
+                        </p>
                             
                             
                     <div id="areas3" style="margin-top: 40px;">
@@ -514,7 +567,7 @@ $user_info = $user_details_result->fetch_assoc();
 
                       
                         
-                          <div style="display: table; margin: 0 auto;">
+                          <div id="wedges" style="display: table; margin: 0 auto;">
                         
                         
                       <!--  <p id="loadagain" style="display: none;">Poor connection. Try again. <a>Here</a></p> -->
@@ -580,7 +633,7 @@ $user_info = $user_details_result->fetch_assoc();
                         
                         <div class="col-xs-2">
                             
-                           <img src="<?php echo $group_list_this['img_path']; ?>" width="40" height="40" style="group-list-profile-img"  />
+                           <img src="<?php echo $group_list_this['img_path']; ?>" width="40" height="40" class="group-list-profile-img"  />
                         
                         </div>
                         
@@ -588,7 +641,22 @@ $user_info = $user_details_result->fetch_assoc();
                         
                         <div class="col-xs-7 group-list-body">
                             
-                            <a class="group-list-name"><?php echo $group_list_this['name']; ?></a><br>                            
+                            <a class="group-list-name"><?php
+                                                                                           
+                                                                                           
+                                                             if (strlen($group_list_this['name']) <= 16)  {
+                            
+                            echo $group_list_this['name'];
+                            
+                        } else if (strlen($group_list_this['name']) > 16) {
+                            
+                            echo substr($group_list_this['name'], 0, 16). "...";
+                            
+                        }                                  
+                                                                                           
+                                                                                           
+                                                                                           
+                                                                                            ?></a><br>                            
                             <a class="group-list-membercount"> <?php
                                                                                             
                                               
@@ -660,7 +728,7 @@ $numRows = $get_all_groups_of_user_result->num_rows;
                         
                         <div class="col-xs-2">
                             
-                           <img src="<?php  echo $group_list_other['img_path'];   ?>" width="40" height="40" style="group-list-profile-img"  />
+                           <img src="<?php  echo $group_list_other['img_path'];   ?>" width="40" height="40" class="group-list-profile-img"  />
                         
                         </div>
                         
@@ -668,7 +736,28 @@ $numRows = $get_all_groups_of_user_result->num_rows;
                         
                         <div class="col-xs-7 group-list-body">
                             
-                            <a class="group-list-name"><?php  echo $group_list_other['name'];   ?></a><br>                            
+                            <a class="group-list-name"><?php  
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                        if (strlen($group_list_other['name']) <= 16)  {
+                            
+                            echo $group_list_other['name'];
+                            
+                        } else if (strlen($group_list_other['name']) > 16) {
+                            
+                            echo substr($group_list_other['name'], 0, 16). "...";
+                            
+                        }                                                        
+                                                                                            
+                                                                                            
+                                                    
+                                
+                                
+                                
+                                ?></a><br>                            
                             <a class="group-list-membercount">         <?php
                                                                                             
                                               
@@ -687,7 +776,7 @@ $all_members_of_this_group_result = $all_members_of_this_group->get_result();
                         
                         <div class="col-xs-3 group-list-notif-1">
                             
-                            <a class="group-list-notifs">76+</a>
+                          <!--  <a class="group-list-notifs">76+</a> -->
                             
                         </div>
                         
@@ -760,6 +849,121 @@ $all_members_of_this_group_result = $all_members_of_this_group->get_result();
     
     
     
+    
+    function linkify(inputText) {
+    var replacedText, replacePattern1, replacePattern2, replacePattern3;
+
+    //URLs starting with http://, https://, or ftp://
+    replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+    replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
+
+    //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
+    replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+    replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">$2</a>');
+
+    //Change email addresses to mailto:: links.
+    replacePattern3 = /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
+    replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
+
+    return replacedText;
+}
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    function isScrolledIntoView(elem)
+{
+    var docViewTop = $(window).scrollTop();
+    var docViewBottom = docViewTop + $(window).height();
+
+    var elemTop = $(elem).offset().top;
+    var elemBottom = elemTop + $(elem).height();
+
+    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+}
+    
+    
+    
+    
+    function Utils() {
+
+}
+
+Utils.prototype = {
+    constructor: Utils,
+    isElementInView: function (element, fullyInView) {
+        var pageTop = $(window).scrollTop();
+        var pageBottom = pageTop + $(window).height();
+        var elementTop = $(element).offset().top;
+        var elementBottom = elementTop + $(element).height();
+
+        if (fullyInView === true) {
+            return ((pageTop < elementTop) && (pageBottom > elementBottom));
+        } else {
+            return ((elementTop <= pageBottom) && (elementBottom >= pageTop));
+        }
+    }
+};
+
+var Utils = new Utils();
+    
+    
+    
+ isElementInView = Utils.isElementInView($('#wedges'), false);   
+    
+    
+    
+    
+    
+    
+    
+    
+         $( document ).ready( function() {
+             
+             
+            
+
+
+             
+         
+         count_important();
+         
+         count_request();
+         
+         count_replypage();
+         
+         get_typing();
+    
+         time_out_1 = setInterval(call_out_time, 500);
+         
+         
+            $(function () {
+               $('[data-toggle="tooltip"]').tooltip()
+            })
+         
+         
+    } );
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     function sendPostData(textMessage, e, sent_post_id, text, post_id_num, reply_id, important ) {
         
         
@@ -821,7 +1025,7 @@ $all_members_of_this_group_result = $all_members_of_this_group->get_result();
                      
                      
                      
-                      append_post_sent_1 += '<input type=\"hidden\" id=\"old_reply_text'+ post_id_0  +'\" value=\"'+ textMessage + '\" />';
+                      append_post_sent_1 += '<input type=\"hidden\" id=\"old_reply_text'+ post_id_0  +'\" value=\"'+ textMessage.replace(/['"]+/g, "''") + '\" />';
                      
                      
                       append_post_sent_1 += '<input type=\"hidden\" id=\"old_reply_username'+ post_id_0 +'\" value=\"'+ '<?php echo $user_info['username']; ?>' + '\" />';
@@ -885,7 +1089,7 @@ $all_members_of_this_group_result = $all_members_of_this_group->get_result();
                  
             //  alert(true)   
                  
-                 
+                 console.log(data)
              var jsonNewPost = JSON.parse( data );
             
              var statusNewPost =  jsonNewPost[0];
@@ -1074,6 +1278,64 @@ $all_members_of_this_group_result = $all_members_of_this_group->get_result();
   
     
     
+    
+    
+    
+      
+    function count_replypage()  {
+       
+       
+             typing_url_reply_page = "<?php echo $_SESSION['url_placeholder'];  ?>quota";
+        
+        
+             $.ajax( {
+             url: typing_url_reply_page,
+             type: "POST",
+             async: true,
+             timeout: 15000,
+             data: {
+                "important": 1,
+                 
+             },
+             success: function( data ) {
+                 
+                 
+                 console.log("infdiue" + data)
+                 
+                 if (data == 100) {
+                     
+                    $("#alert_three").show();
+                   
+                    $("#alert_three").html("(new)");
+                     
+                 } else {
+                     
+                     
+                    $("#alert_three").hide(); 
+                     
+                 }
+                
+                 
+                 
+                 setTimeout(count_replypage, 5000);
+                 
+          
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                 
+                 
+            
+                
+                  setTimeout(count_replypage, 5000);
+    
+                 
+                
+             }
+          } );
+       
+       
+   } 
+       
     
     
     
@@ -1296,21 +1558,7 @@ function title_alt_2() {
     }
     
     
-     $( document ).ready( function() {
-         
-         count_important();
-         
-         count_request();
-         
-         get_typing();
-    
-         time_out_1 = setInterval(call_out_time, 500);
-         
-         
-   
-         
-         
-    } );
+
     
     
     
@@ -2069,7 +2317,9 @@ $("#myTextBox").on("input", function() {
             
             $("#search-div").show(500);
             
-            $("#term1").html($("#myTextBox").val());
+            $("#wedges").hide(500);
+            
+            $(".term1").html($("#myTextBox").val());
             
             search_posts($(this).val());
             
@@ -2079,10 +2329,57 @@ $("#myTextBox").on("input", function() {
             
             $("#search-div").hide(500);
             
+            $("#wedges").show(500);
+            
         }
         
     
 });
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    $(".termclose").on("click", function() {
+        
+
+        $("#myTextBox").val("");
+        
+        
+        $("#content-div").show(600);
+            
+            $("#search-div").hide(500);
+            
+            $("#wedges").show(500);
+        
+});
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -2647,7 +2944,7 @@ $("#myTextBox").on("input", function() {
         new_poll_html += '<div id=\"'+ 'whole_' + new_post_id +'\" class=\"row poll-div\">';
         
         
-        new_poll_html += '<div class=\"col-xs-2\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/nopic.png\" style=\"width: 40px; margin-left: 10px;\"  /></div>';
+        new_poll_html += '<div class=\"col-xs-2\"><img src=\" '+  '<?php echo $_SESSION['url_placeholder'] . $user_info['img_path'];  ?>' +' \" style=\"width: 40px; height: 40px; border-radius: 3px; margin-left: 0px;\"  /></div>';
         
         new_poll_html += '<div id=\"'+ 'whole_body_' + new_post_id +'\" class=\"col-xs-10 poll-body\">';
         
@@ -2932,8 +3229,7 @@ $("#myTextBox").on("input", function() {
     
     
     
-    
-    
+        
     
     
     
@@ -2960,11 +3256,29 @@ $("#myTextBox").on("input", function() {
           },
           success: function( d ) {
               
+            
            
              var jsonSearch = JSON.parse( d );
              var jsonSearchLength = jsonSearch.new_search.length;
              var htmlSearch = "";
              
+              
+             if (jsonSearch.new_search.length == 0)  {
+                 
+                 
+                 $("#nosearch").show(200);
+                 $("#somesearch").hide(200);
+                 
+                 
+                 
+             } else if (jsonSearch.new_search.length > 0)  {
+                 
+                 $("#nosearch").hide(200);
+                 $("#somesearch").show(200);
+                 
+                 
+             }
+              
              //If lastTimeID is zero.
            
              for ( var search_i = 0; search_i < jsonSearchLength; search_i++ ) {
@@ -2975,16 +3289,12 @@ $("#myTextBox").on("input", function() {
                  
                  
                  
+
                  
                  
                  
                  
-                 
-                 
-                 
-                 
-                 
-                 
+                 /*
                  
 
                  
@@ -3159,7 +3469,7 @@ $("#myTextBox").on("input", function() {
                  
                  
                  
-                 
+                 */
                  
                  
                  
@@ -3174,8 +3484,8 @@ $("#myTextBox").on("input", function() {
                 htmlSearch += '<div class=\"col-xs-10\">';
                 htmlSearch += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
                 htmlSearch += '<div class=\"talktext\">';
-                htmlSearch += '<p class=\"text-username\">' + resultSearch.username + '</p>';
-                htmlSearch += '<p class=\"text-body\">'  + resultSearch.message + '</p>';
+             //   htmlSearch += '<p class=\"text-username\">' + resultSearch.username + '</p>';
+                htmlSearch += '<p class=\"text-body\">'  + linkify(resultSearch.message) + '</p>';
                      
                 
                  htmlSearch += '<div id=\"append_reply_search' + resultSearch.id + '\" ></div>';
@@ -3229,7 +3539,7 @@ $("#myTextBox").on("input", function() {
                      
                      
                      
-                     htmlSearch += '<input type=\"hidden\" id=\"old_reply_text_search'+ resultSearch.id  +'\" value=\"'+ resultSearch.message + '\" />';
+                     htmlSearch += '<input type=\"hidden\" id=\"old_reply_text_search'+ resultSearch.id  +'\" value=\"'+ resultSearch.message.replace(/['"]+/g, "''") + '\" />';
                      
                      
                      htmlSearch += '<input type=\"hidden\" id=\"old_reply_username_search'+ resultSearch.id  +'\" value=\"'+ resultSearch.username + '\" />';
@@ -3267,7 +3577,7 @@ $("#myTextBox").on("input", function() {
                    htmlSearch += '<div class=\"talk-bubble1 tri-right1 left-top1\" class=\"chat-right-1\">';
                    htmlSearch += '<div class=\"talktext1\">';
                    htmlSearch += '<p class=\"text-username\">' + resultSearch.username + '</p>';
-                   htmlSearch += '<p class=\"text-body\">' + resultSearch.message + '</p>';
+                   htmlSearch += '<p class=\"text-body\">' + linkify(resultSearch.message) + '</p>';
                     
                     htmlSearch += '<div id=\"append_reply_search' + resultSearch.id + '\" ></div>';
                        
@@ -3315,7 +3625,7 @@ $("#myTextBox").on("input", function() {
                      
                      
                      
-                     htmlSearch += '<input type=\"hidden\" id=\"old_reply_text_search'+ resultSearch.id  +'\" value=\"'+ resultSearch.message + '\" />';
+                     htmlSearch += '<input type=\"hidden\" id=\"old_reply_text_search'+ resultSearch.id  +'\" value=\"'+ resultSearch.message.replace(/['"]+/g, "''") + '\" />';
                      
                      
                      htmlSearch += '<input type=\"hidden\" id=\"old_reply_username_search'+ resultSearch.id  +'\" value=\"'+ resultSearch.username + '\" />';
@@ -3393,9 +3703,32 @@ function uploadFile() {
         
     
         var file = _('file1').files[0];
+    
+    
+    
+       if (file.name.length > 30) {
+         
+         temp_name = file.name.substr(0, 29) + "...";
+         
+     } else if (file.name.length <= 30) {
+         
+         temp_name = file.name;
+         
+     } else {}
+     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        // 
         
-        
-        if (file.size <= 1000000) {
+        if (file.size <= 1000000 ) {
         
         $('#progressBar').show();
             
@@ -3406,22 +3739,22 @@ function uploadFile() {
         
       
         
-        var ajax = new XMLHttpRequest();
+        ajax1 = new XMLHttpRequest();
         
-        ajax.upload.addEventListener("progress", progressHandler, false);
+        ajax1.upload.addEventListener("progress", progressHandler, false);
         
-        ajax.addEventListener("load", completeHandler, false);
+        ajax1.addEventListener("load", completeHandler, false);
         
-        ajax.addEventListener("abort", abortHandler, false);
+        ajax1.addEventListener("abort", abortHandler, false);
         
-        ajax.open("POST", "<?php echo $_SESSION['url_placeholder'];  ?>send_attach");
+        ajax1.open("POST", "<?php echo $_SESSION['url_placeholder'];  ?>send_attach");
         
-        ajax.send(formdata);
+        ajax1.send(formdata);
         
         } else {
             
-            _('progressMessage').innerHTML = file.name + " is bigger than 1MB. Try again. <br><br> ";
-            
+            _('progressMessage').innerHTML = temp_name + " is bigger than 1MB. Try again.";
+                        _('status').innerHTML = "";
         }
         
         function progressHandler(event) {
@@ -3436,9 +3769,9 @@ function uploadFile() {
             
             _('status').innerHTML = Math.round(percent) + "%";
             
-            _('progressMessage').innerHTML = "Uploading " + file.name;
+            _('progressMessage').innerHTML = "Uploading " + temp_name;
             
-            $('#file1label').hide();
+             $('#abort').show();
             
             $('#chatboxclose').hide();
             
@@ -3448,16 +3781,18 @@ function uploadFile() {
         
         
         function completeHandler(event) {
-            
+            $("#file1").val("");  
             
          //   alert(event.target.responseText);
             
             _('status').innerHTML = "";
             
+            
+            $('#abort').hide();
               
               sendAppend("", event.target.responseText, $("#file1").val());
             
-            $('#file1label').hide(160);
+       //     $('#file1label').hide(160);
             
             
             
@@ -3475,9 +3810,9 @@ function uploadFile() {
         
         
         function errorHandler(event) {
-            
-            _('status').innerHTML = "Upload fail";
-            
+            $("#file1").val("");  
+            _('status').innerHTML = "Upload fail.";
+            _('progressMessage').innerHTML = "";
             
         }
         
@@ -3486,9 +3821,16 @@ function uploadFile() {
         
         function abortHandler(event) {
             
-            _('status').innerHTML = "Upload aborted";
+            _('progressMessage').innerHTML = "";
+            
+            _('status').innerHTML = "";
+            
+            $('#abort').hide();
             
             
+             $('#chatboxclose').show();
+            
+            $('#chatboxfile').show();
         }
         
         
@@ -3500,6 +3842,30 @@ function uploadFile() {
     
     
     
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     $("#abort").on('click', function() {
+    
+    
+      ajax1.abort(); 
+    
+      $("#file1").val("");  
+        
+        
+$('#progressBar').hide();
+             
+             $( "#abort" )
+                         .hide();
+    
+    });
     
     
     
@@ -3508,7 +3874,23 @@ function uploadFile() {
 
     $( window ).on( "scroll", function() {
         
-       if ( ( window.innerHeight + window.scrollY ) >= document.body.offsetHeight ) {
+        
+        
+        
+                           if (isElementInView) {
+                        
+                        displayFromDatabasePagination();
+                               $(window).unbind("scroll");
+   // alert('in view');
+} else {
+   // alert('out of view');
+}
+           
+        
+        
+        
+        
+    /*   if ( ( window.innerHeight + window.scrollY ) >= document.body.offsetHeight ) {
            
         displayFromDatabasePagination();
            
@@ -3516,7 +3898,7 @@ function uploadFile() {
            
           $(window).unbind("scroll");
            
-       }
+       } */
         
     } );
     
@@ -3541,7 +3923,7 @@ function uploadFile() {
             
         $('#text').val("");
         
-        $('#file1label').hide();
+     //   $('#file1label').hide();
         
         
         
@@ -3572,7 +3954,7 @@ function uploadFile() {
     
   $('#chatboxfile').click(function() { 
             
-        $('#file1label').toggle(160);
+      //  $('#file1label').toggle(160);
       
   });
     
@@ -3766,6 +4148,8 @@ function displayFromDatabase() {
         
         
         html_new_posts_1 += '<div class=\"col-xs-10 poll-body\">';
+                        
+        html_new_posts_1 += '<p class=\"text-username\">' + new_post_result.username + '</p>';
         
         html_new_posts_1 += '<p class=\"poll-quest-box\"> ' +  new_post_result.question +' </p>';
                         
@@ -4131,7 +4515,7 @@ function displayFromDatabase() {
                      
           html_new_posts_1 += '</div></div>';
                      
-          html_new_posts_1 += '<div class=\"col-xs-2\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/nopic.png\" style=\"width: 40px; margin-left: 0px;\"  /></div></div>';
+          html_new_posts_1 += '<div class=\"col-xs-2\"><img src=\" '+  '<?php echo $_SESSION['url_placeholder'];  ?>' +  new_post_result.image  +' \" style=\"width: 40px; height: 40px; border-radius: 3px; margin-left: 0px;\"  /></div></div>';
                       
             window["votebuttonold" + new_post_result.id] = true;
               
@@ -4202,7 +4586,7 @@ function displayFromDatabase() {
                         html_new_posts_1 += '<div id=\"'+ 'whole_old_post' + new_post_result.id +'\" class=\"row poll-div\" style=\"margin-bottom: 20px;\">';
         
         
-        html_new_posts_1 += '<div class=\"col-xs-2\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/nopic.png\" style=\"width: 40px; margin-left: 10px;\"  /></div>';
+        html_new_posts_1 += '<div class=\"col-xs-2\"><img src=\" '+  '<?php echo $_SESSION['url_placeholder'];  ?>' +  new_post_result.image  +' \" style=\"width: 40px; height: 40px; border-radius: 3px; margin-left: 0px;\"  /></div>';
         
         html_new_posts_1 += '<div class=\"col-xs-10 poll-body\">';
         
@@ -4753,7 +5137,7 @@ function displayFromDatabase() {
                 html_new_posts_1 += '<div class=\"col-xs-10\">';
                 html_new_posts_1 += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
                 html_new_posts_1 += '<div class=\"talktext\">';
-                html_new_posts_1 += '<p class=\"text-username\">' + new_post_result.username + '</p>';
+                html_new_posts_1 += '<p class=\"text-username\">' + new_post_result.username + ' |  <a href=\" ' + new_post_result.path  + ' \" download>' + 'download' + '</a></p>';
                 html_new_posts_1 += '<p class=\"text-body\"><a href=\" ' + new_post_result.path  + ' \" download>' + new_post_result.name + '</a></p>';
                          
                          
@@ -4938,7 +5322,7 @@ function displayFromDatabase() {
                    html_new_posts_1 += '<div class=\"col-xs-10\">';
                    html_new_posts_1 += '<div class=\"talk-bubble1 tri-right1 left-top1\" class=\"chat-right-1\">';
                    html_new_posts_1 += '<div class=\"talktext1\">';
-                   html_new_posts_1 += '<p class=\"text-username\">' + new_post_result.username + '</p>';
+                   html_new_posts_1 += '<p class=\"text-username\">' + new_post_result.username + ' | <a href=\" ' + new_post_result.path  + ' \" download>' + 'download' + '</a></p>';
                    html_new_posts_1 += '<p class=\"text-body\"><a href=\" ' + new_post_result.path  + ' \" download>' + new_post_result.name + '</a></p>';
                         
                         
@@ -5079,8 +5463,8 @@ function displayFromDatabase() {
                 html_new_posts_1 += '<div class=\"col-xs-10\">';
                 html_new_posts_1 += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
                 html_new_posts_1 += '<div class=\"talktext\">';
-                html_new_posts_1 += '<p class=\"text-username\">' + new_post_result.username + '</p>';
-                html_new_posts_1 += '<p class=\"text-body\">'  + new_post_result.message + '</p>';
+                html_new_posts_1 += '<p class=\"text-username\"><a style=\"cursor: default;\">' + new_post_result.username + '</a></p>';
+                html_new_posts_1 += '<p class=\"text-body\">'  + linkify(new_post_result.message) + '</p>';
                                         
                                         
                                  html_new_posts_1 += '<div id=\"append_reply' + new_post_result.id + '\" ></div>';       
@@ -5138,7 +5522,7 @@ function displayFromDatabase() {
                      
                      
                      
-                     html_new_posts_1 += '<input type=\"hidden\" id=\"old_reply_text'+ new_post_result.id  +'\" value=\"'+ new_post_result.message + '\" />';
+                     html_new_posts_1 += '<input type=\"hidden\" id=\"old_reply_text'+ new_post_result.id  +'\" value=\"'+ new_post_result.message.replace(/['"]+/g, "''") + '\" />';
                      
                      
                      html_new_posts_1 += '<input type=\"hidden\" id=\"old_reply_username'+ new_post_result.id  +'\" value=\"'+ new_post_result.username + '\" />';
@@ -5217,8 +5601,8 @@ function displayFromDatabase() {
                    html_new_posts_1 += '<div class=\"col-xs-10\">';
                    html_new_posts_1 += '<div class=\"talk-bubble1 tri-right1 left-top1\" class=\"chat-right-1\">';
                    html_new_posts_1 += '<div class=\"talktext1\">';
-                   html_new_posts_1 += '<p class=\"text-username\">' + new_post_result.username + '</p>';
-                   html_new_posts_1 += '<p class=\"text-body\">' + new_post_result.message + '</p>';
+                   html_new_posts_1 += '<p class=\"text-username\"><a style=\"cursor: default;\">' + new_post_result.username + '</a></p>';
+                   html_new_posts_1 += '<p class=\"text-body\">' + linkify(new_post_result.message) + '</p>';
                     
                     html_new_posts_1 += '<div id=\"append_reply' + new_post_result.id + '\" ></div>';
                     
@@ -5267,7 +5651,7 @@ function displayFromDatabase() {
                      
                      
                      
-                     html_new_posts_1 += '<input type=\"hidden\" id=\"old_reply_text'+ new_post_result.id  +'\" value=\"'+ new_post_result.message + '\" />';
+                     html_new_posts_1 += '<input type=\"hidden\" id=\"old_reply_text'+ new_post_result.id  +'\" value=\"'+ new_post_result.message.replace(/['"]+/g, "''") + '\" />';
                      
                      
                      html_new_posts_1 += '<input type=\"hidden\" id=\"old_reply_username'+ new_post_result.id  +'\" value=\"'+ new_post_result.username + '\" />';
@@ -5359,6 +5743,7 @@ function displayFromDatabasePagination() {
           },
           success: function( data ) {
            
+              
             
     
               if (data == 100) {
@@ -5416,7 +5801,7 @@ function displayFromDatabasePagination() {
         oldPostHtml += '<div id=\"'+ 'whole_old_post' + resultOldPost.id +'\" class=\"row poll-div\" style=\"margin-bottom: 20px;\">';
         
         
-        oldPostHtml += '<div class=\"col-xs-2\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/nopic.png\" style=\"width: 40px; margin-left: 10px;\"  /></div>';
+        oldPostHtml += '<div class=\"col-xs-2\"><img src=\" '+  '<?php echo $_SESSION['url_placeholder'] . $user_info['img_path'];  ?>' +' \" style=\"width: 40px; height: 40px; border-radius: 3px; margin-left: 0px;\"  /></div>';
         
         oldPostHtml += '<div class=\"col-xs-10 poll-body\">';
         
@@ -5822,6 +6207,8 @@ function displayFromDatabasePagination() {
         
         
         oldPostHtml += '<div class=\"col-xs-10 poll-body\">';
+                      
+        oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + '</p>';
         
         oldPostHtml += '<p class=\"poll-quest-box\"> ' +  resultOldPost.question +' </p>';
 
@@ -6187,7 +6574,7 @@ function displayFromDatabasePagination() {
                      
           oldPostHtml += '</div></div>';
                      
-          oldPostHtml += '<div class=\"col-xs-2\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/nopic.png\" style=\"width: 40px; margin-left: 0px;\"  /></div></div>';
+          oldPostHtml += '<div class=\"col-xs-2\"><img src=\" '+  '<?php echo $_SESSION['url_placeholder']; ?>'  +  resultOldPost.image +' \" style=\"width: 40px; height: 40px; border-radius: 3px; margin-left: 0px;\"  /></div></div>';
                       
             window["votebuttonold" + resultOldPost.id] = true;
               
@@ -6315,7 +6702,7 @@ function displayFromDatabasePagination() {
                 oldPostHtml += '<div class=\"col-xs-10\">';
                 oldPostHtml += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
                 oldPostHtml += '<div class=\"talktext\">';
-                oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + '</p>';
+                oldPostHtml += '<p class=\"text-file\"><a href=\" ' + resultOldPost.path  + ' \" download> ' + 'download file' + '</a></p>';
                 oldPostHtml += '<p class=\"text-body\"><a href=\" ' + resultOldPost.path  + ' \" download>' + resultOldPost.name + '</a></p>';
                      
                      
@@ -6493,7 +6880,7 @@ function displayFromDatabasePagination() {
                    oldPostHtml += '<div class=\"col-xs-10\">';
                    oldPostHtml += '<div class=\"talk-bubble1 tri-right1 left-top1\" class=\"chat-right-1\">';
                    oldPostHtml += '<div class=\"talktext1\">';
-                   oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + '</p>';
+                   oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + ' | <a href=\" ' + resultOldPost.path  + ' \" download>' + 'download' + '</a></p>';
                    oldPostHtml += '<p class=\"text-body\"><a href=\" ' + resultOldPost.path  + ' \" download>' + resultOldPost.name + '</a></p>';
                         
                         
@@ -6590,7 +6977,7 @@ function displayFromDatabasePagination() {
                 oldPostHtml += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
                 oldPostHtml += '<div class=\"talktext\">';
              //   oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + '</p>';
-                oldPostHtml += '<p class=\"text-body\">'  + resultOldPost.message + '</p>';
+                oldPostHtml += '<p class=\"text-body\" style=\"width: 95%; padding-top: 10px;\">'  + linkify(resultOldPost.message) + '</p>';
                      
                      
                      
@@ -6655,7 +7042,7 @@ function displayFromDatabasePagination() {
                      
                      oldPostHtml += '</div>';
                      
-                     oldPostHtml += '<input type=\"hidden\" id=\"old_reply_text'+ resultOldPost.id  +'\" value=\"'+ resultOldPost.message + '\" />';
+                     oldPostHtml += '<input type=\"hidden\" id=\"old_reply_text'+ resultOldPost.id  +'\" value=\" '+ resultOldPost.message.replace(/['"]+/g, "''") + '\" />';
                      
                      
                      oldPostHtml += '<input type=\"hidden\" id=\"old_reply_username'+ resultOldPost.id  +'\" value=\"'+ resultOldPost.username + '\" />';
@@ -6679,8 +7066,8 @@ function displayFromDatabasePagination() {
                    oldPostHtml += '<div class=\"col-xs-10\">';
                    oldPostHtml += '<div class=\"talk-bubble1 tri-right1 left-top1\" class=\"chat-right-1\">';
                    oldPostHtml += '<div class=\"talktext1\">';
-                   oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + '</p>';
-                   oldPostHtml += '<p class=\"text-body\">' + resultOldPost.message + '</p>';
+                   oldPostHtml += '<p class=\"text-username\"><a style=\"cursor: default;\">' + resultOldPost.username + '</a></p>';
+                   oldPostHtml += '<p class=\"text-body\">' + linkify(resultOldPost.message) + '</p>';
                     
                     
                 oldPostHtml += '<div id=\"append_reply' + resultOldPost.id + '\" ></div>';
@@ -6731,7 +7118,7 @@ function displayFromDatabasePagination() {
                      
                      
                      
-                     oldPostHtml += '<input type=\"hidden\" id=\"old_reply_text'+ resultOldPost.id  +'\" value=\"'+ resultOldPost.message + '\" />';
+                     oldPostHtml += '<input type=\"hidden\" id=\"old_reply_text'+ resultOldPost.id  +'\" value=\"'+ resultOldPost.message.replace(/['"]+/g, "''") + '\" />';
                      
                      
                      oldPostHtml += '<input type=\"hidden\" id=\"old_reply_username'+ resultOldPost.id  +'\" value=\"'+ resultOldPost.username + '\" />';
@@ -6785,7 +7172,35 @@ function displayFromDatabasePagination() {
                   
                 if (!completedPosts) {
                     
-                $(window).bind("scroll", (function () {
+                    
+    
+                    
+                    
+                    
+          $(window).bind("scroll", (function () {
+           
+           
+           
+           
+           
+           
+           
+                           if (isElementInView) {
+                        
+                        displayFromDatabasePagination();
+                               $(window).unbind("scroll");
+   // alert('in view');
+} else {
+   // alert('out of view');
+}
+           
+           
+           
+           /*
+           
+           
+           
+           
                 
                   if ( ( window.innerHeight + window.scrollY ) >= document.body.offsetHeight ) {
                       
@@ -6793,9 +7208,14 @@ function displayFromDatabasePagination() {
                       
                       $(window).unbind("scroll");
                       
-                  }
+                  } */
                 
-            } ));   }          
+            } ));  
+                
+                
+                
+                
+                }          
                 
           }
         
@@ -6909,9 +7329,24 @@ function displayFromDatabasePagination() {
                    
                     var resultOldReply = jsonOldReply.old_posts[ for_oldreply ];
                    
+                   
+                   
+                     if (resultOldReply.message.length > 101) {
+            
+            short_reply_text_old = resultOldReply.message.substr(0, 100) + "...";
+            
+        } else if (resultOldReply.message.length <= 101) {
+            
+            short_reply_text_old =  resultOldReply.message;
+            
+        }
+                   
+                   
+                   
+                   
                     new_reply_html = "";
                    
-                    new_reply_html += '<p style=\"font-family: Work Sans; font-weight: lighter;\" class=\"reply-body\">'+'<a> '+ resultOldReply.username +' </a> | ' +  resultOldReply.message  +'</p><br>'; 
+                    new_reply_html += '<p style=\"font-family: Work Sans; font-weight: lighter;\" class=\"reply-body\">'+'<a> '+ resultOldReply.username +' </a> | ' +  short_reply_text_old  +'</p><br>'; 
                    
                    
                    
@@ -6986,9 +7421,25 @@ function displayFromDatabasePagination() {
                    
                     var resultOldReply_search = jsonOldReply_search.old_posts[ for_oldreply_search ];
                    
+                   
+                   
+                   
+                                          
+                     if (resultOldReply_search.message.length > 101) {
+            
+            short_reply_text_search = resultOldReply_search.message.substr(0, 100) + "...";
+            
+        } else if (resultOldReply_search.message.length <= 101) {
+            
+            short_reply_text_search =  resultOldReply_search.message;
+            
+        }
+                   
+                   
+                   
                     new_reply_html_search = "";
                    
-                    new_reply_html_search += '<p style=\"font-family: Work Sans; font-weight: lighter;\" class=\"reply-body\">'+'<a> '+ resultOldReply_search.username +' </a> | ' +  resultOldReply_search.message  +'</p><br>'; 
+                    new_reply_html_search += '<p style=\"font-family: Work Sans; font-weight: lighter;\" class=\"reply-body\">'+'<a> '+ resultOldReply_search.username +' </a> | ' +  short_reply_text_search  +'</p><br>'; 
                    
                    
                    $( '#append_reply_search' + post_id ).html( new_reply_html_search );
@@ -7412,7 +7863,7 @@ function hide_delete(post_ui) {
     
     function sendPostDataAttach( post_id, path, name, type, posttype,  post_id_0, important) {
         
-        alert(important)
+        
         
         var is_sent = function( post_id_new ) {
             
@@ -7544,142 +7995,7 @@ function hide_delete(post_ui) {
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-        function metaLink( data33, new_post_id ) {
-        
- var dooos1 = function( lam, data56, url, title, desc, img ) {
-     
-     var html45 = "";
-     
-    html45 +=   "<a href=\"  " + url + " \"><div class=\"row\" style=\"border: 2px solid #ddd; border-radius: 5px; padding: 10px; margin: 5px;\"><div>" 
-                
-                
-                        
-html45  += "<img src=\"  " + img +"  \" style=\"width: 100%;\" ></div><div><br>";
-                        
-                
-                        
-                        
-                        
-          html45 +=  " <p style=\" font-family: Josefin Slab; font-size: 15px; font-weight: bold;\">   " + title  +  "</p>";  
-                        
-                       html45 +=    "<p style=\" font-family: Josefin Slab; font-size: 15px; font-weight: bold;\">  " + desc + " </p>        </div> </div></a>  ";
-     
-     
-     
-     
-     
-     
-          $( "#" + new_post_id ).html(html45);
-       };
-            
   
-          $.ajax( {
-             url: "<?php echo $_SESSION['url_placeholder']; ?>link_prepare",
-             type: "POST",
-             async: true,
-             dataType:"text",
-             data: {
-                "preview": 1,
-                 "name": name,
-                 relay: data33
-             },
-             success: function( datasss ) {
-                 
-                 if (datasss) {
-                     
-                     
-                    var jsonData16 = JSON.parse( datasss );
-                     
-                     
-            
-                    //  var attach_path12 =  jsonData16[0];
-                   var metaurl = jsonData16.article["url"];
-                    var metatitle = jsonData16.article["title"];
-                     var metaimage = jsonData16.article['image']['src'];
-                     var metadesc = jsonData16.article['description'];
-                     
-                   //  alert(metaimage);
-                     dooos1(new_post_id, datasss, metaurl, metatitle, metadesc, metaimage);
-                     
-                 }
-                 
-                 
-             },
-             error: function( xhr, textStatus, errorThrown ) {
-                $.ajax( this );
-                return;
-             }
-          } );
-      
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-      function previewLink( text, new_post_id ) {
-        
-            
-  
-          $.ajax( {
-             url: "<?php echo $_SESSION['url_placeholder']; ?>link_preview",
-             type: "POST",
-             async: true,
-             data: {
-                "preview": 1,
-                 "text": text
-             },
-             success: function( data ) {
-                 
-                 if (data) {
-                     
-                    metaLink(data, new_post_id);
-                     
-                 }
-                 
-                 
-             },
-             error: function( xhr, textStatus, errorThrown ) {
-                $.ajax( this );
-                return;
-             }
-          } );
-      
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -7778,7 +8094,7 @@ html45  += "<img src=\"  " + img +"  \" style=\"width: 100%;\" ></div><div><br>"
             
             new_chat_html += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
             new_chat_html += '<div class=\"talktext\">';
-            new_chat_html += '<p class=\"text-username\"> ' + '<?php echo $user_info['username']; ?>' + '</p>';
+            new_chat_html += '<p class=\"text-file\"><a href=\" ' + attach_chat_path  + ' \" download> ' + 'download file' + '</a></p>';
             new_chat_html += '<p class=\"text-body\"><a href=\" ' + attach_chat_path  + ' \" download>' + attach_chat_name + '</a></p><span id=\"' + new_post_id + '\" ></span>';
             new_chat_html += ' </div></div></div></div>';
             
@@ -7848,7 +8164,7 @@ html45  += "<img src=\"  " + img +"  \" style=\"width: 100%;\" ></div><div><br>"
 
           
           
-          new_chat_html += '<p class=\"text-body\">' + text + '</p>';
+          new_chat_html += '<p class=\"text-body\" style=\"\">' + linkify(text) + '</p>';
           
                     if ($("#replytextvalue").val().trim().length > 0) {
               
@@ -7869,7 +8185,7 @@ html45  += "<img src=\"  " + img +"  \" style=\"width: 100%;\" ></div><div><br>"
           $( '#postsdiv' ).prepend( new_items_chat );
           new_items_chat.show( 100 );
                 
-          previewLink(name, new_post_id);
+          
           
           
           
@@ -7920,5 +8236,8 @@ html45  += "<img src=\"  " + img +"  \" style=\"width: 100%;\" ></div><div><br>"
      
 }
     
+    
+    
+
     
 </script>   

@@ -18,17 +18,19 @@ $img_type = $_POST['group_pic_type'];
 
 
 
+
+
+
+
+
+
+
+
     if ( 
         
         (strlen(trim($_POST['groupname'])) == 0) || 
         
-        (strlen(trim($_POST['groupdesc'])) == 0) ||
-        
-        (strlen(trim($_POST['group_pic_path'])) == 0) ||
-        
-        (strlen(trim($_POST['group_pic_name'])) == 0) ||
-        
-        (strlen(trim($_POST['group_pic_type'])) == 0) )
+        (strlen(trim($_POST['groupdesc'])) == 0)  )
         
         {
         
@@ -67,9 +69,48 @@ $img_type = $_POST['group_pic_type'];
 
 
 
+if (
+        
+        (strlen(trim($_POST['group_pic_path'])) == 0) ||
+        
+        (strlen(trim($_POST['group_pic_name'])) == 0) ||
+        
+        (strlen(trim($_POST['group_pic_type'])) == 0)
+
+)   {
+    
+    
+    
+    $group->create_group($name, $desc, "../frontend/html/pages/assets/mountain.svg", $img_name, $img_type, $_SESSION['admin_id']);
+    
+    
+}  else if (
 
 
-$group->create_group($name, $desc, $img_path, $img_name, $img_type, $_SESSION['admin_id']);
+        (strlen(trim($_POST['group_pic_path'])) > 0) ||
+        
+        (strlen(trim($_POST['group_pic_name'])) > 0) ||
+        
+        (strlen(trim($_POST['group_pic_type'])) > 0)
+
+)   {
+    
+    
+    $group->create_group($name, $desc, $img_path, $img_name, $img_type, $_SESSION['admin_id']);
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
+
 
 $group_id = mysqli_insert_id($database->connection);
 
@@ -77,7 +118,7 @@ $member->create_member($group_id, $_SESSION['admin_id'], "superadmin");
 
 $member_id = mysqli_insert_id($database->connection);
 
-$posts->create_post_chat("test", 0, $group_id, time());
+$posts->create_post_chat("test", 0, $group_id, time(), 0, "false");
 
 
 

@@ -35,7 +35,13 @@ class Member {
 
        global $database;
         
-       $stmt = $database->connection->prepare("select * from membership where member_id = ? and deleted = 'live' order by group_id desc limit 1");
+       $stmt = $database->connection->prepare("select membership.id
+       
+       from membership 
+       
+       INNER JOIN groups ON groups.id = membership.group_id
+       
+       where membership.member_id = ? and membership.deleted = 'live' and groups.deleted = 'live' limit 1");
         
        $stmt->bind_param("i", $user);
         
@@ -76,6 +82,31 @@ class Member {
        global $database;
         
        $stmt = $database->connection->prepare("select * from membership where member_id = ? AND group_id = ? and deleted = 'live' limit 1");
+        
+       $stmt->bind_param("ii", $member_id, $group_id);
+        
+       $member_id = $member_id_input;  
+           
+       $group_id = $group_id_input;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+        public function this_user_this_group_alive($member_id_input, $group_id_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("select * from membership 
+       
+       INNER JOIN groups ON groups.id = membership.group_id
+       
+       where member_id = ? AND group_id = ? and membership.deleted = 'live' and groups.deleted = 'live' limit 1");
         
        $stmt->bind_param("ii", $member_id, $group_id);
         

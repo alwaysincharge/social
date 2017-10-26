@@ -4,7 +4,7 @@
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"> </script>
 
-    <link rel="shortcut icon" type="image/x-icon" href="<?php echo $_SESSION['url_placeholder']; ?>assets/campfire.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="<?php echo $_SESSION['url_placeholder']; ?>frontend/html/pages/assets/tent.ico" />
     
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
 

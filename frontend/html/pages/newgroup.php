@@ -50,7 +50,7 @@ $user_info = $user_details_result->fetch_assoc();
         
         <div class="col-xs-6">
             
-            <a class="logo-heading-1">friday camp <span class="logo-heading-2">//</span> <span class="logo-heading-3">create group</span></a>
+            <a href="<?php  echo $_SESSION['url_placeholder'];  ?>nogroups" class="logo-heading-1">friday camp <span class="logo-heading-2">//</span> <span class="logo-heading-3">create group</span></a>
                             
         </div>
         
@@ -62,20 +62,44 @@ $user_info = $user_details_result->fetch_assoc();
             
             <div style="float: right;">
             
-                        
-            <a>
-                
-            <button class="btn new-group-1">   
                     
-            Create group</button>
-            
-            </a>
-            
-            
-            
+                
+                
+                 <a data-toggle="tooltip" data-placement="bottom" title="important posts" href="<?php echo $_SESSION['url_placeholder'];  ?>important"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/import.svg" width="30" height="30" class="current-user-img"  /> <span style="font-family: Work Sans;" id="alert_one"></span></a>
+                
+                
+                <a data-toggle="tooltip" data-placement="bottom" title="replies" href="<?php echo $_SESSION['url_placeholder'];  ?>reply"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/replypage.svg" width="30" height="30" class="current-user-img"  /> <span style="font-family: Work Sans;" id="alert_three"></span></a>
+                
+                
+                <a data-toggle="tooltip" data-placement="bottom" title="group requests" href="<?php echo $_SESSION['url_placeholder'];  ?>add"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/notification.svg" width="30" height="30" class="current-user-img"  /> <span style="font-family: Work Sans;" id="alert_two"></span></a>
+                
+                
+
+                
+                      <div class="dropdown">
             
             <img src="<?php echo $_SESSION['url_placeholder'];  ?><?php echo $user_info['img_path'];  ?>" width="35" height="35" class="current-user-img"  />
+                    
+                    
+                    <div class="dropdown-content-2">
+                        <p style="font-size: 15px; font-family: Work Sans;"><i><?php echo $user_info['username'];  ?></i></p>
+                        
+                        <a href="<?php echo $_SESSION['url_placeholder'];  ?>profile" style="font-size: 15px; font-family: Work Sans;">Edit profile</a> //
+                        <a href="<?php echo $_SESSION['url_placeholder'];  ?>logout" style="font-size: 15px; font-family: Work Sans;">Logout</a>
+                    </div>
             
+                </div>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            
+
             
             
             </div>
@@ -142,23 +166,38 @@ $user_info = $user_details_result->fetch_assoc();
                         <textarea id="groupdesc" class="newgroup-field-2" maxlength="140" type="password" placeholder="group description"></textarea><br><br>
         
 
-                            
-                                                      
-                       <label id="file1label" for="groupimg" class="newgroups-text-2">Upload group image</label>
-                            
-                       <input type="file" id="groupimg" class="btn" style="display: none;"/><br><br>
+                          
                             
                             
+                            
+                            
+                                      <p class="membership-subtitle" style=" margin-left: 10px;">Add group picture (optional).</p>
+            
+                        <!--     <button id="edit" class="btn new-group-1" style="margin-left: 0px;">Upload picture</button>  -->
+                             
+                             
+                             <label id="file1label" for="groupimg" class="btn" style="background: #ddd; font-family: Work Sans; margin-left: 10px;">Upload group image</label>
+                            
+                             <input type="file" id="groupimg" class="btn" style="display: none;"/> <br><br>
+                             
+                             
+                             <a style=" padding-left: 10px; display: none;" id="groupnotif"></a><br><br>
+                             
+                             
+                             
+                             <a id="abort" style="margin-left: 10px; text-decoration: underline; display: none; font-family: Work Sans;  
+    max-width: 190px;">cancel upload</a>
+                             
                             
                             
                         <p class="newgroups-text-2" id="progressMessage"></p>
                             
                          <p class="newgroups-text-3" id="groupnotif"></p>
                             
-                        <p id="grouperror" class="group-error-1"></p>
+                    
                             
                             
-                        <a>
+                        <a style="margin-top: -40px;">
                 
                         <button id="groupsubmit" class="btn new-group-1">   
                 
@@ -325,154 +364,333 @@ $user_info = $user_details_result->fetch_assoc();
 <script type="text/javascript">
     
  var url_placeholder = "<?php echo $_SESSION['url_placeholder']; ?>";
- // When user clicks the login button...
- $( "#groupsubmit" )
+ 
+ 
+    
+    
+    $( "#groupsubmit" )
+    
          .on( "click", function() {
-                 groupname = $( "#groupname" )
-                         .val();
-                 groupdesc = $( "#groupdesc" )
-                         .val();
-                 if ( ( groupname.trim()
-                                 .length != 0 ) && ( groupdesc.trim()
-                                 .length != 0 ) ) {
+        
+        
+        
+                 groupname = $( "#groupname" ).val();
+        
+                 groupdesc = $( "#groupdesc" ).val();
+        
+        
+        
+       
+                 if ( ( groupname.trim().length != 0 ) && ( groupdesc.trim().length != 0 ) ) {
+                     
                          var both_fields_filled = true;
+                     
                  } else {
+                     
+                     
                          var both_fields_filled = false;
-                         $( "#grouperror" )
-                                 .hide( 0 );
-                         $( "#grouperror" )
-                                 .show( 300 );
-                         $( "#grouperror" )
-                                 .html( "None of the fields can be left blank." );
+
+                         $( "#groupnotif" ).html( "None of the fields can be left blank." );
+                     
+                     
                  }
                  if ( both_fields_filled ) {
+                     
+                     
+                    
+                     
                          if ( ( groupname.length > 60 ) || ( groupdesc.length > 140 ) ) {
+                             
                                  var both_length_check = false;
-                                 $( "#grouperror" )
-                                         .hide( 0 );
-                                 $( "#grouperror" )
-                                         .show( 300 );
-                                 $( "#grouperror" )
-                                         .html( "Group name cannot exceed 60 characters. Description cannot exceed 140." );
+                                 
+                                 $( "#groupnotif" ).html( "Group name cannot exceed 60 characters. Description cannot exceed 140." );
+                             
                          } else {
+                             
                                  var both_length_check = true;
+                             
                          }
                  }
+        
+        
                  if ( both_fields_filled && both_length_check ) {
+                     
                          group_text_ready = true;
+                     
                  } else {
+                     
                          group_text_ready = false;
+                     
                  }
+        
                  if ( group_text_ready ) {
-                         get_text_img();
+                     
+                     
+                     if (group_picture_ready)  {
+                         
+                         
+                         send_both_text_and_pic( groupname, groupdesc, group_pic_path, group_pic_name, group_pic_type );
+                         
+                         $("#groupsubmit").hide();
+                         
+                         $("#groupnotif").html("posting...");
+                         
+                     } else {
+                         
+                         
+                         send_both_text_and_pic( groupname, groupdesc, null, null, null );
+                         
+                         $("#groupsubmit").hide();
+                         
+                         $("#groupnotif").html("posting...");
+
+                     }
+                     
+                     
+                    
                  }
          } );
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
  function _( el ) {
          return document.getElementById( el );
  }
- $( '#groupimg' )
-         .change( function() {
+    
+    
+    
+ $( '#groupimg' ).change( function() {
+     
                  uploadFile();
-         } );
+     
+ } );
+    
 
  function uploadFile() {
-         file = _( 'groupimg' )
-                 .files[ 0 ];
+     
+     
+     $( "#groupnotif" ).show();
+     
+     
+         file = _( 'groupimg' ).files[ 0 ];
+     
+     
+     
+     
+     
+     if (file.name.length > 30) {
+         
+         temp_name = file.name.substr(0, 29) + "...";
+         
+     } else if (file.name.length <= 30) {
+         
+         temp_name = file.name;
+         
+     } else {}
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
          if ( file.size <= 1000000 ) {
+             
                  file_size_validation = true;
+             
          } else {
+             
                  file_size_validation = false;
-                 $( "#groupnotif" )
-                         .html( file.name + " is bigger than 1MB. Try again." );
+
+             
+                 $( "#groupnotif" ).show();
+             
+             
+                 $( "#groupnotif" ).html( temp_name + " is bigger than 1MB. Try again." );
+             
+             
          }
+     
+     
          if ( file_size_validation ) {
-                 if ( ( file.type == "image/jpeg" ) || ( file.type == "image/jpg" ) || ( file.type == "image/png" ) || ( file.type == "image/gif" ) ) {
+             
+             
+                 if ( ( file.type == "image/jpeg" ) || ( file.type == "image/jpg" ) || ( file.type == "image/png" ) || ( file.type == "image/gif" ) ) 
+                 
+                 {
                          file_type_validation = true;
+                     
                  } else {
+                     
                          file_type_validation = false;
-                         $( "#groupnotif" )
-                                 .html( "Your file has to be an image of type jpeg, jpg, png or gif." );
+                     
+                         $( "#groupnotif" ).html( "Your file has to be an image of type jpeg, jpg, png or gif." );
                  }
          }
+     
+     
+     
+     
          if ( file_type_validation && file_size_validation ) {
+             
                  send_image();
+             
          }
+     
+     
+     
 
          function send_image() {
                  var formdata = new FormData();
                  formdata.append( 'groupimg', file );
-                 var ajax = new XMLHttpRequest();
-                 ajax.upload.addEventListener( "progress", progressHandler, false );
-                 ajax.addEventListener( "load", completeHandler, false );
-                 ajax.addEventListener( "abort", abortHandler, false );
-                 ajax.open( "POST", url_placeholder + 'backend/newgroupimg.php' );
-                 ajax.send( formdata );
+                 ajax1 = new XMLHttpRequest();
+                 ajax1.upload.addEventListener( "progress", progressHandler, false );
+                 ajax1.addEventListener( "load", completeHandler, false );
+                 ajax1.addEventListener( "abort", abortHandler, false );
+                 ajax1.open( "POST", url_placeholder + 'backend/newgroupimg.php' );
+                 ajax1.send( formdata );
          }
 
+     
+     
          function progressHandler( event ) {
+             
                  var percent = ( event.loaded / event.total ) * 100;
-                 $( "#groupnotif" )
-                         .html( "Uploading  your file (" + Math.round( percent ) + "%)" );
+             
+                 $( "#groupnotif" ).html( "Uploading  your file (" + Math.round( percent ) + "%)" );
+             
+             
+             
+                 if (percent == 100) {
+                 
+                 $( "#groupnotif" ).html( "Completing..." );
+                 
+                 }
+            
+             
+                 $("#abort").show();
          }
 
+     
+     
+     
+     
          function completeHandler( event ) {
              
              
+                 $("#abort").hide();
+             
+             
                  result = event.target.responseText;
+             
                  if ( result.trim() === "1" ) {
-                         $( "#groupnotif" )
-                                 .html( "You have to upload an image." );
+                     
+                         $( "#groupnotif" ).html( "You have to upload an image." );
+                     
                  } else if ( result.trim() === "2" ) {
-                         $( "#groupnotif" )
-                                 .html( "Your image can only be jpg, png, jpeg or gif." );
+                     
+                         $( "#groupnotif" ).html( "Your image can only be jpg, png, jpeg or gif." );
+                     
                  } else if ( result.trim() === "3" ) {
-                         $( "#groupnotif" )
-                                 .html( "Your file must be an image." );
+                     
+                         $( "#groupnotif" ).html( "Your file must be an image." );
+                     
                  } else {
+                     
                          jsonGroup = JSON.parse( result );
                          group_status = jsonGroup[ 0 ];
                          group_pic_path = jsonGroup[ 1 ];
                          group_pic_name = jsonGroup[ 2 ];
                          group_pic_type = jsonGroup[ 3 ];
                          if ( group_status === 1 ) {
+                             
                                  group_picture_ready = true;
-                                 $( "#groupnotif" )
-                                         .html( file.name + " has successfully loaded." );
-                                 $( "#grouperror" )
-                                         .hide( 0 );
+                             
+                                 $( "#groupnotif" ).html( temp_name + " has successfully loaded." );
+
                          } else {
+                             
                                  group_picture_ready = false;
-                                 $( "#groupnotif" )
-                                         .html( "There is an unexplaind error. Please try again." );
+                             
+                                 $( "#groupnotif" ).html( "There is an unexplaind error. Please try again." );
+                             
                          }
                  }
          }
 
-         function errorHandler( event ) {
-                 $( "#groupnotif" )
-                         .html( "Upload fail. Please try again." );
+     
+     
+         function errorHandler( event ) { 
+             
+                 $( "#groupnotif" ).html( "Upload fail. Please try again." );
+             
          }
 
+     
+     
+     
          function abortHandler( event ) {
-                 $( "#groupnotif" )
-                         .html( "Upload aborted. Please try again." );
+             
+             
+             group_picture_ready = false;
+             
+             $( "#groupnotif" ).html( "Upload aborted. Please try again." );
+             
          }
  }
 
- function get_text_img() {
-         $( "#grouperror" )
-                 .hide( 0 );
-         $( "#grouperror" )
-                 .show( 300 );
-         $( "#grouperror" )
-                 .html( "Please upload an image." );
-         if ( group_text_ready && group_picture_ready ) {
-                 send_both_text_and_pic( groupname, groupdesc, group_pic_path, group_pic_name, group_pic_type );
-                 $( "#grouperror" )
-                         .hide( 0 );
-         }
- }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    $("#abort").on('click', function() {
+    
+        ajax1.abort(); 
+        
+        $("#groupimg").val("");  
+        
+        $( "#abort" ).hide();
+    
+    });    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
  function send_both_text_and_pic( groupname, groupdesc, group_pic_path, group_pic_name, group_pic_type ) {
          $.ajax( {
@@ -485,38 +703,305 @@ $user_info = $user_details_result->fetch_assoc();
                          },
                          dataType: 'text',
                          url: url_placeholder + 'backend/create_group.php',
-                         type: "POST"
+                         type: "POST",
+                         timeout: 15000
                  } )
                  .done( function( data ) {
-                         if ( data == 1 ) {
-                                 window.location.href = url_placeholder + "nogroups";
+             
+             
+             console.log(data)
+             
+                         if ( data.trim() == 1 ) {
+                             
+                         window.location.href = url_placeholder + "nogroups";
+                             
                          } else if ( data == 5 ) {
-                                 $( "#grouperror" )
-                                         .hide( 0 );
-                                 $( "#grouperror" )
-                                         .show( 300 );
-                                 $( "#grouperror" )
-                                         .html( "No fields can be left empty." );
+                               
+                                 $( "#groupnotif" ).html( "No fields can be left empty." );
+                             
+                             
+                             $("#groupsubmit").show();
+                             
+                             
                          } else if ( data == 6 ) {
-                                 $( "#grouperror" )
-                                         .hide( 0 );
-                                 $( "#grouperror" )
-                                         .show( 300 );
-                                 $( "#grouperror" )
-                                         .html( "Group name cannot exceed 60 characters. Description cannot exceed 140. File name cannot be too long." );
+                                
+                                 $( "#groupnotif" ).html( "Group name cannot exceed 60 characters. Description cannot exceed 140. File name cannot be too long." );
+                             
+                             $("#groupsubmit").show();
+                             
                          } else {}
                  } )
                  .fail( function( jqXHR, textStatus, errorThrown ) {
-                         $( "#grouperror" )
-                                 .hide( 0 );
-                         $( "#grouperror" )
-                                 .show( 300 );
-                         $( "#grouperror" )
-                                 .html( "Poor connection. Try again." );
+
+                         $( "#groupnotif" ).html( "Poor connection. Try again." );
+             
+             
+                         $("#groupsubmit").show();
                  } );
  }
 
 </script>
     
     
+  
+
+
+<script type="text/javascript">
+
+
     
+    
+    
+    
+    
+         $( document ).ready( function() {
+             
+             
+            $( "#groupnotif" ).show();
+         
+            count_request();
+             
+            count_important();
+             
+            count_replypage();
+         
+            group_picture_ready = false;
+   
+            $(function () {
+               $('[data-toggle="tooltip"]').tooltip()
+            })
+         
+        } );
+    
+    
+    
+    
+    
+    
+
+
+    function count_request()  {
+       
+       
+             typing_url_request = "<?php echo $_SESSION['url_placeholder'];  ?>tally";
+        
+        
+             $.ajax( {
+             url: typing_url_request,
+             type: "POST",
+             async: true,
+             timeout: 15000,
+             data: {
+                "important": 1,
+                 
+             },
+             success: function( data ) {
+                 
+                 
+             //    console.log(data);
+                 
+                 
+            var jsonCountAppend_request = JSON.parse( data );
+            
+            var attach_count_status_request =  jsonCountAppend_request[0];
+            
+            var attach_count_back_count_request =  jsonCountAppend_request[1];
+        
+            
+        
+           if (attach_count_status_request == 1) {
+               
+               if (attach_count_back_count_request == 0) {
+                   
+                   $("#alert_two").hide();
+                   
+               } else if (attach_count_back_count_request > 99) {
+                   
+                   $("#alert_two").show();
+                   
+                   $("#alert_two").html("(99+)");
+                   
+               }  else {
+                   
+                   $("#alert_two").show();
+                   
+                   $("#alert_two").html("(" + attach_count_back_count_request + ")");
+                   
+                   
+               }
+               
+           }
+        
+                   
+                  setTimeout(count_request, 5000);
+        
+        
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                 
+                 
+            
+                
+                  setTimeout(count_request, 5000);
+    
+                 
+                
+             }
+          } );
+       
+       
+   } 
+       
+    
+  
+
+
+
+    
+    
+        
+    
+    
+ 
+    function count_important()  {
+       
+       
+             typing_url_count = "<?php echo $_SESSION['url_placeholder'];  ?>count";
+        
+        
+             $.ajax( {
+             url: typing_url_count,
+             type: "POST",
+             async: true,
+             timeout: 15000,
+             data: {
+                "important": 1,
+                 
+             },
+             success: function( data ) {
+                 
+                 
+             //    console.log(data);
+                 
+                 
+            var jsonCountAppend = JSON.parse( data );
+            
+            var attach_count_status =  jsonCountAppend[0];
+            
+            var attach_count_back_count =  jsonCountAppend[1];
+        
+            
+        
+           if (attach_count_status == 1) {
+               
+               if (attach_count_back_count == 0) {
+                   
+                   $("#alert_one").hide();
+                   
+               } else if (attach_count_back_count > 99) {
+                   
+                   $("#alert_one").show();
+                   
+                   $("#alert_one").html("(99+)");
+                   
+               }  else {
+                   
+                   $("#alert_one").show();
+                   
+                   $("#alert_one").html("(" + attach_count_back_count + ")");
+                   
+                   
+               }
+               
+           }
+        
+                   
+                  setTimeout(count_important, 5000);
+        
+        
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                 
+                 
+            
+                
+                  setTimeout(count_important, 5000);
+    
+                 
+                
+             }
+          } );
+       
+       
+   } 
+       
+    
+
+    
+    
+    
+    
+    
+      
+    function count_replypage()  {
+       
+       
+             typing_url_reply_page = "<?php echo $_SESSION['url_placeholder'];  ?>quota";
+        
+        
+             $.ajax( {
+             url: typing_url_reply_page,
+             type: "POST",
+             async: true,
+             timeout: 15000,
+             data: {
+                "important": 1,
+                 
+             },
+             success: function( data ) {
+                 
+                 
+                 console.log("infdiue" + data)
+                 
+                 if (data == 100) {
+                     
+                    $("#alert_three").show();
+                   
+                    $("#alert_three").html("(new)");
+                     
+                 } else {
+                     
+                     
+                    $("#alert_three").hide(); 
+                     
+                 }
+                
+                 
+                 
+                 setTimeout(count_replypage, 5000);
+                 
+          
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                 
+                 
+            
+                
+                  setTimeout(count_replypage, 5000);
+    
+                 
+                
+             }
+          } );
+       
+       
+   } 
+       
+    
+
+
+
+
+
+
+</script>

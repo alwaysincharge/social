@@ -198,6 +198,300 @@ class Posts {
     
     
     
+    
+    
+    
+    
+    
+    
+        
+       public function latest_post_group() {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT posts.id as id, posts.owner as owner, posts.group_id as group_id FROM posts 
+       
+       INNER JOIN groups ON groups.id = posts.group_id
+       
+       INNER JOIN membership ON membership.group_id = posts.group_id
+       
+       where groups.deleted = 'live' and membership.deleted = 'live' and  membership.member_id = ? AND posts.deleted = 'live' order by posts.id desc limit 1");
+           
+       $stmt->bind_param("i", $id);
+          
+       $id = $_SESSION['admin_id'];
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      public function latest_group() {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT groups.id as id from groups
+       
+       INNER JOIN membership ON membership.group_id = groups.id
+       
+       where groups.deleted = 'live' and membership.deleted = 'live' and  membership.member_id = ?  order by groups.id desc limit 1");
+           
+       $stmt->bind_param("i", $id);
+          
+       $id = $_SESSION['admin_id'];
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+         public function single_post($id_1) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT * FROM posts 
+       
+       where id = ? limit 1");
+           
+       $stmt->bind_param("i", $id);
+          
+       $id = $id_1;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+       public function single_reply($id_1) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT * FROM reply 
+       
+       where receiver_id = ? limit 1");
+           
+       $stmt->bind_param("i", $id);
+          
+       $id = $id_1;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+      public function new_reply($id_1, $user_1) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("INSERT into reply (reply_id, receiver_id) values (?, ?)");
+           
+       $stmt->bind_param("ii", $id, $user);
+          
+       $id = $id_1;
+        
+       $user = $user_1;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+       public function delete_reply() {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("delete from reply where receiver_id = ? limit 1");
+           
+       $stmt->bind_param("i", $user);
+        
+       $user = $_SESSION['admin_id'];
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        
+    
+           public function is_there_reply_in_this_group() {
+
+    global $database;
+        
+       $stmt = $database->connection->prepare("SELECT posts.id as id, posts.message as message, posts.owner as owner, posts.group_id as group_id, posts.type as type, posts.reply_id as reply_id, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question, posts.timeoutput as timeoutput, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, posts.listname as listname, users.username as username, users.img_path as image, groups.name as groupname FROM posts 
+       
+       INNER JOIN posts AS childs ON childs.id = posts.reply_id
+       
+       INNER JOIN users ON users.id = posts.owner 
+       
+       INNER JOIN groups ON groups.id = posts.group_id
+       
+       INNER JOIN membership ON membership.group_id = posts.group_id
+       
+       where groups.deleted = 'live' and membership.deleted = 'live' and childs.owner = ? and posts.reply_id > 0 and membership.member_id = ? AND posts.deleted = 'live'  order by posts.id desc limit 1");
+           
+       $stmt->bind_param("ii", $id, $id);
+          
+       $id = $_SESSION['admin_id'];
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+       public function get_first_reply_posts() {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT posts.id as id, posts.message as message, posts.owner as owner, posts.group_id as group_id, posts.type as type, posts.reply_id as reply_id, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question, posts.timeoutput as timeoutput, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, posts.listname as listname, users.username as username, users.img_path as image, groups.name as groupname FROM posts 
+       
+       INNER JOIN posts AS childs ON childs.id = posts.reply_id
+       
+       INNER JOIN users ON users.id = posts.owner 
+       
+       INNER JOIN groups ON groups.id = posts.group_id
+       
+       INNER JOIN membership ON membership.group_id = posts.group_id
+       
+       where groups.deleted = 'live' and membership.deleted = 'live' and childs.owner = ? and posts.reply_id > 0 and membership.member_id = ? AND posts.deleted = 'live'  order by posts.id desc limit 12");
+           
+       $stmt->bind_param("ii", $id, $id);
+          
+       $id = $_SESSION['admin_id'];
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+       public function get_next_reply_posts($offset_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT posts.id as id, posts.message as message, posts.owner as owner, posts.group_id as group_id, posts.type as type, posts.reply_id as reply_id, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question, posts.timeoutput as timeoutput, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, posts.listname as listname, users.username as username, users.img_path as image, groups.name as groupname FROM posts 
+       
+       INNER JOIN posts AS childs ON childs.id = posts.reply_id
+       
+       INNER JOIN users ON users.id = posts.owner 
+       
+       INNER JOIN groups ON groups.id = posts.group_id
+       
+       INNER JOIN membership ON membership.group_id = posts.group_id
+       
+       where groups.deleted = 'live' and membership.deleted = 'live' and childs.owner = ? and posts.reply_id > 0 and membership.member_id = ? AND posts.deleted = 'live' and posts.id < ? order by posts.id desc limit 12");
+           
+       $stmt->bind_param("iii", $id, $id, $offset);
+          
+       $id = $_SESSION['admin_id'];
+           
+       $offset = $offset_input;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
        public function is_there_like_in_this_group() {
 
        global $database;
@@ -378,7 +672,7 @@ class Posts {
         
        $stmt = $database->connection->prepare("SELECT posts.id as id, posts.message as message, posts.group_id as group_id, posts.owner as owner, posts.type as type, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question,  posts.reply_id as reply_id, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, users.username as username, users.img_path as image FROM posts INNER JOIN users ON users.id = posts.owner where 
        
-       ( posts.message like ? OR  posts.attach_name like ? OR posts.question like ? OR posts.answer1 like ? OR posts.answer2 like ? OR posts.answer3 like ? OR posts.answer4 like ? OR posts.answer5 like ? OR posts.answer6 like ? OR posts.answer7 like ? OR posts.answer8 like ? OR posts.answer9 like ? OR posts.answer10 like ?) AND posts.group_id = ? AND posts.owner != 0 AND posts.deleted = 'live' order by posts.id desc limit 20 ");
+       ( posts.message like ? OR  posts.attach_name like ? OR posts.question like ? OR posts.answer1 like ? OR posts.answer2 like ? OR posts.answer3 like ? OR posts.answer4 like ? OR posts.answer5 like ? OR posts.answer6 like ? OR posts.answer7 like ? OR posts.answer8 like ? OR posts.answer9 like ? OR posts.answer10 like ?) AND posts.group_id = ? AND posts.owner != 0 AND posts.deleted = 'live' and posts.type = 'chat' order by posts.id desc limit 20 ");
         
        $stmt->bind_param("sssssssssssssi", $term, $term, $term, $term, $term, $term, $term, $term, $term, $term, $term, $term, $term, $group);
         

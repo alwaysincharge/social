@@ -19,6 +19,8 @@ RewriteRule ^important frontend/html/pages/important.php [NC,L]
 
 RewriteRule ^likes frontend/html/pages/likes.php [NC,L]
 
+RewriteRule ^reply frontend/html/pages/reply.php [NC,L]
+
 RewriteRule ^add frontend/html/pages/request.php [NC,L]
 
 RewriteRule ^poll/([0-9]+) frontend/html/pages/poll.php?group=$1 [NC,L]
@@ -31,6 +33,8 @@ RewriteRule ^accept_request backend/accept_request.php [NC,L]
 
 RewriteRule ^decline_request backend/decline_request.php [NC,L]
 
+RewriteRule ^quota backend/reply_page.php [NC,L]
+
 RewriteRule ^send_chat backend/send_chat.php [NC,L]
 
 RewriteRule ^count backend/important_count.php [NC,L]
@@ -40,6 +44,8 @@ RewriteRule ^scout backend/important_search.php [NC,L]
 RewriteRule ^make_admin backend/make_admin.php [NC,L]
 
 RewriteRule ^fetch_recent_posts backend/fetch_recent_posts.php [NC,L]
+
+RewriteRule ^fetch_reply_posts backend/fetch_reply_posts.php [NC,L]
 
 RewriteRule ^fetch_join_group backend/fetch_join_group.php [NC,L]
 

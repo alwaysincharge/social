@@ -1,4 +1,12 @@
-<?php  include_once('../../../includes/all_classes_and_functions.php');  ?>
+<?php  include_once('../../../includes/all_classes_and_functions.php');
+
+
+
+if ( isset($_SESSION['admin_id']) ) {  redirect_to($_SESSION['url_placeholder'] . 'nogroups');  } 
+
+
+
+?>
 
 
 <html lang="en">
@@ -40,10 +48,10 @@
         <input id="password1" maxlength="16" class="login-field-1" type="password" placeholder="password">
         
         
-        <input id="password2" maxlength="16" class="login-field-1" type="password" style="display: none;" placeholder="repeat password"> 
+        <input id="password2" maxlength="16" class="login-field-1" type="password" placeholder="repeat password"> 
         
         
-        <input id="email" maxlength="400" class="login-field-1" type="text" style="display: none;" placeholder="email (optional)">
+        <input id="email" maxlength="400" class="login-field-1" type="text" placeholder="email (optional)">
         
         
         
@@ -82,6 +90,22 @@
 
 <script type="text/javascript">
     
+    
+    
+    
+        
+    $( document ).ready( function() {
+       
+       $("#email").hide();
+        
+        
+        $("#password2").hide();
+        
+    } );
+    
+    
+    
+    
 var url_placeholder = "<?php echo $_SESSION['url_placeholder'];  ?>";
     
     
@@ -119,6 +143,26 @@ function ValidateEmail(mail)  {
     
        
 } 
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
 

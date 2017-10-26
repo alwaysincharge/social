@@ -10,9 +10,14 @@
     $fileType = $_FILES['file1']['type'];
     $fileSize = $_FILES['file1']['size'];
     $fileerrorMsg = $_FILES['file1']['error'];
+
+
+    $path_info = pathinfo($fileName);
+
     
     
-    $filePath = '../frontend/html/pages/show/' . $_SESSION['admin_id'] . time();
+    
+    $filePath = '../frontend/html/pages/show/' . $_SESSION['admin_id'] . time() . "." . $path_info['extension'];
 
     if  (move_uploaded_file($fileTmpLoc, $filePath)) {     
          
