@@ -15,6 +15,28 @@ $user_details_result = $user_details->get_result();
 $user_info = $user_details_result->fetch_assoc();
 
 
+
+
+
+$is_mem = $member->this_user_this_group_alive($_SESSION['admin_id'], $_GET['group']);
+
+$is_mem_r = $is_mem->get_result();
+
+$is_num = $is_mem_r->num_rows;
+
+
+
+if ($is_num != 1) {
+    
+    redirect_to($_SESSION['url_placeholder'] . 'nogroups');
+    
+}
+
+
+
+
+
+
 ?>
 
 
@@ -29,7 +51,7 @@ $user_info = $user_details_result->fetch_assoc();
     
 	<title>Friday Camp - connect with people, you already know.</title>
     
-    <meta name="description" content="Create, display and update your resume, find jobs, find a co-founder, message your hero, meet other techies, all here.">
+    <meta name="description" content="Create a group, add as many people as you like, and have a chat with them. Oh, you can also share files.">
     
     <?php include('../templates/head_info.php'); ?>
     
@@ -49,12 +71,12 @@ $user_info = $user_details_result->fetch_assoc();
     
    <nav class="nav-head">
     
-    <div class="row nav-main-row">
+    <div class="row nav-main-row div-scale">
         
         
-        <div class="col-xs-6">
+        <div class="col-xs-4">
             
-            <a class="logo-heading-1">friday camp <span class="logo-heading-2">//</span> <span class="logo-heading-3">
+            <a style="font-size: 16px;" href="<?php  echo $_SESSION['url_placeholder'];  ?>nogroups" class="logo-heading-1">friday camp <span class="logo-heading-2">//</span> polls <span class="logo-heading-2">//</span> <span class="logo-heading-3">
                 <?php
                 
                 $get_find_group_by_id = $group->find_group_by_id($_GET['group']);
@@ -64,19 +86,29 @@ $user_info = $user_details_result->fetch_assoc();
              
                     while($group_name = $get_find_group_by_id_result->fetch_assoc()) {
                         
-                        echo $group_name['name'];
+                             if (strlen($group_name['name']) <= 16)  {
+                            
+                            echo $group_name['name'];
+                            
+                        } else if (strlen($group_name['name']) > 16) {
+                            
+                            echo "<span style='font-size: 18px;'>" . substr($group_name['name'], 0, 16). "...</span>";
+                            
+                        }
+                        
+                        
                         
                     }
                 
                 ?>
-               </span>  <span class="logo-heading-2">//</span> all polls</a>
+               </span>  </a>
                             
         </div>
         
         
         
         
-        <div class="col-xs-6">
+        <div class="col-xs-8">
             
             
             <div style="float: right;">
@@ -96,124 +128,31 @@ $user_info = $user_details_result->fetch_assoc();
             </a>
             
             
-                <div class="dropdown">
-           
-                      <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/notification.svg" width="35" height="35" class="current-user-img"  />
-                    
-                <div class="dropdown-content">
-                    
-                      <?php
-                    
-                    
-                      $request_list = $request->current_member_requests($_SESSION['admin_id']); 
-          
-                      $request_list_result = $request_list->get_result();
-          
-          
-                      if ($request_list_result->num_rows > 0) {
               
-                        
-                          while($row_list_request = $request_list_result->fetch_assoc()) { ?>
-                              
-                              
-                                <?php 
-                              
-                                $group_details = $group->find_group_by_id($row_list_request['group_id']); 
-          
-                                $group_details_result = $group_details->get_result();
-                              
-                                $row_group = $group_details_result->fetch_assoc();
-                              
-                                
-                              
-                              
-                              
-                              
-                                $user_details = $user->find_one_user($row_list_request['sender_id']); 
-          
-                                $user_details_result = $user_details->get_result();
-                              
-                                $row_user = $user_details_result->fetch_assoc();
-                                                                                          
-                                ?>
-                    
-                    
-                              
-                              <div class="row" id="group<?php echo $row_group['id'];  ?>">
-                    
-                                  <div class="col-xs-2">
-                                  
-                                      <img src="<?php echo $row_group['img_path'];  ?>" width="35" height="35" class="current-user-img"  />
-                                  
-                                  </div>
-                    
-                                  
-                                  
-                                  <div class="col-xs-6" style="font-weight: bold; font-size: 16px;font-family: Josefin Slab;">
-                                  <p><?php echo $row_user['username'];  ?> wants you to join <span style="color: blue;"><?php echo $row_group['name'];  ?></span></p>
-                                  
-                                  </div>
-                                  
-                                  
-                                  <div class="col-xs-4">
-                                      
-                                      
-                                      <form method="post" action="<?php echo $_SESSION['url_placeholder'];  ?>accept_request" style="width: 30px; display: inline;">
-                                      
-                                      <input type="text" name="group_id" style="display: none;" value="<?php echo $row_group['id'];  ?>" />
-                                         
-                                          
-                                      
-                                          
-                                     <input type="submit" name="submit" value="accept" class="btn" style="outline: 0px ! important; font-weight: bold; font-size: 14px;font-family: Josefin Slab; background: #ddd; padding: 7px; border-radius: 4px; margin-right: 1px;" /> 
-                                      
-                                      
-                                      </form>
-                                      
-                                      
-                                              
-                                      
-                                      
-                                      
-                                      
-                                                      <div style="width: 30px; display: inline;">
-                                      
+                 <a data-toggle="tooltip" data-placement="bottom" title="important posts" href="<?php echo $_SESSION['url_placeholder'];  ?>important"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/import.svg" width="30" height="30" class="current-user-img"  /> <span style="font-family: Work Sans;" id="alert_one"></span></a>
+                
+                
+                <a data-toggle="tooltip" data-placement="bottom" title="replies" href="<?php echo $_SESSION['url_placeholder'];  ?>reply"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/replypage.svg" width="30" height="30" class="current-user-img"  /> <span style="font-family: Work Sans;" id="alert_three"></span></a>
+                
+                
+                <a data-toggle="tooltip" data-placement="bottom" title="group requests" href="<?php echo $_SESSION['url_placeholder'];  ?>add"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/notification.svg" width="30" height="30" class="current-user-img"  /> <span style="font-family: Work Sans;" id="alert_two"></span></a>
+                
+                
 
-                                         
-                                          
-                                      
-                                          
-                                     <input type="submit" onclick="myFunction('<?php echo $row_group['id'];  ?>')" name="submit" value="decline" class="btn" style="font-weight: bold; font-size: 14px;font-family: Josefin Slab; background: #ddd; padding: 7px; border-radius: 4px; margin-right: 0px;" /> 
-                                      
-                                      
-                                      </div>
-                                      
-                                      
-
-                                  
-                                  </div>
-                    
-                    
-                              </div>
-                              
-                       <?php   }
-                          
-                          
-        
-                      } else {
-                          
-                          echo "none";
-                      }
-            
-                    
-                      ?>
-                    
-                </div>
-                    
-                </div>
+                
+                      <div class="dropdown">
             
             <img src="<?php echo $_SESSION['url_placeholder'];  ?><?php echo $user_info['img_path'];  ?>" width="35" height="35" class="current-user-img"  />
+                    
+                    
+                    <div class="dropdown-content-2">
+                        <p style="font-size: 15px; font-family: Work Sans;"><i><?php echo $user_info['username'];  ?></i></p>
+                        
+                        <a href="<?php echo $_SESSION['url_placeholder'];  ?>profile" style="font-size: 15px; font-family: Work Sans;">Edit profile</a> //
+                        <a href="<?php echo $_SESSION['url_placeholder'];  ?>logout" style="font-size: 15px; font-family: Work Sans;">Logout</a>
+                    </div>
             
+                </div>
             
             </div>
             
@@ -231,7 +170,7 @@ $user_info = $user_details_result->fetch_assoc();
     
     
     
-            <div class="row main-body-div">
+            <div class="row main-body-div div-scale">
                 
                 
                 
@@ -343,9 +282,20 @@ $user_info = $user_details_result->fetch_assoc();
                     <div id="search-div" style="display: none;">
                     
                     
+                        <p id="somesearch" style="display: table; margin: 0 auto; margin-top: 10px; font-size: 16px;font-family: Work Sans; width: 300px; word-break: break-all;">Showing results for "<span class="term1"></span>".
                         
-                    <p style="display: table; margin: 0 auto; margin-top: 16px; font-weight: bold; font-size: 19px;font-family: Work Sans;">Searching for "<span id="term1"></span>".</p>
-                            
+                        
+                        <a class="termclose"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/cancel.svg" style="width: 13px; margin-left: 10px; cursor: pointer;"  /></a> 
+                        
+                        </p>
+                        
+                        
+                    <p id="nosearch" style="display: table; margin: 0 auto; margin-top: 10px; font-size: 16px;font-family: Work Sans; width: 300px; word-break: break-all;">Sorry. No results for "<span class="term1"></span>".
+                        
+                        
+                        <a class="termclose"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/cancel.svg" style="width: 13px; margin-left: 10px; cursor: pointer;"  /></a> 
+                        
+                        </p>
                             
                     <div id="areas3" style="margin-top: 40px;">
                                                 
@@ -379,7 +329,7 @@ $user_info = $user_details_result->fetch_assoc();
 
                       
                         
-                          <div style="display: table; margin: 0 auto;">
+                          <div id="wedges" style="display: table; margin: 0 auto;">
                         
                         
                       <!--  <p id="loadagain" style="display: none;">Poor connection. Try again. <a>Here</a></p> -->
@@ -426,174 +376,16 @@ $user_info = $user_details_result->fetch_assoc();
                 <div class="col-xs-3 group-list-div">
                     
                     
-                    
-                    
-                    
-                <?php
-                
-                $get_find_group_by_id = $group->find_group_by_id($_GET['group']);
 
-                $get_find_group_by_id_result = $get_find_group_by_id->get_result();
-
-             
-                    while($group_list_this = $get_find_group_by_id_result->fetch_assoc()) { ?>
-                        
-                       
                     
-                 <div class="row group-list-row">
-                        
-                        
-                        <div class="col-xs-2">
-                            
-                           <img src="<?php echo $group_list_this['img_path']; ?>" width="40" height="40" style="group-list-profile-img"  />
-                        
-                        </div>
-                        
-                      
-                        
-                        <div class="col-xs-7 group-list-body">
-                            
-                            <a class="group-list-name"><?php echo $group_list_this['name']; ?></a><br>                            
-                            <a class="group-list-membercount"> <?php
-                                                                                            
-                                              
-$all_members_of_this_group = $member->all_members_of_this_group($group_list_this['id']);
-
-$all_members_of_this_group_result = $all_members_of_this_group->get_result();                                                                  
-                                                                                            
-                         while($members_this = $all_members_of_this_group_result->fetch_assoc()) { echo $members_this['count'];  }                                                                   
-                                                                                            
-                                                                                            
-                       ?> members</a>
-                        
-                        </div>
-                        
-                        
-                        
-                        <div class="col-xs-3 group-list-notif-1">
-                            
-                            <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/view.svg" width="30" height="30" style="group-list-notif-2"  />
-                            
-                        </div>
-                        
-                        
-                    </div>
-                    
-                        
-                 <?php   }
-                
-                ?>
+                       <p style="font-family: Work Sans; font-size: 20px; margin-left: 20px;">Polls.</p>
                     
                     
                     
-  <?php                  
-                    
-$get_all_groups_of_user = $member->all_users_groups_except($_SESSION['admin_id'], $_GET['group']);
-
-$get_all_groups_of_user_result = $get_all_groups_of_user->get_result();
-
-$numRows = $get_all_groups_of_user_result->num_rows;
-
-      
-               if ($numRows > 0) {
-                   
-                   
-                    while($row = $get_all_groups_of_user_result->fetch_assoc()) {
-                        
-                    
-                        
-                        
-                        
-                         $get_find_group_by_id = $group->find_group_by_id($row['group_id']);
-
-                $get_find_group_by_id_result = $get_find_group_by_id->get_result();
-
-             
-                    while($group_list_other = $get_find_group_by_id_result->fetch_assoc()) {  ?>
-                        
-                        
-                        
-                        
-                        
-               
-                        
-                        
-                        
-                        
-                        <div class="row group-list-row" onclick="window.location='<?php echo $_SESSION['url_placeholder'] . "dashboard/" . $group_list_other['id'];   ?>';">
-                        
-                        
-                        <div class="col-xs-2">
-                            
-                           <img src="<?php  echo $group_list_other['img_path'];   ?>" width="40" height="40" style="group-list-profile-img"  />
-                        
-                        </div>
-                        
-                      
-                        
-                        <div class="col-xs-7 group-list-body">
-                            
-                            <a class="group-list-name"><?php  echo $group_list_other['name'];   ?></a><br>                            
-                            <a class="group-list-membercount">         <?php
-                                                                                            
-                                              
-$all_members_of_this_group = $member->all_members_of_this_group($group_list_other['id']);
-
-$all_members_of_this_group_result = $all_members_of_this_group->get_result();                                                                  
-                                                                                            
-                         while($members_other = $all_members_of_this_group_result->fetch_assoc()) { echo $members_other['count'];  }                                                                   
-                                                                                            
-                                                                                            
-                       ?> members</a>
-                        
-                        </div>
-                        
-                        
-                        
-                        <div class="col-xs-3 group-list-notif-1">
-                            
-                            <a class="group-list-notifs">76+</a>
-                            
-                        </div>
-                        
-                        
-                           </div> 
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                  <?php  }
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    }
-                   
-                   
-
-               } else {
-                   
-                   
-                   
-               } ?>
-                    
-                    
+                    <p style="font-family: Work Sans; font-size: 17px; margin-left: 20px;">This is a list of polls from the above named group.</p>
                     
                     
 
-                    
-                    
                     
                     
                
@@ -636,6 +428,285 @@ currentArray = [];
     new_post_id_num = 0;
     new_post_id = "new_post" + new_post_id_num;
 
+    
+    
+    
+    
+   
+    
+    
+    
+    
+    function isScrolledIntoView(elem)
+{
+    var docViewTop = $(window).scrollTop();
+    var docViewBottom = docViewTop + $(window).height();
+
+    var elemTop = $(elem).offset().top;
+    var elemBottom = elemTop + $(elem).height();
+
+    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+}
+    
+    
+    
+    
+    function Utils() {
+
+}
+
+Utils.prototype = {
+    constructor: Utils,
+    isElementInView: function (element, fullyInView) {
+        var pageTop = $(window).scrollTop();
+        var pageBottom = pageTop + $(window).height();
+        var elementTop = $(element).offset().top;
+        var elementBottom = elementTop + $(element).height();
+
+        if (fullyInView === true) {
+            return ((pageTop < elementTop) && (pageBottom > elementBottom));
+        } else {
+            return ((elementTop <= pageBottom) && (elementBottom >= pageTop));
+        }
+    }
+};
+
+var Utils = new Utils();
+    
+    
+    
+ isElementInView = Utils.isElementInView($('#wedges'), false);   
+    
+     
+    
+    
+    
+    
+    
+    
+    
+    
+ 
+    function count_important()  {
+       
+       
+             typing_url_count = "<?php echo $_SESSION['url_placeholder'];  ?>count";
+        
+        
+             $.ajax( {
+             url: typing_url_count,
+             type: "POST",
+             async: true,
+             timeout: 15000,
+             data: {
+                "important": 1,
+                 
+             },
+             success: function( data ) {
+                 
+                 
+             //    console.log(data);
+                 
+                 
+            var jsonCountAppend = JSON.parse( data );
+            
+            var attach_count_status =  jsonCountAppend[0];
+            
+            var attach_count_back_count =  jsonCountAppend[1];
+        
+            
+        
+           if (attach_count_status == 1) {
+               
+               if (attach_count_back_count == 0) {
+                   
+                   $("#alert_one").hide();
+                   
+               } else if (attach_count_back_count > 99) {
+                   
+                   $("#alert_one").show();
+                   
+                   $("#alert_one").html("(99+)");
+                   
+               }  else {
+                   
+                   $("#alert_one").show();
+                   
+                   $("#alert_one").html("(" + attach_count_back_count + ")");
+                   
+                   
+               }
+               
+           }
+        
+                   
+                  setTimeout(count_important, 5000);
+        
+        
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                 
+                 
+            
+                
+                  setTimeout(count_important, 5000);
+    
+                 
+                
+             }
+          } );
+       
+       
+   } 
+       
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+     
+    function count_request()  {
+       
+       
+             typing_url_request = "<?php echo $_SESSION['url_placeholder'];  ?>tally";
+        
+        
+             $.ajax( {
+             url: typing_url_request,
+             type: "POST",
+             async: true,
+             timeout: 15000,
+             data: {
+                "important": 1,
+                 
+             },
+             success: function( data ) {
+                 
+                 
+             //    console.log(data);
+                 
+                 
+            var jsonCountAppend_request = JSON.parse( data );
+            
+            var attach_count_status_request =  jsonCountAppend_request[0];
+            
+            var attach_count_back_count_request =  jsonCountAppend_request[1];
+        
+            
+        
+           if (attach_count_status_request == 1) {
+               
+               if (attach_count_back_count_request == 0) {
+                   
+                   $("#alert_two").hide();
+                   
+               } else if (attach_count_back_count_request > 99) {
+                   
+                   $("#alert_two").show();
+                   
+                   $("#alert_two").html("(99+)");
+                   
+               }  else {
+                   
+                   $("#alert_two").show();
+                   
+                   $("#alert_two").html("(" + attach_count_back_count_request + ")");
+                   
+                   
+               }
+               
+           }
+        
+                   
+                  setTimeout(count_request, 5000);
+        
+        
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                 
+                 
+            
+                
+                  setTimeout(count_request, 5000);
+    
+                 
+                
+             }
+          } );
+       
+       
+   } 
+       
+    
+  
+    
+    
+    
+    
+    
+      
+    function count_replypage()  {
+       
+       
+             typing_url_reply_page = "<?php echo $_SESSION['url_placeholder'];  ?>quota";
+        
+        
+             $.ajax( {
+             url: typing_url_reply_page,
+             type: "POST",
+             async: true,
+             timeout: 15000,
+             data: {
+                "important": 1,
+                 
+             },
+             success: function( data ) {
+                 
+                 
+                 console.log("infdiue" + data)
+                 
+                 if (data == 100) {
+                     
+                    $("#alert_three").show();
+                   
+                    $("#alert_three").html("(new)");
+                     
+                 } else {
+                     
+                     
+                    $("#alert_three").hide(); 
+                     
+                 }
+                
+                 
+                 
+                 setTimeout(count_replypage, 5000);
+                 
+          
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                 
+                 
+            
+                
+                  setTimeout(count_replypage, 5000);
+    
+                 
+                
+             }
+          } );
+       
+       
+   } 
+       
+    
+    
+    
     
     
     
@@ -1240,7 +1311,9 @@ $("#myTextBox").on("input", function() {
             
             $("#search-div").show(500);
             
-            $("#term1").html($("#myTextBox").val());
+            $("#wedges").hide(500);
+            
+            $(".term1").html($("#myTextBox").val());
             
             search_posts($(this).val());
             
@@ -1249,6 +1322,8 @@ $("#myTextBox").on("input", function() {
             $("#content-div").show(600);
             
             $("#search-div").hide(500);
+            
+            $("#wedges").show(500);
             
         }
         
@@ -1468,6 +1543,20 @@ $("#myTextBox").on("input", function() {
     
     
     
+    
+        $(".termclose").on("click", function() {
+        
+
+        $("#myTextBox").val("");
+        
+        
+        $("#content-div").show(600);
+            
+            $("#search-div").hide(500);
+            
+            $("#wedges").show(500);
+        
+});
     
     
     
@@ -2130,286 +2219,6 @@ $("#myTextBox").on("input", function() {
     
     
     
-    function AppendPoll(question, answer1, answer2, answer3, answer4, answer5, answer6, answer7, answer8, answer9, answer10)  {
-        
-        
-        
-        
-        var new_poll_html = '';
-        
-        new_poll_html += '<div id=\"'+ 'whole_' + new_post_id +'\" class=\"row poll-div\">';
-        
-        
-        new_poll_html += '<div class=\"col-xs-2\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/nopic.png\" style=\"width: 40px; margin-left: 10px;\"  /></div>';
-        
-        new_poll_html += '<div id=\"'+ 'whole_body_' + new_post_id +'\" class=\"col-xs-10 poll-body\">';
-        
-        new_poll_html += '<p class=\"poll-quest-box\"> ' +  question +' </p>';
-
-    
-        new_poll_html += '<form action=\"#\">';
-    
-        
-        
-    
-        new_poll_html += '<p class=\"poll-answer-box'+ new_post_id_num +'\">';       
-        
-        new_poll_html += '<div class=\"radio-first  radio-first-'+ new_post_id_num +'\"><input class=\"radio-new-class-'+ new_post_id_num +'\"  type=\"radio\" id=\"poll-id-1'+ new_post_id_num +'\" value=\"1\" name=\"radio_group_' + new_post_id + '\">';
-        
-        new_poll_html += '<label for=\"poll-id-1'+ new_post_id_num +'\" class=\"poll-answer-style-1\"><span> ' + answer1 + '</span></label><br></div>';
-        
-        new_poll_html +=  '<div class=\"radio-second radio-second-'+ new_post_id_num +'\" style=\"display: none;\">';
-        
-        new_poll_html +=  '<p class=\"poll-answer-style-1\"> ' + answer1 + ' </p>';
-        
-        new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll1'+ new_post_id_num +'\" class=\"poll-progress\"></progress>'; 
-        
-        new_poll_html +=  '<a class=\"poll-score poll-score1'+ new_post_id_num +'\"> 30% | 34 votes</a>'; 
-        
-        new_poll_html += '<img class=\"poll-img1'+ new_post_id_num +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        new_poll_html +=  '</div>';
-
-                        
-                        
-                            
-        
-        new_poll_html += '<p class=\"poll-answer-box'+ new_post_id_num +'\">';       
-        
-        new_poll_html += '<div class=\"radio-first  radio-first-'+ new_post_id_num +'\"><input class=\"radio-new-class-'+ new_post_id_num +'\"  type=\"radio\" id=\"poll-id-2'+ new_post_id_num +'\" value=\"2\" name=\"radio_group_' + new_post_id + '\">';
-        
-        new_poll_html += '<label for=\"poll-id-2'+ new_post_id_num +'\" class=\"poll-answer-style-1\"><span> ' + answer2 + '</span></label><br></div>';
-        
-        new_poll_html +=  '<div class=\"radio-second radio-second-'+ new_post_id_num +'\" style=\"display: none;\">';
-        
-        new_poll_html +=  '<p class=\"poll-answer-style-1\"> ' + answer2 + ' </p>';
-        
-        new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll2'+ new_post_id_num +'\" class=\"poll-progress\"></progress>'; 
-        
-        new_poll_html +=  '<a class=\"poll-score poll-score2'+ new_post_id_num +'\"> 30% | 34 votes</a>'; 
-        
-        new_poll_html += '<img class=\"poll-img2'+ new_post_id_num +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        new_poll_html +=  '</div>';
-
-        
-        
-        if (answer3.trim().length > 0) {
-        
-        new_poll_html += '<p class=\"poll-answer-box'+ new_post_id_num +'\">';       
-        
-        new_poll_html += '<div class=\"radio-first  radio-first-'+ new_post_id_num +'\"><input class=\"radio-new-class-'+ new_post_id_num +'\"  type=\"radio\" id=\"poll-id-3'+ new_post_id_num +'\" value=\"3\" name=\"radio_group_' + new_post_id + '\">';
-        
-        new_poll_html += '<label for=\"poll-id-3'+ new_post_id_num +'\" class=\"poll-answer-style-1\"><span> ' + answer3 + '</span></label><br></div>';
-        
-        new_poll_html +=  '<div class=\"radio-second radio-second-'+ new_post_id_num +'\" style=\"display: none;\">';
-        
-        new_poll_html +=  '<p class=\"poll-answer-style-1\"> ' + answer3 + ' </p>';
-        
-        new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll3'+ new_post_id_num +'\" class=\"poll-progress\"></progress>'; 
-        
-        new_poll_html +=  '<a class=\"poll-score poll-score3'+ new_post_id_num +'\"> 30% | 34 votes</a>';
-            
-        new_poll_html += '<img class=\"poll-img3'+ new_post_id_num +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        new_poll_html +=  '</div>';                
-
-        }
-        
-        
-        
-        if (answer4.trim().length > 0) {
-            
-        new_poll_html += '<p class=\"poll-answer-box'+ new_post_id_num +'\">';       
-        
-        new_poll_html += '<div class=\"radio-first  radio-first-'+ new_post_id_num +'\"><input class=\"radio-new-class-'+ new_post_id_num +'\"  type=\"radio\" id=\"poll-id-4'+ new_post_id_num +'\" value=\"4\" name=\"radio_group_' + new_post_id + '\">';
-        
-        new_poll_html += '<label for=\"poll-id-4'+ new_post_id_num +'\" class=\"poll-answer-style-1\"><span> ' + answer4 + '</span></label><br></div>';
-        
-        new_poll_html +=  '<div class=\"radio-second radio-second-'+ new_post_id_num +'\" style=\"display: none;\">';
-        
-        new_poll_html +=  '<p class=\"poll-answer-style-1\"> ' + answer4 + ' </p>';
-        
-        new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll4'+ new_post_id_num +'\" class=\"poll-progress\"></progress>'; 
-        
-        new_poll_html +=  '<a class=\"poll-score poll-score4'+ new_post_id_num +'\"> 30% | 34 votes</a>'; 
-            
-        new_poll_html += '<img class=\"poll-img4'+ new_post_id_num +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        new_poll_html +=  '</div>';                
-
-        }
-        
-        
-        if (answer5.trim().length > 0) {
-            
-        new_poll_html += '<p class=\"poll-answer-box'+ new_post_id_num +'\">';       
-        
-        new_poll_html += '<div class=\"radio-first  radio-first-'+ new_post_id_num +'\"><input class=\"radio-new-class-'+ new_post_id_num +'\"  type=\"radio\" id=\"poll-id-5'+ new_post_id_num +'\" value=\"5\" name=\"radio_group_' + new_post_id + '\">';
-        
-        new_poll_html += '<label for=\"poll-id-5'+ new_post_id_num +'\" class=\"poll-answer-style-1\"><span> ' + answer5 + '</span></label><br></div>';
-        
-        new_poll_html +=  '<div class=\"radio-second radio-second-'+ new_post_id_num +'\" style=\"display: none;\">';
-        
-        new_poll_html +=  '<p class=\"poll-answer-style-1\"> ' + answer5 + ' </p>';
-        
-        new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll5'+ new_post_id_num +'\" class=\"poll-progress\"></progress>'; 
-        
-        new_poll_html +=  '<a class=\"poll-score poll-score5'+ new_post_id_num +'\"> 30% | 34 votes</a>'; 
-            
-        new_poll_html += '<img class=\"poll-img5'+ new_post_id_num +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        new_poll_html +=  '</div>';
-
-        }
-        
-        
-        
-        if (answer6.trim().length > 0) {
-        
-        new_poll_html += '<p class=\"poll-answer-box'+ new_post_id_num +'\">';       
-        
-        new_poll_html += '<div class=\"radio-first  radio-first-'+ new_post_id_num +'\"><input class=\"radio-new-class-'+ new_post_id_num +'\"  type=\"radio\" id=\"poll-id-6'+ new_post_id_num +'\" value=\"6\" name=\"radio_group_' + new_post_id + '\">';
-        
-        new_poll_html += '<label for=\"poll-id-6'+ new_post_id_num +'\" class=\"poll-answer-style-1\"><span> ' + answer6 + '</span></label><br></div>';
-        
-        new_poll_html +=  '<div class=\"radio-second radio-second-'+ new_post_id_num +'\" style=\"display: none;\">';
-        
-        new_poll_html +=  '<p class=\"poll-answer-style-1\"> ' + answer6 + ' </p>';
-        
-        new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll6'+ new_post_id_num +'\" class=\"poll-progress\"></progress>'; 
-        
-        new_poll_html +=  '<a class=\"poll-score poll-score6'+ new_post_id_num +'\"> 30% | 34 votes</a>'; 
-            
-        new_poll_html += '<img class=\"poll-img6'+ new_post_id_num +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        new_poll_html +=  '</div>';                 
-
-        }
-        
-        
-        
-        if (answer7.trim().length > 0) {
-            
-        new_poll_html += '<p class=\"poll-answer-box'+ new_post_id_num +'\">';       
-        
-        new_poll_html += '<div class=\"radio-first  radio-first-'+ new_post_id_num +'\"><input class=\"radio-new-class-'+ new_post_id_num +'\"  type=\"radio\" id=\"poll-id-7'+ new_post_id_num +'\" value=\"7\" name=\"radio_group_' + new_post_id + '\">';
-        
-        new_poll_html += '<label for=\"poll-id-7'+ new_post_id_num +'\" class=\"poll-answer-style-1\"><span> ' + answer7 + '</span></label><br></div>';
-        
-        new_poll_html +=  '<div class=\"radio-second radio-second-'+ new_post_id_num +'\" style=\"display: none;\">';
-        
-        new_poll_html +=  '<p class=\"poll-answer-style-1\"> ' + answer7 + ' </p>';
-        
-        new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll7'+ new_post_id_num +'\" class=\"poll-progress\"></progress>'; 
-        
-        new_poll_html +=  '<a class=\"poll-score poll-score7'+ new_post_id_num +'\"> 30% | 34 votes</a>';
-            
-        new_poll_html += '<img class=\"poll-img7'+ new_post_id_num +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        new_poll_html +=  '</div>';                
-
-        }
-        
-        
-        
-        
-        if (answer8.trim().length > 0) {
-        
-        new_poll_html += '<p class=\"poll-answer-box'+ new_post_id_num +'\">';       
-        
-        new_poll_html += '<div class=\"radio-first  radio-first-'+ new_post_id_num +'\"><input class=\"radio-new-class-'+ new_post_id_num +'\"  type=\"radio\" id=\"poll-id-8'+ new_post_id_num +'\" value=\"8\" name=\"radio_group_' + new_post_id + '\">';
-        
-        new_poll_html += '<label for=\"poll-id-8'+ new_post_id_num +'\" class=\"poll-answer-style-1\"><span> ' + answer8 + '</span></label><br></div>';
-        
-        new_poll_html +=  '<div class=\"radio-second radio-second-'+ new_post_id_num +'\" style=\"display: none;\">';
-        
-        new_poll_html +=  '<p class=\"poll-answer-style-1\"> ' + answer8 + ' </p>';
-        
-        new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll8'+ new_post_id_num +'\" class=\"poll-progress\"></progress>'; 
-        
-        new_poll_html +=  '<a class=\"poll-score poll-score8'+ new_post_id_num +'\"> 30% | 34 votes</a>';
-            
-        new_poll_html += '<img class=\"poll-img8'+ new_post_id_num +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        new_poll_html +=  '</div>';                 
-
-        }
-        
-        
-        
-        if (answer9.trim().length > 0) {
-            
-        new_poll_html += '<p class=\"poll-answer-box'+ new_post_id_num +'\">';       
-        
-        new_poll_html += '<div class=\"radio-first  radio-first-'+ new_post_id_num +'\"><input class=\"radio-new-class-'+ new_post_id_num +'\"  type=\"radio\" id=\"poll-id-9'+ new_post_id_num +'\" value=\"9\" name=\"radio_group_' + new_post_id + '\">';
-        
-        new_poll_html += '<label for=\"poll-id-9'+ new_post_id_num +'\" class=\"poll-answer-style-1\"><span> ' + answer9 + '</span></label><br></div>';
-        
-        new_poll_html +=  '<div class=\"radio-second radio-second-'+ new_post_id_num +'\" style=\"display: none;\">';
-        
-        new_poll_html +=  '<p class=\"poll-answer-style-1\"> ' + answer9 + ' </p>';
-        
-        new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll9'+ new_post_id_num +'\" class=\"poll-progress\"></progress>'; 
-        
-        new_poll_html +=  '<a class=\"poll-score poll-score9'+ new_post_id_num +'\"> 30% | 34 votes</a>'; 
-            
-        new_poll_html += '<img class=\"poll-img9'+ new_post_id_num +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        new_poll_html +=  '</div>';  
-            
-        }
-        
-        
-        
-        if (answer10.trim().length > 0) {
-            
-        new_poll_html += '<p class=\"poll-answer-box'+ new_post_id_num +'\">';       
-        
-        new_poll_html += '<div class=\"radio-first  radio-first-'+ new_post_id_num +'\"><input class=\"radio-new-class-'+ new_post_id_num +'\"  type=\"radio\" id=\"poll-id-10'+ new_post_id_num +'\" value=\"10\" name=\"radio_group_' + new_post_id + '\">';
-        
-        new_poll_html += '<label for=\"poll-id-10'+ new_post_id_num +'\" class=\"poll-answer-style-1\"><span> ' + answer10 + '</span></label><br></div>';
-        
-        new_poll_html +=  '<div class=\"radio-second radio-second-'+ new_post_id_num +'\" style=\"display: none;\">';
-        
-        new_poll_html +=  '<p class=\"poll-answer-style-1\"> ' + answer10 + ' </p>';
-        
-        new_poll_html +=  '<progress value=\"30\" max=\"100\" id=\"progressPoll10'+ new_post_id_num +'\" class=\"poll-progress\"></progress>'; 
-        
-        new_poll_html +=  '<a class=\"poll-score poll-score10'+ new_post_id_num +'\"> 30% | 34 votes</a>'; 
-            
-        new_poll_html += '<img class=\"poll-img10'+ new_post_id_num +'\" src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/poll-check.svg\" width=\"20\" height=\"20\"  style=\"margin-left: 10px; display: none;\" /></p>';
-        
-        new_poll_html +=  '</div>';                 
-
-        }
-        
-        
-        new_poll_html += '</form>';
-        
-        new_poll_html += '</div></div><br>';                
-                        
-     
-        
-          var new_items_poll = $( new_poll_html ).hide();
-          $( '#postsdiv' ).prepend( new_items_poll );
-          new_items_poll.show( 100 );
-                
-        
-          sendPoll(poll_q, poll_a1, poll_a2, poll_a3, poll_a4, poll_a5, poll_a6, poll_a7, poll_a8, poll_a9, poll_a10, new_post_id, new_post_id_num);
-                
-          new_post_id_num = new_post_id_num + 1;
-          new_post_id = "new_post" + new_post_id_num;
-        
-    }
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -2418,7 +2227,7 @@ $("#myTextBox").on("input", function() {
     
     function search_posts(term) {
         
-        search_posts_url = "<?php echo $_SESSION['url_placeholder'];  ?>search_posts";
+        search_posts_url = "<?php echo $_SESSION['url_placeholder'];  ?>search_polls";
         
        $.ajax( {
         
@@ -2434,10 +2243,36 @@ $("#myTextBox").on("input", function() {
           },
           success: function( d ) {
               
-           console.log(d);
+           //   alert(d.trim())
+              
+              
+             console.log(d);
              var jsonSearch = JSON.parse( d );
+              
+              
+           //   alert(jsonSearch.new_search)
+              
              var jsonSearchLength = jsonSearch.new_search.length;
              var htmlSearch = "";
+              
+              
+              
+              
+                 if (jsonSearch.new_search.length == 0)  {
+                 
+                 
+                 $("#nosearch").show(200);
+                 $("#somesearch").hide(200);
+                 
+                 
+                 
+             } else if (jsonSearch.new_search.length > 0)  {
+                 
+                 $("#nosearch").hide(200);
+                 $("#somesearch").show(200);
+                 
+                 
+             }
              
              //If lastTimeID is zero.
            
@@ -2449,18 +2284,18 @@ $("#myTextBox").on("input", function() {
                  
                  
                  
-                 
+                    
                  
                  
                                if(resultSearch.type == 'poll' && resultSearch.owner == "<?php echo $user_info['id']; ?>") { 
                    
                    
-                      
+                   
                       
         htmlSearch += '<div id=\"'+ 'whole_old_search' + resultSearch.id +'\" class=\"row poll-div\" style=\"margin-bottom: 20px;\">';
         
         
-        htmlSearch += '<div class=\"col-xs-2\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/nopic.png\" style=\"width: 40px; margin-left: 10px;\"  /></div>';
+        htmlSearch += '<div class=\"col-xs-2\"><img src=\" '+  '<?php echo $_SESSION['url_placeholder'];  ?>' +  resultSearch.image  +' \" style=\"width: 40px; height: 40px; border-radius: 3px; margin-left: 0px;\"  /></div>';
         
         htmlSearch += '<div class=\"col-xs-10 poll-body\">';
         
@@ -2867,6 +2702,8 @@ $("#myTextBox").on("input", function() {
         
         
         htmlSearch += '<div class=\"col-xs-10 poll-body\">';
+                                   
+        htmlSearch += '<p class=\"text-username\">' + resultSearch.username + '</p>';
         
         htmlSearch += '<p class=\"poll-quest-box\"> ' +  resultSearch.question +' </p>';
                                    
@@ -3232,7 +3069,7 @@ $("#myTextBox").on("input", function() {
                                    
                                    
                                    
-          htmlSearch += '<div class=\"col-xs-2\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/nopic.png\" style=\"width: 40px; margin-left: 10px;\"  /></div></div>';
+          htmlSearch += '<div class=\"col-xs-2\"><img src=\" '+  '<?php echo $_SESSION['url_placeholder'];  ?>' +  resultSearch.image  +' \" style=\"width: 40px; height: 40px; border-radius: 3px; margin-left: 0px;\"  /></div></div>';
                      
                         
                       
@@ -3288,13 +3125,33 @@ $("#myTextBox").on("input", function() {
 
     $( window ).on( "scroll", function() {
         
-       if ( ( window.innerHeight + window.scrollY ) >= document.body.offsetHeight ) {
+        
+        
+        
+        
+        
+        
+                              if (isElementInView) {
+                        
+                        displayFromDatabasePagination();
+                               $(window).unbind("scroll");
+   // alert('in view');
+} else {
+   // alert('out of view');
+}
+      
+        
+        
+        
+        
+        
+  /*     if ( ( window.innerHeight + window.scrollY ) >= document.body.offsetHeight ) {
            
         displayFromDatabasePagination();
            
           $(window).unbind("scroll");
            
-       }
+       } */
         
     } );
     
@@ -3387,6 +3244,16 @@ $("#myTextBox").on("input", function() {
     
     
     $( document ).ready( function() {
+        
+        
+        
+        
+         count_important();
+         
+         count_request();
+         
+         count_replypage();
+        
        
        displayFromDatabasePagination();
         
@@ -3394,11 +3261,7 @@ $("#myTextBox").on("input", function() {
        
     
         
-    if ($("#poll-a3").val().length > 0) {
-        
-        alert("mkodad");
-        
-    }
+   
         
     } );
     
@@ -3491,18 +3354,25 @@ function displayFromDatabasePagination() {
                    
                    
                    
+                  
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
                    
                   if(resultOldPost.type == 'poll' && resultOldPost.owner == "<?php echo $user_info['id']; ?>") { 
                    
                    
                       atleast1poll = true;
-                              
-                      
                       
         oldPostHtml += '<div id=\"'+ 'whole_old_post' + resultOldPost.id +'\" class=\"row poll-div\" style=\"margin-bottom: 20px;\">';
         
         
-        oldPostHtml += '<div class=\"col-xs-2\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/nopic.png\" style=\"width: 40px; margin-left: 10px;\"  /></div>';
+        oldPostHtml += '<div class=\"col-xs-2\"><img src=\" '+  '<?php echo $_SESSION['url_placeholder'] . $user_info['img_path'];  ?>' +' \" style=\"width: 40px; height: 40px; border-radius: 3px; margin-left: 0px;\"  /></div>';
         
         oldPostHtml += '<div class=\"col-xs-10 poll-body\">';
         
@@ -3886,6 +3756,7 @@ function displayFromDatabasePagination() {
                    //   $(".radio-second-old" + resultOldPost.id).hide(0);
                       
              getOldPollVote(resultOldPost.id);
+                   
                }
                    
                    
@@ -3903,12 +3774,12 @@ function displayFromDatabasePagination() {
                    
                       atleast1poll = true;
                       
-                      
-                          
         oldPostHtml += '<div id=\"'+ 'whole_old_post' + resultOldPost.id +'\" class=\"row poll-div-2\" style=\"margin-bottom: 20px;\">';
         
         
         oldPostHtml += '<div class=\"col-xs-10 poll-body\">';
+                      
+        oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + '</p>';
         
         oldPostHtml += '<p class=\"poll-quest-box\"> ' +  resultOldPost.question +' </p>';
 
@@ -4274,7 +4145,7 @@ function displayFromDatabasePagination() {
                      
           oldPostHtml += '</div></div>';
                      
-          oldPostHtml += '<div class=\"col-xs-2\"><img src=\"<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/nopic.png\" style=\"width: 40px; margin-left: 0px;\"  /></div></div>';
+          oldPostHtml += '<div class=\"col-xs-2\"><img src=\" '+  '<?php echo $_SESSION['url_placeholder']; ?>'  +  resultOldPost.image +' \" style=\"width: 40px; height: 40px; border-radius: 3px; margin-left: 0px;\"  /></div></div>';
                       
             window["votebuttonold" + resultOldPost.id] = true;
               
@@ -4285,8 +4156,9 @@ function displayFromDatabasePagination() {
                  //     $(".radio-second-old" + resultOldPost.id).hide(0);
                       
              getOldPollVote(resultOldPost.id);
-
+                   
                }
+                   
                    
                    
                    
@@ -4324,14 +4196,29 @@ function displayFromDatabasePagination() {
                 if (!completedPosts) {
                     
                 $(window).bind("scroll", (function () {
+                    
+                    
+                    
+                                          if (isElementInView) {
+                        
+                        displayFromDatabasePagination();
+                               $(window).unbind("scroll");
+   // alert('in view');
+} else {
+   // alert('out of view');
+}
+      
+                    
+                    
+                    
                 
-                  if ( ( window.innerHeight + window.scrollY ) >= document.body.offsetHeight ) {
+                /*  if ( ( window.innerHeight + window.scrollY ) >= document.body.offsetHeight ) {
                       
                       displayFromDatabasePagination();
                       
                       $(window).unbind("scroll");
                       
-                  }
+                  } */
                 
             } ));   }          
                 

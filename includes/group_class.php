@@ -79,6 +79,204 @@ class Group {
        return $stmt;    
 
        }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+       public function edit_title($name_i, $group_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("update groups set name = ? where id = ? limit 1");
+        
+       $stmt->bind_param("si", $name, $group);
+           
+       $name = $name_i;
+        
+       $group = $group_input;      
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+    
+       public function edit_desc($name_i, $group_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("update groups set description = ? where id = ? limit 1");
+        
+       $stmt->bind_param("si", $name, $group);
+           
+       $name = $name_i;
+        
+       $group = $group_input;      
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+       public function edit_pic($name_i, $group_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("update groups set img_path = ? where id = ? limit 1");
+        
+       $stmt->bind_param("si", $name, $group);
+           
+       $name = $name_i;
+        
+       $group = $group_input;      
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+       public function is_seen($group_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("
+       
+       
+       select * from seen 
+    
+       
+       where group_id = ? and person = ? 
+       
+       limit 1
+       
+       
+       ");
+        
+       $stmt->bind_param("ii", $group, $name);
+           
+       $name = $_SESSION['admin_id'];
+        
+       $group = $group_input;      
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+       public function update_seen($group_input, $post_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("update seen set post_id = ? where group_id = ? and person = ? limit 1");
+        
+       $stmt->bind_param("iii", $post, $group, $name);
+           
+       $name = $_SESSION['admin_id'];
+        
+       $group = $group_input;    
+           
+       $post = $post_input;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+       public function insert_seen($group_input, $post_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("
+       
+       INSERT INTO seen (group_id, post_id, person) VALUES (?, ?, ?)");
+        
+       $stmt->bind_param("iii", $group, $post, $name);
+           
+       $name = $_SESSION['admin_id'];
+        
+       $group = $group_input;    
+           
+       $post = $post_input;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
    
 
 

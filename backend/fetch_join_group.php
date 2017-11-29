@@ -44,7 +44,7 @@ if(isset($_POST['fetchold']))  {
           
       } elseif ($_POST['offset'] > 0) {
           
-         $old_posts = $posts->get_next_request($_POST['offset']);
+          $old_posts = $request->get_next_request($_POST['offset']);
           
           $old_posts_result = $old_posts->get_result();
           

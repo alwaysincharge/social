@@ -106,11 +106,10 @@ $user_info = $user_details_result->fetch_assoc();
     
 	<title>Friday Camp - connect with people, you already know.</title>
     
-    <meta name="description" content="Create, display and update your resume, find jobs, find a co-founder, message your hero, meet other techies, all here.">
+    <meta name="description" content="Create a group, add as many people as you like, and have a chat with them. Oh, you can also share files.">
     
     <?php include('../templates/head_info.php'); ?>
-    
-    
+   
 </head>
     
     
@@ -119,7 +118,29 @@ $user_info = $user_details_result->fetch_assoc();
     
 <body class="dashboard-body" style="min-height: 110%;">
     
+      
+    <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId            : '146671652626617',
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v2.11'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
     
+
+
+
     
     
    <nav class="nav-head">
@@ -245,6 +266,8 @@ $user_info = $user_details_result->fetch_assoc();
                                 
                         <p class="nogroups-text">Or ask people you know to add you to their groups. Your username is <b><?php echo $user_info['username'];  ?></b></p>  
                             
+                          
+                                            <div style="margin-left: 10px; margin-bottom: 10px;" class="fb-share-button" data-href="https://fridaycamp.com/login" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"></a></div><br><br> 
                             
                         <a  class="btn-link-1" href="<?php echo $_SESSION['url_placeholder'];  ?>newgroup">
                 

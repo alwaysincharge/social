@@ -32,7 +32,7 @@ $user_info = $user_details_result->fetch_assoc();
     
     <title>Friday Camp - connect with people, you already know.</title>
     
-    <meta name="description" content="Create, display and update your resume, find jobs, find a co-founder, message your hero, meet other techies, all here.">
+    <meta name="description" content="Create a group, add as many people as you like, and have a chat with them. Oh, you can also share files.">
     
     <?php include('../templates/head_info.php'); ?>
     
@@ -58,7 +58,7 @@ $user_info = $user_details_result->fetch_assoc();
         
         <div class="col-xs-6">
             
-            <a class="logo-heading-1">friday camp <span class="logo-heading-2">//</span> <span class="logo-heading-3">
+            <a href="<?php  echo $_SESSION['url_placeholder'];  ?>nogroups" class="logo-heading-1">friday camp <span class="logo-heading-2">//</span> <span class="logo-heading-3">
 important
                </span></a>
                             
@@ -83,134 +83,63 @@ important
             
             </a>
             
-            
-                <div class="dropdown">
-           
-                      <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/notification.svg" width="35" height="35" class="current-user-img"  />
-                    
-                <div class="dropdown-content">
-                    
-                      <?php
-                    
-                    
-                      $request_list = $request->current_member_requests($_SESSION['admin_id']); 
-          
-                      $request_list_result = $request_list->get_result();
-          
-          
-                      if ($request_list_result->num_rows > 0) {
-              
-                        
-                          while($row_list_request = $request_list_result->fetch_assoc()) { ?>
-                              
-                              
-                                <?php 
-                              
-                                $group_details = $group->find_group_by_id($row_list_request['group_id']); 
-          
-                                $group_details_result = $group_details->get_result();
-                              
-                                $row_group = $group_details_result->fetch_assoc();
-                              
-                                
-                              
-                              
-                              
-                              
-                                $user_details = $user->find_one_user($row_list_request['sender_id']); 
-          
-                                $user_details_result = $user_details->get_result();
-                              
-                                $row_user = $user_details_result->fetch_assoc();
-                                                                                          
-                                ?>
-                    
-                    
-                              
-                              <div class="row" id="group<?php echo $row_group['id'];  ?>">
-                    
-                                  <div class="col-xs-2">
-                                  
-                                      <img src="<?php echo $row_group['img_path'];  ?>" width="35" height="35" class="current-user-img"  />
-                                  
-                                  </div>
-                    
-                                  
-                                  
-                                  <div class="col-xs-6" style="font-weight: bold; font-size: 16px;font-family: Josefin Slab;">
-                                  <p><?php echo $row_user['username'];  ?> wants you to join <span style="color: blue;"><?php echo $row_group['name'];  ?></span></p>
-                                  
-                                  </div>
-                                  
-                                  
-                                  <div class="col-xs-4">
-                                      
-                                      
-                                      <form method="post" action="<?php echo $_SESSION['url_placeholder'];  ?>accept_request" style="width: 30px; display: inline;">
-                                      
-                                      <input type="text" name="group_id" style="display: none;" value="<?php echo $row_group['id'];  ?>" />
-                                         
-                                          
-                                      
-                                          
-                                     <input type="submit" name="submit" value="accept" class="btn" style="outline: 0px ! important; font-weight: bold; font-size: 14px;font-family: Josefin Slab; background: #ddd; padding: 7px; border-radius: 4px; margin-right: 1px;" /> 
-                                      
-                                      
-                                      </form>
-                                      
-                                      
-                                              
-                                      
-                                      
-                                      
-                                      
-                                                      <div style="width: 30px; display: inline;">
-                                      
-
-                                         
-                                          
-                                      
-                                          
-                                     <input type="submit" onclick="myFunction('<?php echo $row_group['id'];  ?>')" name="submit" value="decline" class="btn" style="font-weight: bold; font-size: 14px;font-family: Josefin Slab; background: #ddd; padding: 7px; border-radius: 4px; margin-right: 0px;" /> 
-                                      
-                                      
-                                      </div>
-                                      
-                                      
-
-                                  
-                                  </div>
-                    
-                    
-                              </div>
-                              
-                       <?php   }
-                          
-                          
-        
-                      } else {
-                          
-                          echo "none";
-                      }
-            
-                    
-                      ?>
-                    
-                </div>
-                    
-                </div>
                 
-                <div class="dropdown">
+                
+                
+                
+                
+                
+                
+                                
+                
+                
+                
+                
+                
+                 <a data-toggle="tooltip" data-placement="bottom" title="important posts" href="<?php echo $_SESSION['url_placeholder'];  ?>important"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/import.svg" width="30" height="30" class="current-user-img"  /> <span style="font-family: Work Sans;" id="alert_one"></span></a>
+                
+                
+                <a data-toggle="tooltip" data-placement="bottom" title="replies" href="<?php echo $_SESSION['url_placeholder'];  ?>reply"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/replypage.svg" width="30" height="30" class="current-user-img"  /> <span style="font-family: Work Sans;" id="alert_three"></span></a>
+                
+                
+                <a data-toggle="tooltip" data-placement="bottom" title="group requests" href="<?php echo $_SESSION['url_placeholder'];  ?>add"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/notification.svg" width="30" height="30" class="current-user-img"  /> <span style="font-family: Work Sans;" id="alert_two"></span></a>
+                
+                
+
+                
+                      <div class="dropdown">
             
             <img src="<?php echo $_SESSION['url_placeholder'];  ?><?php echo $user_info['img_path'];  ?>" width="35" height="35" class="current-user-img"  />
                     
                     
                     <div class="dropdown-content-2">
+                        <p style="font-size: 15px; font-family: Work Sans;"><i><?php echo $user_info['username'];  ?></i></p>
+                        
                         <a href="<?php echo $_SESSION['url_placeholder'];  ?>profile" style="font-size: 15px; font-family: Work Sans;">Edit profile</a> //
                         <a href="<?php echo $_SESSION['url_placeholder'];  ?>logout" style="font-size: 15px; font-family: Work Sans;">Logout</a>
                     </div>
             
                 </div>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
             
             </div>
             
@@ -393,7 +322,7 @@ important
 
                       
                         
-                          <div style="display: table; margin: 0 auto;">
+                          <div id="wedges" style="display: table; margin: 0 auto;">
                         
                         
                       <!--  <p id="loadagain" style="display: none;">Poor connection. Try again. <a>Here</a></p> -->
@@ -479,11 +408,12 @@ important
 <script type="text/javascript">
     
     
+
     
     
     
- 
-    function scout_important(back)  {
+      
+        function scout_important(back)  {
        
        
              typing_url_count = "<?php echo $_SESSION['url_placeholder'];  ?>scout";
@@ -522,7 +452,51 @@ important
        
        
    } 
-       
+    
+    
+    
+    
+    function isScrolledIntoView(elem)
+{
+    var docViewTop = $(window).scrollTop();
+    var docViewBottom = docViewTop + $(window).height();
+
+    var elemTop = $(elem).offset().top;
+    var elemBottom = elemTop + $(elem).height();
+
+    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+}
+    
+    
+    
+    
+    function Utils() {
+
+}
+
+Utils.prototype = {
+    constructor: Utils,
+    isElementInView: function (element, fullyInView) {
+        var pageTop = $(window).scrollTop();
+        var pageBottom = pageTop + $(window).height();
+        var elementTop = $(element).offset().top;
+        var elementBottom = elementTop + $(element).height();
+
+        if (fullyInView === true) {
+            return ((pageTop < elementTop) && (pageBottom > elementBottom));
+        } else {
+            return ((elementTop <= pageBottom) && (elementBottom >= pageTop));
+        }
+    }
+};
+
+var Utils = new Utils();
+    
+    
+    
+ isElementInView = Utils.isElementInView($('#wedges'), false);   
+    
+    
     
     
     
@@ -553,6 +527,248 @@ important
           
           
     } );
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+ 
+    function count_important()  {
+       
+       
+             typing_url_count = "<?php echo $_SESSION['url_placeholder'];  ?>count";
+        
+        
+             $.ajax( {
+             url: typing_url_count,
+             type: "POST",
+             async: true,
+             timeout: 15000,
+             data: {
+                "important": 1,
+                 
+             },
+             success: function( data ) {
+                 
+                 
+             //    console.log(data);
+                 
+                 
+            var jsonCountAppend = JSON.parse( data );
+            
+            var attach_count_status =  jsonCountAppend[0];
+            
+            var attach_count_back_count =  jsonCountAppend[1];
+        
+            
+        
+           if (attach_count_status == 1) {
+               
+               if (attach_count_back_count == 0) {
+                   
+                   $("#alert_one").hide();
+                   
+               } else if (attach_count_back_count > 99) {
+                   
+                   $("#alert_one").show();
+                   
+                   $("#alert_one").html("(99+)");
+                   
+               }  else {
+                   
+                   $("#alert_one").show();
+                   
+                   $("#alert_one").html("(" + attach_count_back_count + ")");
+                   
+                   
+               }
+               
+           }
+        
+                   
+                  setTimeout(count_important, 5000);
+        
+        
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                 
+                 
+            
+                
+                  setTimeout(count_important, 5000);
+    
+                 
+                
+             }
+          } );
+       
+       
+   } 
+       
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+     
+    function count_request()  {
+       
+       
+             typing_url_request = "<?php echo $_SESSION['url_placeholder'];  ?>tally";
+        
+        
+             $.ajax( {
+             url: typing_url_request,
+             type: "POST",
+             async: true,
+             timeout: 15000,
+             data: {
+                "important": 1,
+                 
+             },
+             success: function( data ) {
+                 
+                 
+             //    console.log(data);
+                 
+                 
+            var jsonCountAppend_request = JSON.parse( data );
+            
+            var attach_count_status_request =  jsonCountAppend_request[0];
+            
+            var attach_count_back_count_request =  jsonCountAppend_request[1];
+        
+            
+        
+           if (attach_count_status_request == 1) {
+               
+               if (attach_count_back_count_request == 0) {
+                   
+                   $("#alert_two").hide();
+                   
+               } else if (attach_count_back_count_request > 99) {
+                   
+                   $("#alert_two").show();
+                   
+                   $("#alert_two").html("(99+)");
+                   
+               }  else {
+                   
+                   $("#alert_two").show();
+                   
+                   $("#alert_two").html("(" + attach_count_back_count_request + ")");
+                   
+                   
+               }
+               
+           }
+        
+                   
+                  setTimeout(count_request, 5000);
+        
+        
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                 
+                 
+            
+                
+                  setTimeout(count_request, 5000);
+    
+                 
+                
+             }
+          } );
+       
+       
+   } 
+       
+    
+  
+    
+    
+    
+    
+    
+      
+    function count_replypage()  {
+       
+       
+             typing_url_reply_page = "<?php echo $_SESSION['url_placeholder'];  ?>quota";
+        
+        
+             $.ajax( {
+             url: typing_url_reply_page,
+             type: "POST",
+             async: true,
+             timeout: 15000,
+             data: {
+                "important": 1,
+                 
+             },
+             success: function( data ) {
+                 
+                 
+                 console.log("infdiue" + data)
+                 
+                 if (data == 100) {
+                     
+                    $("#alert_three").show();
+                   
+                    $("#alert_three").html("(new)");
+                     
+                 } else {
+                     
+                     
+                    $("#alert_three").hide(); 
+                     
+                 }
+                
+                 
+                 
+                 setTimeout(count_replypage, 5000);
+                 
+          
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                 
+                 
+            
+                
+                  setTimeout(count_replypage, 5000);
+    
+                 
+                
+             }
+          } );
+       
+       
+   } 
+       
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
 
@@ -754,7 +970,16 @@ function title_alt_2() {
      $( document ).ready( function() {
          
          
-         get_typing();
+         
+         
+         count_important();
+         
+         count_request();
+         
+         count_replypage();
+         
+         
+         
     
          time_out_1 = setInterval(call_out_time, 500);
          
@@ -2534,6 +2759,25 @@ function uploadFile() {
 
     $( window ).on( "scroll", function() {
         
+        
+        
+         
+           
+           
+                           if (isElementInView) {
+                        
+                        displayFromDatabasePagination();
+                               $(window).unbind("scroll");
+   // alert('in view');
+} else {
+   // alert('out of view');
+}
+           
+        
+        
+        
+        
+     /*   
        if ( ( window.innerHeight + window.scrollY ) >= document.body.offsetHeight ) {
            
         displayFromDatabasePagination();
@@ -2542,7 +2786,7 @@ function uploadFile() {
            
           $(window).unbind("scroll");
            
-       }
+       } */
         
     } );
     
@@ -2764,10 +3008,18 @@ function displayFromDatabasePagination() {
                    
                   firstTimeID = resultOldPost.id;
                    
-                   
                    scout_important(resultOldPost.id);
+                
                    
-                   
+                     if (resultOldPost.groupname.length > 16) {
+            
+            resultOldPost.groupname = resultOldPost.groupname.substr(0, 15) + "...";
+            
+        } else if (resultOldPost.groupname.length <= 16) {
+            
+            resultOldPost.groupname =  resultOldPost.groupname;
+            
+        }
                    
                    
                    
@@ -2791,7 +3043,7 @@ function displayFromDatabasePagination() {
                     
                     oldPostHtml += '<div class=\"old-todo-main\"><br>';
                              
-                    oldPostHtml += '<a href=\"'+ '<?php  echo $_SESSION['url_placeholder'];  ?>dashboard/'  +  resultOldPost.groupid  +'\" style=\"font-family: Work Sans; margin-left: 20px;\">// ' + resultOldPost.groupname + '</a>';
+                    oldPostHtml += '<a class=\"text-username\" style="margin-left: 20px; margin-right: -20px;"> ' + resultOldPost.username + '</a> <a href=\"'+ '<?php  echo $_SESSION['url_placeholder'];  ?>dashboard/'  +  resultOldPost.group_id  +'\" style=\"font-family: Work Sans; margin-left: 20px;\">// ' + resultOldPost.groupname + '</a>';
                     
                     oldPostHtml += '<p class=\"old-todo-para\">'+ resultOldPost.listname +'</p>';
                     
@@ -2827,7 +3079,7 @@ function displayFromDatabasePagination() {
                       
                       
                       
-                      oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + '  <a href=\"'+ '<?php  echo $_SESSION['url_placeholder'];  ?>dashboard/'  +  resultOldPost.groupid  +'\" style=\"font-family: Work Sans;\">// ' + resultOldPost.groupname + '</a></p>';
+                      oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + '  <a href=\"'+ '<?php  echo $_SESSION['url_placeholder'];  ?>dashboard/'  +  resultOldPost.group_id  +'\" style=\"font-family: Work Sans;\">// ' + resultOldPost.groupname + '</a></p>';
                       
         
         oldPostHtml += '<p class=\"poll-quest-box\"> ' +  resultOldPost.question +' </p>';
@@ -3233,7 +3485,7 @@ function displayFromDatabasePagination() {
         
         oldPostHtml += '<div class=\"col-xs-10 poll-body\">';
                       
-        oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + '  <a href=\"'+ '<?php  echo $_SESSION['url_placeholder'];  ?>dashboard/'  +  resultOldPost.groupid  +'\" style=\"font-family: Work Sans;\">// ' + resultOldPost.groupname + '</a></p>';
+        oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + '  <a href=\"'+ '<?php  echo $_SESSION['url_placeholder'];  ?>dashboard/'  +  resultOldPost.group_id  +'\" style=\"font-family: Work Sans;\">// ' + resultOldPost.groupname + '</a></p>';
         
         oldPostHtml += '<p class=\"poll-quest-box\"> ' +  resultOldPost.question +' </p>';
 
@@ -3628,9 +3880,9 @@ function displayFromDatabasePagination() {
                      if ( (resultOldPost.file_type == 'image/jpeg') || (resultOldPost.file_type == 'image/jpg') ||  (resultOldPost.file_type == 'image/png') || (resultOldPost.file_type == 'image/gif')  ) {
                          
                          
-                         oldPostHtml += '<div id=\"'+ 'old_post' + resultOldPost.id +'\" class=\"row\" style=\"background: white; border-radius: 3px; margin-bottom: 30px;\">';
+                         oldPostHtml += '<div id=\"'+ 'old_post' + resultOldPost.id +'\" class=\"row\" style=\"background: white; border-radius: 3px; margin-bottom: 30px;\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"'+ resultOldPost.name +'\">';
                     
-                         oldPostHtml += '<div style=\"padding: 12px;\"><a class=\"text-username\"> ' + resultOldPost.username + '</a><a class=\"text-body\" href=\" ' + '<?php echo $_SESSION['url_placeholder2'];  ?>' + resultOldPost.path  + ' \" download>' + ' | Download' + '</a>  <a href=\"'+ '<?php  echo $_SESSION['url_placeholder'];  ?>dashboard/'  +  resultOldPost.groupid  +'\" style=\"font-family: Work Sans;\">// ' + resultOldPost.groupname + '</a></div>';
+                         oldPostHtml += '<div style=\"padding: 12px;\"><a class=\"text-username\"> ' + resultOldPost.username + '</a><a class=\"text-body\" href=\" ' + '<?php echo $_SESSION['url_placeholder2'];  ?>' + resultOldPost.path  + ' \" download>' + ' | Download' + '</a>  <a href=\"'+ '<?php  echo $_SESSION['url_placeholder'];  ?>dashboard/'  +  resultOldPost.group_id  +'\" style=\"font-family: Work Sans;\">// ' + resultOldPost.groupname + '</a></div>';
                     
                          oldPostHtml += '<img style=\"width: 100%;\" src=\"'+ '<?php echo $_SESSION['url_placeholder2'];  ?>' + resultOldPost.path +'\" />';
                     
@@ -3727,7 +3979,7 @@ function displayFromDatabasePagination() {
                 oldPostHtml += '<div class=\"col-xs-10\">';
                 oldPostHtml += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
                 oldPostHtml += '<div class=\"talktext\">';
-                oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + '  <a href=\"'+ '<?php  echo $_SESSION['url_placeholder'];  ?>dashboard/'  +  resultOldPost.groupid  +'\" style=\"font-family: Work Sans;\">// ' + resultOldPost.groupname + '</a></p>';
+                oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + ' <a class=\"text-body\" href=\" ' + '<?php echo $_SESSION['url_placeholder2'];  ?>' + resultOldPost.path  + ' \" download>' + ' | Download' + '</a>   <a href=\"'+ '<?php  echo $_SESSION['url_placeholder'];  ?>dashboard/'  +  resultOldPost.group_id  +'\" style=\"font-family: Work Sans;\">// ' + resultOldPost.groupname + '</a></p>';
                 oldPostHtml += '<p class=\"text-body\"><a href=\" ' + resultOldPost.path  + ' \" download>' + resultOldPost.name + '</a></p>';
                      
                      
@@ -3811,9 +4063,9 @@ function displayFromDatabasePagination() {
                      if ( (resultOldPost.file_type == 'image/jpeg') || (resultOldPost.file_type == 'image/jpg') ||  (resultOldPost.file_type == 'image/png') || (resultOldPost.file_type == 'image/gif')  ) {
                          
                          
-                         oldPostHtml += '<div id=\"'+ 'old_post' + resultOldPost.id +'\" class=\"row\" style=\"background: white; border-radius: 3px; margin-bottom: 30px;\">';
+                         oldPostHtml += '<div id=\"'+ 'old_post' + resultOldPost.id +'\" class=\"row\" style=\"background: white; border-radius: 3px; margin-bottom: 30px;\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"'+ resultOldPost.name +'\">';
                     
-                         oldPostHtml += '<div style=\"padding: 12px;\"><a class=\"text-username\"> ' + resultOldPost.username + '</a><a class=\"text-body\" href=\" ' + '<?php echo $_SESSION['url_placeholder2'];  ?>'  + resultOldPost.path  + ' \" download>' + ' | Download' + '</a>  <a href=\"'+ '<?php  echo $_SESSION['url_placeholder'];  ?>dashboard/'  +  resultOldPost.groupid  +'\" style=\"font-family: Work Sans;\">// ' + resultOldPost.groupname + '</a></div>';
+                         oldPostHtml += '<div style=\"padding: 12px;\"><a class=\"text-username\"> ' + resultOldPost.username + '</a><a class=\"text-body\" href=\" ' + '<?php echo $_SESSION['url_placeholder2'];  ?>'  + resultOldPost.path  + ' \" download>' + ' | Download' + '</a>  <a href=\"'+ '<?php  echo $_SESSION['url_placeholder'];  ?>dashboard/'  +  resultOldPost.group_id  +'\" style=\"font-family: Work Sans;\">// ' + resultOldPost.groupname + '</a></div>';
                     
                          oldPostHtml += '<img style=\"width: 100%;\" src=\"'+ '<?php echo $_SESSION['url_placeholder2'];  ?>' + resultOldPost.path +'\" />';
                     
@@ -3905,7 +4157,7 @@ function displayFromDatabasePagination() {
                    oldPostHtml += '<div class=\"col-xs-10\">';
                    oldPostHtml += '<div class=\"talk-bubble1 tri-right1 left-top1\" class=\"chat-right-1\">';
                    oldPostHtml += '<div class=\"talktext1\">';
-                   oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + '  <a href=\"'+ '<?php  echo $_SESSION['url_placeholder'];  ?>dashboard/'  +  resultOldPost.groupid  +'\" style=\"font-family: Work Sans;\">// ' + resultOldPost.groupname + '</a></p>';
+                   oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + ' <a class=\"text-body\" href=\" ' + '<?php echo $_SESSION['url_placeholder2'];  ?>' + resultOldPost.path  + ' \" download>' + ' | Download' + '</a>   <a href=\"'+ '<?php  echo $_SESSION['url_placeholder'];  ?>dashboard/'  +  resultOldPost.group_id  +'\" style=\"font-family: Work Sans;\">// ' + resultOldPost.groupname + '</a></p>';
                    oldPostHtml += '<p class=\"text-body\"><a href=\" ' + resultOldPost.path  + ' \" download>' + resultOldPost.name + '</a></p>';
                         
                         
@@ -4001,7 +4253,7 @@ function displayFromDatabasePagination() {
                 oldPostHtml += '<div class=\"col-xs-10\">';
                 oldPostHtml += '<div class=\"talk-bubble tri-right left-top\" class=\"chat-left-2\">';
                 oldPostHtml += '<div class=\"talktext\">';
-                      oldPostHtml += '<a href=\"'+ '<?php  echo $_SESSION['url_placeholder'];  ?>dashboard/'  +  resultOldPost.groupid  +'\" style=\"font-family: Work Sans;\">// ' + resultOldPost.groupname + '</a>';
+                      oldPostHtml += '<a href=\"'+ '<?php  echo $_SESSION['url_placeholder'];  ?>dashboard/'  +  resultOldPost.group_id  +'\" style=\"font-family: Work Sans;\">// ' + resultOldPost.groupname + '</a>';
                      
                      
              //   oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + '</p>';
@@ -4092,7 +4344,7 @@ function displayFromDatabasePagination() {
                    oldPostHtml += '<div class=\"col-xs-10\">';
                    oldPostHtml += '<div class=\"talk-bubble1 tri-right1 left-top1\" class=\"chat-right-1\">';
                    oldPostHtml += '<div class=\"talktext1\">';
-                   oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + ' <a href=\"'+ '<?php  echo $_SESSION['url_placeholder'];  ?>dashboard/'  +  resultOldPost.groupid  +'\" style=\"font-family: Work Sans;\">// ' + resultOldPost.groupname + '</a></p>';
+                   oldPostHtml += '<p class=\"text-username\">' + resultOldPost.username + ' <a href=\"'+ '<?php  echo $_SESSION['url_placeholder'];  ?>dashboard/'  +  resultOldPost.group_id  +'\" style=\"font-family: Work Sans;\">// ' + resultOldPost.groupname + '</a></p>';
                    oldPostHtml += '<p class=\"text-body\">' + resultOldPost.message + '</p>';
                     
                     
@@ -4197,6 +4449,31 @@ function displayFromDatabasePagination() {
                 if (!completedPosts) {
                     
                 $(window).bind("scroll", (function () {
+                    
+                    
+                    
+                    
+                     
+           
+           
+                           if (isElementInView) {
+                        
+                        displayFromDatabasePagination();
+                               $(window).unbind("scroll");
+   // alert('in view');
+} else {
+   // alert('out of view');
+}
+           
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+             /*       
+                    
                 
                   if ( ( window.innerHeight + window.scrollY ) >= document.body.offsetHeight ) {
                       
@@ -4204,7 +4481,7 @@ function displayFromDatabasePagination() {
                       
                       $(window).unbind("scroll");
                       
-                  }
+                  } */
                 
             } ));   }          
                 
@@ -5474,5 +5751,7 @@ html45  += "<img src=\"  " + img +"  \" style=\"width: 100%;\" ></div><div><br>"
      
 }
     
+    
+
     
 </script>   

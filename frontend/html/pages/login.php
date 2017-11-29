@@ -19,11 +19,29 @@ if ( isset($_SESSION['admin_id']) ) {  redirect_to($_SESSION['url_placeholder'] 
     
 	<title>Friday Camp - connect with people, you already know.</title>
     
-    <meta name="description" content="Create, display and update your resume, find jobs, find a co-founder, message your hero, meet other techies, all here.">
+    <meta name="description" content="Create a group, add as many people as you like, and have a chat with them. Oh, you can also share files.">
+    
+   
     
     <?php include('../templates/head_info.php'); ?>
     
     
+<script type="text/javascript">
+    
+    
+    
+    
+        
+    $( document ).ready( function() {
+       
+       $("#hide-box").hide();
+        
+        
+        
+        
+    } );
+    
+    </script>
 </head>
     
     
@@ -34,7 +52,21 @@ if ( isset($_SESSION['admin_id']) ) {  redirect_to($_SESSION['url_placeholder'] 
     
     
     <div class="centered" style="padding-bottom: 60px;">
-    
+        
+        
+        
+        
+        
+        <div class="row centered">
+        
+            
+            
+            <div class="col-xs-6">
+            
+                
+                <div class="login-half" style="background: white; padding: 50px; max-width: 500px; float: right; min-height: 430px;">
+                
+                
     <p class="login-logo">friday camp.</p>
     
     
@@ -48,11 +80,19 @@ if ( isset($_SESSION['admin_id']) ) {  redirect_to($_SESSION['url_placeholder'] 
         <input id="password1" maxlength="16" class="login-field-1" type="password" placeholder="password">
         
         
+                    
+                    <div id="hide-box" style="display: none;">
+                    
+                    
         <input id="password2" maxlength="16" class="login-field-1" type="password" placeholder="repeat password"> 
         
         
-        <input id="email" maxlength="400" class="login-field-1" type="text" placeholder="email (optional)">
+        <input  id="email" maxlength="400" class="login-field-1" type="text" placeholder="email (optional)">
         
+                    
+                    
+                    </div>
+                    
         
         
         <p id="loginerror" class="login-error-1"></p>
@@ -63,10 +103,148 @@ if ( isset($_SESSION['admin_id']) ) {  redirect_to($_SESSION['url_placeholder'] 
         
         <button id="signup" class="btn login-button-1">sign up</button>
         
-        <button id="login" class="btn login-button-1" style="margin-left: 10px;">login</button>
+        <button id="login" class="btn login-button-1" style="margin-left: 10px;">login</button><br><br>
         
+        <a href="<?php  echo $_SESSION['url_placeholder']; ?>forgot" style="font-family: georgia;">Forgot password or username? Click here.</a>
+            
         </div>
     
+    
+                
+                </div>
+            
+            
+            </div>
+            
+            
+            
+            
+            
+            
+            <div class="col-xs-6">
+            
+                            <div class="login-half" style="background: white; padding: 30px; max-width: 500px; height: 430px;">
+                
+   
+                                <div class="row" style="margin-bottom: 20px;">
+                                
+                                
+                                    
+                                    <div class="col-xs-2">
+                                    
+                                    
+                                        <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/log1.svg" width="30" height="30" class="current-user-img"  />
+                                        
+                                    </div>
+                                    
+                                    
+                                    
+                                    
+                                    <div class="col-xs-10">
+                                    
+                                        <p style="font-family: Eczar; font-size: 22px; font-weight: bold;">Talk</p>
+                                        
+                                        
+                                        <p style="font-family: Georgia; font-size: 15px;">Create a group, add as many people as you like, and have a chat with them. Oh, you can also share files.</p>
+                                    
+                                    </div>
+                                
+                                
+                                
+                                </div>
+    
+    
+                                
+                                
+                                
+                                
+                                
+                                
+                                   
+                                <div class="row" style="margin-bottom: 20px;">
+                                
+                                
+                                    
+                                    <div class="col-xs-2">
+                                    
+                                    
+                                        <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/log2.svg" width="30" height="30" class="current-user-img"  />
+                                        
+                                    </div>
+                                    
+                                    
+                                    
+                                    
+                                    <div class="col-xs-10">
+                                    
+                                        <p style="font-family: Eczar; font-size: 22px; font-weight: bold;">Organize</p>
+                                        
+                                        
+                                        <p style="font-family: Georgia; font-size: 15px;">Use a poll to assess the group or let all the group members plan a party with the to-do list.</p>
+                                    
+                                    </div>
+                                
+                                
+                                
+                                </div>
+    
+    
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                   
+                                <div class="row">
+                                
+                                
+                                    
+                                    <div class="col-xs-2">
+                                    
+                                    
+                                        <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/log3.svg" width="30" height="30" class="current-user-img"  />
+                                        
+                                    </div>
+                                    
+                                    
+                                    
+                                    
+                                    <div class="col-xs-10">
+                                    
+                                        <p style="font-family: Eczar; font-size: 22px; font-weight: bold;">Keep In Touch</p>
+                                        
+                                        
+                                        <p style="font-family: Georgia; font-size: 15px;">Email atsu at atsunewjoint@gmail.com when you have a question or when you forget your login info. We are here to help.</p>
+                                    
+                                    </div>
+                                
+                                
+                                
+                                </div>
+    
+    
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                
+                </div>
+            
+            
+            </div>
+        
+        
+        </div>
     
     </div>
     
@@ -96,10 +274,10 @@ if ( isset($_SESSION['admin_id']) ) {  redirect_to($_SESSION['url_placeholder'] 
         
     $( document ).ready( function() {
        
-       $("#email").hide();
+       $("#hide-box").hide();
         
         
-        $("#password2").hide();
+        
         
     } );
     
@@ -172,17 +350,17 @@ $("#login").on("click", function(){
       
     
         
-    var username = $("#username").val();
+    var username = $("#username").val().trim();
     
-    var password1 = $("#password1").val();
+    var password1 = $("#password1").val().trim();
     
-    var password2 = $("#password2").val();  
+    var password2 = $("#password2").val().trim();  
     
     
     
-    $("#password2").hide(200);
+    $("#hide-box").hide(200);
     
-    $("#email").hide(200);
+    
     
     
     
@@ -245,7 +423,7 @@ $("#login").on("click", function(){
              
         $("#loginerror").show(300);
         
-        $("#loginerror").html("Username and password must contain only letters and or numbers.");
+        $("#loginerror").html("Username and password must contain only letters and or numbers. No spaces or symbols.");
             
         }
            
@@ -323,7 +501,7 @@ function login_function(username, password1) {
              
                     $("#loginerror").show(300);
         
-                    $("#loginerror").html("Username and password can only be made up of numbers or letters.");
+                    $("#loginerror").html("Username and password can only be made up of numbers or letters. No spaces or symbols.");
                 
                 
             }    else  {
@@ -383,18 +561,18 @@ $("#signup").on("click", function() {
 
 
         
-    var username = $("#username").val();
+    var username = $("#username").val().trim();
     
-    var password1 = $("#password1").val();
+    var password1 = $("#password1").val().trim();
     
-    var password2 = $("#password2").val();  
+    var password2 = $("#password2").val().trim();  
     
-    var email = $("#email").val();
+    var email = $("#email").val().trim();
 
     
-    $("#password2").show(200);
+    $("#hide-box").show(200);
     
-    $("#email").show(200);
+    
     
     
     
@@ -460,7 +638,7 @@ $("#signup").on("click", function() {
              
         $("#loginerror").show(300);
         
-        $("#loginerror").html("Username and password must contain only letters and or numbers.");
+        $("#loginerror").html("Username and password must contain only letters and or numbers. No spaces or symbols.");
             
         }
            
@@ -549,7 +727,7 @@ function sign_up_function(username, password1, password2, email) {
         
     }).done(function(data) {
         
-   
+  // alert(data.trim())
         
             if (data == 2) {
                 
@@ -610,7 +788,23 @@ function sign_up_function(username, password1, password2, email) {
                     $("#loginerror").html("Passwords have to be identical.");
                 
                 
-            }   else  {
+            }    else if (data == 404) {
+                
+                
+                    $("#loginerror").hide(0);    
+             
+                    $("#loginerror").show(300);
+        
+                    $("#loginerror").html("This email address has already been used and verified. Try another.");
+                
+                
+            }   
+        
+        
+        
+        
+        
+        else  {
                 
                 
                     var jsonRegister = JSON.parse( data );

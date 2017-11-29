@@ -124,6 +124,60 @@ class Member {
     
     
     
+    
+    
+    
+    
+    
+       public function todo_alive($member_id_input, $group_id_input, $post_id_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("
+       
+       
+       select * from posts
+       
+       INNER JOIN membership ON membership.group_id = posts.group_id
+       
+       INNER JOIN groups ON groups.id = membership.group_id
+       
+       where membership.member_id = ? AND membership.group_id = ? and membership.deleted = 'live' and groups.deleted = 'live' and posts.group_id = ? and posts.id = ? limit 1");
+        
+       $stmt->bind_param("iiii", $member_id, $group_id, $group_id, $post_id);
+        
+       $member_id = $member_id_input;  
+           
+       $group_id = $group_id_input;
+           
+       $post_id = $post_id_input;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
        public function all_members_of_this_group($group_id_input) {
 
        global $database;

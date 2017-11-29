@@ -9,8 +9,23 @@ if(request_is_post()) {
    
 if (isset($_POST['done'])) {
     
+   
     
         if  (strlen(trim($_POST['message'])) < 1)
+        
+        {
+            
+              exit();
+        
+        }
+    
+    
+    
+    
+    
+    
+    
+        if  (strlen(trim($_POST['message'])) > 900)
         
         {
             

@@ -2,6 +2,9 @@
 
 RewriteEngine on
 
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
 
 RewriteRule ^nogroups frontend/html/pages/nogroups.php [NC,L]
 
@@ -11,6 +14,10 @@ RewriteRule ^newgroup frontend/html/pages/newgroup.php [NC,L]
 
 RewriteRule ^profile frontend/html/pages/profile.php [NC,L]
 
+RewriteRule ^fly frontend/html/pages/fly.php [NC,L]
+
+RewriteRule ^zzz frontend/html/pages/zzz.php [NC,L]
+
 RewriteRule ^dashboard/([0-9]+) frontend/html/pages/dashboard.php?group=$1 [NC,L]
 
 RewriteRule ^todo/([0-9]+) frontend/html/pages/todo.php?group=$1 [NC,L]
@@ -19,11 +26,21 @@ RewriteRule ^important frontend/html/pages/important.php [NC,L]
 
 RewriteRule ^likes frontend/html/pages/likes.php [NC,L]
 
+RewriteRule ^forgot frontend/html/pages/forgot.php [NC,L]
+
+RewriteRule ^verify/([a-z,A-Z,0-9]+) frontend/html/pages/verify.php?random=$1 [NC,L]
+
+RewriteRule ^mobile frontend/html/pages/mobile.php [NC,L]
+
 RewriteRule ^reply frontend/html/pages/reply.php [NC,L]
 
 RewriteRule ^add frontend/html/pages/request.php [NC,L]
 
+RewriteRule ^remember/([a-z,A-Z,0-9]+) frontend/html/pages/remember.php?random=$1 [NC,L]
+
 RewriteRule ^poll/([0-9]+) frontend/html/pages/poll.php?group=$1 [NC,L]
+
+RewriteRule ^file/([0-9]+) frontend/html/pages/file.php?group=$1 [NC,L]
 
 RewriteRule ^members/([0-9]+) frontend/html/pages/members.php?members=$1 [NC,L]
 
@@ -45,6 +62,10 @@ RewriteRule ^make_admin backend/make_admin.php [NC,L]
 
 RewriteRule ^fetch_recent_posts backend/fetch_recent_posts.php [NC,L]
 
+RewriteRule ^fetch_recent_files backend/fetch_recent_files.php [NC,L]
+
+RewriteRule ^change backend/change_pass.php [NC,L]
+
 RewriteRule ^fetch_reply_posts backend/fetch_reply_posts.php [NC,L]
 
 RewriteRule ^fetch_join_group backend/fetch_join_group.php [NC,L]
@@ -56,6 +77,8 @@ RewriteRule ^fetch_recent_poll backend/fetch_recent_poll.php [NC,L]
 RewriteRule ^fetch_old_posts backend/fetch_old_posts.php [NC,L]
 
 RewriteRule ^fetch_important_posts backend/fetch_important_posts.php [NC,L]
+
+RewriteRule ^password backend/forgot_password.php [NC,L]
 
 RewriteRule ^fetch_likes_posts backend/fetch_likes_posts.php [NC,L]
 
@@ -71,6 +94,8 @@ RewriteRule ^delete_group backend/delete_group.php [NC,L]
 
 RewriteRule ^edit_username backend/edit_username.php [NC,L]
 
+RewriteRule ^edit_email backend/edit_email.php [NC,L]
+
 RewriteRule ^insert_attach backend/insert_attach.php [NC,L]
 
 RewriteRule ^link_prepare backend/link_prepare.php [NC,L]
@@ -80,6 +105,12 @@ RewriteRule ^link_preview backend/link_preview.php [NC,L]
 RewriteRule ^delete_post backend/delete_post.php [NC,L]
 
 RewriteRule ^search_posts backend/search_posts.php [NC,L]
+
+RewriteRule ^search_polls backend/search_polls.php [NC,L]
+
+RewriteRule ^search_todos backend/search_todos.php [NC,L]
+
+RewriteRule ^search_files backend/search_files.php [NC,L]
 
 RewriteRule ^like_old backend/like_old.php [NC,L]
 
@@ -107,7 +138,19 @@ RewriteRule ^tasks_count backend/tasks_count.php [NC,L]
 
 RewriteRule ^send_typing backend/send_typing.php [NC,L]
 
+RewriteRule ^edit_title backend/edit_title.php [NC,L]
+
+RewriteRule ^edit_password backend/edit_password.php [NC,L]
+
+RewriteRule ^edit_grouppic backend/edit_grouppic.php [NC,L]
+
 RewriteRule ^get_typing backend/get_typing.php [NC,L]
+
+RewriteRule ^not_seen backend/not_seen.php [NC,L]
+
+RewriteRule ^time backend/time.php [NC,L]
+
+RewriteRule ^fetch_time backend/fetch_time.php [NC,L]
 
 RewriteRule ^remove_member backend/remove_member.php [NC,L]
 
@@ -119,6 +162,8 @@ RewriteRule ^get_comment_with_number backend/get_comment_with_number.php [NC,L]
 
 
 RewriteRule ^list/([0-9]+)/([0-9]+)$  frontend/html/pages/list.php?group=$1&todo=$2 [NC,L]
+
+RewriteRule ^email  frontend/html/pages/email.php [NC,L]
 
 
 

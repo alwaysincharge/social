@@ -48,6 +48,144 @@ class Typing {
        } 
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+       public function update_time($user_input, $time_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("update online set time_ago = ? where user = ? limit 1");
+        
+       $stmt->bind_param("si", $time, $user);
+        
+       $user = $user_input;    
+           
+       $time = $time_input;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+       public function is_time($user_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("select * from online where user = ? order by id desc limit 1");
+        
+       $stmt->bind_param("i", $user);
+        
+       $user = $user_input;    
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+       public function get_time($user_input, $group_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("select * from online
+       
+       INNER JOIN membership ON membership.member_id = online.user
+       
+       INNER JOIN groups ON groups.id = membership.group_id
+       
+       
+       
+       
+       
+       where groups.id = ? and groups.deleted = 'live' and membership.member_id != ? and membership.deleted = 'live' order by online.id desc limit 1");
+        
+       $stmt->bind_param("ii", $group, $user);
+        
+       $user = $user_input; 
+           
+       $group = $group_input; 
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+       public function insert_time($user_input, $time_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("
+       
+       INSERT INTO online (user, time_ago) VALUES (?, ?)");
+        
+       $stmt->bind_param("is", $user, $time);
+        
+       $user = $user_input;    
+           
+       $time = $time_input;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
 }
     
 

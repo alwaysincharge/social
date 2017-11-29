@@ -72,4 +72,4 @@ if (isset($_POST['newusername']))  {
     
 }
     
-}
+} ?>

@@ -27,7 +27,7 @@ $user_info = $user_details_result->fetch_assoc();
     
 	<title>Friday Camp - connect with people, you already know.</title>
     
-    <meta name="description" content="Create, display and update your resume, find jobs, find a co-founder, message your hero, meet other techies, all here.">
+    <meta name="description" content="Create a group, add as many people as you like, and have a chat with them. Oh, you can also share files.">
     
     <?php include('../templates/head_info.php'); ?>
     

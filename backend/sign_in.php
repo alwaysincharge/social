@@ -100,7 +100,7 @@ if (isset($_POST['login']))  {
                $register_array = array("status"=> 1, "id"=> $row['id'], "urlplaceholder"=> $_SESSION['url_placeholder']);     
     
                echo json_encode(array_values($register_array));
-             
+              exit();
 
                }
      

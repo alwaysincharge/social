@@ -666,13 +666,34 @@ class Posts {
     
     
     
-       public function get_new_search($term_input, $group_input) {
+    
+       public function is_there_a_file_in_this_group($group_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT id from posts where group_id = ? and owner != 0 and deleted = 'live' AND type = 'attach' limit 1");
+        
+       $stmt->bind_param("i", $group);
+           
+       $group = $group_input;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+       public function get_new_poll($term_input, $group_input) {
 
        global $database;
         
        $stmt = $database->connection->prepare("SELECT posts.id as id, posts.message as message, posts.group_id as group_id, posts.owner as owner, posts.type as type, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question,  posts.reply_id as reply_id, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, users.username as username, users.img_path as image FROM posts INNER JOIN users ON users.id = posts.owner where 
        
-       ( posts.message like ? OR  posts.attach_name like ? OR posts.question like ? OR posts.answer1 like ? OR posts.answer2 like ? OR posts.answer3 like ? OR posts.answer4 like ? OR posts.answer5 like ? OR posts.answer6 like ? OR posts.answer7 like ? OR posts.answer8 like ? OR posts.answer9 like ? OR posts.answer10 like ?) AND posts.group_id = ? AND posts.owner != 0 AND posts.deleted = 'live' and posts.type = 'chat' order by posts.id desc limit 20 ");
+       ( posts.message like ? OR  posts.attach_name like ? OR posts.question like ? OR posts.answer1 like ? OR posts.answer2 like ? OR posts.answer3 like ? OR posts.answer4 like ? OR posts.answer5 like ? OR posts.answer6 like ? OR posts.answer7 like ? OR posts.answer8 like ? OR posts.answer9 like ? OR posts.answer10 like ?) AND posts.group_id = ? AND posts.owner != 0 AND posts.deleted = 'live' and posts.type = 'poll' order by posts.id desc limit 20 ");
         
        $stmt->bind_param("sssssssssssssi", $term, $term, $term, $term, $term, $term, $term, $term, $term, $term, $term, $term, $term, $group);
         
@@ -685,6 +706,134 @@ class Posts {
        return $stmt;    
 
        }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+       public function get_new_file($term_input, $group_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT posts.id as id, posts.message as message, posts.group_id as group_id, posts.owner as owner, posts.type as type, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question,  posts.reply_id as reply_id, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, users.username as username, users.img_path as image FROM posts INNER JOIN users ON users.id = posts.owner where 
+       
+       ( posts.message like ? OR  posts.attach_name like ? OR posts.question like ? OR posts.answer1 like ? OR posts.answer2 like ? OR posts.answer3 like ? OR posts.answer4 like ? OR posts.answer5 like ? OR posts.answer6 like ? OR posts.answer7 like ? OR posts.answer8 like ? OR posts.answer9 like ? OR posts.answer10 like ?) AND posts.group_id = ? AND posts.owner != 0 AND posts.deleted = 'live' and posts.type = 'attach' order by posts.id desc limit 20 ");
+        
+       $stmt->bind_param("sssssssssssssi", $term, $term, $term, $term, $term, $term, $term, $term, $term, $term, $term, $term, $term, $group);
+        
+       $term = $term_input;
+           
+       $group = $group_input;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+    public function get_new_todo($term_input, $group_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT posts.id as id, posts.message as message, posts.group_id as group_id, posts.owner as owner, posts.type as type, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question,  posts.reply_id as reply_id, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, posts.listname as listname, users.username as username, users.img_path as image FROM posts INNER JOIN users ON users.id = posts.owner where 
+       
+       ( posts.message like ? OR  posts.attach_name like ? OR posts.question like ? OR posts.answer1 like ? OR posts.answer2 like ? OR posts.answer3 like ? OR posts.answer4 like ? OR posts.answer5 like ? OR posts.answer6 like ? OR posts.answer7 like ? OR posts.answer8 like ? OR posts.answer9 like ? OR posts.answer10 like ? OR posts.listname like ?) AND posts.group_id = ? AND posts.owner != 0 AND posts.deleted = 'live' and posts.type = 'todo' order by posts.id desc limit 20 ");
+        
+       $stmt->bind_param("ssssssssssssssi", $term, $term, $term, $term, $term, $term, $term, $term, $term, $term, $term, $term, $term, $term, $group);
+        
+       $term = $term_input;
+           
+       $group = $group_input;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      public function get_new_search($term_input, $group_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT posts.id as id, posts.message as message, posts.group_id as group_id, posts.owner as owner, posts.type as type, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question,  posts.reply_id as reply_id, users.username as username, users.img_path as image FROM posts INNER JOIN users ON users.id = posts.owner where 
+       
+       ( posts.message like ? OR  posts.attach_name like ? ) AND posts.group_id = ? AND posts.owner != 0 AND posts.deleted = 'live' and posts.type = 'chat' order by posts.id desc limit 20 ");
+        
+       $stmt->bind_param("ssi", $term, $term, $group);
+        
+       $term = $term_input;
+           
+       $group = $group_input;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+       public function last_seen($group_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT * from posts where group_id = ? and deleted = 'live' order by id desc limit 1");
+        
+       $stmt->bind_param("i", $group);
+           
+       $group = $group_input;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+       public function last_seen_self($group_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT * from posts where group_id = ? and deleted = 'live' and owner = ? order by id desc limit 1");
+        
+       $stmt->bind_param("ii", $group, $name);
+           
+       $group = $group_input;
+           
+       $name = $_SESSION['admin_id'];
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
     
 
     
@@ -1003,6 +1152,40 @@ class Posts {
     
     
     
+    
+    
+       public function get_first_few_files($group_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT posts.id as id, posts.message as message, posts.owner as owner, posts.group_id as group_id, posts.type as type, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, users.username as username, users.img_path as image FROM posts INNER JOIN users ON users.id = posts.owner where  posts.group_id = ? AND deleted = 'live' AND posts.type = 'attach' order by posts.id desc limit 12");
+           
+       $stmt->bind_param("i", $group);
+          
+       $group = $group_input;
+          
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
        public function get_one_todo($post_input) {
 
        global $database;
@@ -1151,6 +1334,60 @@ class Posts {
        return $stmt;    
 
        }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+       public function get_next_few_files($offset_input, $group_input) {
+
+       global $database;
+        
+       $stmt = $database->connection->prepare("SELECT posts.id as id, posts.message as message, posts.owner as owner, posts.group_id as group_id, posts.type as type, posts.attach_path as path, posts.attach_name as name, posts.attach_type as file_type, posts.question as question, posts.answer1 as answer1, posts.answer2 as answer2, posts.answer3 as answer3, posts.answer4 as answer4, posts.answer5 as answer5, posts.answer6 as answer6, posts.answer7 as answer7, posts.answer8 as answer8, posts.answer9 as answer9, posts.answer10 as answer10, users.username as username, users.img_path as image FROM posts INNER JOIN users ON users.id = posts.owner where posts.id < ? AND posts.group_id = ? AND deleted = 'live' AND posts.type = 'attach' order by id desc limit 12");
+        
+       $stmt->bind_param("ii", $offset, $group);
+        
+       $offset = $offset_input;
+           
+       $group = $group_input;
+           
+       $stmt->execute();
+           
+       return $stmt;    
+
+       }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

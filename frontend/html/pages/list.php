@@ -15,6 +15,58 @@ $user_details_result = $user_details->get_result();
 $user_info = $user_details_result->fetch_assoc();
 
 
+
+
+
+
+
+$is_mem = $member->this_user_this_group_alive($_SESSION['admin_id'], $_GET['group']);
+
+$is_mem_r = $is_mem->get_result();
+
+$is_num = $is_mem_r->num_rows;
+
+
+
+if ($is_num != 1) {
+    
+    redirect_to($_SESSION['url_placeholder'] . 'nogroups');
+    
+}
+
+
+
+
+
+
+$is_mem = $member->todo_alive($_SESSION['admin_id'], $_GET['group'], $_GET['todo']);
+
+$is_mem_r = $is_mem->get_result();
+
+$is_num = $is_mem_r->num_rows;
+
+
+if ($is_num != 1) {
+    
+    redirect_to($_SESSION['url_placeholder'] . 'nogroups');
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ?>
 
 
@@ -29,7 +81,7 @@ $user_info = $user_details_result->fetch_assoc();
     
 	<title>Friday Camp - connect with people, you already know.</title>
     
-    <meta name="description" content="Create, display and update your resume, find jobs, find a co-founder, message your hero, meet other techies, all here.">
+    <meta name="description" content="Create a group, add as many people as you like, and have a chat with them. Oh, you can also share files.">
     
     <?php include('../templates/head_info.php'); ?>
     
@@ -52,9 +104,9 @@ $user_info = $user_details_result->fetch_assoc();
     <div class="row nav-main-row div-scale">
         
         
-        <div class="col-xs-6">
+        <div class="col-xs-4">
             
-            <a class="logo-heading-1">friday camp <span class="logo-heading-2">//</span> <span class="logo-heading-3">
+            <a style="font-size: 16px;" href="<?php  echo $_SESSION['url_placeholder'];  ?>nogroups" class="logo-heading-1">friday camp <span class="logo-heading-2">//</span> to-dos <span class="logo-heading-2">//</span> <span class="logo-heading-3">
                 <?php
                 
                 $get_find_group_by_id = $group->find_group_by_id($_GET['group']);
@@ -64,28 +116,32 @@ $user_info = $user_details_result->fetch_assoc();
              
                     while($group_name = $get_find_group_by_id_result->fetch_assoc()) {
                         
-                        echo $group_name['name'];
+                          if (strlen($group_name['name']) <= 16)  {
+                            
+                            echo $group_name['name'];
+                            
+                        } else if (strlen($group_name['name']) > 16) {
+                            
+                            echo "<span style='font-size: 18px;'>" . substr($group_name['name'], 0, 16). "...</span>";
+                            
+                        }
                         
                     }
                 
                 ?>
-               </span>  <span class="logo-heading-2">//</span> all to-dos</a>
+               </span>  </a>
                             
         </div>
         
         
         
         
-        <div class="col-xs-6">
+        <div class="col-xs-8">
             
             
             <div style="float: right;">
             
-            
-            <input id="myTextBox"  maxlength="100" name="keywords" class="search-main" placeholder="Search group to-dos" />
-                
-            
-            
+
             
             <a href="<?php echo $_SESSION['url_placeholder'];  ?>newgroup">
                 
@@ -95,124 +151,44 @@ $user_info = $user_details_result->fetch_assoc();
             
             </a>
             
-            
-                <div class="dropdown">
-           
-                      <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/notification.svg" width="35" height="35" class="current-user-img"  />
-                    
-                <div class="dropdown-content">
-                    
-                      <?php
-                    
-                    
-                      $request_list = $request->current_member_requests($_SESSION['admin_id']); 
-          
-                      $request_list_result = $request_list->get_result();
-          
-          
-                      if ($request_list_result->num_rows > 0) {
-              
-                        
-                          while($row_list_request = $request_list_result->fetch_assoc()) { ?>
-                              
-                              
-                                <?php 
-                              
-                                $group_details = $group->find_group_by_id($row_list_request['group_id']); 
-          
-                                $group_details_result = $group_details->get_result();
-                              
-                                $row_group = $group_details_result->fetch_assoc();
-                              
+
+                
+                
+                
+                
+                
+                
+                
+                
                                 
-                              
-                              
-                              
-                              
-                                $user_details = $user->find_one_user($row_list_request['sender_id']); 
-          
-                                $user_details_result = $user_details->get_result();
-                              
-                                $row_user = $user_details_result->fetch_assoc();
-                                                                                          
-                                ?>
-                    
-                    
-                              
-                              <div class="row" id="group<?php echo $row_group['id'];  ?>">
-                    
-                                  <div class="col-xs-2">
-                                  
-                                      <img src="<?php echo $row_group['img_path'];  ?>" width="35" height="35" class="current-user-img"  />
-                                  
-                                  </div>
-                    
-                                  
-                                  
-                                  <div class="col-xs-6" style="font-weight: bold; font-size: 16px;font-family: Josefin Slab;">
-                                  <p><?php echo $row_user['username'];  ?> wants you to join <span style="color: blue;"><?php echo $row_group['name'];  ?></span></p>
-                                  
-                                  </div>
-                                  
-                                  
-                                  <div class="col-xs-4">
-                                      
-                                      
-                                      <form method="post" action="<?php echo $_SESSION['url_placeholder'];  ?>accept_request" style="width: 30px; display: inline;">
-                                      
-                                      <input type="text" name="group_id" style="display: none;" value="<?php echo $row_group['id'];  ?>" />
-                                         
-                                          
-                                      
-                                          
-                                     <input type="submit" name="submit" value="accept" class="btn" style="outline: 0px ! important; font-weight: bold; font-size: 14px;font-family: Josefin Slab; background: #ddd; padding: 7px; border-radius: 4px; margin-right: 1px;" /> 
-                                      
-                                      
-                                      </form>
-                                      
-                                      
-                                              
-                                      
-                                      
-                                      
-                                      
-                                                      <div style="width: 30px; display: inline;">
-                                      
+                <a data-toggle="tooltip" data-placement="bottom" title="important posts" href="<?php echo $_SESSION['url_placeholder'];  ?>important"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/import.svg" width="30" height="30" class="current-user-img"  /> <span style="font-family: Work Sans;" id="alert_one"></span></a>
+                
+                
+                <a data-toggle="tooltip" data-placement="bottom" title="replies" href="<?php echo $_SESSION['url_placeholder'];  ?>reply"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/replypage.svg" width="30" height="30" class="current-user-img"  /> <span style="font-family: Work Sans;" id="alert_three"></span></a>
+                
+                
+                <a data-toggle="tooltip" data-placement="bottom" title="group requests" href="<?php echo $_SESSION['url_placeholder'];  ?>add"><img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/notification.svg" width="30" height="30" class="current-user-img"  /> <span style="font-family: Work Sans;" id="alert_two"></span></a>
+                
+                
 
-                                         
-                                          
-                                      
-                                          
-                                     <input type="submit" onclick="myFunction('<?php echo $row_group['id'];  ?>')" name="submit" value="decline" class="btn" style="font-weight: bold; font-size: 14px;font-family: Josefin Slab; background: #ddd; padding: 7px; border-radius: 4px; margin-right: 0px;" /> 
-                                      
-                                      
-                                      </div>
-                                      
-                                      
-
-                                  
-                                  </div>
-                    
-                    
-                              </div>
-                              
-                       <?php   }
-                          
-                          
-        
-                      } else {
-                          
-                          echo "none";
-                      }
-            
-                    
-                      ?>
-                    
-                </div>
-                    
-                </div>
+                
+                      <div class="dropdown">
             
             <img src="<?php echo $_SESSION['url_placeholder'];  ?><?php echo $user_info['img_path'];  ?>" width="35" height="35" class="current-user-img"  />
+                    
+                    
+                    <div class="dropdown-content-2">
+                        <p style="font-size: 15px; font-family: Work Sans;"><i><?php echo $user_info['username'];  ?></i></p>
+                        
+                        <a href="<?php echo $_SESSION['url_placeholder'];  ?>profile" style="font-size: 15px; font-family: Work Sans;">Edit profile</a> //
+                        <a href="<?php echo $_SESSION['url_placeholder'];  ?>logout" style="font-size: 15px; font-family: Work Sans;">Logout</a>
+                    </div>
+            
+                </div>
+                
+                
+                
+                
             
             
             </div>
@@ -238,7 +214,7 @@ $user_info = $user_details_result->fetch_assoc();
                 
                 
                 
-                <div class="col-xs-9">
+                <div class="col-xs-12">
                     
                     
        
@@ -263,208 +239,7 @@ $user_info = $user_details_result->fetch_assoc();
                 
             
                 
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-              
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <div class="col-xs-3 group-list-div">
-                    
-                    
-                    
-                    
-                    
-                <?php
-                
-                $get_find_group_by_id = $group->find_group_by_id($_GET['group']);
 
-                $get_find_group_by_id_result = $get_find_group_by_id->get_result();
-
-             
-                    while($group_list_this = $get_find_group_by_id_result->fetch_assoc()) { ?>
-                        
-                       
-                    
-                 <div class="row group-list-row">
-                        
-                        
-                        <div class="col-xs-2">
-                            
-                           <img src="<?php echo $group_list_this['img_path']; ?>" width="40" height="40" style="group-list-profile-img"  />
-                        
-                        </div>
-                        
-                      
-                        
-                        <div class="col-xs-7 group-list-body">
-                            
-                            <a class="group-list-name"><?php echo $group_list_this['name']; ?></a><br>                            
-                            <a class="group-list-membercount"> <?php
-                                                                                            
-                                              
-$all_members_of_this_group = $member->all_members_of_this_group($group_list_this['id']);
-
-$all_members_of_this_group_result = $all_members_of_this_group->get_result();                                                                  
-                                                                                            
-                         while($members_this = $all_members_of_this_group_result->fetch_assoc()) { echo $members_this['count'];  }                                                                   
-                                                                                            
-                                                                                            
-                       ?> members</a>
-                        
-                        </div>
-                        
-                        
-                        
-                        <div class="col-xs-3 group-list-notif-1">
-                            
-                            <img src="<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/view.svg" width="30" height="30" style="group-list-notif-2"  />
-                            
-                        </div>
-                        
-                        
-                    </div>
-                    
-                        
-                 <?php   }
-                
-                ?>
-                    
-                    
-                    
-  <?php                  
-                    
-$get_all_groups_of_user = $member->all_users_groups_except($_SESSION['admin_id'], $_GET['group']);
-
-$get_all_groups_of_user_result = $get_all_groups_of_user->get_result();
-
-$numRows = $get_all_groups_of_user_result->num_rows;
-
-      
-               if ($numRows > 0) {
-                   
-                   
-                    while($row = $get_all_groups_of_user_result->fetch_assoc()) {
-                        
-                    
-                        
-                        
-                        
-                         $get_find_group_by_id = $group->find_group_by_id($row['group_id']);
-
-                $get_find_group_by_id_result = $get_find_group_by_id->get_result();
-
-             
-                    while($group_list_other = $get_find_group_by_id_result->fetch_assoc()) {  ?>
-                        
-                        
-                        
-                        
-                        
-               
-                        
-                        
-                        
-                        
-                        <div class="row group-list-row" onclick="window.location='<?php echo $_SESSION['url_placeholder'] . "dashboard/" . $group_list_other['id'];   ?>';">
-                        
-                        
-                        <div class="col-xs-2">
-                            
-                           <img src="<?php  echo $group_list_other['img_path'];   ?>" width="40" height="40" style="group-list-profile-img"  />
-                        
-                        </div>
-                        
-                      
-                        
-                        <div class="col-xs-7 group-list-body">
-                            
-                            <a class="group-list-name"><?php  echo $group_list_other['name'];   ?></a><br>                            
-                            <a class="group-list-membercount">         <?php
-                                                                                            
-                                              
-$all_members_of_this_group = $member->all_members_of_this_group($group_list_other['id']);
-
-$all_members_of_this_group_result = $all_members_of_this_group->get_result();                                                                  
-                                                                                            
-                         while($members_other = $all_members_of_this_group_result->fetch_assoc()) { echo $members_other['count'];  }                                                                   
-                                                                                            
-                                                                                            
-                       ?> members</a>
-                        
-                        </div>
-                        
-                        
-                        
-                        <div class="col-xs-3 group-list-notif-1">
-                            
-                            <a class="group-list-notifs">76+</a>
-                            
-                        </div>
-                        
-                        
-                           </div> 
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                  <?php  }
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    }
-                   
-                   
-
-               } else {
-                   
-                   
-                   
-               } ?>
-                    
-                    
-                    
-                    
-
-                    
-                    
-                    
-                    
-               
-                
-                </div>
                 
             </div>
     
@@ -486,6 +261,246 @@ $all_members_of_this_group_result = $all_members_of_this_group->get_result();
 
 
 <script type="text/javascript">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+ 
+    function count_important()  {
+       
+       
+             typing_url_count = "<?php echo $_SESSION['url_placeholder'];  ?>count";
+        
+        
+             $.ajax( {
+             url: typing_url_count,
+             type: "POST",
+             async: true,
+             timeout: 15000,
+             data: {
+                "important": 1,
+                 
+             },
+             success: function( data ) {
+                 
+                 
+             //    console.log(data);
+                 
+                 
+            var jsonCountAppend = JSON.parse( data );
+            
+            var attach_count_status =  jsonCountAppend[0];
+            
+            var attach_count_back_count =  jsonCountAppend[1];
+        
+            
+        
+           if (attach_count_status == 1) {
+               
+               if (attach_count_back_count == 0) {
+                   
+                   $("#alert_one").hide();
+                   
+               } else if (attach_count_back_count > 99) {
+                   
+                   $("#alert_one").show();
+                   
+                   $("#alert_one").html("(99+)");
+                   
+               }  else {
+                   
+                   $("#alert_one").show();
+                   
+                   $("#alert_one").html("(" + attach_count_back_count + ")");
+                   
+                   
+               }
+               
+           }
+        
+                   
+                  setTimeout(count_important, 5000);
+        
+        
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                 
+                 
+            
+                
+                  setTimeout(count_important, 5000);
+    
+                 
+                
+             }
+          } );
+       
+       
+   } 
+       
+    
+  
+    
+     
+    
+    
+    
+     
+    function count_request()  {
+       
+       
+             typing_url_request = "<?php echo $_SESSION['url_placeholder'];  ?>tally";
+        
+        
+             $.ajax( {
+             url: typing_url_request,
+             type: "POST",
+             async: true,
+             timeout: 15000,
+             data: {
+                "important": 1,
+                 
+             },
+             success: function( data ) {
+                 
+                 
+             //    console.log(data);
+                 
+                 
+            var jsonCountAppend_request = JSON.parse( data );
+            
+            var attach_count_status_request =  jsonCountAppend_request[0];
+            
+            var attach_count_back_count_request =  jsonCountAppend_request[1];
+        
+            
+        
+           if (attach_count_status_request == 1) {
+               
+               if (attach_count_back_count_request == 0) {
+                   
+                   $("#alert_two").hide();
+                   
+               } else if (attach_count_back_count_request > 99) {
+                   
+                   $("#alert_two").show();
+                   
+                   $("#alert_two").html("(99+)");
+                   
+               }  else {
+                   
+                   $("#alert_two").show();
+                   
+                   $("#alert_two").html("(" + attach_count_back_count_request + ")");
+                   
+                   
+               }
+               
+           }
+        
+                   
+                  setTimeout(count_request, 5000);
+        
+        
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                 
+                 
+            
+                
+                  setTimeout(count_request, 5000);
+    
+                 
+                
+             }
+          } );
+       
+       
+   } 
+       
+    
+  
+    
+    
+    
+    
+    
+      
+    function count_replypage()  {
+       
+       
+             typing_url_reply_page = "<?php echo $_SESSION['url_placeholder'];  ?>quota";
+        
+        
+             $.ajax( {
+             url: typing_url_reply_page,
+             type: "POST",
+             async: true,
+             timeout: 15000,
+             data: {
+                "important": 1,
+                 
+             },
+             success: function( data ) {
+                 
+                 
+                 console.log("infdiue" + data)
+                 
+                 if (data == 100) {
+                     
+                    $("#alert_three").show();
+                   
+                    $("#alert_three").html("(new)");
+                     
+                 } else {
+                     
+                     
+                    $("#alert_three").hide(); 
+                     
+                 }
+                
+                 
+                 
+                 setTimeout(count_replypage, 5000);
+                 
+          
+             },
+             error: function( xhr, textStatus, errorThrown ) {
+                 
+                 
+            
+                
+                  setTimeout(count_replypage, 5000);
+    
+                 
+                
+             }
+          } );
+       
+       
+   } 
+       
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 page_group_id = "<?php echo $_GET['group'];  ?>";
 
@@ -1273,7 +1288,7 @@ $("#createtodo").on("click", function(){
         
         if ($("#new_task_body_" + new_post_num).val().trim().length > 0) {
             
-            task_body = $("#new_task_body_" + new_post_num).val();
+            task_body = $("#new_task_body_" + new_post_num).val().replace(/['"\\]+/g, "");
             
            // alert(new_post_num)
         append_task_1 = '';
@@ -1288,7 +1303,7 @@ $("#createtodo").on("click", function(){
           
             append_task_1 += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ new_task_id +'\"><a>delete? </a> <a onclick=\"deleteTaskNew(\''+ new_task_id  + '\')\">Yes </a>//<a onclick=\"toggleDeleteTaskNew(\''+ new_task_id  +'\')\"> No </a></p>';
             
-            append_task_1 += '<p style=\"display: none;\" class=\"to-do-link doing-link-1-'+ new_task_id +'\"><a>move to "doing"? </a> <a  onclick=\"moveToDoing(\''+ new_task_id + '\',' +   new_post_num + ',\'' + task_body +  '\')\">Yes </a>//<a onclick=\"toggleDoingTask(\''+ new_task_id  +'\')\"> No </a></p>';
+            append_task_1 += '<p style=\"display: none;\" class=\"to-do-link doing-link-1-'+ new_task_id +'\"><a>move to "doing"? </a> <a  onclick=\"moveToDoing(\''+ new_task_id + '\',' +   new_post_num + ',\'' + task_body.replace(/['"]+/g, "''") +  '\')\">Yes </a>//<a onclick=\"toggleDoingTask(\''+ new_task_id  +'\')\"> No </a></p>';
             
         append_task_1 += '<textarea  id=\"new_task_comment_'+ new_task_id +'\" class=\"input-task-1 new_task_comment_'+ new_task_id +'\"  maxlength=\"100\" name=\"keywords\"  style=\"display: none;\"  placeholder=\"add new comment\" ></textarea>';
         
@@ -1477,6 +1492,7 @@ $("#createtodo").on("click", function(){
     
     function moveToDoing (task_id, post_id, task_body)  {
         
+        
         $("#new_single_task_" + task_id).hide();
         
         
@@ -1601,6 +1617,22 @@ $("#createtodo").on("click", function(){
     
         
     $( document ).ready( function() {
+        
+        
+        
+        
+        
+        
+        
+         count_important();
+         
+         count_request();
+         
+         count_replypage();
+        
+        
+        
+        
        
        displayFromDatabasePagination();
         
@@ -1877,6 +1909,9 @@ function getTaskOne() {
                             
         append_task_old += '<p class=\"to-do-task\">'+ '<a style=\"cursor: auto;\">' + resultOldTask.username + ' | </a>' + resultOldTask.body +'<br>';
             
+                    
+                    
+                    
         
                     if (resultOldTask.owner == "<?php echo $user_info['id']; ?>") {
                       
@@ -1885,7 +1920,10 @@ function getTaskOne() {
                         
                     } else {
                         
-                        append_task_old += '<div id=\"new_task_option_todo_'+ resultOldTask.id +'\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment('+ resultOldTask.id  +')\">comment</a> <a style=\"display: none;\" onclick=\"moveToDoing('+ resultOldTask.id + ',' +   resultOldTask.id + ',\'' + resultOldTask.body +  '\')\"> "doing"</a>  <a style=\"display: none;\" onclick=\"toggleDeleteTask('+ resultOldTask.id  +')\">delete</a> <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';   
+                        
+                        
+                        
+                        append_task_old += '<div id=\"new_task_option_todo_'+ resultOldTask.id +'\"><span class=\"to-do-link\"><a onclick=\"toggleNewComment('+ resultOldTask.id  +')\">comment</a> <a style=\"display: none;\" onclick=\"moveToDoing('+ resultOldTask.id + ',' +   resultOldTask.id + ',\'' + resultOldTask.body.replace(/['"]+/g, "''") +  '\')\"> "doing"</a>  <a style=\"display: none;\" onclick=\"toggleDeleteTask('+ resultOldTask.id  +')\">delete</a> <a><img class=\" size-check \" src=\"  ' +  '<?php echo $_SESSION['url_placeholder'];  ?>frontend/html/pages/assets/checked.svg' + '\" /></a></span></p></div>';   
                         
                         
                     }
@@ -1895,7 +1933,7 @@ function getTaskOne() {
             append_task_old += '<p style=\"display: none;\" class=\"to-do-link delete-link-1-'+ resultOldTask.id +'\"><a>delete? </a> <a onclick=\"deleteTask('+ resultOldTask.id  + ')\">Yes </a>//<a onclick=\"toggleDeleteTask('+ resultOldTask.id  +')\"> No </a></p>';
                     
                     
-             append_task_old += '<p style=\"display: none;\" class=\"to-do-link doing-link-1-'+ resultOldTask.id +'\"><a>move to "doing"? </a> <a onclick=\"moveToDoing('+ resultOldTask.id + ',' +   top_post_id + ',\'' + resultOldTask.body +  '\')\">Yes </a>//<a onclick=\"toggleDoingTask('+ resultOldTask.id  +')\"> No </a></p>';
+             append_task_old += '<p style=\"display: none;\" class=\"to-do-link doing-link-1-'+ resultOldTask.id +'\"><a>move to "doing"? </a> <a onclick=\"moveToDoing('+ resultOldTask.id + ',' +   top_post_id + ',\'' + resultOldTask.body.replace(/['"]+/g, "''") +  '\')\">Yes </a>//<a onclick=\"toggleDoingTask('+ resultOldTask.id  +')\"> No </a></p>';
             
         append_task_old += '<textarea  id=\"new_task_comment_'+ resultOldTask.id +'\" class=\"input-task-1 new_task_comment_'+ resultOldTask.id +'\"  maxlength=\"100\" name=\"keywords\"  style=\"display: none;\"  placeholder=\"add new comment\" ></textarea>';
         

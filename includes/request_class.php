@@ -103,7 +103,7 @@ class Request {
        $stmt = $database->connection->prepare("
        
        
-       SELECT request_member.member_id as member_id, request_member.sender_id as sender_id, request_member.group_id as group_id, users.username as username, groups.name as group_name, groups.img_path as group_img, groups.id as groupid FROM request_member
+       SELECT request_member.id as id, request_member.member_id as member_id, request_member.sender_id as sender_id, request_member.group_id as group_id, users.username as username, groups.name as group_name, groups.img_path as group_img, groups.id as groupid FROM request_member
        
        
        INNER JOIN groups ON groups.id = request_member.group_id
@@ -142,7 +142,7 @@ class Request {
        $stmt = $database->connection->prepare("
        
        
-       SELECT request_member.member_id as member_id, request_member.sender_id as sender_id, request_member.group_id as group_id, users.username as username, groups.name as group_name, groups.img_path as group_img, groups.id as groupid FROM request_member
+       SELECT request_member.id as id, request_member.member_id as member_id, request_member.sender_id as sender_id, request_member.group_id as group_id, users.username as username, groups.name as group_name, groups.img_path as group_img, groups.id as groupid FROM request_member
        
        
        INNER JOIN groups ON groups.id = request_member.group_id
